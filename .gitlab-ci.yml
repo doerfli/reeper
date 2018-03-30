@@ -1,0 +1,26 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+- build
+
+variables:
+  IMAGE_TAG_DEV: $CI_REGISTRY_IMAGE/dev:$CI_COMMIT_REF_NAME
+  IMAGE_TAG_PROD: $CI_REGISTRY_IMAGE/prod:$CI_COMMIT_REF_NAME
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+build_dev:
+  stage: build
+  script:
+    - docker build -t $IMAGE_TAG_DEV .
+    - docker push $IMAGE_TAG_DEV
+
+build_prod:
+  stage: build
+  script:
+    - docker build -f Dockerfile-prod -t $IMAGE_TAG_PROD .
+    - docker push $IMAGE_TAG_PROD
