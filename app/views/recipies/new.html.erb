@@ -1,0 +1,38 @@
+<div class="container">
+  <h1 class="title">
+    Rezept erfassen
+  </h1>
+  <div class="new_recipe">
+    <%= form_for @recipe, url: {action: "create"} do |f| %>
+      <div class="field">
+        <%= f.label :name, class: 'label' %>
+        <div class="control">
+          <%= f.text_field :name, class: 'input', placeholder: 'Wie heisst das Rezept?' %>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :ingredients, class: 'label' %>
+        <div class="control">
+          <%= f.text_area :ingredients, class: 'textarea', placeholder: 'Liste der Zutaten' %>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :instructions, class: 'label' %>
+        <div class="control">
+          <%= f.text_area :instructions, class: 'textarea', placeholder: 'Herstellungsschritte' %>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :duration, class: 'label' %>
+        <div class="control">
+          <%= f.number_field :duration, class: 'input', placeholder: 'Dauer der Zubereitung (Minuten)' %>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <%= f.button 'Speichern', class: 'button is-link' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
