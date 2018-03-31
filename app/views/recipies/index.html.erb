@@ -6,7 +6,7 @@
     <ul>
       <% @recipes.each{ |r| %>
         <li>
-          <%= r.name %>
+          <a href="<%= recipy_path(r) %>"><%= r.name %></a>
         </li>
       <% } %>
     </ul>

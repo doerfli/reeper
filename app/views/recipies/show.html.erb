@@ -1,0 +1,24 @@
+
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-4"><%= @recipe.name %></p>
+          <p class="subtitle is-6">Dauer: <%= @recipe.duration %> Minuten</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="ingredients">
+          <h1 class="subtitle">Zutaten</h1>
+          <%= simple_format @recipe.ingredients %>
+        </div>
+        <div class="instructions">
+          <h1 class="subtitle">Anleitung</h1>
+          <%= simple_format @recipe.instructions %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
