@@ -12,7 +12,7 @@ class RecipiesController < ApplicationController
     recipe = Recipe.new(recipe_params)
     recipe.save
 
-    redirect_to action: :index
+    redirect_to action: :show, id: recipe
   end
 
   def show
