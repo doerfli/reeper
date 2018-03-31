@@ -10,6 +10,11 @@
       </div>
 
       <div class="content">
+        <div class="tags">
+          <% @recipe.tags.each{ |t| %>
+            <span class="tag"><%= t.name %></span>
+          <% } %>
+        </div>
         <div class="ingredients">
           <h1 class="subtitle">Zutaten</h1>
           <%= simple_format @recipe.ingredients %>

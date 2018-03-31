@@ -28,6 +28,12 @@
           <%= f.number_field :duration, class: 'input', placeholder: 'Dauer der Zubereitung (Minuten)' %>
         </div>
       </div>
+      <div class="field">
+        <%= f.label :tags, class: 'label' %>
+        <div class="control">
+          <%= f.text_field :tag_names, class: 'input', placeholder: 'Tags' %>
+        </div>
+      </div>
       <div class="field is-grouped">
         <div class="control">
           <%= f.button 'Speichern', class: 'button is-link' %>
