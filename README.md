@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.com/doerfli/reeper/badges/master/pipeline.svg)](https://gitlab.com/doerfli/reeper/commits/master)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
