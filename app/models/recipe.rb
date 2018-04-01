@@ -1,6 +1,6 @@
 class Recipe < ApplicationRecord
   has_and_belongs_to_many :tags
-  has_many :recipe_images
+  has_many_attached :recipe_images
 
   def tag_names
     # Get all related Tags as comma-separated list
@@ -27,10 +27,9 @@ class Recipe < ApplicationRecord
     end
   end
 
-  def images
-  end
-
-  def images=(images)
-    logger.info images
+  def add_images=(images)
+    images.each do |image|
+      self.recipe_images.attach(image)
+    end
   end
 end

@@ -30,6 +30,11 @@
           <h1 class="subtitle">Anleitung</h1>
           <%= simple_format @recipe.instructions %>
         </div>
+        <div>
+          <% @recipe.recipe_images.each do |image| %>
+            <%= image_tag image.variant(resize: "100x100") %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
