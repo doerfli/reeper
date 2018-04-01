@@ -26,4 +26,11 @@ class Recipe < ApplicationRecord
       self.tags << tag
     end
   end
+
+  def images
+  end
+
+  def images=(images)
+    logger.info images
+  end
 end
