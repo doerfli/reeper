@@ -2,6 +2,7 @@
   "name": "reeper",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.1.0-4",
     "@rails/webpacker": "^3.4.1",
     "bulma": "^0.6.2",
     "stimulus": "^1.0.1"

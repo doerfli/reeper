@@ -1,9 +1,10 @@
 
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
-
 $primary: $yellow;
-
 $section-padding: 1.5em 1.5em;
-
 @import "~bulma/bulma";
+
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/fa-solid";
