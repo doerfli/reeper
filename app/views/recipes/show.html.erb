@@ -32,7 +32,9 @@
         </div>
         <div>
           <% @recipe.recipe_images.each do |image| %>
-            <%= image_tag image.variant(resize: "100x100") %>
+            <a href="<%= url_for(image) %>">
+              <%= image_tag image.variant(resize: "100x100") %>
+            </a>
           <% end %>
         </div>
       </div>
