@@ -13,11 +13,12 @@ variables:
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
-build_dev:
-  stage: build
-  script:
-    - docker build -t $IMAGE_TAG_DEV .
-    - docker push $IMAGE_TAG_DEV
+# disable dev docker image build
+# build_dev:
+#   stage: build
+#   script:
+#     - docker build -t $IMAGE_TAG_DEV .
+#     - docker push $IMAGE_TAG_DEV
 
 build_prod:
   stage: build
