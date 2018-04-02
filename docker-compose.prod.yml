@@ -2,10 +2,12 @@ version: '3'
 services:
   db:
     image: postgres:10.3-alpine
+    restart: always
     volumes:
       - ./pgdata:/var/lib/postgresql/data
   web:
     image: registry.gitlab.com/doerfli/reeper/prod:master
+    restart: always
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     ports:
       - "3000:3000"
