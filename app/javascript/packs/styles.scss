@@ -13,6 +13,21 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
   display: none;
 }
 
+.nospacetop {
+  margin-top: 0em !important;
+  padding-top: 0em !important;
+}
+
 .nospacebottom {
   margin-bottom: 0em !important;
+  padding-bottom: 0em !important;
+}
+
+.title {
+  border-bottom: 3px $yellow solid;
+  padding-bottom: 5px;
+}
+
+.is-mobile .level-item:last-child {
+  margin-right: 0em;
 }
