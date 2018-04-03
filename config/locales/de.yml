@@ -1,0 +1,33 @@
+# ä ö ü Ä Ö Ü
+de:
+  application_title: The recipe keeper
+  nav:
+    search: Suchen
+  recipes:
+    title: 'Rezepte'
+    new: 'Neues Rezept erfassen'
+    form:
+      placeholder:
+        name: 'Wie heisst das Rezept?'
+        ingredients: 'Welche Zutaten benötigt man für das Rezept?'
+        instructions: 'Wie wird das Rezept zubereitert?'
+        duration: 'Dauer der Zubereitung (Minuten)'
+        tags: 'Tags'
+        add_image: 'Bild hinzufügen'
+    show:
+      duration: 'Dauer: %{duration} Minuten'
+    ingredients: Zutaten
+    instructions: Anleitung
+  save: 'Speichern'
+  activerecord:
+    models:
+      recipe:
+        one: 'Rezept'
+        other: 'Rezepte'
+    attributes:
+      recipe:
+        name: 'Name'
+        ingredients: 'Zutaten'
+        instructions: 'Anleitung'
+        duration: 'Dauer'
+        tags: 'Tags'

@@ -15,7 +15,7 @@
 
       <div class="content">
         <div>
-          <p>Dauer: <%= @recipe.duration %> Minuten</p>
+          <p><%= t('recipes.show.duration', duration: @recipe.duration) %></p>
         </div>
         <div class="tags">
           <% @recipe.tags.each{ |t| %>
@@ -23,11 +23,11 @@
           <% } %>
         </div>
         <div class="ingredients">
-          <h1 class="subtitle">Zutaten</h1>
+          <h1 class="subtitle"><%= t('recipes.ingredients') %></h1>
           <%= simple_format @recipe.ingredients %>
         </div>
         <div class="instructions">
-          <h1 class="subtitle">Anleitung</h1>
+          <h1 class="subtitle"><%= t('recipes.instructions') %></h1>
           <%= simple_format @recipe.instructions %>
         </div>
         <div>

@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="title">
-    Rezept erfassen
+    <%=t 'recipes.new' %>
   </h1>
   <div class="new_recipe" data-controller="recipeimages">
     <%= form_for @recipe, url: {action: "create"} do |f| %>
@@ -10,19 +10,19 @@
       <div class="field">
         <%= f.label :name, class: 'label' %>
         <div class="control">
-          <%= f.text_field :name, class: 'input', placeholder: 'Wie heisst das Rezept?' %>
+          <%= f.text_field :name, class: 'input', placeholder: t('recipes.form.placeholder.name') %>
         </div>
       </div>
       <div class="field">
         <%= f.label :ingredients, class: 'label' %>
         <div class="control">
-          <%= f.text_area :ingredients, class: 'textarea', placeholder: 'Liste der Zutaten' %>
+          <%= f.text_area :ingredients, class: 'textarea', placeholder: t('recipes.form.placeholder.ingredients') %>
         </div>
       </div>
       <div class="field">
         <%= f.label :instructions, class: 'label' %>
         <div class="control">
-          <%= f.text_area :instructions, class: 'textarea', placeholder: 'Herstellungsschritte' %>
+          <%= f.text_area :instructions, class: 'textarea', placeholder: t('recipes.form.placeholder.instructions') %>
         </div>
       </div>
       <div data-target="recipeimages.images">
@@ -31,24 +31,24 @@
       <div class="field">
         <%= f.label :duration, class: 'label' %>
         <div class="control">
-          <%= f.number_field :duration, class: 'input', placeholder: 'Dauer der Zubereitung (Minuten)' %>
+          <%= f.number_field :duration, class: 'input', placeholder: t('recipes.form.placeholder.duration') %>
         </div>
       </div>
       <div class="field">
         <%= f.label :tags, class: 'label' %>
         <div class="control">
-          <%= f.text_field :tag_names, class: 'input', placeholder: 'Tags' %>
+          <%= f.text_field :tag_names, class: 'input', placeholder: t('recipes.form.placeholder.tags') %>
         </div>
       </div>
       <div class="field is-grouped">
         <div class="control">
-          <%= f.button 'Speichern', class: 'button is-link' %>
+          <%= f.button t('save'), class: 'button is-link' %>
         </div>
       </div>
       <div class="field display_none image_upload" data-target="recipeimages.appendimgtmpl">
         <%= f.label :images, class: 'label' %>
         <div class="control">
-          <%= f.file_field 'add_images', accept: 'image/*', multiple: true, class: 'input', placeholder: 'Bild hinzufuegen', disabled: true %>
+          <%= f.file_field 'add_images', accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image'), disabled: true %>
         </div>
       </div>
     <% end %>
