@@ -31,7 +31,7 @@ export default class extends Controller {
       data.forEach(function(element) {
         var tagElement = document.createElement("span");
         tagElement.classList += "tag";
-        tagElement.setAttribute("data-action", "click->recipeimages#addtag");
+        tagElement.setAttribute("data-action", "click->recipeform#addtag");
         tagElement.appendChild(document.createTextNode(element));
         tagsSuggestion.appendChild(tagElement);
       });
