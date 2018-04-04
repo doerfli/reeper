@@ -17,7 +17,7 @@ class Recipe < ApplicationRecord
     self.tags.delete_all
 
     # Split comma-separated list
-    names = names.split(', ')
+    names = names.split(',').map{ |n| n.strip }
 
     # Run through each tag
     names.each do |name|

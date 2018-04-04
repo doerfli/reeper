@@ -37,8 +37,10 @@
       <div class="field">
         <%= f.label :tags, class: 'label' %>
         <div class="control">
-          <%= f.text_field :tag_names, class: 'input', placeholder: t('recipes.form.placeholder.tags') %>
+          <%= f.text_field :tag_names, class: 'input', placeholder: t('recipes.form.placeholder.tags'), 'data-action': 'keyup->recipeimages#findtags', 'data-target': 'recipeimages.tags'  %>
         </div>
+        <p data-target="recipeimages.tagsSuggestion" class="tagsSuggestion">
+        </p>
       </div>
       <div class="field is-grouped">
         <div class="control">
@@ -50,6 +52,9 @@
         <div class="control">
           <%= f.file_field 'add_images', accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image'), disabled: true %>
         </div>
+        <p>
+          blubb
+        </p>
       </div>
     <% end %>
   </div>
