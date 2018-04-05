@@ -18,16 +18,21 @@ export default class extends Controller {
   }
 
   findtags() {
+    var tagsSuggestion = this.tagsSuggestionTarget;
+    tagsSuggestion.innerHTML = "";
     var terms = _.split(this.tagsTarget.value, ",");
     var term = _.last(terms);
     var term = _.trim(term);
+
+    if ( term == "" ) {
+      return;
+    }
+
     // console.log(term);
-    var tagsSuggestion = this.tagsSuggestionTarget;
     var url = '/tags.json?term=' + term;
     fetch(url, { credentials: 'same-origin'}).then(function json(response) {
       return response.json()
     }).then(function(data) {
-      tagsSuggestion.innerHTML = "";
       // console.log(data);
       data.forEach(function(element) {
         var tagElement = document.createElement("span");
@@ -44,9 +49,11 @@ export default class extends Controller {
     var tags = _.split(this.tagsTarget.value, ",");
     var tags = _.dropRight(tags);
     tags.push(tag);
+    tags = _.map(tags, function(e) { return _.trim(e); });
     tags.push("");
     var tagsString = _.join(tags, ", ");
     this.tagsTarget.value = tagsString;
     this.tagsSuggestionTarget.innerHTML = "";
+    this.tagsTarget.focus();
   }
 }
