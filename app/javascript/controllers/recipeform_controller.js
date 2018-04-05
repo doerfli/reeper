@@ -23,7 +23,8 @@ export default class extends Controller {
     var term = _.trim(term);
     // console.log(term);
     var tagsSuggestion = this.tagsSuggestionTarget;
-    fetch('/tags.json?term=' + term).then(function json(response) {
+    var url = '/tags.json?term=' + term;
+    fetch(url, { credentials: 'same-origin'}).then(function json(response) {
       return response.json()
     }).then(function(data) {
       tagsSuggestion.innerHTML = "";
