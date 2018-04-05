@@ -18,6 +18,17 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
   end
 
+  def edit
+    @recipe = Recipe.find(params[:id])
+  end
+
+  def update
+    recipe = Recipe.find(params[:id])
+    recipe.update(recipe_params)
+    recipe.save
+    redirect_to action: :show, id: recipe
+  end
+
   private
     def recipe_params
       params.require(:recipe).permit(:name, :ingredients, :instructions, :duration, :tag_names, :add_images => [])

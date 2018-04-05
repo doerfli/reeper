@@ -1,8 +1,10 @@
 <div class="recipe noSubmitOnEnter" data-controller="recipeform">
   <%= form_for @recipe do |f| %>
-    <div class="add_image" data-action="click->recipeform#add">
-      <i class="fas fa-camera fa-3x"></i>
-    </div>
+    <% if action_name.eql? 'new' %>
+      <div class="add_image" data-action="click->recipeform#add">
+        <i class="fas fa-camera fa-3x"></i>
+      </div>
+    <% end %>
     <div class="field">
       <%= f.label :name, class: 'label' %>
       <div class="control">
@@ -40,7 +42,7 @@
     </div>
     <div class="field is-grouped">
       <div class="control">
-        <%= f.button t('save'), class: 'button is-link' %>
+        <%= f.button t('action.save'), class: 'button is-link' %>
       </div>
     </div>
     <div class="field display_none image_upload" data-target="recipeform.appendimgtmpl">

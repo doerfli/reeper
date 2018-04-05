@@ -1,11 +1,12 @@
 # ä ö ü Ä Ö Ü
 de:
-  application_title: The recipe keeper
+  application_title: 'The recipe keeper'
   nav:
-    search: Suchen
+    search: 'Suchen'
   recipes:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'
+    edit: 'Rezept bearbeiten'
     form:
       placeholder:
         name: 'Wie heisst das Rezept?'
@@ -16,9 +17,12 @@ de:
         add_image: 'Bild hinzufügen'
     show:
       duration: 'Dauer: %{duration} Minuten'
-    ingredients: Zutaten
-    instructions: Anleitung
-  save: 'Speichern'
+    ingredients: 'Zutaten'
+    instructions: 'Anleitung'
+  actions: 'Aktionen'
+  action:
+    edit: 'Bearbeiten'
+    save: 'Speichern'
   activerecord:
     models:
       recipe:
