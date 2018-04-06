@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container" data-controller="recipe" data-recipe-id="<%= @recipe.id %>" data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>">
   <div class="card">
     <div class="card-content">
       <div class="media">
@@ -40,8 +40,26 @@
         <div>
           <%=t 'actions' %>:&nbsp;
           <a href="<%= edit_recipe_path @recipe %>"><i class="fas fa-edit"></i></a>
+          &nbsp;
+          <i class="fas fa-trash" data-action="click->recipe#deleteDialogShow"></i>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="modal" data-target="recipe.deleteDialog">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            <%=t 'recipes.delete.are_you_sure' %>
+          </p>
+          <p>
+            <button class="button is-danger"  data-action="click->recipe#delete"><%=t 'yes' %></button>
+            <button class="button" data-action="click->recipe#deleteDialogClose"><%=t 'no' %></button>
+          </p>
+        </div>
+      <button class="modal-close is-large" aria-label="close" data-action="click->recipe#deleteDialogClose"></button>
     </div>
   </div>
 </div>

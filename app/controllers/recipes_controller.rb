@@ -29,6 +29,13 @@ class RecipesController < ApplicationController
     redirect_to action: :show, id: recipe
   end
 
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy()
+
+    render json: { redirect_url: recipes_path }
+  end
+
   private
     def recipe_params
       params.require(:recipe).permit(:name, :ingredients, :instructions, :duration, :tag_names, :add_images => [])
