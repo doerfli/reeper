@@ -45,7 +45,8 @@ export default class extends Controller {
   }
 
   addtag(element) {
-    var tag = element.srcElement.innerText;
+    // console.log(element);
+    var tag = element.target.innerText;
     var tags = _.split(this.tagsTarget.value, ",");
     var tags = _.dropRight(tags);
     tags.push(tag);
