@@ -23,10 +23,14 @@ de:
       are_you_sure: 'Wollen Sie dieses Rezept wirklich löschen?'
     ingredients: 'Zutaten'
     instructions: 'Anleitung'
+    images:
+      select: Bild wählen
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'
     save: 'Speichern'
+    cancel: 'Abbrechen'
+    image_add: 'Bild hinzufügen'
   activerecord:
     models:
       recipe:

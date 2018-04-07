@@ -38,6 +38,12 @@
           <% end %>
         </div>
         <div class="buttons">
+          <a class="button is-info" href="<%= new_recipe_recipe_image_path @recipe %>">
+            <span class="icon is-small">
+              <i class="fas fa-camera"></i>
+            </span>
+            <span><%=t 'action.image_add' %></span>
+          </a>
           <a class="button is-info" href="<%= edit_recipe_path @recipe %>">
             <span class="icon is-small">
               <i class="fas fa-edit"></i>

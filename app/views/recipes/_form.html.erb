@@ -1,10 +1,5 @@
 <div class="recipe noSubmitOnEnter" data-controller="recipeform">
   <%= form_for @recipe do |f| %>
-    <% if action_name.eql? 'new' %>
-      <div class="add_image" data-action="click->recipeform#add">
-        <i class="fas fa-camera fa-3x"></i>
-      </div>
-    <% end %>
     <div class="field">
       <%= f.label :name, class: 'label' %>
       <div class="control">
@@ -23,9 +18,6 @@
         <%= f.text_area :instructions, class: 'textarea', placeholder: t('recipes.form.placeholder.instructions') %>
       </div>
     </div>
-    <div data-target="recipeform.images">
-
-    </div>
     <div class="field">
       <%= f.label :duration, class: 'label' %>
       <div class="control">
@@ -43,12 +35,6 @@
     <div class="field is-grouped">
       <div class="control">
         <%= f.button t('action.save'), class: 'button is-link' %>
-      </div>
-    </div>
-    <div class="field display_none image_upload" data-target="recipeform.appendimgtmpl">
-      <%= f.label :images, class: 'label' %>
-      <div class="control">
-        <%= f.file_field 'add_images', accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image'), disabled: true %>
       </div>
     </div>
   <% end %>

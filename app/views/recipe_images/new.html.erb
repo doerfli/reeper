@@ -1,0 +1,17 @@
+<div class="container">
+  <h1 class="title"><%=t @recipe.name %></h1>
+  <h2 class="subtitle">
+    <%=t 'action.image_add' %>
+  </h2>
+  <%= form_tag(recipe_recipe_images_path(@recipe), method: :post, multipart: true) do %>
+    <div class="field image_upload">
+      <div class="control">
+        <%= file_field_tag :image, { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
+      </div>
+    </div>
+    <div class="buttons">
+      <%= button_tag t('action.save'), class: 'button is-link' %>
+      <a href="<%= recipe_path(@recipe) %>" class="button"><%=t 'action.cancel' %></a>
+    </div>
+  <% end %>
+</div>
