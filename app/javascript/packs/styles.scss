@@ -35,3 +35,12 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
 .tagsSuggestion .tag {
   margin-right: 0.5em;
 }
+
+.delete_images {
+  .to_delete {
+    border: 2px solid $background;
+  }
+  .selected_for_delete {
+    border: 2px solid $danger;
+  }
+}

@@ -30,6 +30,20 @@
           <h1 class="subtitle"><%= t('recipes.instructions') %></h1>
           <%= simple_format @recipe.instructions %>
         </div>
+        <div class="buttons">
+          <a class="button is-info" href="<%= edit_recipe_path @recipe %>">
+            <span class="icon is-small">
+              <i class="fas fa-edit"></i>
+            </span>
+            <span><%=t 'action.edit' %></span>
+          </a>
+          <a class="button is-danger" data-action="click->recipe#deleteDialogShow">
+            <span class="icon is-small">
+              <i class="fas fa-trash"></i>
+            </span>
+            <span><%=t 'action.delete' %></span>
+          </a>
+        </div>
         <div>
           <% @recipe.recipe_images.each do |image| %>
             <a href="<%= url_for(image) %>">
@@ -44,17 +58,11 @@
             </span>
             <span><%=t 'action.image_add' %></span>
           </a>
-          <a class="button is-info" href="<%= edit_recipe_path @recipe %>">
-            <span class="icon is-small">
-              <i class="fas fa-edit"></i>
-            </span>
-            <span><%=t 'action.edit' %></span>
-          </a>
-          <a class="button is-danger" data-action="click->recipe#deleteDialogShow">
+          <a class="button is-info" href="<%= delete_select_recipe_recipe_images_path @recipe %>">
             <span class="icon is-small">
               <i class="fas fa-trash"></i>
             </span>
-            <span><%=t 'action.delete' %></span>
+            <span><%=t 'action.image_delete' %></span>
           </a>
         </div>
       </div>

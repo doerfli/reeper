@@ -31,7 +31,9 @@ de:
     edit: 'Bearbeiten'
     save: 'Speichern'
     cancel: 'Abbrechen'
+    delete: 'Löschen'
     image_add: 'Bild hinzufügen'
+    image_delete: 'Bild löschen'
   activerecord:
     models:
       recipe:
