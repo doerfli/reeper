@@ -25,6 +25,7 @@ de:
     instructions: 'Anleitung'
     images:
       select: Bild wählen
+      image_missing: Kein Bild ausgewählt
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'
