@@ -1,0 +1,36 @@
+<% if flash[:error] %>
+  <section class="section">
+    <div class="container">
+      <div class="notification is-danger">
+        <%= flash[:error] %>
+      </div>
+    </div>
+  </section>
+<% end %>
+<% if flash[:warning] %>
+  <section class="section">
+    <div class="container">
+      <div class="notification is-warning">
+        <%= flash[:warning] %>
+      </div>
+    </div>
+  </section>
+<% end %>
+<% if flash[:info] %>
+  <section class="section">
+    <div class="container">
+      <div class="notification is-info">
+        <%= flash[:info] %>
+      </div>
+    </div>
+  </section>
+<% end %>
+<% if flash[:success] %>
+  <section class="section">
+    <div class="container">
+      <div class="notification is-success">
+        <%= flash[:success] %>
+      </div>
+    </div>
+  </section>
+<% end %>

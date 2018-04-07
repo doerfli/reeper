@@ -16,15 +16,7 @@
 
   <body>
     <%= render :partial => 'shared/navigation' %>
-    <% if flash[:error] %>
-      <section class="section">
-        <div class="container">
-          <div class="notification is-danger">
-            <%= flash[:error] %>
-          </div>
-        </div>
-      </section>
-    <% end %>
+    <%= render :partial => 'shared/messages' %>
     <section class="section">
       <%= yield %>
     </section>
