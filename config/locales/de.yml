@@ -34,6 +34,7 @@ de:
     delete: 'Löschen'
     image_add: 'Bild hinzufügen'
     image_delete: 'Bild löschen'
+    add_another: 'Weitere Datei'
   activerecord:
     models:
       recipe:

@@ -3,15 +3,33 @@
   <h2 class="subtitle">
     <%=t 'action.image_add' %>
   </h2>
-  <%= form_tag(recipe_recipe_images_path(@recipe), method: :post, multipart: true) do %>
-    <div class="field image_upload">
+  <div class="add_image" data-controller="recipeimagesadd">
+    <%= form_tag(recipe_recipe_images_path(@recipe), method: :post, multipart: true) do %>
+      <div data-target="recipeimagesadd.files">
+        <div class="field">
+          <div class="control">
+            <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
+          </div>
+        </div>
+        <div class="field is-grouped" data-target="recipeimagesadd.buttons">
+          <div class="control">
+            <%= button_tag t('action.save'), class: 'button is-link' %>
+          </div>
+          <div class="control">
+            <span class="button is-link" data-action="click->recipeimagesadd#add_another">
+              <%=t 'action.add_another' %>
+            </span>
+          </div>
+          <div class="control">
+            <a href="<%= recipe_path(@recipe) %>" class="button"><%=t 'action.cancel' %></a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="field display_none"  data-target="recipeimagesadd.template">
       <div class="control">
-        <%= file_field_tag :image, { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
+        <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
       </div>
     </div>
-    <div class="buttons">
-      <%= button_tag t('action.save'), class: 'button is-link' %>
-      <a href="<%= recipe_path(@recipe) %>" class="button"><%=t 'action.cancel' %></a>
-    </div>
-  <% end %>
+  </div>
 </div>

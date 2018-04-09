@@ -11,25 +11,28 @@ class RecipeImagesController < ApplicationController
       redirect_to new_recipe_recipe_image_path(recipe) and return
     end
 
-    if params[:image].content_type == "image/jpeg"
-      # downgrade image quality to 60 to reduce size of image
-      img = MiniMagick::Image.read(params[:image].read)
-      img.quality(60)
-      tmpfile = Tempfile.new('img')
-      img.write(tmpfile)
-      tmpfile.close
+    params[:image].each{ |image|
+      if image.content_type == "image/jpeg"
+        # downgrade image quality to 60 to reduce size of image
+        img = MiniMagick::Image.read(image.read)
+        img.quality(60)
+        tmpfile = Tempfile.new('img')
+        img.write(tmpfile)
+        tmpfile.close
 
-      recipe.recipe_images.attach(
-        io: tmpfile.open,
-        filename: params[:image].original_filename,
-        content_type: params[:image].content_type
-      )
-    else
-      recipe.recipe_images.attach(params[:image])
-    end
+        recipe.recipe_images.attach(
+          io: tmpfile.open,
+          filename: image.original_filename,
+          content_type: image.content_type
+        )
+        tmpfile.unlink
+      else
+        recipe.recipe_images.attach(image)
+      end
+
+    }
 
     recipe.save
-    tmpfile.unlink
 
     redirect_to recipe_path(recipe)
   end
