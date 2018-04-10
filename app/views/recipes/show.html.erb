@@ -22,15 +22,15 @@
             <span class="tag"><%= t.name %></span>
           <% } %>
         </div>
-        <div class="ingredients">
-          <h1 class="subtitle"><%= t('recipes.ingredients') %></h1>
+        <div class="ingredients spacetop">
+          <h3 class="subtitle"><%= t('recipes.ingredients') %></h3>
           <%= simple_format @recipe.ingredients %>
         </div>
-        <div class="instructions">
-          <h1 class="subtitle"><%= t('recipes.instructions') %></h1>
+        <div class="instructions spacetop">
+          <h3 class="subtitle"><%= t('recipes.instructions') %></h3>
           <%= simple_format @recipe.instructions %>
         </div>
-        <div class="buttons">
+        <div class="buttons spacetop">
           <a class="button is-info" href="<%= edit_recipe_path @recipe %>">
             <span class="icon is-small">
               <i class="fas fa-edit"></i>
