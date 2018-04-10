@@ -3,7 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%=t 'application_title' %></title>
+    <% if @page_title %>
+      <title><%= "#{@page_title} | #{t('application_title')}"  %></title>
+    <% else %>
+      <title><%=t 'application_title' %></title>
+    <% end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 

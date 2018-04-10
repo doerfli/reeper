@@ -1,6 +1,7 @@
 class RecipeImagesController < ApplicationController
   def new
     @recipe = Recipe.find(params[:recipe_id])
+    @page_title = @recipe.name
   end
 
   def create
@@ -39,6 +40,7 @@ class RecipeImagesController < ApplicationController
 
   def delete_select
     @recipe = Recipe.find(params[:recipe_id])
+    @page_title = @recipe.name
   end
 
   def delete

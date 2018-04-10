@@ -16,10 +16,12 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    @page_title = @recipe.name
   end
 
   def edit
     @recipe = Recipe.find(params[:id])
+    @page_title = @recipe.name
   end
 
   def update
