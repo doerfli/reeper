@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   def index
-    @recipes = Recipe.all.order('LOWER(name), id')
+    @recipes = Recipe.all.order('name, id')
   end
 
   def new
