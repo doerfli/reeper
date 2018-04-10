@@ -48,3 +48,9 @@ de:
         duration: 'Dauer'
         tags: 'Tags'
         images: 'Bilder'
+    errors:
+      models:
+        recipe:
+          attributes:
+            name:
+              blank: Name darf nicht leer sein

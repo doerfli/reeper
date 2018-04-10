@@ -8,10 +8,18 @@ class RecipesController < ApplicationController
   end
 
   def create
-    recipe = Recipe.new(recipe_params)
-    recipe.save
+    @recipe = Recipe.new(recipe_params)
 
-    redirect_to action: :show, id: recipe
+    unless @recipe.valid?
+      flash.now[:error] = @recipe.errors.messages.map{ |k,v|
+        v
+      }.join(',')
+      render :new and return
+    end
+
+    @recipe.save
+
+    redirect_to action: :show, id: @recipe.id
   end
 
   def show

@@ -2,6 +2,8 @@ class Recipe < ApplicationRecord
   has_and_belongs_to_many :tags
   has_many_attached :recipe_images
 
+  validates :name, :presence => true
+
   def tag_names
     # Get all related Tags as comma-separated list
     tag_list = []
