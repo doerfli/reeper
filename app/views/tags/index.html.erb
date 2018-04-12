@@ -6,7 +6,7 @@
     <div class="field is-grouped is-grouped-multiline">
       <% @tags.each do |t| %>
         <div class="control">
-          <a class="tags has-addons" href="<%= by_tag_recipes_path(:tag => t.id) %>">
+          <a class="tags has-addons" href="<%= filter_by_tag_recipes_path(:tagid => t.id) %>">
             <span class="tag is-dark"><%= t.name %></span>
             <span class="tag is-info"><%= t.recipes.count %></span>
           </a>
