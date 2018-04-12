@@ -3,6 +3,11 @@ class RecipesController < ApplicationController
     @recipes = Recipe.all.order('name, id')
   end
 
+  def by_tag
+    @recipes = Recipe.joins(:tags).where(tags: { id: params[:tag]}).order('name, id')
+    render 'index'
+  end
+
   def new
     @recipe = Recipe.new
   end

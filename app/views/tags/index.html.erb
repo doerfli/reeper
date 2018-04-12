@@ -6,10 +6,10 @@
     <div class="field is-grouped is-grouped-multiline">
       <% @tags.each do |t| %>
         <div class="control">
-          <div class="tags has-addons">
+          <a class="tags has-addons" href="<%= by_tag_recipes_path(:tag => t.id) %>">
             <span class="tag is-dark"><%= t.name %></span>
             <span class="tag is-info"><%= t.recipes.count %></span>
-          </div>
+          </a>
         </div>
       <% end %>
   </div>
