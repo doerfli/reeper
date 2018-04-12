@@ -1,0 +1,16 @@
+<div class="container">
+  <h1 class="title">
+    <%=t 'tags.title' %>
+  </h1>
+  <div class="tags">
+    <div class="field is-grouped is-grouped-multiline">
+      <% @tags.each do |t| %>
+        <div class="control">
+          <div class="tags has-addons">
+            <span class="tag is-dark"><%= t.name %></span>
+            <span class="tag is-info"><%= t.recipes.count %></span>
+          </div>
+        </div>
+      <% end %>
+  </div>
+</div>

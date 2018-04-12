@@ -26,6 +26,8 @@ de:
     images:
       select: Bild wählen
       image_missing: Kein Bild ausgewählt
+  tags:
+    title: Tags
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'

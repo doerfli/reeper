@@ -1,14 +1,21 @@
 class TagsController < ApplicationController
   def index
-    if params[:term]
-      @tags = Tag.where("LOWER(name) LIKE ?", "%#{params[:term].downcase}%")
-    else
-      @tags = Tag.all
-    end
-    @tags = @tags.order(:name)
+    @tags = if params[:term]
+              Tag.match_term params[:term]
+            else
+              Tag.all
+            end
+
+    @tags.joins(:recipes)
+    @tags = @tags.sort { |a, b|
+      sa = a.recipes.size
+      sb = b.recipes.size
+      sb <=> sa
+    }
 
     respond_to do |format|
-      format.json { render json: @tags.map{ |t| t.name } }
+      format.html
+      format.json { render json: @tags.map(&:name) }
     end
   end
 end
