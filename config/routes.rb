@@ -11,7 +11,11 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :tags
+  resources :tags do
+    collection do
+      get 'search(/:term)' => :search, as: 'search'
+    end
+  end
 
   root to: 'recipes#index'
 end

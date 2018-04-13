@@ -5,10 +5,7 @@ export default class extends Controller {
 
   search() {
     var term = this.termTarget.value;
-    var url = this.data.get("url") + "?partial=true";
-    if (term.length > 0) {
-      url += "&term=" + encodeURI(term);
-    }
+    var url = this.data.get("url") + "/" + encodeURI(term);;
     fetch(url, { credentials: 'same-origin'})
       .then(response => response.text())
       .then(html => {

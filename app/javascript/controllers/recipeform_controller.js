@@ -15,7 +15,7 @@ export default class extends Controller {
     }
 
     // console.log(term);
-    var url = '/tags.json?term=' + term;
+    var url = '/tags/search/' + encodeURI(term) + ".json";
     fetch(url, { credentials: 'same-origin'}).then(function json(response) {
       return response.json()
     }).then(function(data) {
