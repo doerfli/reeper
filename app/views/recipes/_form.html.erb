@@ -1,4 +1,4 @@
-<div class="recipe noSubmitOnEnter" data-controller="recipeform">
+<div class="recipe noSubmitOnEnter" data-controller="recipeform" data-recipeform-url="<%= search_tags_path(term: 'term', format: :json) %>">
   <%= form_for @recipe do |f| %>
     <div class="field">
       <%= f.label :name, class: 'label' %>
