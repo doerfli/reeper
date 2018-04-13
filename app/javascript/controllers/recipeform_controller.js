@@ -22,7 +22,7 @@ export default class extends Controller {
       // console.log(data);
       data.forEach(function(element) {
         var tagElement = document.createElement("span");
-        tagElement.classList += "tag";
+        tagElement.classList += "tag is-dark";
         tagElement.setAttribute("data-action", "click->recipeform#addtag");
         tagElement.appendChild(document.createTextNode(element));
         tagsSuggestion.appendChild(tagElement);
