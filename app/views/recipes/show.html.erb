@@ -14,9 +14,11 @@
       </div>
 
       <div class="content">
-        <div>
-          <p><%= t('recipes.show.duration', duration: @recipe.duration) %></p>
-        </div>
+        <% if @recipe.duration %>
+          <div>
+            <p><%= t('recipes.show.duration', duration: @recipe.duration) %></p>
+          </div>
+        <% end %>
         <div class="tags">
           <% @recipe.tags.each{ |t| %>
             <span class="tag"><%= t.name %></span>
@@ -30,6 +32,11 @@
           <h3 class="subtitle"><%= t('recipes.instructions') %></h3>
           <%= simple_format @recipe.instructions %>
         </div>
+        <% if @recipe.source %>
+          <div>
+            <p><%= t('recipes.show.source') %>: <%= with_url_links @recipe.source %></p>
+          </div>
+        <% end %>
         <div class="buttons spacetop">
           <a class="button is-info" href="<%= edit_recipe_path @recipe %>">
             <span class="icon is-small">

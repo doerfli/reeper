@@ -17,8 +17,10 @@ de:
         duration: 'Dauer der Zubereitung (Minuten)'
         tags: 'Tags'
         add_image: 'Bild hinzufügen'
+        source: 'Quelle des Rezepts (Zeitschrift, URL, ...)'
     show:
       duration: 'Dauer: %{duration} Minuten'
+      source: 'Quelle'
     delete:
       are_you_sure: 'Wollen Sie dieses Rezept wirklich löschen?'
     ingredients: 'Zutaten'
@@ -37,7 +39,7 @@ de:
     image_add: 'Bild hinzufügen'
     image_delete: 'Bild löschen'
     add_another: 'Weitere Datei'
-    search: Suche
+    search: 'Suche'
   activerecord:
     models:
       recipe:
@@ -51,6 +53,7 @@ de:
         duration: 'Dauer'
         tags: 'Tags'
         images: 'Bilder'
+        source: 'Quelle'
     errors:
       models:
         recipe:

@@ -32,6 +32,12 @@
       <p data-target="recipeform.tagsSuggestion" class="tagsSuggestion">
       </p>
     </div>
+    <div class="field">
+      <%= f.label :source, class: 'label' %>
+      <div class="control">
+        <%= f.text_field :source, class: 'input', placeholder: t('recipes.form.placeholder.source'), autocomplete: 'off' %>
+      </div>
+    </div>
     <div class="field is-grouped">
       <div class="control">
         <%= f.button t('action.save'), class: 'button is-link' %>
