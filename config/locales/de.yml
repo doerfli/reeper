@@ -37,6 +37,7 @@ de:
     image_add: 'Bild hinzufügen'
     image_delete: 'Bild löschen'
     add_another: 'Weitere Datei'
+    search: Suche
   activerecord:
     models:
       recipe:

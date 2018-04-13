@@ -7,14 +7,20 @@ class TagsController < ApplicationController
             end
 
     @tags.joins(:recipes)
-    @tags = @tags.sort { |a, b|
+    @tags = @tags.sort do |a, b|
       sa = a.recipes.size
       sb = b.recipes.size
       sb <=> sa
-    }
+    end
 
     respond_to do |format|
-      format.html
+      format.html {
+        if params[:partial]
+          render partial: 'tagslist'
+        else
+          render
+        end
+      }
       format.json { render json: @tags.map(&:name) }
     end
   end

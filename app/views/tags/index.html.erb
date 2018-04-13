@@ -2,15 +2,19 @@
   <h1 class="title">
     <%=t 'tags.title' %>
   </h1>
-  <div class="tags">
-    <div class="field is-grouped is-grouped-multiline">
-      <% @tags.each do |t| %>
-        <div class="control">
-          <a class="tags has-addons" href="<%= filter_by_tag_recipes_path(:tagid => t.id) %>">
-            <span class="tag is-dark"><%= t.name %></span>
-            <span class="tag is-info"><%= t.recipes.count %></span>
-          </a>
-        </div>
-      <% end %>
+  <div data-controller="tags" data-tags-url="<%= tags_path %>">
+    <div class="field">
+      <p class="control has-icons-left">
+        <%= text_field_tag :search, nil, class: 'input', placeholder: t('action.search'), autocomplete: 'off',
+            'data-action': 'keyup->tags#search', 
+            'data-target': 'tags.term' %>
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
+    </div>
+    <div data-target="tags.tagslist">
+      <%= render partial: 'tagslist' %>
+    </div>
   </div>
 </div>
