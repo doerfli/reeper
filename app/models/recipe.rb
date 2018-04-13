@@ -34,4 +34,5 @@ class Recipe < ApplicationRecord
       self.recipe_images.attach(image)
     end
   end
+  
 end

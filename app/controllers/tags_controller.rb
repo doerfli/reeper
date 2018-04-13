@@ -7,11 +7,11 @@ class TagsController < ApplicationController
             end
 
     @tags.joins(:recipes)
-    @tags = @tags.sort do |a, b|
-      sa = a.recipes.size
-      sb = b.recipes.size
-      sb <=> sa
-    end
+    @tags = if params[:term]
+              @tags.order(:name)
+            else
+              Tag.sort_by_recipe_count(@tags)
+            end
 
     respond_to do |format|
       format.html {
