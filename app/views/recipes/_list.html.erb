@@ -1,0 +1,7 @@
+<ul>
+  <% @recipes.each{ |r| %>
+    <li>
+      <a href="<%= recipe_path(r) %>"><%= r.name %></a>
+    </li>
+  <% } %>
+</ul>

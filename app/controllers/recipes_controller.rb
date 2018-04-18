@@ -8,6 +8,21 @@ class RecipesController < ApplicationController
     render 'index'
   end
 
+  def search
+    logger.debug "Search recipe for #{params[:term]}"
+    # @recipes = Recipe.where(ilike(:name, "%#{params[:term]}"))
+    if params[:term].nil?
+      @recipes = Recipe.all.order('name, id')
+    else
+      name_q = Recipe.arel_table[:name]
+      @recipes = Recipe.where(name_q.matches("%#{params[:term]}%")).order(:name, :id)
+    end
+
+    respond_to do |format|
+      format.html { render partial: 'list' }
+    end
+  end
+
   def new
     @recipe = Recipe.new
   end

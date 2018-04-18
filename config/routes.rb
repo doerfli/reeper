@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :recipes do
     collection do
       get 'filter_by_tag/:tagid' => :filter_by_tag, as: 'filter_by_tag'
+      get 'search(/:term)' => :search, as: 'search'
     end
     resources :recipe_images, only: [:new, :create] do
       collection do
