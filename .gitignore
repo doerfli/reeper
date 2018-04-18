@@ -36,4 +36,5 @@ yarn-debug.log*
 
 /.yardoc/
 /pgdata/
+/pgdump/*sql
 /.vscode/
