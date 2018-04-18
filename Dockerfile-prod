@@ -14,12 +14,9 @@ WORKDIR $HOME
 # Install gems
 ADD Gemfile* $HOME/
 RUN gem update bundler
+# speed up install of nokogiri gem
+RUN bundle config --local build.nokogiri --use-system-libraries
 RUN bundle install --without development test
-
-# install node dependencies
-#COPY package.json $HOME/
-#COPY yarn.lock $HOME/
-#RUN yarn install --deployment
 
 # Add the app code
 COPY . $HOME

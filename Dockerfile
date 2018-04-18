@@ -13,6 +13,7 @@ WORKDIR $HOME
 # Install gems
 COPY Gemfile* $HOME/
 RUN gem update bundler
+RUN bundle config --local build.nokogiri --use-system-libraries
 RUN bundle install
 
 # install node dependencies
