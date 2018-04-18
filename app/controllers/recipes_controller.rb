@@ -1,10 +1,10 @@
 class RecipesController < ApplicationController
   def index
-    @recipes = Recipe.all.order('name, id')
+    @recipes = Recipe.all
   end
 
   def filter_by_tag
-    @recipes = Recipe.joins(:tags).where(tags: { id: params[:tagid] }).order('name, id')
+    @recipes = Recipe.joins(:tags).where(tags: { id: params[:tagid] })
     render 'index'
   end
 
@@ -12,10 +12,10 @@ class RecipesController < ApplicationController
     logger.debug "Search recipe for #{params[:term]}"
     # @recipes = Recipe.where(ilike(:name, "%#{params[:term]}"))
     if params[:term].nil?
-      @recipes = Recipe.all.order('name, id')
+      @recipes = Recipe.all
     else
       name_q = Recipe.arel_table[:name]
-      @recipes = Recipe.where(name_q.matches("%#{params[:term]}%")).order(:name, :id)
+      @recipes = Recipe.where(name_q.matches("%#{params[:term]}%"))
     end
 
     respond_to do |format|
