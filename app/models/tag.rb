@@ -11,11 +11,11 @@ class Tag < ApplicationRecord
 
   # tags with at least one recipe matching the term
   scope :match_term, lambda { |term|
+    name_q = Tag.arel_table[:name]
     joins(:recipes)
-      .where('tags.name ILIKE ?', "%#{term.downcase}%")
+      .where(name_q.matches("%#{term.downcase}%"))
       .group('id').having('COUNT(recipes.id) > 0')
   }
-
 
   def self.sort_by_recipe_count(tags)
     tags.sort do |a, b|
