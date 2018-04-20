@@ -24,12 +24,17 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
 }
 
 .spacetop {
-  margin-top: 1.5rem;
+  margin-top: 1em;
 }
 
 .title {
-  border-bottom: 3px $yellow solid;
+  border-bottom: 4px $yellow solid;
   padding-bottom: 5px;
+}
+
+.subtitle {
+  border-bottom: 2px $yellow solid;
+  // padding-bottom: 5px;
 }
 
 .is-mobile .level-item:last-child {
@@ -47,4 +52,9 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
   .selected_for_delete {
     border: 2px solid $danger;
   }
+}
+
+.prop_fix { 
+  float: left;
+  width: 60px;
 }

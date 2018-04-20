@@ -1,82 +1,77 @@
 
 <div class="container" data-controller="recipe" data-recipe-id="<%= @recipe.id %>" data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>">
-  <div class="card">
-    <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <figure class="image is-48x48">
-            <i class="fas fa-utensils fa-3x"></i>
-          </figure>
-        </div>
-        <div class="media-content">
-          <p class="title is-4"><%= @recipe.name %></p>
-        </div>
-      </div>
+  <figure class="image is-48x48">
+    <i class="fas fa-utensils fa-3x"></i>
+  </figure>
+  <h1 class="title">
+    <%= @recipe.name %>
+  </h1>
 
-      <div class="content">
-        <% if @recipe.duration %>
-          <div>
-            <p><%= t('recipes.show.duration', duration: @recipe.duration) %></p>
-          </div>
-        <% end %>
-        <div class="tags">
-          <% @recipe.tags.each{ |t| %>
-            <span class="tag"><%= t.name %></span>
-          <% } %>
-        </div>
-        <div class="ingredients spacetop">
-          <h3 class="subtitle"><%= t('recipes.ingredients') %></h3>
-          <%= simple_format @recipe.ingredients %>
-        </div>
-        <div class="instructions spacetop">
-          <h3 class="subtitle"><%= t('recipes.instructions') %></h3>
-          <%= simple_format @recipe.instructions %>
-        </div>
-        <% if @recipe.source %>
-          <div>
-            <p><%= t('recipes.show.source') %>: <%= with_url_links @recipe.source %></p>
-          </div>
-        <% end %>
-        <div class="buttons spacetop">
-          <a class="button is-info" href="<%= edit_recipe_path @recipe %>">
-            <span class="icon is-small">
-              <i class="fas fa-edit"></i>
-            </span>
-            <span><%=t 'action.edit' %></span>
-          </a>
-          <a class="button is-info" data-action="click->recipe#deleteDialogShow">
-            <span class="icon is-small">
-              <i class="fas fa-trash"></i>
-            </span>
-            <span><%=t 'action.delete' %></span>
-          </a>
-        </div>
-        <div>
-          <% @recipe.recipe_images.each do |image| %>
-            <a href="<%= url_for(image) %>">
-              <%= image_tag image.variant(resize: "100x100") %>
-            </a>
-          <% end %>
-        </div>
-        <div class="buttons">
-          <a class="button is-info" href="<%= new_recipe_recipe_image_path @recipe %>">
-            <span class="icon is-small">
-              <i class="fas fa-camera"></i>
-            </span>
-            <span><%=t 'action.image_add' %></span>
-          </a>
-          <% if @recipe.recipe_images.count > 0 %>
-            <a class="button is-info" href="<%= delete_select_recipe_recipe_images_path @recipe %>">
-              <span class="icon is-small">
-                <i class="fas fa-trash"></i>
-              </span>
-              <span><%=t 'action.image_delete' %></span>
-            </a>
-          <% end %>
-        </div>
-      </div>
+  <% if @recipe.duration %>
+    <div>
+      <p><span class="prop_fix"><%=t 'recipes.show.duration' %>:</span> <%= @recipe.duration %> <%=t 'recipes.show.durationunit' %></p>
     </div>
+  <% end %>
+  <% if ! @recipe.tags.empty? %>
+    <div class="recipe_tags">
+      <p><span class="prop_fix"><%=t 'recipes.show.tags' %>:</span>
+      <% @recipe.tags.each{ |t| %>
+        <span class="tag is-dark"><%= t.name %></span>
+      <% } %>
+      </p>
+    </div>
+  <% end %>
+  <div class="ingredients spacetop">
+    <p class="subtitle is-3"><%= t('recipes.ingredients') %></p>
+    <%= simple_format @recipe.ingredients %>
   </div>
+  <div class="instructions spacetop">
+    <p class="subtitle is-3"><%= t('recipes.instructions') %></p>
+    <%= simple_format @recipe.instructions %>
+  </div>
+  <% if @recipe.source %>
+    <div>
+      <p><%= t('recipes.show.source') %>: <%= with_url_links @recipe.source %></p>
+    </div>
+  <% end %>
+  <div class="buttons spacetop">
+    <a class="button is-info" href="<%= edit_recipe_path @recipe %>">
+      <span class="icon is-small">
+        <i class="fas fa-edit"></i>
+      </span>
+      <span><%=t 'action.edit' %></span>
+    </a>
+    <a class="button is-info" data-action="click->recipe#deleteDialogShow">
+      <span class="icon is-small">
+        <i class="fas fa-trash"></i>
+      </span>
+      <span><%=t 'action.delete' %></span>
+    </a>
+  </div>
+  <div>
+    <% @recipe.recipe_images.each do |image| %>
+      <a href="<%= url_for(image) %>">
+        <%= image_tag image.variant(resize: "100x100") %>
+      </a>
+    <% end %>
+  </div>
+  <div class="buttons">
+    <a class="button is-info" href="<%= new_recipe_recipe_image_path @recipe %>">
+      <span class="icon is-small">
+        <i class="fas fa-camera"></i>
+      </span>
+      <span><%=t 'action.image_add' %></span>
+    </a>
+    <% if @recipe.recipe_images.count > 0 %>
+      <a class="button is-info" href="<%= delete_select_recipe_recipe_images_path @recipe %>">
+        <span class="icon is-small">
+          <i class="fas fa-trash"></i>
+        </span>
+        <span><%=t 'action.image_delete' %></span>
+      </a>
+    <% end %>
+  </div>
+
   <div class="modal" data-target="recipe.deleteDialog">
     <div class="modal-background"></div>
     <div class="modal-content">

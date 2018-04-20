@@ -19,7 +19,9 @@ de:
         add_image: 'Bild hinzufügen'
         source: 'Quelle des Rezepts (Zeitschrift, URL, ...)'
     show:
-      duration: 'Dauer: %{duration} Minuten'
+      duration: 'Dauer'
+      durationunit: 'Minuten'
+      tags: 'Tags'
       source: 'Quelle'
     delete:
       are_you_sure: 'Wollen Sie dieses Rezept wirklich löschen?'
