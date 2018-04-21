@@ -4,7 +4,7 @@ class Tag < ApplicationRecord
   validates :name, uniqueness: true
 
   # tags with at least one recipe
-  default_scope lambda {
+  scope :with_recipes, lambda {
     joins(:recipes)
       .group('id').having('COUNT(recipes.id) > 0')
   }
@@ -13,8 +13,8 @@ class Tag < ApplicationRecord
   scope :match_term, lambda { |term|
     name_q = Tag.arel_table[:name]
     joins(:recipes)
+      .with_recipes
       .where(name_q.matches("%#{term.downcase}%"))
-      .group('id').having('COUNT(recipes.id) > 0')
   }
 
   def self.sort_by_recipe_count(tags)

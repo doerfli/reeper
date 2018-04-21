@@ -6,32 +6,33 @@
   <h1 class="title">
     <%= @recipe.name %>
   </h1>
-
-  <% if @recipe.duration %>
+  <div class="ingredients spacetop">
+    <p class="subtitle is-3"><%= t('recipes.ingredients') %></p>
+    <%= simple_format @recipe.ingredients %>
+  </div>
+  <div class="instructions spacetop spacebottom">
+    <p class="subtitle is-3">
+      <%= t('recipes.instructions') %>
+      <% if @recipe.duration %>
+        <span class="content is-medium paddingleft">
+          <%=t 'recipes.show.duration' %>: <%= @recipe.duration %> <%=t 'recipes.show.durationunit' %>
+        </span>
+      <% end %>
+    </p>
+    <%= simple_format @recipe.instructions %>
+  </div>
+  <% unless @recipe.source.empty? %>
     <div>
-      <p><span class="prop_fix"><%=t 'recipes.show.duration' %>:</span> <%= @recipe.duration %> <%=t 'recipes.show.durationunit' %></p>
+      <p><%= t('recipes.show.source') %>: <%= with_url_links @recipe.source %></p>
     </div>
   <% end %>
-  <% if ! @recipe.tags.empty? %>
+  <% unless @recipe.tags.empty? %>
     <div class="recipe_tags">
       <p><span class="prop_fix"><%=t 'recipes.show.tags' %>:</span>
       <% @recipe.tags.each{ |t| %>
         <span class="tag is-dark"><%= t.name %></span>
       <% } %>
       </p>
-    </div>
-  <% end %>
-  <div class="ingredients spacetop">
-    <p class="subtitle is-3"><%= t('recipes.ingredients') %></p>
-    <%= simple_format @recipe.ingredients %>
-  </div>
-  <div class="instructions spacetop">
-    <p class="subtitle is-3"><%= t('recipes.instructions') %></p>
-    <%= simple_format @recipe.instructions %>
-  </div>
-  <% if @recipe.source %>
-    <div>
-      <p><%= t('recipes.show.source') %>: <%= with_url_links @recipe.source %></p>
     </div>
   <% end %>
   <div class="buttons spacetop">

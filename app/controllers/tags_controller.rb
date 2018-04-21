@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   def index
-    @tags = Tag.all
+    @tags = Tag.with_recipes
     @tags = Tag.sort_by_recipe_count(@tags)
   end
 
@@ -9,7 +9,7 @@ class TagsController < ApplicationController
       if params[:term]
         Tag.match_term(params[:term]).order(:name)
       else
-        Tag.sort_by_recipe_count(Tag.all)
+        Tag.sort_by_recipe_count(Tag.with_recipes)
       end
 
     respond_to do |format|

@@ -20,7 +20,7 @@ de:
         source: 'Quelle des Rezepts (Zeitschrift, URL, ...)'
     show:
       duration: 'Dauer'
-      durationunit: 'Minuten'
+      durationunit: 'Min'
       tags: 'Tags'
       source: 'Quelle'
     delete:

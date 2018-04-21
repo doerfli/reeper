@@ -18,7 +18,7 @@ class Recipe < ApplicationRecord
   def tag_names=(names)
     logger.info names
     # Delete tag-relations
-    self.tags.delete_all
+    self.tags.clear
 
     # Split comma-separated list
     names = names.split(',').map{ |n| n.strip }.select{ |n| ! n.empty? }
