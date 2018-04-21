@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "filenames" ]
+  static targets = [ "filenames", "submitbutton" ]
 
   select(event) {
     var filename = event.target.dataset.filename;
@@ -17,5 +17,6 @@ export default class extends Controller {
       event.target.classList.add("selected_for_delete");
     }
     this.filenamesTarget.value = _.join(filenames_list, ",");
+    this.submitbuttonTarget.disabled = filenames_list.length == 0;
   }
 }

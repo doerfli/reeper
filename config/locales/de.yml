@@ -25,6 +25,7 @@ de:
       source: 'Quelle'
     delete:
       are_you_sure: 'Wollen Sie dieses Rezept wirklich löschen?'
+      info: 'Zu löschende Bilder auswählen'
     ingredients: 'Zutaten'
     instructions: 'Anleitung'
     images:

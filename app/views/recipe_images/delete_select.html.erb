@@ -4,13 +4,16 @@
     <%=t 'action.image_delete' %>
   </h2>
   <div class="delete_images" data-controller="recipeimagesdelete">
+    <p class="has-text-info">
+      <%=t 'recipes.delete.info' %><br/>&nbsp;
+    </p>
     <% @recipe.recipe_images.each do |image| %>
       <%= image_tag image.variant(resize: "100x100"), class: 'to_delete', data: { 'filename': image.filename, action: 'click->recipeimagesdelete#select' } %>
     <% end %>
     <%= form_tag(delete_recipe_recipe_images_path(@recipe), method: :put) do %>
       <%= hidden_field_tag 'filenames', '', { 'data-target': 'recipeimagesdelete.filenames'} %>
       <div class="buttons">
-        <%= button_tag t('action.delete'), class: 'button is-danger' %>
+        <%= button_tag t('action.delete'), class: 'button is-danger', disabled: 'true', 'data-target': 'recipeimagesdelete.submitbutton' %>
         <a href="<%= recipe_path(@recipe) %>" class="button"><%=t 'action.cancel' %></a>
       </div>
     <% end %>
