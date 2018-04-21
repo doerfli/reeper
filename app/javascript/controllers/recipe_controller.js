@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import { Utils } from "../src/utils"
 
 export default class extends Controller {
-  static targets = [ "deleteDialog" ]
+  static targets = [ "deleteDialog", "editbuttons", "editoff", "editon"]
 
   delete() {
     // TODO: call delete and redirect to list
@@ -27,5 +27,26 @@ export default class extends Controller {
 
   deleteDialogClose() {
     this.deleteDialogTarget.classList.remove("is-active");
+  }
+
+  toggleeditbuttons() {
+    var editstate = this.data.get("editstate");
+    console.log(editstate);
+    if ( editstate == "false" ) {
+      this.editbuttonsTargets.forEach(element => {
+        element.classList.remove("is-hidden")
+      });
+      this.editonTarget.classList.add("is-hidden");
+      this.editoffTarget.classList.remove("is-hidden");
+      this.data.set("editstate", "true");
+    } else {
+      this.editbuttonsTargets.forEach(element => {
+        element.classList.add("is-hidden")
+      });
+      this.editonTarget.classList.remove("is-hidden");
+      this.editoffTarget.classList.add("is-hidden");
+      this.data.set("editstate", "false");
+    }
+    
   }
 }

@@ -1,5 +1,5 @@
 
-<div class="container" data-controller="recipe" data-recipe-id="<%= @recipe.id %>" data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>">
+<div class="container" data-controller="recipe" data-recipe-id="<%= @recipe.id %>" data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>" data-recipe-editstate="false">
   <article class="media">
     <figure class="media-left">
       <i class="fas fa-utensils fa-3x"></i>
@@ -39,21 +39,7 @@
       </p>
     </div>
   <% end %>
-  <div class="buttons spacetop">
-    <a class="button is-info" href="<%= edit_recipe_path @recipe %>">
-      <span class="icon is-small">
-        <i class="fas fa-edit"></i>
-      </span>
-      <span><%=t 'action.edit' %></span>
-    </a>
-    <a class="button is-info" data-action="click->recipe#deleteDialogShow">
-      <span class="icon is-small">
-        <i class="fas fa-trash"></i>
-      </span>
-      <span><%=t 'action.delete' %></span>
-    </a>
-  </div>
-  <div>
+  <div class="spacetop">
     <% @recipe.recipe_images.each do |image| %>
       <a href="<%= url_for(image) %>">
         <%= image_tag image.variant(resize: "100x100") %>
@@ -61,14 +47,32 @@
     <% end %>
   </div>
   <div class="buttons">
-    <a class="button is-info" href="<%= new_recipe_recipe_image_path @recipe %>">
+    <a class="button is-success" data-action="click->recipe#toggleeditbuttons">
+      <span class="icon">
+        <i class="fas fa-caret-right fa-2x" data-target="recipe.editon"></i>
+        <i class="fas fa-caret-left fa-2x is-hidden" data-target="recipe.editoff"></i>
+      </span>
+    </a>
+    <a class="button is-info is-hidden" href="<%= edit_recipe_path @recipe %>" data-target="recipe.editbuttons">
+      <span class="icon is-small">
+        <i class="fas fa-edit"></i>
+      </span>
+      <span><%=t 'action.edit' %></span>
+    </a>
+    <a class="button is-info is-hidden" data-action="click->recipe#deleteDialogShow" data-target="recipe.editbuttons">
+      <span class="icon is-small">
+        <i class="fas fa-trash"></i>
+      </span>
+      <span><%=t 'action.delete' %></span>
+    </a>
+    <a class="button is-info is-hidden" href="<%= new_recipe_recipe_image_path @recipe %>" data-target="recipe.editbuttons">
       <span class="icon is-small">
         <i class="fas fa-camera"></i>
       </span>
       <span><%=t 'action.image_add' %></span>
     </a>
     <% if @recipe.recipe_images.count > 0 %>
-      <a class="button is-info" href="<%= delete_select_recipe_recipe_images_path @recipe %>">
+      <a class="button is-info is-hidden" href="<%= delete_select_recipe_recipe_images_path @recipe %>" data-target="recipe.editbuttons">
         <span class="icon is-small">
           <i class="fas fa-trash"></i>
         </span>
