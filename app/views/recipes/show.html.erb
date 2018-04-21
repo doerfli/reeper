@@ -1,11 +1,15 @@
 
 <div class="container" data-controller="recipe" data-recipe-id="<%= @recipe.id %>" data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>">
-  <figure class="image is-48x48">
-    <i class="fas fa-utensils fa-3x"></i>
-  </figure>
-  <h1 class="title">
-    <%= @recipe.name %>
-  </h1>
+  <article class="media">
+    <figure class="media-left">
+      <i class="fas fa-utensils fa-3x"></i>
+    </figure>
+    <div class="media-content">
+      <h1 class="title">
+        <%= @recipe.name %>
+      </h1>
+    </div>
+  </article>  
   <div class="ingredients spacetop">
     <p class="subtitle is-3"><%= t('recipes.ingredients') %></p>
     <%= simple_format @recipe.ingredients %>
