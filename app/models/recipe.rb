@@ -4,7 +4,7 @@ class Recipe < ApplicationRecord
 
   validates :name, presence: true
 
-  default_scope -> { order(Recipe.arel_table[:name].lower, :id) }
+  scope :order_by_name, -> { order(Recipe.arel_table[:name].lower, :id) }
 
   def tag_names
     # Get all related Tags as comma-separated list

@@ -46,7 +46,22 @@ export default class extends Controller {
       this.editonTarget.classList.remove("is-hidden");
       this.editoffTarget.classList.add("is-hidden");
       this.data.set("editstate", "false");
-    }
-    
+    } 
+  }
+  
+  favorite() {
+    var url = this.data.get("favorite-url");
+    fetch(url, {
+      method: 'put',
+      credentials: 'same-origin',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': Utils.getCsrfToken()
+      },
+    }).then(function json(response) {
+      return response.json()
+    }).then(function(data) {
+      Turbolinks.visit(data.redirect_url);
+    });
   }
 }

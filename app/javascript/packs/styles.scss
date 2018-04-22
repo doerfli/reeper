@@ -8,6 +8,7 @@ $section-padding: 1.5em 1.5em;
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/fa-solid";
+@import "~@fortawesome/fontawesome-free/scss/fa-regular";
 
 .display_none {
   display: none;
@@ -65,4 +66,8 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
 .prop_fix { 
   float: left;
   width: 60px;
+}
+
+.valign-middle {
+  vertical-align: middle
 }

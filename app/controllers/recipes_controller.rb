@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.order("favorite desc").order_by_name
   end
 
   def filter_by_tag
@@ -57,6 +57,13 @@ class RecipesController < ApplicationController
     recipe.update(recipe_params)
     recipe.save
     redirect_to action: :show, id: recipe
+  end
+
+  def favorite
+    recipe = Recipe.find(params[:id])
+    recipe.favorite = !recipe.favorite
+    recipe.save
+    render json: { redirect_url: recipe_path(recipe.id) }
   end
 
   def destroy

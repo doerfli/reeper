@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       get 'filter_by_tag/:tagid' => :filter_by_tag, as: 'filter_by_tag'
       get 'search(/:term)' => :search, as: 'search'
     end
+    member do
+      put 'favorite'
+    end
     resources :recipe_images, only: [:new, :create] do
       collection do
         get 'delete_select'

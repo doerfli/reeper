@@ -1,5 +1,10 @@
 
-<div class="container" data-controller="recipe" data-recipe-id="<%= @recipe.id %>" data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>" data-recipe-editstate="false">
+<div class="container" 
+     data-controller="recipe" 
+     data-recipe-id="<%= @recipe.id %>" 
+     data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>" 
+     data-recipe-favorite-url="<%= favorite_recipe_path(@recipe, :format => :json) %>" 
+     data-recipe-editstate="false">
   <article class="media">
     <figure class="media-left">
       <i class="fas fa-utensils fa-3x"></i>
@@ -7,6 +12,11 @@
     <div class="media-content">
       <h1 class="title">
         <%= @recipe.name %>
+        <% if @recipe.favorite %> 
+          <span>
+            <i class="fas fa-star is-size-5 valign-middle has-text-primary"></i>
+          </span>
+        <% end %>
       </h1>
     </div>
   </article>  
@@ -51,6 +61,15 @@
       <span class="icon">
         <i class="fas fa-caret-right fa-2x" data-target="recipe.editon"></i>
         <i class="fas fa-caret-left fa-2x is-hidden" data-target="recipe.editoff"></i>
+      </span>
+    </a>
+    <a class="button is-info is-hidden" data-action="click->recipe#favorite" data-target="recipe.editbuttons">
+      <span class="icon is-small">
+        <% if @recipe.favorite %> 
+          <i class="fas fa-star"></i>
+        <% else %>
+          <i class="far fa-star"></i>
+        <% end %>
       </span>
     </a>
     <a class="button is-info is-hidden" href="<%= edit_recipe_path @recipe %>" data-target="recipe.editbuttons">
