@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   def index
-    @recipes = Recipe.order("favorite desc").order_by_name
+    @recipes = Recipe.order("favorite desc").order_by_name.page params[:page]
   end
 
   def filter_by_tag

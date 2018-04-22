@@ -4,6 +4,8 @@ class Recipe < ApplicationRecord
 
   validates :name, presence: true
 
+  paginates_per 15
+
   scope :order_by_name, -> { order(Recipe.arel_table[:name].lower, :id) }
 
   def tag_names
