@@ -35,7 +35,7 @@
     </p>
     <%= simple_format @recipe.instructions %>
   </div>
-  <% unless @recipe.source.empty? %>
+  <% unless @recipe.source.nil? || @recipe.source.empty? %>
     <div>
       <p><%= t('recipes.show.source') %>: <%= with_url_links @recipe.source %></p>
     </div>
@@ -49,14 +49,16 @@
       </p>
     </div>
   <% end %>
-  <div class="spacetop">
-    <% @recipe.recipe_images.each do |image| %>
-      <a href="<%= url_for(image) %>">
-        <%= image_tag image.variant(resize: "100x100") %>
-      </a>
-    <% end %>
-  </div>
-  <div class="buttons">
+  <% if @recipe.recipe_images.count > 0 %>
+    <div class="spacetop">
+      <% @recipe.recipe_images.each do |image| %>
+        <a href="<%= url_for(image) %>">
+          <%= image_tag image.variant(resize: "100x100") %>
+        </a>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="buttons spacetop">
     <a class="button is-success" data-action="click->recipe#toggleeditbuttons">
       <span class="icon">
         <i class="fas fa-caret-right fa-2x" data-target="recipe.editon"></i>
