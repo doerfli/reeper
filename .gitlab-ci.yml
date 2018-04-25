@@ -11,10 +11,10 @@ run_spec_tests:
     DB_HOST: postgres
   script:
     - apt-get update && apt-get install -y nodejs 
-    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    - sudo apt update
-    - sudo apt install yarn
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+    - apt-get update
+    - apt-get install yarn
     - yarn 
     - gem update bundler
     - bundle config --local build.nokogiri --use-system-libraries
