@@ -1,41 +1,33 @@
-test:
-  image: ruby:2.5.1-alpine  
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+stages:
+  - test
+  - build
+
+run_spec_tests:
+  stage: test
+  image: ruby:2.5.1-alpine
   services:
     - postgres:10.3-alpine
-
-  stages:
-    - test
-
-  run_spec_tests:
-    stage: test
-    variables:
-      DB_HOST: postgres
-    script:
-      - bundle install
-      - bundle exec rake db:create
-      - bundle exec rake db:migrate 
-      - bundle exec rake db:test:prepare 
-      - bundle exec rails spec
+  variables:
+    DB_HOST: postgres
+  script:
+    - bundle install
+    - bundle exec rake db:create
+    - bundle exec rake db:migrate 
+    - bundle exec rake db:test:prepare 
+    - bundle exec rails spec
 
 docker_images:
+  stage: build
   image: docker:latest
-
   services:
-    - docker:dind
-    
-  stages:
-    - build
-  
+    - docker:dind  
   variables:
     IMAGE_TAG_DEV: $CI_REGISTRY_IMAGE/dev:$CI_COMMIT_REF_NAME
-    IMAGE_TAG_PROD: $CI_REGISTRY_IMAGE/prod:$CI_COMMIT_REF_NAME
-
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  
-  build_prod_docker_image:
-    stage: build
-    script:
-      - docker build -f Dockerfile-prod -t $IMAGE_TAG_PROD .
-      - docker push $IMAGE_TAG_PROD
+    IMAGE_TAG_PROD: $CI_REGISTRY_IMAGE/prod:$CI_COMMIT_REF_NAME  
+  script:
+    - docker build -f Dockerfile-prod -t $IMAGE_TAG_PROD .
+    - docker push $IMAGE_TAG_PROD
     
