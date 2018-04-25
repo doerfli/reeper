@@ -11,7 +11,7 @@ run_spec_tests:
     DB_HOST: postgres
   script:
     - gem update bundler
-    - sudo apt-get install -y nodejs yarn
+    - apt-get install -y nodejs yarn
     - bundle config --local build.nokogiri --use-system-libraries
     - bundle install
     - bundle exec rake db:create
