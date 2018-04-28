@@ -31,4 +31,10 @@ RSpec.describe Recipe, type: :model do
       expect(Tag.count).to eq 3
     end
   end
+  context 'existing recipe' do
+    it 'should list its tags as csv list' do
+      create(:recipe)
+      expect(Recipe.where(name: 'Wurstbrot').first.tag_names).to eq('Brot, Wurst')
+    end
+  end
 end
