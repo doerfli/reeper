@@ -8,8 +8,10 @@ FactoryBot.define do
     favorite false
 
     after(:create) do |r, evaluator|
-      r.tags << create(:brot)
-      r.tags << create(:wurst)
+      unless r.tags.count > 0
+        r.tags << create(:brot)
+        r.tags << create(:wurst)
+      end
     end
   end
 end

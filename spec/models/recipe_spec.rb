@@ -37,4 +37,16 @@ RSpec.describe Recipe, type: :model do
       expect(Recipe.where(name: 'Wurstbrot').first.tag_names).to eq('Brot, Wurst')
     end
   end
+  context 'existing recipes' do
+    it 'should be sorted alphabetically case-insensitive' do
+      r1 = create(:recipe, :name => 'zAaa')
+      create(:recipe, :name => 'aAab', :tags => r1.tags)
+      create(:recipe, :name => 'AAaa', :tags => r1.tags)
+      expect(Recipe.count).to eq 3
+      r = Recipe.order_by_name
+      expect(r[0].name).to eq 'AAaa'
+      expect(r[1].name).to eq 'aAab'
+      expect(r[2].name).to eq 'zAaa'
+    end
+  end
 end
