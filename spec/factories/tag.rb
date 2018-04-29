@@ -6,4 +6,8 @@ FactoryBot.define do
   factory :brot, class: Tag do
     name 'Brot'
   end
+
+  factory :pasta, class: Tag do
+    name 'Pasta'
+  end
 end

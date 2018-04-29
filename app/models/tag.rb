@@ -1,7 +1,7 @@
 class Tag < ApplicationRecord
   has_and_belongs_to_many :recipes
 
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
 
   # tags with at least one recipe
   scope :with_recipes, lambda {
