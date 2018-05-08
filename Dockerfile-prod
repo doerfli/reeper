@@ -1,7 +1,9 @@
 FROM ruby:2.5.1-alpine
 
 RUN apk update && apk upgrade && \
-    apk add --update nodejs yarn git build-base libxml2 libxml2-dev libxml2-utils libxslt-dev tzdata postgresql-dev imagemagick postgresql-client && \
+    apk add --update nodejs yarn git build-base libxml2 libxml2-dev libxml2-utils libxslt-dev tzdata imagemagick && \
+    apk add postgresql-dev postgresql-client && \
+    apk add tesseract-ocr  tesseract-ocr-dev tesseract-ocr-data-deu leptonica leptonica-dev && \
     rm -rf /var/cache/apk/*
 
 ENV HOME /app
