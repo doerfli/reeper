@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   end
 
   def filter_by_tag
-    @recipes = Recipe.joins(:tags).where(tags: { id: params[:tagid] })
+    @recipes = Recipe.joins(:tags).where(tags: { id: params[:tagid] }).page params[:page]
     render 'index'
   end
 
@@ -17,6 +17,8 @@ class RecipesController < ApplicationController
       name_q = Recipe.arel_table[:name]
       @recipes = Recipe.where(name_q.matches("%#{params[:term]}%"))
     end
+
+    @recipes = @recipes.page params[:page]
 
     respond_to do |format|
       format.html { render partial: 'list' }
