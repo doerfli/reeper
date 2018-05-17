@@ -5,7 +5,7 @@
   <h2 class="subtitle">
     <%= @recipe.name %>
   </h2>
-  <div data-controller="ocr-selection">
+  <div data-controller="ocr-selection"  data-ocr-selection-ismousedown="false">
     <% @recipe.recipe_images.each do |image| %>
       <%= image_tag image.variant(resize: "100x100"), class: 'to_delete', data: { 'imgid': image.id, action: 'click->ocr-selection#select' } %>
     <% end %>
