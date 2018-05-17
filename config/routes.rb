@@ -22,5 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :ocr
+
   root to: 'recipes#index'
 end

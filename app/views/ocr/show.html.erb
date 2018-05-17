@@ -1,0 +1,16 @@
+<div class="container">
+  <h1 class="title">
+    <%=t 'ocr.show.title' %>
+  </h1>
+  <h2 class="subtitle">
+    <%= @recipe.name %>
+  </h2>
+  <div data-controller="ocr-selection">
+    <% @recipe.recipe_images.each do |image| %>
+      <%= image_tag image.variant(resize: "100x100"), class: 'to_delete', data: { 'imgid': image.id, action: 'click->ocr-selection#select' } %>
+    <% end %>
+    <div>
+      <%= render :partial => 'imgregion', :locals => { image: @recipe.recipe_images.first } %>
+    </div>
+  </div>
+</div>

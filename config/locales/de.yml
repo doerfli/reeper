@@ -33,6 +33,9 @@ de:
       image_missing: Kein Bild ausgewählt
   tags:
     title: Tags
+  ocr:
+    show:
+      title: Texterkennung
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'
@@ -43,6 +46,7 @@ de:
     image_delete: 'Bild löschen'
     add_another: 'Weitere Datei'
     search: 'Suche'
+    image_ocr: 'Texterkennung'
   activerecord:
     models:
       recipe:
