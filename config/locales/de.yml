@@ -36,6 +36,8 @@ de:
   ocr:
     show:
       title: Texterkennung
+      submit: Texterkennung starten
+      recognized_text_placeholder: Erkannter Text ...
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'

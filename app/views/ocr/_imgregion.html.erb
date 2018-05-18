@@ -2,9 +2,28 @@
   <div class="column">
     <%= image_tag image, data: { action: 'mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove'} %>  </div>
   <div class="column">
-    x1: <span data-target="ocr-selection.x1">0</span><br/>
-    y1: <span data-target="ocr-selection.y1">0</span><br/>
-    x2: <span data-target="ocr-selection.x2">0</span><br/>
-    y2: <span data-target="ocr-selection.y2">0</span><br/>
+    <div>
+      x1: <span data-target="ocr-selection.x1">0</span><br/>
+      y1: <span data-target="ocr-selection.y1">0</span><br/>
+      x2: <span data-target="ocr-selection.x2">0</span><br/>
+      y2: <span data-target="ocr-selection.y2">0</span><br/>
+    </div>
+    <div>
+      <%= button_tag t('ocr.show.submit'), class: 'button is-primary', data: { action: 'click->ocr-selection#submit'} %>
+      <div class="field">
+        <div class="control">
+          <%= text_area_tag :recognized, 
+                nil, 
+                class: 'textarea', 
+                placeholder: t('ocr.show.recognized_text_placeholder'), 
+                data: { 
+                  target: 'ocr-selection.recognizedtext'
+                }, 
+                rows: 20, 
+                autocomplete: 'off' 
+          %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
