@@ -75,19 +75,6 @@ class RecipesController < ApplicationController
     render json: { redirect_url: recipes_path }
   end
 
-  def ocr
-    @recipe = Recipe.find(params[:id])
-    @recipe.recipe_images.each do |i|
-      tmp = Tempfile.new('for_rt')
-      tmp.write(i.download.force_encoding("UTF-8"))
-      tmp.close
-      image = RTesseract.new(tmp, processor: 'mini_magick', lang: 'deu')
-      logger.info image.lang
-      logger.info image.to_s
-      tmp.unlink
-    end
-  end
-
   private
 
   def recipe_params

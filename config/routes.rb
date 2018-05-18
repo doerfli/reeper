@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     end
     member do
       put 'favorite'
-      put 'ocr'
     end
     resources :recipe_images, only: [:new, :create] do
       collection do
