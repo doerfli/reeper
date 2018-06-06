@@ -1,6 +1,12 @@
 <div class="columns">
   <div class="column">
-    <%= image_tag image, data: { action: 'mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove'} %>  </div>
+    <%#= image_tag image, data: { action: 'mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove'} %>  
+    <canvas 
+      class="ocrcanvas" 
+      data-target="ocr-selection.canvas"
+      data-action="mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove"
+      ></canvas>
+  </div>
   <div class="column">
     <div>
       x1: <span data-target="ocr-selection.x1">0</span><br/>
