@@ -13,7 +13,7 @@ export default class extends Controller {
     this.drawImageToCanvas(this.data.get("imgurl"));
   }
 
-  drawImageToCanvas(url) {
+  drawImageToCanvas(url, drawMore) {
     var thisdata = this.data;
     var canvas = this.canvasTarget;
     var context = canvas.getContext('2d');
@@ -36,6 +36,9 @@ export default class extends Controller {
 
       thisdata.set("ratio", ratio);
       context.drawImage(drawing,0,0, width, height);
+      if ( drawMore != null ) {
+        drawMore();
+      }
     };
   }
 
@@ -63,6 +66,9 @@ export default class extends Controller {
     if (this.data.get("ismousedown") != "true") {
       return;
     }
+    if (event.movementX == 0 && event.movementY == 0) { // no movement
+      return;
+    }
     console.log("mousemove");
     console.log(event);
     var ratio = _.toNumber(this.data.get("ratio"));
@@ -70,6 +76,19 @@ export default class extends Controller {
     var y = event.pageY - event.target.offsetParent.offsetTop - event.target.offsetTop;
     this.x2Target.innerHTML = _.toString(x);
     this.y2Target.innerHTML = _.toString(y);
+
+    let canvas = this.canvasTarget;
+    let context = canvas.getContext('2d');
+    let x1 = _.toNumber(this.x1Target.innerHTML);
+    let y1 = _.toNumber(this.y1Target.innerHTML);
+    let w = x - x1;
+    let h = y - y1;
+    
+    this.drawImageToCanvas(this.data.get("imgurl"));
+    context.fillStyle = "blue";
+    context.globalAlpha = 0.3;
+    context.fillRect(x1, y1, w, h);
+    context.globalAlpha = 1.0;
   }
 
   mouseup(event) {
