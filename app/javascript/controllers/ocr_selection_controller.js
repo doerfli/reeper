@@ -100,8 +100,7 @@ export default class extends Controller {
     this.data.set("ismousedown", "false");
     this.x2Target.innerHTML = _.toString(x);
     this.y2Target.innerHTML = _.toString(y);
-    // TODO show selected area on image
-
+    
     let canvas = this.canvasTarget;
     let context = canvas.getContext('2d');
     let x1 = _.toNumber(this.x1Target.innerHTML);
@@ -114,7 +113,6 @@ export default class extends Controller {
   }
 
   submit(event) {
-    // TODO selection
     console.log(event);
     var url = this.data.get("ocrurl");
     var id = this.data.get("id");
