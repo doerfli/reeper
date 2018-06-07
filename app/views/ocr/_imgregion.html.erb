@@ -16,6 +16,7 @@
     </div>
     <div>
       <%= button_tag t('ocr.show.submit'), class: 'button is-primary', data: { action: 'click->ocr-selection#submit'} %>
+      <%= button_tag t('ocr.show.toclipboard'), class: 'button is-primary', data: { action: 'click->ocr-selection#toclipboard'} %>
       <div class="field">
         <div class="control">
           <%= text_area_tag :recognized, 

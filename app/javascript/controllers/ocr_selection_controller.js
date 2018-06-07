@@ -1,5 +1,6 @@
 import { Controller } from "stimulus"
 import { Utils } from "../src/utils"
+import * as clipboard from "clipboard-polyfill"
 
 export default class extends Controller {
   static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvas"]
@@ -146,5 +147,9 @@ export default class extends Controller {
     }).then(data => {
       textArea.value = data.text
     });
+  }
+
+  toclipboard() {
+    clipboard.writeText(this.recognizedtextTarget.value);
   }
 }

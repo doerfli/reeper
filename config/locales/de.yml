@@ -38,6 +38,7 @@ de:
       title: Texterkennung
       submit: Texterkennung starten
       recognized_text_placeholder: Erkannter Text ...
+      toclipboard: Copy to clipboard
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'
