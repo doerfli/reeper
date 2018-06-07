@@ -3,7 +3,7 @@ import { Utils } from "../src/utils"
 import * as clipboard from "clipboard-polyfill"
 
 export default class extends Controller {
-  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvas", "toclipboardbtn"]
+  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvas", "toclipboardbtn", "spinner"]
 
   initialize() {
     // initialize canvas size
@@ -125,6 +125,7 @@ export default class extends Controller {
     var y2 = _.toNumber(this.y2Target.innerHTML) / ratio;
     var textArea = this.recognizedtextTarget;
     
+    this.spinnerTarget.classList.remove("display_none");
     // TODO show spinner
     fetch(url, {
       method: 'post',
@@ -143,6 +144,7 @@ export default class extends Controller {
         'y2': y2
       })
     }).then(response => {
+      this.spinnerTarget.classList.add("display_none");
       return response.json()
     }).then(data => {
       textArea.value = data.text

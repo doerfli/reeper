@@ -16,6 +16,9 @@
     </div>
     <div>
       <%= button_tag t('ocr.show.submit'), class: 'button is-primary', data: { action: 'click->ocr-selection#submit'} %>
+      <span class="icon has-text-info display_none" data-target="ocr-selection.spinner">
+        <i class="fas fa-spinner fa-2x  fa-spin"></i>
+      </span>
       <%= button_tag t('ocr.show.toclipboard'), class: 'button is-primary', data: { action: 'click->ocr-selection#toclipboard', target: 'ocr-selection.toclipboardbtn'} %>
       <div class="field">
         <div class="control">
