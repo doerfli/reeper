@@ -3,7 +3,7 @@ import { Utils } from "../src/utils"
 import * as clipboard from "clipboard-polyfill"
 
 export default class extends Controller {
-  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvas"]
+  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvas", "toclipboardbtn"]
 
   initialize() {
     // initialize canvas size
@@ -147,9 +147,14 @@ export default class extends Controller {
     }).then(data => {
       textArea.value = data.text
     });
+
+    this.toclipboardbtnTarget.classList.add("is-primary");
+    this.toclipboardbtnTarget.classList.remove("is-success");
   }
 
   toclipboard() {
     clipboard.writeText(this.recognizedtextTarget.value);
+    this.toclipboardbtnTarget.classList.remove("is-primary");
+    this.toclipboardbtnTarget.classList.add("is-success");
   }
 }
