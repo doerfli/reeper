@@ -33,6 +33,12 @@ de:
       image_missing: Kein Bild ausgewählt
   tags:
     title: Tags
+  ocr:
+    show:
+      title: Texterkennung
+      submit: Texterkennung starten
+      recognized_text_placeholder: Erkannter Text ...
+      toclipboard: Copy to clipboard
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'
@@ -43,6 +49,7 @@ de:
     image_delete: 'Bild löschen'
     add_another: 'Weitere Datei'
     search: 'Suche'
+    image_ocr: 'Texterkennung'
   activerecord:
     models:
       recipe:

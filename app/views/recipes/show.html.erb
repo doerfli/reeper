@@ -100,6 +100,14 @@
         <span><%=t 'action.image_delete' %></span>
       </a>
     <% end %>
+    <% if @recipe.recipe_images.count > 0 %>
+      <a class="button is-info is-hidden" href="<%= ocr_path @recipe %>" data-target="recipe.editbuttons">
+        <span class="icon is-small">
+          <i class="fas fa-font"></i>
+        </span>
+        <span><%=t 'action.image_ocr' %></span>
+      </a>
+    <% end %>
   </div>
 
   <div class="modal" data-target="recipe.deleteDialog">

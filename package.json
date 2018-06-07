@@ -3,13 +3,14 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0-4",
-    "@rails/webpacker": "^3.4.1",
-    "bulma": "^0.6.2",
+    "@rails/webpacker": "^3.5.2",
+    "bulma": "^0.7.1",
+    "clipboard-polyfill": "^2.4.7",
     "jquery": "^3.3.1",
     "lodash": "^4.17.5",
     "stimulus": "^1.0.1"
   },
   "devDependencies": {
-    "webpack-dev-server": "2.11.2"
+    "webpack-dev-server": "^3.1.3"
   }
 }

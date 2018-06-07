@@ -1,0 +1,39 @@
+<div class="columns">
+  <div class="column">
+    <%#= image_tag image, data: { action: 'mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove'} %>  
+    <canvas 
+      class="ocrcanvas" 
+      data-target="ocr-selection.canvas"
+      data-action="mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove"
+      ></canvas>
+  </div>
+  <div class="column">
+    <div>
+      x1: <span data-target="ocr-selection.x1">0</span><br/>
+      y1: <span data-target="ocr-selection.y1">0</span><br/>
+      x2: <span data-target="ocr-selection.x2">0</span><br/>
+      y2: <span data-target="ocr-selection.y2">0</span><br/>
+    </div>
+    <div>
+      <%= button_tag t('ocr.show.submit'), class: 'button is-primary', data: { action: 'click->ocr-selection#submit'} %>
+      <span class="icon has-text-info display_none" data-target="ocr-selection.spinner">
+        <i class="fas fa-spinner fa-2x  fa-spin"></i>
+      </span>
+      <%= button_tag t('ocr.show.toclipboard'), class: 'button is-primary', data: { action: 'click->ocr-selection#toclipboard', target: 'ocr-selection.toclipboardbtn'} %>
+      <div class="field">
+        <div class="control">
+          <%= text_area_tag :recognized, 
+                nil, 
+                class: 'textarea', 
+                placeholder: t('ocr.show.recognized_text_placeholder'), 
+                data: { 
+                  target: 'ocr-selection.recognizedtext'
+                }, 
+                rows: 20, 
+                autocomplete: 'off' 
+          %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

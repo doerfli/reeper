@@ -19,3 +19,5 @@ application.load(definitionsFromContext(context))
 import { _ } from "lodash";
 
 import "../src/forms_helper";
+
+import { clipboard } from "clipboard-polyfill";
