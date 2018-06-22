@@ -30,6 +30,9 @@ run_spec_tests:
     - bundle exec rake db:test:prepare 
     # run tests
     - bundle exec rails spec
+    # run check for vulnerable gems
+    - bundle audit check --update
+    
 
 docker_images:
   stage: build
