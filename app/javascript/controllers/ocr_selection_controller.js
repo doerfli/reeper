@@ -73,45 +73,36 @@ export default class extends Controller {
     }
     console.log("mousemove");
     console.log(event);
-    var ratio = _.toNumber(this.data.get("ratio"));
-    var x = event.offsetX;
-    var y = event.offsetY;
-    this.x2Target.innerHTML = _.toString(x);
-    this.y2Target.innerHTML = _.toString(y);
-
-    var canvasSelect = this.canvasSelectTarget;
-    var contextSelect = canvasSelect.getContext('2d');
-    let x1 = _.toNumber(this.x1Target.innerHTML);
-    let y1 = _.toNumber(this.y1Target.innerHTML);
-    let w = x - x1;
-    let h = y - y1;
-    
-    contextSelect.clearRect(0,0,canvasSelect.clientWidth, canvasSelect.clientHeight);
-    contextSelect.fillStyle = "blue";
-    contextSelect.globalAlpha = 0.3;
-    contextSelect.fillRect(x1, y1, w, h);
-    contextSelect.globalAlpha = 1.0;
+    this.calculateAndDrawBoundingBox(event);
   }
 
   mouseup(event) {
     if (event.preventDefault) event.preventDefault();
     console.log("mouseup");
     console.log(event);
+    this.data.set("ismousedown", "false");
+    this.calculateAndDrawBoundingBox(event);
+  }
+
+  calculateAndDrawBoundingBox(event) {
     var x = event.offsetX;
     var y = event.offsetY;
-    this.data.set("ismousedown", "false");
     this.x2Target.innerHTML = _.toString(x);
     this.y2Target.innerHTML = _.toString(y);
     
-    var canvasSelect = this.canvasSelectTarget;
-    var contextSelect = canvasSelect.getContext('2d');
     let x1 = _.toNumber(this.x1Target.innerHTML);
     let y1 = _.toNumber(this.y1Target.innerHTML);
-    
+  
+    this.redrawBoundingBox(x1, y1, x - x1, y - y1);
+  }
+
+  redrawBoundingBox(x, y, w, h) {
+    var canvasSelect = this.canvasSelectTarget;
+    var contextSelect = canvasSelect.getContext('2d');
     contextSelect.clearRect(0,0,canvasSelect.clientWidth, canvasSelect.clientHeight);
     contextSelect.fillStyle = "blue";
     contextSelect.globalAlpha = 0.3;
-    contextSelect.fillRect(x1, y1, x - x1, y - y1);
+    contextSelect.fillRect(x, y, w, h);
     contextSelect.globalAlpha = 1.0;
   }
 
