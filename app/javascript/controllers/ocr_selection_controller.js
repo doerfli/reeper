@@ -3,7 +3,10 @@ import { Utils } from "../src/utils"
 import * as clipboard from "clipboard-polyfill"
 
 export default class extends Controller {
-  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvasImg", "canvasSelect", "toclipboardbtn", "spinner", "language"]
+  static targets = [ "filenames", 
+                     "canvasImg", "canvasSelect",
+                     "submitbutton", "toclipboardbtn", "spinner", "language",
+                     "recognizedtext"]
 
   initialize() {
     // initialize canvas size
@@ -54,13 +57,13 @@ export default class extends Controller {
 
   mousedown(event) {
     if (event.preventDefault) event.preventDefault();
-    console.log("mousedown");
-    console.log(event);
+    // console.log("mousedown");
+    // console.log(event);
     this.data.set("ismousedown", "true");
     var x = event.offsetX;
     var y = event.offsetY;
-    this.x1Target.innerHTML = _.toString(x);
-    this.y1Target.innerHTML = _.toString(y);
+    this.data.set("x1", x);
+    this.data.set("y1", y);
   }
 
   mousemove(event) {
@@ -71,15 +74,15 @@ export default class extends Controller {
     if (event.movementX == 0 && event.movementY == 0) { // no movement
       return;
     }
-    console.log("mousemove");
-    console.log(event);
+    // console.log("mousemove");
+    // console.log(event);
     this.calculateAndDrawBoundingBox(event);
   }
 
   mouseup(event) {
     if (event.preventDefault) event.preventDefault();
-    console.log("mouseup");
-    console.log(event);
+    // console.log("mouseup");
+    // console.log(event);
     this.data.set("ismousedown", "false");
     this.calculateAndDrawBoundingBox(event);
   }
@@ -87,11 +90,12 @@ export default class extends Controller {
   calculateAndDrawBoundingBox(event) {
     var x = event.offsetX;
     var y = event.offsetY;
-    this.x2Target.innerHTML = _.toString(x);
-    this.y2Target.innerHTML = _.toString(y);
+
+    this.data.set("x2", x);
+    this.data.set("y2", y);
     
-    let x1 = _.toNumber(this.x1Target.innerHTML);
-    let y1 = _.toNumber(this.y1Target.innerHTML);
+    let x1 = this.data.get("x1");
+    let y1 = this.data.get("y1");
   
     this.redrawBoundingBox(x1, y1, x - x1, y - y1);
   }
@@ -112,10 +116,10 @@ export default class extends Controller {
     var id = this.data.get("id");
     var imgid = this.data.get("imgid");
     var ratio = _.toNumber(this.data.get("ratio"));
-    var x1 = _.toNumber(this.x1Target.innerHTML) / ratio;
-    var y1 = _.toNumber(this.y1Target.innerHTML) / ratio;
-    var x2 = _.toNumber(this.x2Target.innerHTML) / ratio;
-    var y2 = _.toNumber(this.y2Target.innerHTML) / ratio;
+    var x1 = this.data.get("x1") / ratio;
+    var y1 = this.data.get("y1") / ratio;
+    var x2 = this.data.get("x2") / ratio;
+    var y2 = this.data.get("y2") / ratio;
     var textArea = this.recognizedtextTarget;
     var language = this.languageTarget.value;
     
