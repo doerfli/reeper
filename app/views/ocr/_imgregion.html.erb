@@ -15,6 +15,9 @@
       y2: <span data-target="ocr-selection.y2">0</span><br/>
     </div>
     <div>
+      <div class="select">
+        <%= select_tag 'language', options_for_select([[t('ocr.show.lang.deu'), 'deu'], [t('ocr.show.lang.eng'), 'eng']], 'deu'), data: { target: 'ocr-selection.language'} %>
+      </div>
       <%= button_tag t('ocr.show.submit'), class: 'button is-primary', data: { action: 'click->ocr-selection#submit'} %>
       <span class="icon has-text-info display_none" data-target="ocr-selection.spinner">
         <i class="fas fa-spinner fa-2x  fa-spin"></i>

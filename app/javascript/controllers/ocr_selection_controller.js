@@ -3,7 +3,7 @@ import { Utils } from "../src/utils"
 import * as clipboard from "clipboard-polyfill"
 
 export default class extends Controller {
-  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvas", "toclipboardbtn", "spinner"]
+  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvas", "toclipboardbtn", "spinner", "language"]
 
   initialize() {
     // initialize canvas size
@@ -124,6 +124,7 @@ export default class extends Controller {
     var x2 = _.toNumber(this.x2Target.innerHTML) / ratio;
     var y2 = _.toNumber(this.y2Target.innerHTML) / ratio;
     var textArea = this.recognizedtextTarget;
+    var language = this.languageTarget.value;
     
     this.spinnerTarget.classList.remove("display_none");
     // TODO show spinner
@@ -141,7 +142,8 @@ export default class extends Controller {
         'x1': x1,
         'y1': y1,
         'x2': x2,
-        'y2': y2
+        'y2': y2,
+        'language': language
       })
     }).then(response => {
       this.spinnerTarget.classList.add("display_none");

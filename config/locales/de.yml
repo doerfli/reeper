@@ -39,6 +39,9 @@ de:
       submit: Texterkennung starten
       recognized_text_placeholder: Erkannter Text ...
       toclipboard: Copy to clipboard
+      lang:
+        deu: Deutsch
+        eng: Englisch
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'

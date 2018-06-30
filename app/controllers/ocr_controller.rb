@@ -14,6 +14,7 @@ class OcrController < ApplicationController
     y2 = params[:y2].to_i
     width = x2 - x1
     height = y2 - y1
+    language = params[:language]
     tmp = Tempfile.new('for_rt')
     recognized_text = ''
 
@@ -21,7 +22,7 @@ class OcrController < ApplicationController
       img = MiniMagick::Image.read(image.download)
       img.crop "#{width}x#{height}+#{x1}+#{y1}"
       img.write tmp
-      ocrd = RTesseract.new(tmp, processor: 'mini_magick', lang: 'deu')
+      ocrd = RTesseract.new(tmp, processor: 'mini_magick', lang: language)
       # logger.info image.lang
       recognized_text = ocrd.to_s
       logger.info recognized_text
