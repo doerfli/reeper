@@ -1,11 +1,20 @@
 <div class="columns">
   <div class="column">
-    <%#= image_tag image, data: { action: 'mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove'} %>  
-    <canvas 
-      class="ocrcanvas" 
-      data-target="ocr-selection.canvas"
-      data-action="mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove"
-      ></canvas>
+    <div class="canvases">
+      <canvas 
+        id="canvas0"
+        class="ocrcanvas" 
+        data-target="ocr-selection.canvasImg"
+        >
+      </canvas>
+      <canvas 
+        id="canvas1"
+        class="ocrcanvas" 
+        data-target="ocr-selection.canvasSelect"
+        data-action="mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove"
+        >
+      </canvas>
+    </div>
   </div>
   <div class="column">
     <div>

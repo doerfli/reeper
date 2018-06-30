@@ -3,43 +3,44 @@ import { Utils } from "../src/utils"
 import * as clipboard from "clipboard-polyfill"
 
 export default class extends Controller {
-  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvas", "toclipboardbtn", "spinner", "language"]
+  static targets = [ "filenames", "submitbutton", "x1", "x2", "y1", "y2", "recognizedtext", "canvasImg", "canvasSelect", "toclipboardbtn", "spinner", "language"]
 
   initialize() {
     // initialize canvas size
-    let canvas = this.canvasTarget;
+    let canvas = this.canvasImgTarget;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+
+    let canvasS = this.canvasSelectTarget;
+    canvasS.width = canvasS.clientWidth;
+    canvasS.height = canvas.clientHeight;
   
     this.drawImageToCanvas(this.data.get("imgurl"));
   }
 
-  drawImageToCanvas(url, drawMore) {
+  drawImageToCanvas(url) {
     var thisdata = this.data;
-    var canvas = this.canvasTarget;
-    var context = canvas.getContext('2d');
+    var canvasImg = this.canvasImgTarget;
+    var contextImg = canvasImg.getContext('2d');
     
     var drawing = new Image();
     drawing.src = url;
     drawing.onload = function() {
       // get canvas width
-      var width = canvas.clientWidth;
+      var width = canvasImg.clientWidth;
       // calculate height relative to canvas width
       var ratio = width / drawing.width;
       var height = ratio * drawing.height;
 
-      if ( height > canvas.clientHeight) {
+      if ( height > canvasImg.clientHeight) {
         // if height > canvas height -> resize height to canvas height and width relative to height
-        height = canvas.clientHeight;
+        height = canvasImg.clientHeight;
         ratio = height / drawing.height;
         width = ratio * drawing.width;
       }
 
       thisdata.set("ratio", ratio);
-      context.drawImage(drawing,0,0, width, height);
-      if ( drawMore != null ) {
-        drawMore();
-      }
+      contextImg.drawImage(drawing,0,0, width, height);
     };
   }
 
@@ -56,8 +57,8 @@ export default class extends Controller {
     console.log("mousedown");
     console.log(event);
     this.data.set("ismousedown", "true");
-    var x = event.pageX - event.target.offsetParent.offsetLeft - event.target.offsetLeft;
-    var y = event.pageY - event.target.offsetParent.offsetTop - event.target.offsetTop;
+    var x = event.offsetX;
+    var y = event.offsetY;
     this.x1Target.innerHTML = _.toString(x);
     this.y1Target.innerHTML = _.toString(y);
   }
@@ -73,44 +74,45 @@ export default class extends Controller {
     console.log("mousemove");
     console.log(event);
     var ratio = _.toNumber(this.data.get("ratio"));
-    var x = event.pageX - event.target.offsetParent.offsetLeft - event.target.offsetLeft;
-    var y = event.pageY - event.target.offsetParent.offsetTop - event.target.offsetTop;
+    var x = event.offsetX;
+    var y = event.offsetY;
     this.x2Target.innerHTML = _.toString(x);
     this.y2Target.innerHTML = _.toString(y);
 
-    let canvas = this.canvasTarget;
-    let context = canvas.getContext('2d');
+    var canvasSelect = this.canvasSelectTarget;
+    var contextSelect = canvasSelect.getContext('2d');
     let x1 = _.toNumber(this.x1Target.innerHTML);
     let y1 = _.toNumber(this.y1Target.innerHTML);
     let w = x - x1;
     let h = y - y1;
     
-    this.drawImageToCanvas(this.data.get("imgurl"));
-    context.fillStyle = "blue";
-    context.globalAlpha = 0.3;
-    context.fillRect(x1, y1, w, h);
-    context.globalAlpha = 1.0;
+    contextSelect.clearRect(0,0,canvasSelect.clientWidth, canvasSelect.clientHeight);
+    contextSelect.fillStyle = "blue";
+    contextSelect.globalAlpha = 0.3;
+    contextSelect.fillRect(x1, y1, w, h);
+    contextSelect.globalAlpha = 1.0;
   }
 
   mouseup(event) {
     if (event.preventDefault) event.preventDefault();
     console.log("mouseup");
     console.log(event);
-    var x = event.pageX - event.target.offsetParent.offsetLeft - event.target.offsetLeft;
-    var y = event.pageY - event.target.offsetParent.offsetTop - event.target.offsetTop;
+    var x = event.offsetX;
+    var y = event.offsetY;
     this.data.set("ismousedown", "false");
     this.x2Target.innerHTML = _.toString(x);
     this.y2Target.innerHTML = _.toString(y);
     
-    let canvas = this.canvasTarget;
-    let context = canvas.getContext('2d');
+    var canvasSelect = this.canvasSelectTarget;
+    var contextSelect = canvasSelect.getContext('2d');
     let x1 = _.toNumber(this.x1Target.innerHTML);
     let y1 = _.toNumber(this.y1Target.innerHTML);
     
-    context.fillStyle = "blue";
-    context.globalAlpha = 0.3;
-    context.fillRect(x1, y1, x - x1, y - y1);
-    context.globalAlpha = 1.0;
+    contextSelect.clearRect(0,0,canvasSelect.clientWidth, canvasSelect.clientHeight);
+    contextSelect.fillStyle = "blue";
+    contextSelect.globalAlpha = 0.3;
+    contextSelect.fillRect(x1, y1, x - x1, y - y1);
+    contextSelect.globalAlpha = 1.0;
   }
 
   submit(event) {
