@@ -14,7 +14,7 @@ default: &default
 
 development:
   <<: *default
-  database: reeper_development
+  database: <%= ENV.fetch("DB_NAME_DEVELOPMENT", 'reeper_development') %>
   host: <%= ENV.fetch("DB_HOST", 'db') %>
 
 # Warning: The database defined as "test" will be erased and
@@ -22,9 +22,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: reeper_test
+  database: <%= ENV.fetch("DB_NAME_TEST", 'reeper_test') %>
   host: <%= ENV.fetch("DB_HOST", 'db') %>
 
 production:
   <<: *default
-  database: reeper_production
+  database: <%= ENV.fetch("DB_NAME_PRODUCTION", 'reeper_production') %>
