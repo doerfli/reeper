@@ -4,7 +4,7 @@ stages:
 
 run_spec_tests:
   stage: test
-  image: ruby:2.6.0
+  image: ruby:2.6.2
   services:
     - postgres:10.6
   variables:
