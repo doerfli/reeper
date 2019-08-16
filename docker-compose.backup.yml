@@ -1,12 +1,12 @@
 version: '3'
 services:
   db_dump_development:
-    image: postgres:10.6-alpine
+    image: postgres:10.10-alpine
     volumes:
       - ./pgdump:/pgdump
     entrypoint: bash -c "/usr/local/bin/pg_dump -h db -Upostgres reeper_development > /pgdump/reeper_development_`date +\"%Y%m%d%H%M%S\"`.sql"
   db_dump_production:
-    image: postgres:10.6-alpine
+    image: postgres:10.10-alpine
     volumes:
       - ./pgdump:/pgdump
     entrypoint: bash -c "/usr/local/bin/pg_dump -h db -Upostgres reeper_production > /pgdump/db_dump_production_`date +\"%Y%m%d%H%M%S\"`.sql"
