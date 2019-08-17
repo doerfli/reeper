@@ -3,14 +3,20 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0-4",
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "4.0.7",
     "bulma": "^0.7.1",
     "clipboard-polyfill": "^2.4.7",
+    "cssnext": "^1.8.4",
     "jquery": "^3.3.1",
     "lodash": "^4.17.5",
     "stimulus": "^1.0.1"
   },
   "devDependencies": {
-    "webpack-dev-server": "2.11.2"
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.5.5",
+    "postcss-cssnext": "^3.1.0",
+    "webpack-dev-server": "^3.1.14"
   }
 }
