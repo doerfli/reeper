@@ -7,8 +7,8 @@ $section-padding: 1.5em 1.5em;
 
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/fa-solid";
-@import "~@fortawesome/fontawesome-free/scss/fa-regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/regular";
 
 .display_none {
   display: none;

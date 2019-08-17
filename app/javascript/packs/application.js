@@ -9,6 +9,8 @@
 
 // console.log('Hello World from Webpacker');
 
+import "./styles.scss";
+
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
