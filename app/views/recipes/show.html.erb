@@ -44,7 +44,9 @@
     <div class="recipe_tags">
       <p><span class="prop_fix"><%=t 'recipes.show.tags' %>:</span>
       <% @recipe.tags.each{ |t| %>
-        <span class="tag is-dark"><%= t.name %></span>
+        <a href="<%= filter_by_tag_recipes_path(:tagid => t.id) %>">
+          <span class="tag is-dark"><%= t.name %></span>
+        </a>
       <% } %>
       </p>
     </div>
