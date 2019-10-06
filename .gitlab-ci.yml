@@ -6,7 +6,7 @@ run_spec_tests:
   stage: test
   image: ruby:2.6.5
   services:
-    - postgres:10.10
+    - postgres:12.0
   variables:
     DB_HOST: postgres
   script:
