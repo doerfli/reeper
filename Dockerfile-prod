@@ -14,6 +14,7 @@ ENV SECRET_KEY_BASE abcdefgh12345678
 WORKDIR $HOME
 
 # Install gems
+ADD .ruby-version $HOME/
 ADD Gemfile* $HOME/
 RUN gem update bundler
 # speed up install of nokogiri gem

@@ -13,6 +13,7 @@ ENV SECRET_KEY_BASE abcdefgh12345678
 WORKDIR $HOME
 
 # Install gems
+COPY .ruby-version $HOME/
 COPY Gemfile* $HOME/
 RUN gem update bundler
 RUN bundle config --local build.nokogiri --use-system-libraries
