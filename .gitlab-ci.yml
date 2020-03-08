@@ -21,7 +21,7 @@ run_spec_tests:
     - apt-get install yarn
     # install node packages and gems
     - yarn 
-    - gem update bundler
+    - gem install bundler
     - bundle config --local build.nokogiri --use-system-libraries
     - bundle install
     # prepare tests
