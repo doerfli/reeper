@@ -42,7 +42,7 @@ gem 'mini_magick', '~> 4.8'
 
 gem 'aws-sdk-s3', '~> 1.8', '>= 1.8.2', require: false
 
-gem 'kaminari', '~>1.1.1'
+gem 'kaminari', '>=1.2.1'
 
 gem 'rtesseract', '~> 2.2'
 
