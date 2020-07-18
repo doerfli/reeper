@@ -33,7 +33,9 @@
         </span>
       <% end %>
     </p>
-    <%= simple_format @recipe.instructions %>
+    <div class="content">
+      <%= @recipe.instructions %>
+    </div>
   </div>
   <% unless @recipe.source.nil? || @recipe.source.empty? %>
     <div>

@@ -4,6 +4,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@rails/actioncable": "^6.0.0",
+    "@rails/actiontext": "^6.0.3-2",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "^4.0.7",
@@ -12,6 +13,7 @@
     "jquery": "^3.5.0",
     "lodash": "^4.17.19",
     "stimulus": "^1.0.1",
+    "trix": "^1.2.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {

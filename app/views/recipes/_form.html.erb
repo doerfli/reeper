@@ -12,10 +12,12 @@
         <%= f.text_area :ingredients, class: 'textarea', placeholder: t('recipes.form.placeholder.ingredients') %>
       </div>
     </div>
-    <div class="field">
-      <%= f.label :instructions, class: 'label' %>
-      <div class="control">
-        <%= f.text_area :instructions, class: 'textarea', placeholder: t('recipes.form.placeholder.instructions') %>
+    <div class="">
+      <%# f.label :instructions, class: 'label' %>
+      <div class="">
+        <div class="content">
+          <%= f.rich_text_area :instructions, placeholder: t('recipes.form.placeholder.instructions') %>
+        </div>
       </div>
     </div>
     <div class="field">
