@@ -10,7 +10,7 @@
     "bulma": "^0.7.1",
     "clipboard-polyfill": "^2.4.7",
     "jquery": "^3.3.1",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.19",
     "stimulus": "^1.0.1",
     "turbolinks": "^5.2.0"
   },
