@@ -1,0 +1,13 @@
+name: CI
+
+on: [push]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: docker login docker.pkg.github.com --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+      - uses: rlespinasse/github-slug-action@v2.x
+      - run: docker build -t docker.pkg.github.com/doerfli/reeper/reeper:${{ env.GITHUB_REF_SLUG }} .
+      - run: docker push docker.pkg.github.com/doerfli/reeper/reeper:${{ env.GITHUB_REF_SLUG }}
