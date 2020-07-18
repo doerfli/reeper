@@ -6,18 +6,16 @@
         <%= f.text_field :name, class: 'input', placeholder: t('recipes.form.placeholder.name') %>
       </div>
     </div>
-    <div class="field">
+    <div class="">
       <%= f.label :ingredients, class: 'label' %>
-      <div class="control">
-        <%= f.text_area :ingredients, class: 'textarea', placeholder: t('recipes.form.placeholder.ingredients') %>
+      <div class="content">
+        <%= f.rich_text_area :ingredients, placeholder: t('recipes.form.placeholder.ingredients') %>
       </div>
     </div>
     <div class="">
-      <%# f.label :instructions, class: 'label' %>
-      <div class="">
-        <div class="content">
-          <%= f.rich_text_area :instructions, placeholder: t('recipes.form.placeholder.instructions') %>
-        </div>
+      <% f.label :instructions, class: 'label' %>
+      <div class="content">
+        <%= f.rich_text_area :instructions, placeholder: t('recipes.form.placeholder.instructions') %>
       </div>
     </div>
     <div class="field">

@@ -22,7 +22,9 @@
   </article>  
   <div class="ingredients spacetop">
     <p class="subtitle is-3"><%= t('recipes.ingredients') %></p>
-    <%= simple_format @recipe.ingredients %>
+    <div class="content">
+      <%= @recipe.ingredients %>
+    </div>
   </div>
   <div class="instructions spacetop spacebottom">
     <p class="subtitle is-3">
