@@ -1,6 +1,8 @@
 class Recipe < ApplicationRecord
   has_and_belongs_to_many :tags
   has_many_attached :recipe_images
+  has_rich_text :instructions 
+  has_rich_text :ingredients
 
   validates :name, presence: true
 
