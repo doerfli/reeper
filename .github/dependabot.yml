@@ -9,10 +9,10 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-    ignore:
-      - dependency-name: "webpacker"
-        versions: 
-          - ">= 5"
+    # ignore:
+    #   - dependency-name: "webpacker"
+    #     versions: 
+    #       - ">= 5"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
