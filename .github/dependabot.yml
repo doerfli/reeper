@@ -11,7 +11,8 @@ updates:
       interval: "daily"
     ignore:
       - dependency-name: "webpacker"
-        versions: ["5.x"]
+        versions: 
+          - ">= 5"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
