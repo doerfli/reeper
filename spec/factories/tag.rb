@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :wurst, class: Tag do
-    name 'Wurst'
+    name {'Wurst'}
   end
 
   factory :brot, class: Tag do
-    name 'Brot'
+    name {'Brot'}
   end
 
   factory :pasta, class: Tag do
-    name 'Pasta'
+    name {'Pasta'}
   end
 end
