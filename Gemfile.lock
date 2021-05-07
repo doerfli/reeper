@@ -124,10 +124,10 @@ GEM
       railties (>= 3.2)
     erubi (1.10.0)
     execjs (2.7.0)
-    factory_bot (6.1.0)
+    factory_bot (6.2.0)
       activesupport (>= 5.0.0)
-    factory_bot_rails (6.1.0)
-      factory_bot (~> 6.1.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
     ffi (1.15.0)
     globalid (0.4.2)
@@ -295,7 +295,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 5.0.0)
   dotenv-rails
-  factory_bot_rails (~> 6.1.0)
+  factory_bot_rails (~> 6.2.0)
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
   kaminari (>= 1.2.1)
