@@ -22,9 +22,9 @@ class OcrController < ApplicationController
       img = MiniMagick::Image.read(image.download)
       img.crop "#{width}x#{height}+#{x1}+#{y1}"
       img.write tmp
-      ocrd = RTesseract.new(tmp, processor: 'mini_magick', lang: language)
+      ocrd = RTesseract.new(tmp.path, processor: 'mini_magick', lang: language)
       # logger.info image.lang
-      recognized_text = ocrd.to_s
+      recognized_text = ocrd.to_s.strip
       logger.info recognized_text
     ensure
       tmp.unlink
