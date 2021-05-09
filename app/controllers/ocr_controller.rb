@@ -20,10 +20,13 @@ class OcrController < ApplicationController
 
     begin
       img = MiniMagick::Image.read(image.download)
-      img.crop "#{width}x#{height}+#{x1}+#{y1}"
+      # orient image correctly
+      img = img.auto_orient 
+      croparea = "#{width}x#{height}+#{x1}+#{y1}"
+      logger.debug "croparea #{croparea}"
+      img = img.crop croparea
       img.write tmp
       ocrd = RTesseract.new(tmp.path, processor: 'mini_magick', lang: language)
-      # logger.info image.lang
       recognized_text = ocrd.to_s.strip
       logger.info recognized_text
     ensure
