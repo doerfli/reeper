@@ -40,7 +40,7 @@
     </div>
   </div>
   <% unless @recipe.source.nil? || @recipe.source.empty? %>
-    <div>
+    <div class="recipe_source">
       <p><%= t('recipes.show.source') %>: <%= with_url_links @recipe.source %></p>
     </div>
   <% end %>
@@ -56,7 +56,7 @@
     </div>
   <% end %>
   <% if @recipe.recipe_images.count > 0 %>
-    <div class="spacetop">
+    <div class="spacetop recipe_images">
       <% @recipe.recipe_images.each do |image| %>
         <a href="<%= url_for(image) %>">
           <%= image_tag image.variant(resize: "100x100") %>
@@ -64,7 +64,7 @@
       <% end %>
     </div>
   <% end %>
-  <div class="buttons spacetop">
+  <div class="bottomactions buttons spacetop">
     <a class="button is-success" data-action="click->recipe#toggleeditbuttons">
       <span class="icon">
         <i class="fas fa-caret-right fa-2x" data-target="recipe.editon"></i>
@@ -114,6 +114,11 @@
         <span><%=t 'action.image_ocr' %></span>
       </a>
     <% end %>
+  </div>
+
+  <div class="recipe_url">
+    <span><%=t 'url' %>:</span>
+    <span><%= recipe_url(@recipe) %></span>
   </div>
 
   <div class="modal" data-target="recipe.deleteDialog">

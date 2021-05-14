@@ -2,6 +2,7 @@
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
 $primary: $yellow;
+$printprimary: $grey-light;
 $section-padding: 1.5em 1.5em;
 @import "~bulma/bulma";
 
@@ -50,6 +51,10 @@ p.subtitle {  // yellow line only in combination with <p> tag
   margin-right: 0em;
 }
 
+.recipe_url {
+  display: none;
+}
+
 .tagsSuggestion .tag {
   margin-right: 0.5em;
 }
@@ -89,5 +94,71 @@ p.subtitle {  // yellow line only in combination with <p> tag
   #canvas1 {
     z-index: 10;
     background-color: transparent;
+  }
+}
+
+@media print {
+
+  .navigation {
+    display: none;
+  }
+
+  .container {
+    font-size: 0.8rem;
+  } 
+
+  .title {
+    border-bottom: 4px $printprimary none !important;
+    padding-bottom: 5px !important;
+  }
+  
+  .subtitle {  // yellow line only in combination with <p> tag
+    border-bottom: 2px $printprimary none !important;
+  }
+
+  article > figure {
+    display: none;
+  }
+
+  .title, 
+  .subtitle {
+    font-size: 1.5rem !important; 
+    margin-bottom: 0.5rem !important;
+  }
+
+  .spacetop,
+  .spacebottom {
+    margin-top: 0.5rem;
+  }
+
+  .recipe_source {
+    display: none;
+  }
+
+  .recipe_images {
+    display: none;
+  }
+
+  .recipe_url {
+    display: block;
+  }
+
+  .recipe_tags {
+    span:first-child {
+      width: inherit;
+      margin-right: 0.25rem;
+    }
+
+    .tag {
+      padding: 0px !important;
+      background-color: white !important;
+      color: rgb(74, 74, 74) !important;
+      height: inherit !important;
+    }
+
+  }
+
+  .bottomactions {
+    display: none;
   }
 }
