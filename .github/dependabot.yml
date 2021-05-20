@@ -21,6 +21,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    reviewers:
+    assignees:
       - "doerfli"
     
