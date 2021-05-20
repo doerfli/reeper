@@ -9,8 +9,6 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-    assignees:
-      - "doerfli"
     # ignore:
     #   - dependency-name: "webpacker"
     #     versions: 
@@ -19,12 +17,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    assignees:
-      - "doerfli"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-    assignees:
-      - "doerfli"
     
