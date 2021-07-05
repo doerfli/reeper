@@ -21,7 +21,7 @@ RUN gem update bundler
 # speed up install of nokogiri gem
 RUN bundle config --local build.nokogiri --use-system-libraries
 RUN bundle config set without 'development test'
-RUN bundle install 
+RUN bundle install  --jobs 4
 
 # Add the app code
 COPY . $HOME

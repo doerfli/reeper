@@ -18,7 +18,7 @@ COPY .ruby-version $HOME/
 COPY Gemfile* $HOME/
 RUN gem update bundler
 RUN bundle config --local build.nokogiri --use-system-libraries
-RUN bundle install
+RUN bundle install --jobs 4
 
 # install node dependencies
 COPY package.json $HOME/
