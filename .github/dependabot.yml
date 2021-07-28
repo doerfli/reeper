@@ -21,4 +21,14 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # ignore:
+    #   - dependency-name: "postcss"
+    #     versions: ["8.x"]
+    #   - dependency-name: "sass-loader"
+    #     versions: [ "11.x", "12.x" ]
+    #   - dependency-name: "eslint"
+    #     versions: [ "7.x" ]
