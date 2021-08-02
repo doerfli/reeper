@@ -8,7 +8,7 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.1.4",
     "@rails/webpacker": "5.3.0",
-    "bulma": "^0.7.1",
+    "bulma": "^0.9.3",
     "clipboard-polyfill": "^2.4.7",
     "jquery": "^3.5.0",
     "lodash": "^4.17.19",
