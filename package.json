@@ -2,7 +2,7 @@
   "name": "reeper",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.11.2",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@rails/actioncable": "^6.1.4",
     "@rails/actiontext": "^6.1.4",
     "@rails/activestorage": "^6.1.4",
