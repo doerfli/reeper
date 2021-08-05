@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import { Utils } from "../src/utils"
 
 export default class extends Controller {
-  static targets = [ "deleteDialog", "editbuttons", "editoff", "editon"]
+  static targets = ["deleteDialog", "editbuttons", "editoff", "editon", "lightbox", "lightboximg", "lightboxlink"]
 
   delete() {
     // TODO: call delete and redirect to list
@@ -63,5 +63,16 @@ export default class extends Controller {
     }).then(function(data) {
       Turbolinks.visit(data.redirect_url);
     });
+  }
+
+  lightboxOpen(event) {
+    const imageurl = event.currentTarget.dataset.imageurl;
+    this.lightboximgTarget.src = imageurl;
+    this.lightboxlinkTarget.href = imageurl;
+    this.lightboxTarget.classList.add("is-active");
+  }
+
+  lightboxClose() {
+    this.lightboxTarget.classList.remove("is-active");
   }
 }

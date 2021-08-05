@@ -58,7 +58,7 @@
   <% if @recipe.recipe_images.count > 0 %>
     <div class="spacetop recipe_images">
       <% @recipe.recipe_images.each do |image| %>
-        <a href="<%= url_for(image) %>">
+        <a data-action="click->recipe#lightboxOpen" data-imageurl="<%= url_for(image) %>">
           <%= image_tag image.variant(resize: "100x100") %>
         </a>
       <% end %>
@@ -134,7 +134,25 @@
             <button class="button" data-action="click->recipe#deleteDialogClose"><%=t 'no' %></button>
           </p>
         </div>
-      <button class="modal-close is-large" aria-label="close" data-action="click->recipe#deleteDialogClose"></button>
+        <button class="modal-close is-large" aria-label="close" data-action="click->recipe#deleteDialogClose"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" data-recipe-target="lightbox">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            <img class="lightboximg" data-recipe-target="lightboximg">
+            <a data-action="click->recipe#lightboxClose">Bild schliessen</a>
+            |
+            <a href="" target="_blank" data-recipe-target="lightboxlink">Original anzeigen</a>
+          </p>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" data-action="click->recipe#lightboxClose"></button>
     </div>
   </div>
 </div>
