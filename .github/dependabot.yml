@@ -27,9 +27,9 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 25
-    # ignore:
-    #   - dependency-name: "postcss"
-    #     versions: ["8.x"]
+    ignore:
+      - dependency-name: "webpack-cli" # major must be in sync with webpack-dev-server
+        versions: ["4.x"]
     #   - dependency-name: "sass-loader"
     #     versions: [ "11.x", "12.x" ]
     #   - dependency-name: "eslint"
