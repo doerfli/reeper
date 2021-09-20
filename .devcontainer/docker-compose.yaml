@@ -18,7 +18,7 @@ services:
         VARIANT: 3
         USER_UID: 1000
         USER_GID: 1000
-        INSTALL_NODE: true
+        INSTALL_NODE: "true"
         NODE_VERSION: lts/*
 
     volumes:
