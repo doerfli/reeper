@@ -1,0 +1,36 @@
+version: '3'
+
+volumes: 
+  postgres_data:
+
+services:
+  app:
+    # See https://aka.ms/vscode-remote/containers/non-root for details.
+    user: vscode
+    build: 
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        # Update 'VARIANT' to pick a Ruby version: 2, 2.7, 2.6, 2.5
+        VARIANT: 3
+        USER_UID: 1000
+        USER_GID: 1000
+        INSTALL_NODE: "true"
+        NODE_VERSION: lts/*
+    volumes:
+      - ..:/workspace:cached
+      - $HOME/.ssh/:/home/vscode/.ssh/ # Mount the ssh folder to authenticate with github
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    links: 
+      - db
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+    ports: 
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: LocalPassword
