@@ -10,12 +10,14 @@ services:
       - POSTGRES_PASSWORD=password
   app:
     # Using a Dockerfile is optional, but included for completeness.
-    build: 
-        context: .
-        dockerfile: Dockerfile
-        # [Optional] You can use build args to set options. e.g. 'VARIANT' below affects the image in the Dockerfile
-        # args: 
-        # VARIANT: buster
+    context: ..
+    dockerfile: .devcontainer/Dockerfile
+    args:
+      # Update 'VARIANT' to pick a Ruby version: 2, 2.7, 2.6, 2.5
+      VARIANT: 3
+      USER_UID: 1000
+      USER_GID: 1000
+      NODE_VERSION: lts/*
 
     volumes:
         # This is where VS Code should expect to find your project's source code and the value of "workspaceFolder" in .devcontainer/devcontainer.json
