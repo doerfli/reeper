@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+  
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -10,6 +11,13 @@ Rails.application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
+
+  if Rails.env.development? and not ENV["CODESPACE_NAME"].nil?
+    @hosts = "#{ENV["CODESPACE_NAME"]}-3000.githubpreview.dev"
+  end
+  print "config.hosts: #{@hosts}\n"
+
+  config.hosts << @hosts unless @hosts.nil?
 
   # Show full error reports.
   config.consider_all_requests_local = true

@@ -18,7 +18,7 @@ services:
         NODE_VERSION: "lts/*"
     volumes:
       - ..:/workspace:cached
-      - $HOME/.ssh/:/home/vscode/.ssh/ # Mount the ssh folder to authenticate with github
+      #- $HOME/.ssh/:/home/vscode/.ssh/ # Mount the ssh folder to authenticate with github
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
     links: 
