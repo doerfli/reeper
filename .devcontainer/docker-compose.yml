@@ -11,12 +11,11 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        # Update 'VARIANT' to pick a Ruby version: 2, 2.7, 2.6, 2.5
         VARIANT: 3
         USER_UID: 1000
         USER_GID: 1000
         INSTALL_NODE: "true"
-        NODE_VERSION: lts/*
+        NODE_VERSION: "lts/*"
     volumes:
       - ..:/workspace:cached
       - $HOME/.ssh/:/home/vscode/.ssh/ # Mount the ssh folder to authenticate with github
