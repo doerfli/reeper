@@ -12,12 +12,12 @@ services:
     # Using a Dockerfile is optional, but included for completeness.
     context: ..
     dockerfile: .devcontainer/Dockerfile
-    args:
-      # Update 'VARIANT' to pick a Ruby version: 2, 2.7, 2.6, 2.5
-      VARIANT: 3
-      USER_UID: 1000
-      USER_GID: 1000
-      NODE_VERSION: lts/*
+      args:
+        # Update 'VARIANT' to pick a Ruby version: 2, 2.7, 2.6, 2.5
+        VARIANT: 3
+        USER_UID: 1000
+        USER_GID: 1000
+        NODE_VERSION: lts/*
 
     volumes:
         # This is where VS Code should expect to find your project's source code and the value of "workspaceFolder" in .devcontainer/devcontainer.json
