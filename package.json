@@ -12,7 +12,7 @@
     "clipboard-polyfill": "^3.0.3",
     "jquery": "^3.5.0",
     "lodash": "^4.17.19",
-    "stimulus": "^2.0.0",
+    "stimulus": "^3.0.0",
     "trix": "^1.2.0",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
