@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 import { Utils } from "../src/utils"
 import * as clipboard from "clipboard-polyfill"
 
