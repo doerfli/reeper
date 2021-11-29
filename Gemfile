@@ -40,7 +40,7 @@ gem 'webpacker', '~> 5.4'
 
 gem 'mini_magick', '~> 4.8'
 
-gem 'aws-sdk-s3', '~> 1.106', require: false
+gem 'aws-sdk-s3', '~> 1.107', require: false
 
 gem 'kaminari', '>=1.2.1'
 
