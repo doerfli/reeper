@@ -8,7 +8,7 @@ updates:
   - package-ecosystem: "bundler" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     open-pull-requests-limit: 25
     # ignore:
     #   - dependency-name: "webpacker"
@@ -17,15 +17,15 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     open-pull-requests-limit: 25
     ignore:
       - dependency-name: "webpack-cli" # major must be in sync with webpack-dev-server
