@@ -13,7 +13,7 @@ RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/l
 
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends tesseract-ocr tesseract-ocr-deu libleptonica-dev imagemagick
+    && apt-get -y install --no-install-recommends tesseract-ocr tesseract-ocr-deu libleptonica-dev imagemagick postgresql-client
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
