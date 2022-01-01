@@ -26,4 +26,5 @@ RUN bundle install  --jobs 4
 # Add the app code
 COPY . $HOME
 
+RUN yarn install
 RUN bundle exec rake assets:precompile
