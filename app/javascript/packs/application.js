@@ -9,7 +9,7 @@
 
 // console.log('Hello World from Webpacker');
 
-import "./styles.scss";
+//import "./styles.scss";
 
 import { Application } from "@hotwired/stimulus"
 import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
