@@ -3,6 +3,12 @@
 // Import a Google Font
 // @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
+$yellow: hsl(48, 100%, 67%);
+$grey-light: hsl(0, 0%, 71%);
+$primary: $yellow;
+$printprimary: $grey-light;
+$section-padding: 1.5em 1.5em;
+
 // Set your brand colors
 // $purple: #8A4D76;
 // $pink: #FA7C91;
@@ -37,3 +43,5 @@
 // @import "bulma/sass/layout/section.sass";
 
 @import 'bulma/bulma';
+@import 'styles';
+
