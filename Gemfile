@@ -10,7 +10,8 @@ gem 'rails', '~> 7.0.0'
 gem 'pg', '>= 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 5.5'
-gem 'sassc-rails'
+gem 'cssbundling-rails'
+gem "sprockets-rails"
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
