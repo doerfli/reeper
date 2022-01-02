@@ -17,9 +17,9 @@
   },
   "devDependencies": {
     "@rails/webpacker": "5.4.3",
-    "webpack-dev-server": "^3.11.3",
     "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.3"
   },
   "scripts": {
     "build:css": "sass ./app/assets/stylesheets/application.bulma.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
