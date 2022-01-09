@@ -68,6 +68,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'dotenv-rails'
   gem 'solargraph'
+  gem 'debug', '>= 1.0.0'
+  gem 'rack-mini-profiler'
 end
 
 group :test do
