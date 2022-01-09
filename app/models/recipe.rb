@@ -6,6 +6,8 @@ class Recipe < ApplicationRecord
 
   validates :name, presence: true
 
+  after_save :update_tags_count
+
   paginates_per 15
 
   scope :order_by_name, -> { order(Recipe.arel_table[:name].lower, :id) }
@@ -38,6 +40,13 @@ class Recipe < ApplicationRecord
   def add_images=(images)
     images.each do |image|
       self.recipe_images.attach(image)
+    end
+  end
+
+  def update_tags_count
+    tags.each do |tag| 
+      tag.recipes_count = tag.recipes.count
+      tag.save
     end
   end
   

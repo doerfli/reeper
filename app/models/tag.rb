@@ -5,25 +5,13 @@ class Tag < ApplicationRecord
 
   # tags with at least one recipe
   scope :with_recipes, lambda {
-    joins(:recipes)
-      .group('id').having('COUNT(recipes.id) > 0')
+    where("recipes_count > 0").order("recipes_count DESC")
   }
 
   # tags with at least one recipe matching the term
   scope :match_term, lambda { |term|
-    name_q = Tag.arel_table[:name]
-    joins(:recipes)
-      .with_recipes
-      .where(name_q.matches("%#{term.downcase}%"))
+    where("recipes_count > 0 AND lower(name) LIKE ?", "%#{sanitize_sql_like(term).downcase}%")
   }
-
-  def self.sort_by_recipe_count(tags)
-    tags.sort do |a, b|
-      sa = a.recipe_count
-      sb = b.recipe_count
-      sb <=> sa
-    end
-  end
 
   def recipe_count
     recipes.size
