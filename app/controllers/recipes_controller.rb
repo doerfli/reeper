@@ -12,7 +12,7 @@ class RecipesController < ApplicationController
     logger.debug "Search recipe for #{params[:term]}"
     # @recipes = Recipe.where(ilike(:name, "%#{params[:term]}"))
     if params[:term].nil?
-      @recipes = Recipe.all
+      @recipes = Recipe.all.order_by_name
     else
       name_q = Recipe.arel_table[:name]
       @recipes = Recipe.where(name_q.matches("%#{params[:term]}%"))
