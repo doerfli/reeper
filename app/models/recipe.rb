@@ -45,7 +45,6 @@ class Recipe < ApplicationRecord
   end
 
   def update_tags_count
-    puts tags
     tags.each do |tag| 
       tag.recipes_count = tag.recipes.count
       tag.save
