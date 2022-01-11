@@ -7,6 +7,7 @@ class Recipe < ApplicationRecord
   validates :name, presence: true
 
   after_save :update_tags_count
+  before_destroy :update_tags_count
 
   paginates_per 15
 
@@ -44,6 +45,7 @@ class Recipe < ApplicationRecord
   end
 
   def update_tags_count
+    puts tags
     tags.each do |tag| 
       tag.recipes_count = tag.recipes.count
       tag.save
