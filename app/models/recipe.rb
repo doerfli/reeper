@@ -23,17 +23,21 @@ class Recipe < ApplicationRecord
   end
 
   def tag_names=(names)
-    logger.debug names
-    # Delete tag-relations
-    self.tags.each do |tag|
+    # Split comma-separated list names
+    tag_names_new = names.split(',').map{ |n| n.strip }.select{ |n| ! n.empty? }
+    tag_names_old = self.tags.map{ |t| t.name }
+    tags_to_add = tag_names_new - tag_names_old
+    tags_to_remove = tag_names_old - tag_names_new
+    logger.debug "tags_to_add #{tags_to_add} / tags_to_remove #{tags_to_remove}"
+
+    # removed tags
+    tags_to_remove.each do |tag_name|
+      tag = Tag.find_by(name: tag_name)
       self.tags.delete(tag)
     end
 
-    # Split comma-separated list
-    names = names.split(',').map{ |n| n.strip }.select{ |n| ! n.empty? }
-
-    # Run through each tag
-    names.each do |name|
+    # added tags
+    tags_to_add.each do |name|
       tag = Tag.find_or_create_by(name: name)
       logger.info tag
       self.tags << tag
