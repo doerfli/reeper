@@ -1,5 +1,5 @@
 class Recipe < ApplicationRecord
-  has_and_belongs_to_many :tags
+  has_and_belongs_to_many :tags, after_remove: :after_remove_tag
   has_many_attached :recipe_images
   has_rich_text :instructions 
   has_rich_text :ingredients
@@ -23,9 +23,11 @@ class Recipe < ApplicationRecord
   end
 
   def tag_names=(names)
-    logger.info names
+    logger.debug names
     # Delete tag-relations
-    self.tags.clear
+    self.tags.each do |tag|
+      self.tags.delete(tag)
+    end
 
     # Split comma-separated list
     names = names.split(',').map{ |n| n.strip }.select{ |n| ! n.empty? }
@@ -49,6 +51,12 @@ class Recipe < ApplicationRecord
       tag.recipes_count = tag.recipes.count
       tag.save
     end
+  end
+
+  def after_remove_tag(tag)
+    logger.debug "after_remove_tag #{tag.name}}"
+    tag.recipes_count = tag.recipes.count
+    tag.save
   end
   
 end
