@@ -50,3 +50,5 @@ yarn-debug.log*
 .env.local
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+.DS_Store

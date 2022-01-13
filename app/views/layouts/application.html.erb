@@ -20,8 +20,8 @@
 
   <body>
     <%= render :partial => 'shared/navigation' %>
-    <%= render :partial => 'shared/messages' %>
-    <section class="section">
+    <section class="container mx-auto px-4 mt-4 prose">
+      <%= render :partial => 'shared/messages' %>
       <%= yield %>
     </section>
   </body>

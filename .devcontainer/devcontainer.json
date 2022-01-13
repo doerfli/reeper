@@ -16,6 +16,8 @@
 		"eamodio.gitlens",
 		"castwide.solargraph",
 		"bradlc.vscode-tailwindcss",
+		"github.copilot",
+		"gruntfuggly.todo-tree",
 	],
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

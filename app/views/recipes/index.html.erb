@@ -1,8 +1,7 @@
 <div class="container">
-  <h1 class="title">
-    <%=t 'recipes.title' %>
-  </h1>
   <div data-controller="search" data-search-url="<%= search_recipes_path %>">
+    <!-- TODO tailwind - enable recipe search -->
+    <!--
     <div class="field">
       <p class="control has-icons-left">
         <%= text_field_tag :search, nil, class: 'input', placeholder: t('action.search'), autocomplete: 'off',
@@ -13,6 +12,7 @@
         </span>
       </p>
     </div>
+    -->
     <div class="recipes" data-target="search.list">
       <%= render partial: 'list' %>
     </div>
