@@ -2,5 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TODO tailwind */
+/* TODO tailwind - enable actiontext */
 /* @import 'actiontext.scss'; */
+
+@layer base {
+    /* h1 {
+      @apply text-2xl;
+    }
+    h2 {
+      @apply text-xl;
+    } */
+  }
+  
+  @layer components {
+    .nav_item_right {
+        @apply pr-6;
+    }
+  }
+  
+  @layer utilities {
+
+  }
