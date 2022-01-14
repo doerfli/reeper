@@ -24,6 +24,25 @@ h2 {
         @apply py-1 px-2 mr-2 rounded-md;
         @apply hover:bg-amber-100;
     }
+
+    .pagination-list {
+        li {
+            @apply list-none inline-block;
+
+            a {
+                @apply text-gray-400;
+            }
+
+            a:hover {
+                @apply text-indigo-800 bg-amber-100;
+            }
+        }
+        li.current-page {
+            a {
+                @apply text-gray-900;
+            }
+        }
+    }
 }
 
 @layer utilities {

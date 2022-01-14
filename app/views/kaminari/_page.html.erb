@@ -13,10 +13,11 @@
 </span>
 -%>
 
-<li>
-  <% 
-    cls = 'pagination-link'
-    cls += ' is-current' if page.current?
-  %>
-  <%= link_to page, url, remote: remote, rel: page.rel, class: cls %>
+<% 
+  cls = ''
+  cls += ' current-page' if page.current?
+%>
+
+<li class="<%= cls %>">
+  <%= link_to page, url, remote: remote, rel: page.rel %>
 </li>

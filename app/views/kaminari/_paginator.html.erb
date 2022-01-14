@@ -7,9 +7,10 @@
     paginator:     the paginator that renders the pagination tags inside
 -%>
 <%= paginator.render do -%>
-  <nav class="pagination spacetop" role="navigation" aria-label="pager">
+  <div>
     <ul class="pagination-list">
-    <%#= first_page_tag unless current_page.first? %>
+      <%= prev_page_tag unless current_page.first? %>
+      <%#= first_page_tag unless current_page.first? %>
       <% each_page do |page| -%>
         <% if page.display_tag? -%>
           <%= page_tag page %>
@@ -17,11 +18,10 @@
           <%= gap_tag %>
         <% end -%>
       <% end -%>
-    </ul>
+      <% unless current_page.out_of_range? %>
+        <%= next_page_tag unless current_page.last? %>
+      <% end %>
       <%#= last_page_tag unless current_page.last? %>
-    <%= prev_page_tag unless current_page.first? %>
-    <% unless current_page.out_of_range? %>
-      <%= next_page_tag unless current_page.last? %>
-    <% end %>
-  </nav>
+    </ul>
+  </div>
 <% end -%>
