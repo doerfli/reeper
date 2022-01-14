@@ -5,13 +5,25 @@
 h2 {
     @apply text-xl;
 } */
+
+    .prose {
+        a {
+            @apply no-underline p-1 rounded-md;
+        }
+    
+        a:hover {
+            @apply text-indigo-800 bg-amber-100;
+        }
+    
+        @apply leading-4;
+    }
 }
 
 @layer components {
-.nav_item_right {
-    @apply py-1 px-2 mr-2 rounded-md;
-    @apply hover:bg-blue-200;
-}
+    .nav_item_right {
+        @apply py-1 px-2 mr-2 rounded-md;
+        @apply hover:bg-amber-100;
+    }
 }
 
 @layer utilities {
