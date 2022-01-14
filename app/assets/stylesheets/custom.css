@@ -9,7 +9,8 @@ h2 {
 
 @layer components {
 .nav_item_right {
-    @apply pr-6;
+    @apply py-1 px-2 mr-2 rounded-md;
+    @apply hover:bg-blue-200;
 }
 }
 
