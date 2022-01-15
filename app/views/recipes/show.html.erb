@@ -1,39 +1,34 @@
 
-<div class="container" 
+<div
      data-controller="recipe" 
      data-recipe-id="<%= @recipe.id %>" 
      data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>" 
      data-recipe-favorite-url="<%= favorite_recipe_path(@recipe, :format => :json) %>" 
      data-recipe-editstate="false">
-  <article class="media">
-    <figure class="media-left">
-      <i class="fas fa-utensils fa-3x"></i>
-    </figure>
-    <div class="media-content">
-      <h1 class="title">
-        <%= @recipe.name %>
-        <% if @recipe.favorite %> 
-          <span>
-            <i class="fas fa-star is-size-5 valign-middle has-text-primary"></i>
-          </span>
-        <% end %>
-      </h1>
-    </div>
-  </article>  
-  <div class="ingredients spacetop">
-    <p class="subtitle is-3"><%= t('recipes.ingredients') %></p>
-    <div class="content">
+  <div>
+    <span class="heading_1">
+      <%= @recipe.name %>
+      <% if @recipe.favorite %> 
+        <i class="fas fa-star is-size-5 text-primary"></i>
+      <% end %>
+    </span>
+  </div>
+  <div class="ingredients">
+    <p>
+      <span class="heading_2"><%= t('recipes.ingredients') %></span>
+    </p>
+    <div>
       <%= @recipe.ingredients %>
     </div>
   </div>
-  <div class="instructions spacetop spacebottom">
-    <p class="subtitle is-3">
-      <%= t('recipes.instructions') %>
-      <% if @recipe.duration %>
-        <span class="content is-medium paddingleft">
-          <%=t 'recipes.show.duration' %>: <%= @recipe.duration %> <%=t 'recipes.show.durationunit' %>
-        </span>
-      <% end %>
+  <div class="instructions">
+    <p>
+      <span class="heading_2">
+        <%= t('recipes.instructions') %>
+        <% if @recipe.duration %>
+          <span class="subheading"><%=t 'recipes.show.duration' %>: <%= @recipe.duration %> <%=t 'recipes.show.durationunit' %></span>
+        <% end %>
+      </span>
     </p>
     <div class="content">
       <%= @recipe.instructions %>
@@ -41,16 +36,14 @@
   </div>
   <% unless @recipe.source.nil? || @recipe.source.empty? %>
     <div class="recipe_source">
-      <p><%= t('recipes.show.source') %>: <%= with_url_links @recipe.source %></p>
+      <p><span class="heading_3"><%= t('recipes.show.source') %>:</span> <%= with_url_links @recipe.source %></p>
     </div>
   <% end %>
   <% unless @recipe.tags.empty? %>
     <div class="recipe_tags">
-      <p><span class="prop_fix"><%=t 'recipes.show.tags' %>:</span>
+      <p><span class="heading_3"><%=t 'recipes.show.tags' %>:</span>
       <% @recipe.tags.each{ |t| %>
-        <a href="<%= filter_by_tag_recipes_path(:tagid => t.id) %>">
-          <span class="tag is-dark"><%= t.name %></span>
-        </a>
+        <%= render :partial => 'shared/tag', :locals => { tag: t } %>
       <% } %>
       </p>
     </div>

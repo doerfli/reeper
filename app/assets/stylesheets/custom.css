@@ -1,18 +1,15 @@
 @layer base {
-/* h1 {
-    @apply text-2xl;
-}
-h2 {
-    @apply text-xl;
-} */
-
     .prose {
         a {
-            @apply no-underline p-1 rounded-md;
+            @apply no-underline p-1 rounded-md text-indigo-800;
+        }
+
+        a.nocolor {
+            @apply no-underline p-1 rounded-md text-gray-700;
         }
     
         a:hover {
-            @apply text-indigo-800 bg-amber-100;
+            @apply bg-amber-100;
         }
     
         @apply leading-4;
@@ -20,6 +17,26 @@ h2 {
 }
 
 @layer components {
+    .text-primary {
+        @apply text-amber-500;
+    }
+
+    .heading_1 {
+        @apply text-2xl pr-2 font-semibold border-solid border-amber-500 border-b-2;  
+    }
+    
+    .heading_2 {
+        @apply pr-2 text-xl font-medium border-solid border-amber-200 border-b-2;  
+
+        .subheading {
+            @apply pl-2 text-base font-light italic;
+        }
+    }
+
+    .heading_3 {
+        @apply pr-2 text-base italic font-medium;  
+    }
+
     .nav_item_right {
         @apply py-1 px-2 mr-2 rounded-md;
         @apply hover:bg-amber-100;
@@ -39,9 +56,17 @@ h2 {
         }
         li.current-page {
             a {
-                @apply text-gray-900;
+                @apply text-amber-500;
             }
         }
+    }
+
+    .tag {
+        @apply px-2 py-1 bg-gray-700 rounded-md text-sm text-white font-light;
+    }
+
+    .tag:hover {
+        @apply text-indigo-800 bg-amber-100;
     }
 }
 
