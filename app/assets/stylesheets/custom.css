@@ -62,7 +62,7 @@
     }
 
     .tag {
-        @apply px-2 py-2 bg-gray-700 rounded-md text-sm text-white font-light;
+        @apply px-2 py-1 my-2 bg-gray-700 rounded-md text-sm text-white font-light;
     }
 
     .tag:hover {
