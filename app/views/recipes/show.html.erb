@@ -60,14 +60,7 @@
 
 
   <div class="bottomactions">
-    <button class="button" data-action="click->recipe#toggleeditbuttons" data-target="recipe.editon">
-      <i class="fas fa-caret-right"></i>
-    </button>
-    <button class="button hidden" data-action="click->recipe#toggleeditbuttons" data-target="recipe.editoff">
-      <i class="fas fa-caret-left"></i>
-    </button>
-
-    <button class="button hidden" data-action="click->recipe#favorite" data-target="recipe.editbuttons">
+    <button class="button" data-action="click->recipe#favorite">
       <% if @recipe.favorite %> 
         <i class="fas fa-star"></i>
       <% else %>
@@ -75,24 +68,35 @@
       <% end %>
     </button>
     <a  href="<%= edit_recipe_path @recipe %>">
-      <button class="button hidden" data-target="recipe.editbuttons">
+      <button class="button">
         <i class="fas fa-edit"></i>
         <span><%=t 'action.edit' %></span>
       </button>
     </a>
-    <button class="button hidden" data-action="click->recipe#deleteDialogShow" data-target="recipe.editbuttons">
+    <button class="button" data-action="click->recipe#deleteShow">
       <i class="fas fa-trash"></i>
       <span><%=t 'action.delete' %></span>
     </button>
+
+    <button class="button button-action hidden" data-action="click->recipe#delete" data-target="recipe.deleteButtons">
+      <i class="fas fa-check"></i>
+      <span><%=t 'yes' %></span>
+    </button>
+
+    <button class="button button-action hidden" data-action="click->recipe#deleteAbort" data-target="recipe.deleteButtons">
+      <i class="fas fa-ban"></i>
+      <span><%=t 'no' %></span>
+    </button>
+
     <a href="<%= new_recipe_recipe_image_path @recipe %>">
-      <button class="button hidden" data-target="recipe.editbuttons">
+      <button class="button">
         <i class="fas fa-camera"></i>
         <span><%=t 'action.image_add' %></span>
       </button>
     </a>
     <% if @recipe.recipe_images.count > 0 %>
       <a href="<%= delete_select_recipe_recipe_images_path @recipe %>" >
-        <button class="button hidden" data-target="recipe.editbuttons">
+        <button class="button">
           <i class="fas fa-trash"></i>
           <span><%=t 'action.image_delete' %></span>
         </button>
@@ -100,7 +104,7 @@
     <% end %>
     <% if @recipe.recipe_images.count > 0 %>
       <a href="<%= ocr_path @recipe %>" >
-        <button class="button hidden" data-target="recipe.editbuttons">
+        <button class="button">
           <i class="fas fa-font"></i>
           <span><%=t 'action.image_ocr' %></span>
         </button>
@@ -113,23 +117,6 @@
     <span><%= link_to recipe_url(@recipe) %></span>
   </div>
 
-  <div class="modal" data-target="recipe.deleteDialog">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-      <div class="card">
-        <div class="card-content">
-          <p>
-            <%=t 'recipes.delete.are_you_sure' %>
-          </p>
-          <p>
-            <button class="button is-danger"  data-action="click->recipe#delete"><%=t 'yes' %></button>
-            <button class="button" data-action="click->recipe#deleteDialogClose"><%=t 'no' %></button>
-          </p>
-        </div>
-        <button class="modal-close is-large" aria-label="close" data-action="click->recipe#deleteDialogClose"></button>
-      </div>
-    </div>
-  </div>
 
   <div class="modal" data-recipe-target="lightbox">
     <div class="modal-background"></div>

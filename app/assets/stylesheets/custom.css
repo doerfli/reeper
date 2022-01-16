@@ -72,6 +72,18 @@
     .button {
         @apply my-2 p-1 pl-3 pr-3 bg-amber-500 text-gray-100 rounded-lg;
     }
+
+    .button:hover {
+        @apply bg-amber-600 ;
+    }
+
+    .button-action {
+        @apply bg-indigo-500;
+    }
+
+    .button-action:hover {
+        @apply bg-indigo-600;
+    }
 }
 
 @layer utilities {
