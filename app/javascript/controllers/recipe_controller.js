@@ -34,17 +34,17 @@ export default class extends Controller {
     console.log(editstate);
     if ( editstate == "false" ) {
       this.editbuttonsTargets.forEach(element => {
-        element.classList.remove("is-hidden")
+        element.classList.remove("hidden")
       });
-      this.editonTarget.classList.add("is-hidden");
-      this.editoffTarget.classList.remove("is-hidden");
+      this.editonTarget.classList.add("hidden");
+      this.editoffTarget.classList.remove("hidden");
       this.data.set("editstate", "true");
     } else {
       this.editbuttonsTargets.forEach(element => {
-        element.classList.add("is-hidden")
+        element.classList.add("hidden")
       });
-      this.editonTarget.classList.remove("is-hidden");
-      this.editoffTarget.classList.add("is-hidden");
+      this.editonTarget.classList.remove("hidden");
+      this.editoffTarget.classList.add("hidden");
       this.data.set("editstate", "false");
     } 
   }

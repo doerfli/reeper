@@ -57,61 +57,52 @@
       <% end %>
     </div>
   <% end %>
-  <div class="bottomactions buttons spacetop">
-    <a class="button is-success" data-action="click->recipe#toggleeditbuttons">
-      <span class="icon">
-        <i class="fas fa-caret-right fa-2x" data-target="recipe.editon"></i>
-        <i class="fas fa-caret-left fa-2x is-hidden" data-target="recipe.editoff"></i>
-      </span>
-    </a>
-    <a class="button is-info is-hidden" data-action="click->recipe#favorite" data-target="recipe.editbuttons">
-      <span class="icon is-small">
-        <% if @recipe.favorite %> 
-          <i class="fas fa-star"></i>
-        <% else %>
-          <i class="far fa-star"></i>
-        <% end %>
-      </span>
-    </a>
-    <a class="button is-info is-hidden" href="<%= edit_recipe_path @recipe %>" data-target="recipe.editbuttons">
-      <span class="icon is-small">
-        <i class="fas fa-edit"></i>
-      </span>
+
+
+  <div class="bottomactions">
+    <button class="button" data-action="click->recipe#toggleeditbuttons" data-target="recipe.editon">
+      <i class="fas fa-caret-right"></i>
+    </button>
+    <button class="button hidden" data-action="click->recipe#toggleeditbuttons" data-target="recipe.editoff">
+      <i class="fas fa-caret-left"></i>
+    </button>
+
+    <button class="button hidden" data-action="click->recipe#favorite" data-target="recipe.editbuttons">
+      <% if @recipe.favorite %> 
+        <i class="fas fa-star"></i>
+      <% else %>
+        <i class="far fa-star"></i>
+      <% end %>
+    </button>
+    <button class="button hidden" href="<%= edit_recipe_path @recipe %>" data-target="recipe.editbuttons">
+      <i class="fas fa-edit"></i>
       <span><%=t 'action.edit' %></span>
-    </a>
-    <a class="button is-info is-hidden" data-action="click->recipe#deleteDialogShow" data-target="recipe.editbuttons">
-      <span class="icon is-small">
-        <i class="fas fa-trash"></i>
-      </span>
+    </button>
+    <button class="button hidden" data-action="click->recipe#deleteDialogShow" data-target="recipe.editbuttons">
+      <i class="fas fa-trash"></i>
       <span><%=t 'action.delete' %></span>
-    </a>
-    <a class="button is-info is-hidden" href="<%= new_recipe_recipe_image_path @recipe %>" data-target="recipe.editbuttons">
-      <span class="icon is-small">
-        <i class="fas fa-camera"></i>
-      </span>
+    </button>
+    <button class="button hidden" href="<%= new_recipe_recipe_image_path @recipe %>" data-target="recipe.editbuttons">
+      <i class="fas fa-camera"></i>
       <span><%=t 'action.image_add' %></span>
-    </a>
+    </button>
     <% if @recipe.recipe_images.count > 0 %>
-      <a class="button is-info is-hidden" href="<%= delete_select_recipe_recipe_images_path @recipe %>" data-target="recipe.editbuttons">
-        <span class="icon is-small">
-          <i class="fas fa-trash"></i>
-        </span>
+      <button class="button hidden" href="<%= delete_select_recipe_recipe_images_path @recipe %>" data-target="recipe.editbuttons">
+        <i class="fas fa-trash"></i>
         <span><%=t 'action.image_delete' %></span>
-      </a>
+      </button>
     <% end %>
     <% if @recipe.recipe_images.count > 0 %>
-      <a class="button is-info is-hidden" href="<%= ocr_path @recipe %>" data-target="recipe.editbuttons">
-        <span class="icon is-small">
-          <i class="fas fa-font"></i>
-        </span>
+      <button class="button hidden" href="<%= ocr_path @recipe %>" data-target="recipe.editbuttons">
+        <i class="fas fa-font"></i>
         <span><%=t 'action.image_ocr' %></span>
-      </a>
+      </button>
     <% end %>
   </div>
 
-  <div class="recipe_url">
-    <span><%=t 'url' %>:</span>
-    <span><%= recipe_url(@recipe) %></span>
+  <div class="recipe_url mt-2">
+    <span class="heading_3"><%=t 'url' %>:</span>
+    <span><%= link_to recipe_url(@recipe) %></span>
   </div>
 
   <div class="modal" data-target="recipe.deleteDialog">

@@ -62,11 +62,15 @@
     }
 
     .tag {
-        @apply px-2 py-1 bg-gray-700 rounded-md text-sm text-white font-light;
+        @apply px-2 py-2 bg-gray-700 rounded-md text-sm text-white font-light;
     }
 
     .tag:hover {
         @apply text-indigo-800 bg-amber-100;
+    }
+
+    .button {
+        @apply my-2 p-1 pl-3 pr-3 bg-amber-500 text-gray-100 rounded-lg;
     }
 }
 
