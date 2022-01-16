@@ -74,29 +74,37 @@
         <i class="far fa-star"></i>
       <% end %>
     </button>
-    <button class="button hidden" href="<%= edit_recipe_path @recipe %>" data-target="recipe.editbuttons">
-      <i class="fas fa-edit"></i>
-      <span><%=t 'action.edit' %></span>
-    </button>
+    <a  href="<%= edit_recipe_path @recipe %>">
+      <button class="button hidden" data-target="recipe.editbuttons">
+        <i class="fas fa-edit"></i>
+        <span><%=t 'action.edit' %></span>
+      </button>
+    </a>
     <button class="button hidden" data-action="click->recipe#deleteDialogShow" data-target="recipe.editbuttons">
       <i class="fas fa-trash"></i>
       <span><%=t 'action.delete' %></span>
     </button>
-    <button class="button hidden" href="<%= new_recipe_recipe_image_path @recipe %>" data-target="recipe.editbuttons">
-      <i class="fas fa-camera"></i>
-      <span><%=t 'action.image_add' %></span>
-    </button>
-    <% if @recipe.recipe_images.count > 0 %>
-      <button class="button hidden" href="<%= delete_select_recipe_recipe_images_path @recipe %>" data-target="recipe.editbuttons">
-        <i class="fas fa-trash"></i>
-        <span><%=t 'action.image_delete' %></span>
+    <a href="<%= new_recipe_recipe_image_path @recipe %>">
+      <button class="button hidden" data-target="recipe.editbuttons">
+        <i class="fas fa-camera"></i>
+        <span><%=t 'action.image_add' %></span>
       </button>
+    </a>
+    <% if @recipe.recipe_images.count > 0 %>
+      <a href="<%= delete_select_recipe_recipe_images_path @recipe %>" >
+        <button class="button hidden" data-target="recipe.editbuttons">
+          <i class="fas fa-trash"></i>
+          <span><%=t 'action.image_delete' %></span>
+        </button>
+      </a>
     <% end %>
     <% if @recipe.recipe_images.count > 0 %>
-      <button class="button hidden" href="<%= ocr_path @recipe %>" data-target="recipe.editbuttons">
-        <i class="fas fa-font"></i>
-        <span><%=t 'action.image_ocr' %></span>
-      </button>
+      <a href="<%= ocr_path @recipe %>" >
+        <button class="button hidden" data-target="recipe.editbuttons">
+          <i class="fas fa-font"></i>
+          <span><%=t 'action.image_ocr' %></span>
+        </button>
+      </a>
     <% end %>
   </div>
 
