@@ -48,12 +48,15 @@
       </p>
     </div>
   <% end %>
+
   <% if @recipe.recipe_images.count > 0 %>
-    <div class="spacetop recipe_images">
+    <div class="recipe_images not-prose">
       <% @recipe.recipe_images.each do |image| %>
-        <a data-action="click->recipe#lightboxOpen" data-imageurl="<%= url_for(image) %>">
-          <%= image_tag image.variant(resize: "100x100") %>
-        </a>
+        <div class="image">
+          <%= link_to image, class: "not-prose" do %>
+            <%= image_tag(image.variant(resize: "100x100")) %>
+          <% end %>
+        </div>
       <% end %>
     </div>
   <% end %>

@@ -1,14 +1,14 @@
 @layer base {
     .prose {
-        a {
+        a:not(.not-prose) {
             @apply no-underline p-1 rounded-md text-indigo-800;
         }
 
-        a.nocolor {
+        a:not(.not-prose).nocolor {
             @apply no-underline p-1 rounded-md text-gray-700;
         }
     
-        a:hover {
+        a:not(.not-prose):hover {
             @apply bg-amber-100;
         }
     
@@ -87,5 +87,14 @@
 }
 
 @layer utilities {
+    .recipe_images {
+        .image {
+            @apply inline-block p-1;
+            @apply border-4 border-transparent;
+        }
 
+        .image:hover {
+            @apply border-4 border-amber-200 border-solid;
+        }
+    }
 }
