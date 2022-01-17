@@ -21,8 +21,8 @@ export default class extends Controller {
     }).then(function(data) {
       // console.log(data);
       data.forEach(function(element) {
-        var tagElement = document.createElement("span");
-        tagElement.classList += "tag is-dark";
+        var tagElement = document.createElement("div");
+        tagElement.classList += "tag";
         tagElement.setAttribute("data-action", "click->recipeform#addtag");
         tagElement.appendChild(document.createTextNode(element));
         tagsSuggestion.appendChild(tagElement);

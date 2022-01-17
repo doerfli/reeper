@@ -13,6 +13,7 @@
         }
     
         @apply leading-4;
+        max-width: 70ch !important;
     }
 }
 
@@ -62,7 +63,7 @@
     }
 
     .tag {
-        @apply px-2 py-1 my-2 bg-gray-700 rounded-md text-sm text-white font-light;
+        @apply px-2 py-1 my-1 mr-1 bg-gray-700 rounded-md text-sm text-white font-light inline-block;
     }
 
     .tag:hover {
@@ -93,6 +94,23 @@
             @apply top-0 bottom-0 mx-auto;
             @apply flex justify-center items-center h-screen;
         }
+    }
+
+    label {
+        @apply pr-2 text-base italic font-medium;
+        @apply border-solid border-amber-200 border-b-2;  
+    }
+
+    [type='text'],
+    [type='number'] {
+        @apply w-full;
+        @apply border-t-0 border-x-0 border-b-2;
+    }
+
+    [type='text']:focus,
+    [type='number']:focus {
+        @apply w-full;
+        @apply ring-0 border-amber-200;
     }
 }
 
