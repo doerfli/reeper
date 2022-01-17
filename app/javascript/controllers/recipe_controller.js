@@ -56,10 +56,10 @@ export default class extends Controller {
     const imageurl = event.currentTarget.dataset.imageurl;
     this.lightboximgTarget.src = imageurl;
     this.lightboxlinkTarget.href = imageurl;
-    this.lightboxTarget.classList.add("is-active");
+    this.lightboxTarget.classList.remove("hidden");
   }
 
   lightboxClose() {
-    this.lightboxTarget.classList.remove("is-active");
+    this.lightboxTarget.classList.add("hidden");
   }
 }

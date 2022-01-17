@@ -84,6 +84,16 @@
     .button-action:hover {
         @apply bg-indigo-600;
     }
+
+    .modal {
+        @apply absolute top-0 left-0 right-0 bottom-0 z-50;
+        @apply bg-gray-600 bg-opacity-90;
+
+        > div {
+            @apply top-0 bottom-0 mx-auto;
+            @apply flex justify-center items-center h-screen;
+        }
+    }
 }
 
 @layer utilities {
