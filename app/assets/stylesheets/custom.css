@@ -103,7 +103,7 @@
 
     [type='text'],
     [type='number'] {
-        @apply w-full;
+        @apply py-1 w-full;
         @apply border-t-0 border-x-0 border-b-2;
     }
 
