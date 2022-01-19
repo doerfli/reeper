@@ -1,5 +1,5 @@
-<div class="columns">
-  <div class="column">
+<div class="grid grid-cols-2 gap-4">
+  <div>
     <div class="canvases">
       <canvas 
         id="canvas0"
@@ -16,30 +16,24 @@
       </canvas>
     </div>
   </div>
-  <div class="column">
+  <div>
     <div>
-      <div class="select">
-        <%= select_tag 'language', options_for_select([[t('ocr.show.lang.deu'), 'deu'], [t('ocr.show.lang.eng'), 'eng']], 'deu'), data: { target: 'ocr-selection.language'} %>
-      </div>
-      <%= button_tag t('ocr.show.submit'), class: 'button is-primary', data: { action: 'click->ocr-selection#submit'} %>
-      <span class="icon has-text-info display_none" data-target="ocr-selection.spinner">
-        <i class="fas fa-spinner fa-2x  fa-spin"></i>
+      <%= select_tag 'language', options_for_select([[t('ocr.show.lang.deu'), 'deu'], [t('ocr.show.lang.eng'), 'eng']], 'deu'), data: { target: 'ocr-selection.language'} %>
+      <%= button_tag t('ocr.show.submit'), class: 'button', data: { action: 'click->ocr-selection#submit'} %>
+      <span class="hidden" data-target="ocr-selection.spinner">
+        <i class="fas fa-spinner fa-spin"></i>
       </span>
-      <%= button_tag t('ocr.show.toclipboard'), class: 'button is-primary', data: { action: 'click->ocr-selection#toclipboard', target: 'ocr-selection.toclipboardbtn'} %>
-      <div class="field">
-        <div class="control">
-          <%= text_area_tag :recognized, 
-                nil, 
-                class: 'textarea', 
-                placeholder: t('ocr.show.recognized_text_placeholder'), 
-                data: { 
-                  target: 'ocr-selection.recognizedtext'
-                }, 
-                rows: 20, 
-                autocomplete: 'off' 
-          %>
-        </div>
-      </div>
+      <%= button_tag t('ocr.show.toclipboard'), class: 'button', data: { action: 'click->ocr-selection#toclipboard', target: 'ocr-selection.toclipboardbtn'} %>
+      <%= text_area_tag :recognized, 
+            nil, 
+            class: 'textarea w-full', 
+            placeholder: t('ocr.show.recognized_text_placeholder'), 
+            data: { 
+              target: 'ocr-selection.recognizedtext'
+            }, 
+            rows: 20, 
+            autocomplete: 'off' 
+      %>
     </div>
   </div>
 </div>

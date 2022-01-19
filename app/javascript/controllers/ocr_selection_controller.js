@@ -123,7 +123,7 @@ export default class extends Controller {
     var textArea = this.recognizedtextTarget;
     var language = this.languageTarget.value;
     
-    this.spinnerTarget.classList.remove("display_none");
+    this.spinnerTarget.classList.remove("hidden");
     // TODO show spinner
     fetch(url, {
       method: 'post',
@@ -143,19 +143,19 @@ export default class extends Controller {
         'language': language
       })
     }).then(response => {
-      this.spinnerTarget.classList.add("display_none");
+      this.spinnerTarget.classList.add("hidden");
       return response.json()
     }).then(data => {
       textArea.value = data.text
     });
 
-    this.toclipboardbtnTarget.classList.add("is-primary");
-    this.toclipboardbtnTarget.classList.remove("is-success");
+    // this.toclipboardbtnTarget.classList.add("is-primary");
+    this.toclipboardbtnTarget.classList.remove("button-success");
   }
 
   toclipboard() {
     clipboard.writeText(this.recognizedtextTarget.value);
-    this.toclipboardbtnTarget.classList.remove("is-primary");
-    this.toclipboardbtnTarget.classList.add("is-success");
+    // this.toclipboardbtnTarget.classList.remove("is-primary");
+    this.toclipboardbtnTarget.classList.add("button-success");
   }
 }

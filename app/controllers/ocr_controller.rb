@@ -1,6 +1,8 @@
 class OcrController < ApplicationController
   def show
     @recipe = Recipe.find(params[:id])
+
+    render layout: 'layouts/application_wide'
   end
 
   def create

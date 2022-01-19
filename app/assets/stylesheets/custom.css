@@ -15,6 +15,11 @@
         @apply leading-4;
         max-width: 70ch !important;
     }
+
+    .prose_wide {
+        @apply prose;
+        @apply max-w-full !important;
+    }
 }
 
 @layer components {
@@ -49,11 +54,9 @@
 
             a {
                 @apply text-gray-400;
+                @apply hover:text-indigo-800 hover:bg-amber-100
             }
 
-            a:hover {
-                @apply text-indigo-800 bg-amber-100;
-            }
         }
         li.current-page {
             a {
@@ -64,6 +67,7 @@
 
     .tag {
         @apply px-2 py-1 my-1 mr-1 bg-gray-700 rounded-md text-sm text-white font-light inline-block;
+        @apply hover:text-indigo-800 hover:bg-amber-100;
     }
 
     .tag_two_segments {
@@ -78,32 +82,20 @@
         }
     }
 
-    .tag:hover {
-        @apply text-indigo-800 bg-amber-100;
-    }
-
     .button {
-        @apply my-2 p-1 pl-3 pr-3 bg-amber-500 text-gray-100 rounded-lg;
-    }
-
-    .button:hover {
-        @apply bg-amber-600 ;
+        @apply my-2 p-1 pl-3 pr-3 bg-amber-500 hover:bg-amber-600 text-gray-100 rounded-lg;
     }
 
     .button-action {
-        @apply bg-indigo-500;
-    }
-
-    .button-action:hover {
-        @apply bg-indigo-600;
+        @apply bg-indigo-500 hover:bg-indigo-600;
     }
 
     .button-secondary {
-        @apply bg-amber-100 text-gray-500;
+        @apply bg-amber-100 hover:bg-amber-200 text-gray-500;
     }
 
-    .button-secondary:hover {
-        @apply bg-amber-200;
+    .button-success {
+        @apply bg-green-500 hover:bg-green-600;
     }
 
     .modal {
@@ -175,4 +167,24 @@
     .selected_for_delete {
         @apply border-2 border-solid border-red-500;
     }
+
+    .canvases {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      
+        .ocrcanvas {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+        }
+      
+        #canvas0 {
+          z-index: 0;
+        }
+        #canvas1 {
+          z-index: 10;
+          background-color: transparent;
+        }
+      }
 }
