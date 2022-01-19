@@ -132,6 +132,28 @@
         @apply w-full;
         @apply ring-0 border-amber-200;
     }
+
+    .notification {
+        @apply p-2 my-4;
+        @apply border-2 border-solid rounded-md;
+        @apply text-gray-800;
+    }
+
+    .danger {
+        @apply border-red-500 bg-red-200;
+    }
+
+    .warning {
+        @apply border-yellow-500 bg-yellow-200;
+    }
+
+    .info {
+        @apply border-blue-500 bg-blue-200;
+    }
+
+    .success {
+        @apply border-green-500 bg-green-200;
+    }
 }
 
 @layer utilities {
