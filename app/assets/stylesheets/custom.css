@@ -66,6 +66,18 @@
         @apply px-2 py-1 my-1 mr-1 bg-gray-700 rounded-md text-sm text-white font-light inline-block;
     }
 
+    .tag_two_segments {
+        @apply my-1 mr-1 inline-block;
+
+        span:nth-child(1) {
+            @apply px-2 py-1  bg-gray-700 rounded-l-md text-sm text-white font-light inline-block;
+        }
+
+        span:nth-child(2) {
+            @apply px-2 py-1  bg-amber-500 rounded-r-md text-sm text-gray-700 font-light inline-block;
+        }
+    }
+
     .tag:hover {
         @apply text-indigo-800 bg-amber-100;
     }
