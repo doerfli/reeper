@@ -1,35 +1,27 @@
 <div class="container">
-  <h1 class="title"><%=t @recipe.name %></h1>
-  <h2 class="subtitle">
-    <%=t 'action.image_add' %>
-  </h2>
+  <div class="mb-4">
+    <span class="heading_2">
+      <%=t 'action.image_add' %> - <%=t @recipe.name %>
+    </span>
+  </div>
+  
   <div class="add_image" data-controller="recipeimagesadd">
     <%= form_tag(recipe_recipe_images_path(@recipe), method: :post, multipart: true) do %>
       <div data-target="recipeimagesadd.files">
-        <div class="field">
-          <div class="control">
-            <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
-          </div>
+        <div>
+          <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
         </div>
-        <div class="field is-grouped" data-target="recipeimagesadd.buttons">
-          <div class="control">
-            <%= button_tag t('action.save'), class: 'button is-link' %>
-          </div>
-          <div class="control">
-            <span class="button is-link" data-action="click->recipeimagesadd#add_another">
-              <%=t 'action.add_another' %>
-            </span>
-          </div>
-          <div class="control">
-            <a href="<%= recipe_path(@recipe) %>" class="button"><%=t 'action.cancel' %></a>
-          </div>
+        <div data-target="recipeimagesadd.buttons" class="mt-4">
+          <%= button_tag t('action.save'), class: 'button' %>
+          <%= button_tag t('action.add_another'), type: 'button', class: 'button button-secondary ml-2', 'data-action': 'click->recipeimagesadd#add_another' %>
+          <a href="<%= recipe_path(@recipe) %>" class="not-prose">
+            <%= button_tag t('action.cancel'), type: 'button', class: 'button button-secondary' %>
+          </a>
         </div>
       </div>
     <% end %>
-    <div class="field display_none"  data-target="recipeimagesadd.template">
-      <div class="control">
-        <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
-      </div>
+    <div class="hidden"  data-target="recipeimagesadd.template">
+      <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
     </div>
   </div>
 </div>

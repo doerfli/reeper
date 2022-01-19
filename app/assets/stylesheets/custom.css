@@ -98,6 +98,14 @@
         @apply bg-indigo-600;
     }
 
+    .button-secondary {
+        @apply bg-amber-100 text-gray-500;
+    }
+
+    .button-secondary:hover {
+        @apply bg-amber-200;
+    }
+
     .modal {
         @apply absolute top-0 left-0 right-0 bottom-0 z-50;
         @apply bg-gray-600 bg-opacity-90;

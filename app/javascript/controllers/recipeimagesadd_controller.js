@@ -6,7 +6,7 @@ export default class extends Controller {
   add_another() {
     var t = this.templateTarget.cloneNode(true);
     // t.style.display = 'block';
-    t.classList.remove("display_none");
+    t.classList.remove("hidden");
     t.removeAttribute("data-target");
     this.filesTarget.insertBefore(t, this.buttonsTarget);
   }
