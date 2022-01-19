@@ -154,6 +154,10 @@
     .success {
         @apply border-green-500 bg-green-200;
     }
+
+    .image_inline {
+        @apply inline-block;
+    }
 }
 
 @layer utilities {
@@ -166,5 +170,9 @@
         .image:hover {
             @apply border-4 border-amber-200 border-solid;
         }
+    }
+
+    .selected_for_delete {
+        @apply border-2 border-solid border-red-500;
     }
 }
