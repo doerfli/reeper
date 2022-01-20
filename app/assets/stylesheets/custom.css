@@ -125,6 +125,20 @@
         @apply ring-0 border-amber-200;
     }
 
+    .input_has_icons_left {
+        @apply relative;
+        
+        i, input {
+            
+        }
+        input {
+            @apply pl-8;
+        }
+        i {
+            @apply absolute inset-y-0 left-0 flex items-center pl-2;
+        }
+    }
+
     .notification {
         @apply p-2 my-4;
         @apply border-2 border-solid rounded-md;

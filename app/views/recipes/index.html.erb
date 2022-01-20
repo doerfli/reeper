@@ -1,18 +1,11 @@
 <div class="container">
   <div data-controller="search" data-search-url="<%= search_recipes_path %>">
-    <!-- TODO tailwind - enable recipe search -->
-    <!--
-    <div class="field">
-      <p class="control has-icons-left">
-        <%= text_field_tag :search, nil, class: 'input', placeholder: t('action.search'), autocomplete: 'off',
-            'data-action': 'keyup->search#search', 
-            'data-target': 'search.term' %>
-        <span class="icon is-small is-left">
-          <i class="fas fa-search"></i>
-        </span>
-      </p>
-    </div>
-    -->
+    <p class="input_has_icons_left">
+      <%= text_field_tag :search, nil, class: '', placeholder: t('action.search'), autocomplete: 'off',
+          'data-action': 'keyup->search#search', 
+          'data-target': 'search.term' %>
+      <i class="fas fa-search"></i>
+    </p>
     <div class="recipes" data-target="search.list">
       <%= render partial: 'list' %>
     </div>
