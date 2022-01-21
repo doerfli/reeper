@@ -1,23 +1,20 @@
-<div class="container">
-  <h1 class="title">
-    <%=t 'ocr.show.title' %>
-  </h1>
-  <h2 class="subtitle">
-    <%= @recipe.name %>
-  </h2>
-  <div data-controller="ocr-selection"  
-       data-ocr-selection-id="<%= @recipe.id %>" 
-       data-ocr-selection-imgid="<%= @recipe.recipe_images.first.id %>"
-       data-ocr-selection-imgurl="<%= rails_blob_path(@recipe.recipe_images.first) %>" 
-       data-ocr-selection-ratio="1" 
-       data-ocr-selection-ismousedown="false"
-       data-ocr-selection-ocrurl="<%= ocr_index_path(:format => :json) %>"
-       >
-    <% @recipe.recipe_images.each do |image| %>
-      <%= image_tag image.variant(resize: "100x100"), class: 'to_delete', data: { 'imgid': image.id, 'imgurl': rails_blob_path(image), action: 'click->ocr-selection#select' } %>
-    <% end %>
-    <div>
-      <%= render :partial => 'imgregion', :locals => { image: @recipe.recipe_images.first } %>
-    </div>
+<div class="mb-4">
+  <span class="heading_2">
+    <%=t 'ocr.show.title' %> - <%=t @recipe.name %>
+  </span>
+</div>
+<div data-controller="ocr-selection"  
+      data-ocr-selection-id="<%= @recipe.id %>" 
+      data-ocr-selection-imgid="<%= @recipe.recipe_images.first.id %>"
+      data-ocr-selection-imgurl="<%= rails_blob_path(@recipe.recipe_images.first) %>" 
+      data-ocr-selection-ratio="1" 
+      data-ocr-selection-ismousedown="false"
+      data-ocr-selection-ocrurl="<%= ocr_index_path(:format => :json) %>"
+      >
+  <% @recipe.recipe_images.each do |image| %>
+    <%= image_tag image.variant(resize: "100x100"), class: 'image_inline border-2 border-solid border-transparent', data: { 'imgid': image.id, 'imgurl': rails_blob_path(image), action: 'click->ocr-selection#select' } %>
+  <% end %>
+  <div>
+    <%= render :partial => 'imgregion', :locals => { image: @recipe.recipe_images.first } %>
   </div>
 </div>

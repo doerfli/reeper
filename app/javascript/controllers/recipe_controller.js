@@ -2,7 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 import { Utils } from "../src/utils"
 
 export default class extends Controller {
-  static targets = ["deleteDialog", "editbuttons", "editoff", "editon", "lightbox", "lightboximg", "lightboxlink"]
+  static targets = ["deleteButtons", 
+    "lightbox", "lightboximg", "lightboxlink"
+  ]
 
   delete() {
     // TODO: call delete and redirect to list
@@ -21,32 +23,17 @@ export default class extends Controller {
     });
   }
 
-  deleteDialogShow() {
-    this.deleteDialogTarget.classList.add("is-active");
+  deleteShow() {
+    this.deleteButtonsTargets.forEach(element => {
+      element.classList.remove("hidden");
+    });
   }
 
-  deleteDialogClose() {
-    this.deleteDialogTarget.classList.remove("is-active");
-  }
-
-  toggleeditbuttons() {
-    var editstate = this.data.get("editstate");
-    console.log(editstate);
-    if ( editstate == "false" ) {
-      this.editbuttonsTargets.forEach(element => {
-        element.classList.remove("is-hidden")
-      });
-      this.editonTarget.classList.add("is-hidden");
-      this.editoffTarget.classList.remove("is-hidden");
-      this.data.set("editstate", "true");
-    } else {
-      this.editbuttonsTargets.forEach(element => {
-        element.classList.add("is-hidden")
-      });
-      this.editonTarget.classList.remove("is-hidden");
-      this.editoffTarget.classList.add("is-hidden");
-      this.data.set("editstate", "false");
-    } 
+  deleteAbort() {
+    console.log("deleteDialogClose");
+    this.deleteButtonsTargets.forEach(element => {
+      element.classList.add("hidden");
+    });  
   }
   
   favorite() {
@@ -69,10 +56,10 @@ export default class extends Controller {
     const imageurl = event.currentTarget.dataset.imageurl;
     this.lightboximgTarget.src = imageurl;
     this.lightboxlinkTarget.href = imageurl;
-    this.lightboxTarget.classList.add("is-active");
+    this.lightboxTarget.classList.remove("hidden");
   }
 
   lightboxClose() {
-    this.lightboxTarget.classList.remove("is-active");
+    this.lightboxTarget.classList.add("hidden");
   }
 }

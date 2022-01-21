@@ -17,3 +17,5 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+
+RUN curl -fsSL https://starship.rs/install.sh | bash -s -- --yes && echo "eval \"\$(starship init bash)\"" >> /home/vscode/.bashrc && echo "eval \"\$(starship init zsh)\"" >> /home/vscode/.zshrc

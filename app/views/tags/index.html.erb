@@ -1,18 +1,16 @@
 <div class="container">
-  <h1 class="title">
-    <%=t 'tags.title' %>
-  </h1>
-  <div data-controller="search" data-search-url="<%= search_tags_path %>">
-    <div class="field">
-      <p class="control has-icons-left">
-        <%= text_field_tag :search, nil, class: 'input', placeholder: t('action.search'), autocomplete: 'off',
-            'data-action': 'keyup->search#search', 
-            'data-target': 'search.term' %>
-        <span class="icon is-small is-left">
-          <i class="fas fa-search"></i>
-        </span>
-      </p>
-    </div>
+  <div>
+    <span class="heading_1">
+      <%=t 'tags.title' %>
+    </span>
+  </div>
+  <div class="mt-4" data-controller="search" data-search-url="<%= search_tags_path %>">
+    <p class="input_has_icons_left">
+      <%= text_field_tag :search, nil, class: '', placeholder: t('action.search'), autocomplete: 'off',
+          'data-action': 'keyup->search#search', 
+          'data-target': 'search.term' %>
+      <i class="fas fa-search"></i>
+    </p>
     <div data-target="search.list">
       <%= render partial: 'tagslist' %>
     </div>

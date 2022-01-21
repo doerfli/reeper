@@ -1,7 +1,7 @@
-<ul>
+<ul class="list-none">
   <% @recipes.each{ |r| %>
     <li>
-      <a href="<%= recipe_path(r) %>"><%= r.name %></a>
+      <a class="nocolor" href="<%= recipe_path(r) %>"><%= r.name %></a>
       <% if r.favorite %> 
         <i class="has-text-primary fas fa-star"></i>
       <% end %>

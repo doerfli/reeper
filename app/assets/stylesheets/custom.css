@@ -1,0 +1,208 @@
+@layer base {
+    .prose {
+        a:not(.not-prose) {
+            @apply no-underline p-1 rounded-md text-indigo-800;
+        }
+
+        a:not(.not-prose).nocolor {
+            @apply no-underline p-1 rounded-md text-gray-700;
+        }
+    
+        a:not(.not-prose):hover {
+            @apply bg-amber-100;
+        }
+    
+        @apply leading-4;
+        max-width: 80ch !important;
+    }
+
+    .prose_wide {
+        @apply prose;
+        @apply max-w-full !important;
+    }
+}
+
+@layer components {
+    .text-primary {
+        @apply text-amber-500;
+    }
+
+    .heading_1 {
+        @apply text-2xl pr-2 font-semibold border-solid border-amber-500 border-b-2;  
+    }
+    
+    .heading_2 {
+        @apply pr-2 text-xl font-medium border-solid border-amber-200 border-b-2;  
+
+        .subheading {
+            @apply pl-2 text-base font-light italic;
+        }
+    }
+
+    .heading_3 {
+        @apply pr-2 text-base italic font-medium;  
+    }
+
+    .nav_item_right {
+        @apply py-1 px-2 mr-2 rounded-md;
+        @apply hover:bg-amber-100;
+    }
+
+    .pagination-list {
+        li {
+            @apply list-none inline-block;
+
+            a {
+                @apply text-gray-400;
+                @apply hover:text-indigo-800 hover:bg-amber-100
+            }
+
+        }
+        li.current-page {
+            a {
+                @apply text-amber-500;
+            }
+        }
+    }
+
+    .tag {
+        @apply px-2 py-1 my-1 mr-1 bg-gray-700 rounded-md text-sm text-white font-light inline-block;
+        @apply hover:text-indigo-800 hover:bg-amber-100;
+    }
+
+    .tag_two_segments {
+        @apply my-1 mr-1 inline-block;
+
+        span:nth-child(1) {
+            @apply px-2 py-1  bg-gray-700 rounded-l-md text-sm text-white font-light inline-block;
+        }
+
+        span:nth-child(2) {
+            @apply px-2 py-1  bg-amber-500 rounded-r-md text-sm text-gray-700 font-light inline-block;
+        }
+    }
+
+    .button {
+        @apply my-2 p-1 pl-3 pr-3 bg-amber-500 hover:bg-amber-600 text-gray-100 rounded-lg;
+    }
+
+    .button-action {
+        @apply bg-indigo-500 hover:bg-indigo-600;
+    }
+
+    .button-secondary {
+        @apply bg-amber-100 hover:bg-amber-200 text-gray-500;
+    }
+
+    .button-success {
+        @apply bg-green-500 hover:bg-green-600;
+    }
+
+    .modal {
+        @apply absolute top-0 left-0 right-0 bottom-0 z-50;
+        @apply bg-gray-600 bg-opacity-90;
+
+        > div {
+            @apply top-0 bottom-0 mx-auto;
+            @apply flex justify-center items-center h-screen;
+        }
+    }
+
+    label {
+        @apply pr-2 text-base italic font-medium;
+        @apply border-solid border-amber-200 border-b-2;  
+    }
+
+    [type='text'],
+    [type='number'] {
+        @apply py-1 w-full;
+        @apply border-t-0 border-x-0 border-b-2;
+    }
+
+    [type='text']:focus,
+    [type='number']:focus {
+        @apply w-full;
+        @apply ring-0 border-amber-200;
+    }
+
+    trix-editor:focus-visible {
+        @apply outline-amber-200 outline border-0;
+    }
+
+    .input_has_icons_left {
+        @apply relative;
+        
+        i, input {
+            
+        }
+        input {
+            @apply pl-8;
+        }
+        i {
+            @apply absolute inset-y-0 left-0 flex items-center pl-2;
+        }
+    }
+
+    .notification {
+        @apply p-2 my-4;
+        @apply border-2 border-solid rounded-md;
+        @apply text-gray-800;
+    }
+
+    .danger {
+        @apply border-red-500 bg-red-200;
+    }
+
+    .warning {
+        @apply border-yellow-500 bg-yellow-200;
+    }
+
+    .info {
+        @apply border-blue-500 bg-blue-200;
+    }
+
+    .success {
+        @apply border-green-500 bg-green-200;
+    }
+
+    .image_inline {
+        @apply inline-block;
+    }
+}
+
+@layer utilities {
+    .recipe_images {
+        .image {
+            @apply inline-block p-1;
+            @apply border-4 border-transparent;
+        }
+
+        .image:hover {
+            @apply border-4 border-amber-200 border-solid;
+        }
+    }
+
+    .selected_for_delete {
+        @apply border-2 border-solid border-red-500;
+    }
+
+    .canvases {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      
+        .ocrcanvas {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+        }
+      
+        #canvas0 {
+          z-index: 0;
+        }
+        #canvas1 {
+          z-index: 10;
+          background-color: transparent;
+        }
+      }
+}

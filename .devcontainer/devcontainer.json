@@ -7,6 +7,8 @@
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		//"terminal.integrated.shell.linux": "/bin/bash"
+		"editor.fontFamily": "'JetBrainsMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+		"editor.fontSize": 13,
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
@@ -15,6 +17,9 @@
 		"mhutchie.git-graph",
 		"eamodio.gitlens",
 		"castwide.solargraph",
+		"bradlc.vscode-tailwindcss",
+		"github.copilot",
+		"gruntfuggly.todo-tree",
 	],
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
