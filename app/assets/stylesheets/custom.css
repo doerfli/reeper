@@ -125,6 +125,10 @@
         @apply ring-0 border-amber-200;
     }
 
+    trix-editor:focus-visible {
+        @apply outline-amber-200 outline border-0;
+    }
+
     .input_has_icons_left {
         @apply relative;
         
