@@ -13,7 +13,7 @@
         }
     
         @apply leading-4;
-        max-width: 70ch !important;
+        max-width: 80ch !important;
     }
 
     .prose_wide {
