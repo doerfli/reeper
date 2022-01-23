@@ -1,3 +1,32 @@
+FROM ruby:3.0.3-alpine as assetsbuilder
+
+RUN apk update && apk upgrade && \
+    apk add --update nodejs yarn build-base libxml2 libxml2-dev libxml2-utils libxslt-dev tzdata libc6-compat postgresql-dev && \
+    rm -rf /var/cache/apk/*
+
+ENV HOME /app
+ENV RAILS_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
+ENV SECRET_KEY_BASE abcdefgh12345678
+
+WORKDIR $HOME
+
+# Install gems
+ADD .ruby-version $HOME/
+ADD Gemfile* $HOME/
+RUN gem update bundler
+# # speed up install of nokogiri gem
+RUN bundle config --local build.nokogiri --use-system-libraries
+RUN bundle config set without 'development test'
+RUN bundle install  --jobs 4
+
+# Add the app code
+COPY . $HOME
+
+RUN yarn install
+RUN bundle exec rake assets:precompile
+
+
 FROM ruby:3.0.3-alpine
 
 RUN apk update && apk upgrade && \
@@ -26,5 +55,8 @@ RUN bundle install  --jobs 4
 # Add the app code
 COPY . $HOME
 
-RUN yarn install
-RUN bundle exec rake assets:precompile
+# RUN yarn install
+# RUN bundle exec rake assets:precompile
+
+COPY --from=assetsbuilder /app/public/assets/ public/assets/
+COPY --from=assetsbuilder /app/public/packs/ public/packs/
