@@ -1,7 +1,7 @@
 FROM ruby:3.0.3-alpine as assetsbuilder
 
 RUN apk update && apk upgrade && \
-    apk add --update nodejs yarn build-base libxml2 libxml2-dev libxml2-utils libxslt-dev tzdata libc6-compat postgresql-dev && \
+    apk add --update nodejs yarn build-base libxml2-dev tzdata postgresql-dev && \
     rm -rf /var/cache/apk/*
 
 ENV HOME /app
@@ -30,10 +30,8 @@ RUN bundle exec rake assets:precompile
 FROM ruby:3.0.3-alpine
 
 RUN apk update && apk upgrade && \
-    apk add --update nodejs yarn git build-base libxml2 libxml2-dev libxml2-utils libxslt-dev tzdata imagemagick && \
-    apk add libc6-compat sassc libsass && \
-    apk add postgresql-dev postgresql-client && \
-    apk add tesseract-ocr  tesseract-ocr-dev tesseract-ocr-data-deu leptonica leptonica-dev && \
+    apk add --update nodejs build-base libxml2-dev tzdata imagemagick postgresql-dev && \
+    apk add tesseract-ocr tesseract-ocr-dev tesseract-ocr-data-deu leptonica leptonica-dev && \
     rm -rf /var/cache/apk/*
 
 ENV HOME /app
@@ -54,9 +52,6 @@ RUN bundle install  --jobs 4
 
 # Add the app code
 COPY . $HOME
-
-# RUN yarn install
-# RUN bundle exec rake assets:precompile
 
 COPY --from=assetsbuilder /app/public/assets/ public/assets/
 COPY --from=assetsbuilder /app/public/packs/ public/packs/
