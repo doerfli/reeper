@@ -3,3 +3,13 @@ pgdata/
 /*.sql
 .github/
 .git/
+public/assets/
+.devcontainer/
+Dockerfile
+Dockerfile*
+docker-compose*
+log/*log
+tmp/cache/
+tmp/miniprofiler/
+tmp/pids/
+tmp/sockets/
