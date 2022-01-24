@@ -1,57 +1,55 @@
-FROM ruby:3.0.3-alpine as assetsbuilder
+### ------- Builder ------- ###
+FROM ruby:3.0.3-alpine as builder
 
-RUN apk update && apk upgrade && \
-    apk add --update nodejs yarn build-base libxml2-dev tzdata postgresql-dev && \
-    rm -rf /var/cache/apk/*
-
-ENV HOME /app
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
-ENV SECRET_KEY_BASE abcdefgh12345678
-
+ENV HOME=/app \
+    RAILS_ENV=production \
+    RAILS_SERVE_STATIC_FILES=true \
+    SECRET_KEY_BASE=abcdefgh12345678 
 WORKDIR $HOME
 
-# Install gems
 ADD .ruby-version $HOME/
 ADD Gemfile* $HOME/
-RUN gem update bundler
+
+RUN apk update && apk upgrade && \
+    apk add --update --no-cache nodejs yarn build-base libxml2-dev tzdata postgresql-dev && \
+    rm -rf /var/cache/apk/* 
+
 # # speed up install of nokogiri gem
-RUN bundle config --local build.nokogiri --use-system-libraries
-RUN bundle config set without 'development test'
-RUN bundle install  --jobs 4
+RUN gem update bundler && \
+    bundle config --local build.nokogiri --use-system-libraries && \
+    bundle config set without 'development test' && \
+    bundle config set --local deployment 'true' && \
+    bundle config set --local path 'vendor/bundle' && \
+    bundle install --jobs 4
 
 # Add the app code
 COPY . $HOME
 
-RUN yarn install
-RUN bundle exec rake assets:precompile
+RUN yarn install && \
+    bundle exec rake assets:precompile
+
+# delete unneeded files
+RUN rm -rf node_modules tmp/cache vendor/assets spec
 
 
+### ------- Production ------- ###
 FROM ruby:3.0.3-alpine
 
-RUN apk update && apk upgrade && \
-    apk add --update nodejs build-base libxml2-dev tzdata imagemagick postgresql-dev && \
-    apk add tesseract-ocr tesseract-ocr-dev tesseract-ocr-data-deu leptonica leptonica-dev && \
-    rm -rf /var/cache/apk/*
-
-ENV HOME /app
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
-ENV SECRET_KEY_BASE abcdefgh12345678
-
+ENV HOME=/app \
+    RAILS_ENV=production \
+    RAILS_SERVE_STATIC_FILES=true \
+    SECRET_KEY_BASE=abcdefgh12345678
 WORKDIR $HOME
 
+RUN apk update && apk upgrade && \
+    apk add --update --no-cache \
+        nodejs tzdata imagemagick postgresql-client \
+        tesseract-ocr tesseract-ocr-data-deu leptonica && \
+    rm -rf /var/cache/apk/* 
+
 # Install gems
-ADD .ruby-version $HOME/
-ADD Gemfile* $HOME/
-RUN gem update bundler
-# speed up install of nokogiri gem
-RUN bundle config --local build.nokogiri --use-system-libraries
-RUN bundle config set without 'development test'
-RUN bundle install  --jobs 4
+RUN gem update bundler && \
+    bundle config set --local deployment 'true' && \
+    bundle config set --local path 'vendor/bundle'
 
-# Add the app code
-COPY . $HOME
-
-COPY --from=assetsbuilder /app/public/assets/ public/assets/
-COPY --from=assetsbuilder /app/public/packs/ public/packs/
+COPY --from=builder /app /app
