@@ -17,5 +17,5 @@ jobs:
       - uses: actions/checkout@v2.4.0
       - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u doerfli --password-stdin
       - uses: rlespinasse/github-slug-action@v2.x
-      - run: docker build -f Dockerfile-prod -t docker.pkg.github.com/doerfli/reeper/reeper:${{ env.GITHUB_REF_SLUG }} .
+      - run: docker build -f Dockerfile -t docker.pkg.github.com/doerfli/reeper/reeper:${{ env.GITHUB_REF_SLUG }} .
       - run: docker push docker.pkg.github.com/doerfli/reeper/reeper:${{ env.GITHUB_REF_SLUG }}

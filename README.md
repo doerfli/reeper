@@ -29,9 +29,7 @@ AWS_SECRET_ACCESS_KEY=BBBBB
 Start webpack-dev-server, css build, rails
 
 ```
-bin/webpack-dev-server 
-yarn build:css --watch
-bundle exec rails server
+bin/dev
 ```
 
 ## Start production via docker
