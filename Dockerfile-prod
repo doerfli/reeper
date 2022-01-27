@@ -1,4 +1,4 @@
-FROM ruby:3.0.3-alpine as assetsbuilder
+FROM ruby:3.1.0-alpine as assetsbuilder
 
 RUN apk update && apk upgrade && \
     apk add --update nodejs yarn build-base libxml2-dev tzdata postgresql-dev && \
