@@ -11,11 +11,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    <%= javascript_pack_tag 'application' %>
     <%= stylesheet_link_tag "application" %>
     <script src="https://kit.fontawesome.com/9626af616a.js" crossorigin="anonymous"></script>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
