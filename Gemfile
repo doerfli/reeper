@@ -11,6 +11,7 @@ gem 'pg', '>= 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 5.5'
 gem 'cssbundling-rails'
+gem 'jsbundling-rails'
 gem "sprockets-rails"
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -36,8 +37,6 @@ gem 'jbuilder', '~> 2.11'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
-gem 'webpacker', '~> 5.4'
 
 gem 'mini_magick', '~> 4.8'
 
