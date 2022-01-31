@@ -2,6 +2,7 @@
   "name": "reeper",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@rails/actiontext": "^7.0.0",
@@ -22,11 +23,12 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
+    "copyfiles": "^2.4.1",
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2"
   },
   "scripts": {
-    "build:css": "postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css",
+    "build:css": "copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* public/webfonts && postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css",
     "build": "webpack --config webpack.config.js"
   }
 }
