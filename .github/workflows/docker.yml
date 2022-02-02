@@ -2,12 +2,12 @@ name: Docker
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     tags:
     - '*'
   pull_request:
     branches:
-    - master
+    - main
 
 jobs:
   docker:
