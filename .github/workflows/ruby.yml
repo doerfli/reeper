@@ -38,6 +38,7 @@ jobs:
       matrix:
         # add here
         language: ['ruby']
+    steps:
     - uses: github/codeql-action/init@v1
       with:
       languages: ruby
