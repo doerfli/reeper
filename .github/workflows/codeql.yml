@@ -1,0 +1,36 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: CodeQL Scanning
+
+on:
+push:
+  branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '23 2 * * 1'
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    name: Analyze
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript', 'ruby' ]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+  

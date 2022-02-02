@@ -31,22 +31,3 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     # - name: Run tests
     #   run: bundle exec rake
-  analyze:
-    runs-on: ubuntu-latest
-    name: Analyze
-    strategy:
-      fail-fast: false
-      matrix:
-        # add here
-        language: [ 'javascript', 'ruby' ]
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - uses: github/codeql-action/init@v1
-      with:
-        languages: ${{ matrix.language }}
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
-  
