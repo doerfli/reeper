@@ -38,8 +38,15 @@ jobs:
       fail-fast: false
       matrix:
         # add here
-        language: ['ruby']
+        language: [ 'javascript', 'ruby' ]
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - uses: github/codeql-action/init@v1
       with:
-        languages: ruby
+        languages: ${{ matrix.language }}
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+    - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+  
