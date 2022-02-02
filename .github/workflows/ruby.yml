@@ -32,6 +32,7 @@ jobs:
     # - name: Run tests
     #   run: bundle exec rake
   analyze:
+    runs-on: ubuntu-latest
     name: Analyze
     strategy:
       fail-fast: false
