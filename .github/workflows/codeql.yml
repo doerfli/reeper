@@ -8,8 +8,8 @@
 name: CodeQL Scanning
 
 on:
-push:
-  branches: [main]
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
   schedule:
