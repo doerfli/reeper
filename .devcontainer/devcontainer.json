@@ -20,6 +20,8 @@
 		"bradlc.vscode-tailwindcss",
 		"github.copilot",
 		"gruntfuggly.todo-tree",
+		"oderwat.indent-rainbow",
+		"2gua.rainbow-brackets",
 	],
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
