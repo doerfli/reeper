@@ -4,13 +4,13 @@
       <canvas 
         id="canvas0"
         class="ocrcanvas" 
-        data-target="ocr-selection.canvasImg"
+        data-ocr-selection-target="canvasImg"
         >
       </canvas>
       <canvas 
         id="canvas1"
         class="ocrcanvas" 
-        data-target="ocr-selection.canvasSelect"
+        data-ocr-selection-target="canvasSelect"
         data-action="mousedown->ocr-selection#mousedown mouseup->ocr-selection#mouseup mousemove->ocr-selection#mousemove"
         >
       </canvas>
@@ -18,18 +18,18 @@
   </div>
   <div>
     <div>
-      <%= select_tag 'language', options_for_select([[t('ocr.show.lang.deu'), 'deu'], [t('ocr.show.lang.eng'), 'eng']], 'deu'), data: { target: 'ocr-selection.language'} %>
+      <%= select_tag 'language', options_for_select([[t('ocr.show.lang.deu'), 'deu'], [t('ocr.show.lang.eng'), 'eng']], 'deu'), data: { 'ocr-selection-target': 'language'} %>
       <%= button_tag t('ocr.show.submit'), class: 'button', data: { action: 'click->ocr-selection#submit'} %>
-      <span class="hidden" data-target="ocr-selection.spinner">
+      <span class="hidden" data-ocr-selection-target="spinner">
         <i class="fas fa-spinner fa-spin"></i>
       </span>
-      <%= button_tag t('ocr.show.toclipboard'), class: 'button', data: { action: 'click->ocr-selection#toclipboard', target: 'ocr-selection.toclipboardbtn'} %>
+      <%= button_tag t('ocr.show.toclipboard'), class: 'button', data: { action: 'click->ocr-selection#toclipboard', 'ocr-selection-target': 'toclipboardbtn'} %>
       <%= text_area_tag :recognized, 
             nil, 
             class: 'textarea w-full', 
             placeholder: t('ocr.show.recognized_text_placeholder'), 
             data: { 
-              target: 'ocr-selection.recognizedtext'
+              'ocr-selection-target': 'recognizedtext'
             }, 
             rows: 20, 
             autocomplete: 'off' 
