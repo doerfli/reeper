@@ -27,9 +27,9 @@
     <div class="mb-4">
       <%= f.label :tags %>
       <div>
-        <%= f.text_field :tag_names, placeholder: t('recipes.form.placeholder.tags'), 'data-action': 'keyup->recipeform#findtags', 'data-target': 'recipeform.tags', autocomplete: 'off'  %>
+        <%= f.text_field :tag_names, placeholder: t('recipes.form.placeholder.tags'), 'data-action': 'keyup->recipeform#findtags', 'data-recipeform-target': 'tags', autocomplete: 'off'  %>
       </div>
-      <div data-target="recipeform.tagsSuggestion" class="tagsSuggestion">
+      <div data-recipeform-target="tagsSuggestion" class="tagsSuggestion">
       </div>
     </div>
     <div class="mb-4">

@@ -7,7 +7,7 @@ export default class extends Controller {
     var t = this.templateTarget.cloneNode(true);
     // t.style.display = 'block';
     t.classList.remove("hidden");
-    t.removeAttribute("data-target");
+    t.removeAttribute("data-recipeimagesadd-target");
     this.filesTarget.insertBefore(t, this.buttonsTarget);
   }
 }

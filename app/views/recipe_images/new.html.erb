@@ -7,11 +7,11 @@
   
   <div class="add_image" data-controller="recipeimagesadd">
     <%= form_tag(recipe_recipe_images_path(@recipe), method: :post, multipart: true) do %>
-      <div data-target="recipeimagesadd.files">
+      <div data-recipeimagesadd-target="files">
         <div>
           <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
         </div>
-        <div data-target="recipeimagesadd.buttons" class="mt-4">
+        <div data-recipeimagesadd-target="buttons" class="mt-4">
           <%= button_tag t('action.save'), class: 'button' %>
           <%= button_tag t('action.add_another'), type: 'button', class: 'button button-secondary ml-2', 'data-action': 'click->recipeimagesadd#add_another' %>
           <a href="<%= recipe_path(@recipe) %>" class="not-prose">
@@ -20,7 +20,7 @@
         </div>
       </div>
     <% end %>
-    <div class="hidden"  data-target="recipeimagesadd.template">
+    <div class="hidden"  data-recipeimagesadd-target="template">
       <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
     </div>
   </div>

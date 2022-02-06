@@ -14,9 +14,9 @@
       <% end %>
     </div>
     <%= form_tag(delete_recipe_recipe_images_path(@recipe), method: :put) do %>
-      <%= hidden_field_tag 'filenames', '', { 'data-target': 'recipeimagesdelete.filenames'} %>
+      <%= hidden_field_tag 'filenames', '', { 'data-recipeimagesdelete-target': 'filenames'} %>
       <div class="buttons mt-4">
-        <%= button_tag t('action.delete'), class: 'button', disabled: 'true', 'data-target': 'recipeimagesdelete.submitbutton' %>
+        <%= button_tag t('action.delete'), class: 'button', disabled: 'true', 'data-recipeimagesdelete-target': 'submitbutton' %>
         <a href="<%= recipe_path(@recipe) %>" class="not-prose">
           <%= button_tag t('action.cancel'), type: 'button', class: 'ml-4 button button-secondary' %>
         </a>
