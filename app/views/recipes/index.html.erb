@@ -3,10 +3,10 @@
     <p class="input_has_icons_left">
       <%= text_field_tag :search, nil, class: '', placeholder: t('action.search'), autocomplete: 'off',
           'data-action': 'keyup->search#search', 
-          'data-target': 'search.term' %>
+          'data-search-target': 'term' %>
       <i class="fas fa-search"></i>
     </p>
-    <div class="recipes" data-target="search.list">
+    <div class="recipes" data-search-target="list">
       <%= render partial: 'list' %>
     </div>
   </div>
