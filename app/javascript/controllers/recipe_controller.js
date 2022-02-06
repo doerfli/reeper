@@ -18,7 +18,7 @@ export default class extends Controller {
     }).then(function json(response) {
       return response.json()
     }).then(function(data) {
-      Turbolinks.visit(data.redirect_url);
+      location.href = data.redirect_url;
     });
   }
 
