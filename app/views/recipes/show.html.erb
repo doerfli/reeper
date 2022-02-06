@@ -52,11 +52,18 @@
     <div class="recipe_images not-prose">
       <% @recipe.recipe_images.each do |image| %>
         <div class="image">
-          <a class="not-prose" data-action="click->recipe#lightboxOpen" data-imageurl="<%= url_for(image) %>">
+          <a class="not-prose" data-action="click->recipe#imageLgShow" data-imagefullurl="<%= url_for(image) %>" data-imagelgurl="<%= url_for(image.variant(resize: "800x2400")) %>">
             <%= image_tag(image.variant(resize: "100x100")) %>
           </a>
         </div>
       <% end %>
+    </div>
+    <div class="imagelg hidden not-prose" data-recipe-target="imagebox">
+      <img class="h-fit object-scale-down" src="" 
+          data-action="click->recipe#imageLgClose" 
+          data-recipe-target="imagelg"/>
+      <br/>
+      <a href="" target="_blank" data-recipe-target="imagefulllink">Original anzeigen</a>
     </div>
   <% end %>
 
@@ -117,20 +124,6 @@
   <div class="recipe_url mt-2">
     <span class="heading_3"><%=t 'url' %>:</span>
     <span><%= link_to recipe_url(@recipe) %></span>
-  </div>
-
-
-  <div class="modal hidden" data-recipe-target="lightbox">
-    <div>
-      <span class="grid grid-cols-1 justify-items-center h-screen">
-        <img class="h-fit object-scale-down" data-action="click->recipe#lightboxClose" data-recipe-target="lightboximg">
-        <span>
-          <a data-action="click->recipe#lightboxClose">Bild schliessen</a>
-          |
-          <a href="" target="_blank" data-recipe-target="lightboxlink">Original anzeigen</a>
-        </span>
-      </span>
-    </div>
   </div>
 </div>
 

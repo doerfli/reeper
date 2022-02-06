@@ -3,11 +3,10 @@ import { Utils } from "../src/utils"
 
 export default class extends Controller {
   static targets = ["deleteButtons", 
-    "lightbox", "lightboximg", "lightboxlink"
+    "imagelg", "imagebox", "imagefulllink"
   ]
 
   delete() {
-    // TODO: call delete and redirect to list
     var url = this.data.get("url");
     fetch(url, {
       method: 'delete',
@@ -52,14 +51,17 @@ export default class extends Controller {
     });
   }
 
-  lightboxOpen(event) {
-    const imageurl = event.currentTarget.dataset.imageurl;
-    this.lightboximgTarget.src = imageurl;
-    this.lightboxlinkTarget.href = imageurl;
-    this.lightboxTarget.classList.remove("hidden");
+  imageLgShow(event) {
+    const imageurl = event.currentTarget.dataset.imagelgurl;
+    const imagefullurl = event.currentTarget.dataset.imagefullurl;
+    console.log(imageurl);
+    this.imagelgTarget.src = imageurl;
+    this.imagefulllinkTarget.href = imagefullurl;
+    this.imageboxTarget.classList.toggle("hidden");
   }
 
-  lightboxClose() {
-    this.lightboxTarget.classList.add("hidden");
+  imageLgClose(event) {
+    this.imageboxTarget.classList.add("hidden");
   }
+
 }
