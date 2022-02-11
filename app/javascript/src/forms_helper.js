@@ -1,11 +1,11 @@
-import * as $ from 'jquery/dist/jquery'
-
-$( document ).on('turbolinks:load', function() {
-  console.log("ready");
-  $(".noSubmitOnEnter input").keypress(function(event) {
-    // console.log(1);
-    if (event.keyCode == 13 ) {
-      event.preventDefault();
-    }
-  })
-});
+var forms = document.getElementsByClassName("noSubmitOnEnter");
+for (let form of forms) {
+  let inputs = form.getElementsByTagName("input");
+  for (let input of inputs) {
+    input.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+      }
+    });  
+  }
+}

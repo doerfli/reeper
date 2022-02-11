@@ -15,11 +15,11 @@ import { clipboard } from "clipboard-polyfill";
 
 require("trix");
 // require("@rails/actiontext");
-require("@rails/ujs")
-require("@rails/activestorage")
+require("@rails/ujs");
+require("@rails/activestorage");
 
 // import "@rails/actiontext";
-import { AttachmentUpload } from "@rails/actiontext/app/javascript/actiontext/attachment_upload"
+import { AttachmentUpload } from "@rails/actiontext/app/javascript/actiontext/attachment_upload";
 
 addEventListener("trix-attachment-add", event => {
   const { attachment, target } = event
@@ -28,4 +28,4 @@ addEventListener("trix-attachment-add", event => {
     const upload = new AttachmentUpload(attachment, target)
     upload.start()
   }
-})
+});
