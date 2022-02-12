@@ -49,6 +49,7 @@ RUN apk update && apk upgrade && \
 
 # Install gems
 RUN gem update bundler && \
+    bundle config set without 'development test' && \
     bundle config set --local deployment 'true' && \
     bundle config set --local path 'vendor/bundle'
 
