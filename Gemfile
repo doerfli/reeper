@@ -40,7 +40,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 4.8'
 
-gem 'aws-sdk-s3', '~> 1.109', require: false
+gem 'aws-sdk-s3', '~> 1.113', require: false
 
 gem 'kaminari', '>=1.2.1'
 
