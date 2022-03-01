@@ -9,7 +9,7 @@
     "@rails/activestorage": "^7.0.1",
     "@rails/ujs": "^7.0.1",
     "@tailwindcss/forms": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.1",
+    "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.2",
     "clipboard-polyfill": "^3.0.3",
     "lodash": "^4.17.19",
