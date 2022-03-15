@@ -1,6 +1,6 @@
 # Reeper
 
-This repository contains a self-hosted recipe web application implemented in ruby on rails. 
+This repository contains a self-hosted recipe web application implemented in Ruby On Rails. 
 
 Runtime docker images are available. 
 
