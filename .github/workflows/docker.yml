@@ -14,7 +14,7 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u doerfli --password-stdin
       - uses: rlespinasse/github-slug-action@v2.x
       - run: docker build -f Dockerfile -t docker.pkg.github.com/doerfli/reeper/reeper:${{ env.GITHUB_REF_SLUG }} .
