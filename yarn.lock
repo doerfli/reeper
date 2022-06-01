@@ -48,10 +48,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@rails/actiontext@^7.0.1":
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-7.0.2.tgz#800872528ded740c0a1d8ce68d79f0e214168d09"
-  integrity sha512-WD9JSKnXIqNokdvxCnx120+8qctbb9vOXRhJ8LQ3K4YMu5yn74AtFVy68GB0zWcOEumeQI018wtWjSsYrHo5TQ==
+"@rails/actiontext@^7.0.3":
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-7.0.3.tgz#2b682e6a8877c21e693b00a31cd934f13964e3ec"
+  integrity sha512-65zEXlnxcBDQAS68+RncxnhhdZfEgFrDyTJNyVvrWTJKcRBNZpWWYCSf4eFE2wr2vc6qcGFf3Hh1xJdB7DBXpQ==
   dependencies:
     "@rails/activestorage" ">= 7.0.0-alpha1"
 
