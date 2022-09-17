@@ -1,4 +1,6 @@
 class RecipeImagesController < ApplicationController
+  include Secured
+  
   def new
     @recipe = Recipe.find(params[:recipe_id])
     @page_title = @recipe.name

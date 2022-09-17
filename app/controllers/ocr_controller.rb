@@ -1,4 +1,6 @@
 class OcrController < ApplicationController
+  include Secured
+  
   def show
     @recipe = Recipe.find(params[:id])
 

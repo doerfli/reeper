@@ -34,7 +34,14 @@
           <i class="fas fa-tags"></i>
         </li>
       </a>
+      <a class="nav_item_right" href="<%= auth0_logout_path %>" method=":post">
+        <li>
+          <i class="fas fa-arrow-right-from-bracket"></i>
+        </li>
+      </a>
     </ul>
+
+<%= button_to 'Logout', 'auth/logout', method: :get %>
 
   </nav>
 </div>
