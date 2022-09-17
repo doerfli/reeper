@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  include Secured
+  
   def index
     @recipes = Recipe.order("favorite desc").order_by_name.page params[:page]
   end

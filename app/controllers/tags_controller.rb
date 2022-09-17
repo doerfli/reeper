@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+  include Secured
+  
   def index
     @tags = Tag.with_recipes
   end
