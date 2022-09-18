@@ -33,6 +33,7 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user_id = session[:userinfo]['id']
 
     unless @recipe.valid?
       flash.now[:error] = @recipe.errors.messages.map{ |k,v|
