@@ -4,9 +4,18 @@ class Auth0Controller < ApplicationController
     # In this code, you will pull the raw_info supplied from the id_token and assign it to the session.
     # Refer to https://github.com/auth0/omniauth-auth0#authentication-hash for complete information on 'omniauth.auth' contents.
     auth_info = request.env['omniauth.auth']
-    session[:userinfo] = auth_info['extra']['raw_info']
+    logger.debug "Login successful - #{auth_info}"
 
-    # Redirect to the URL you want after successful auth
+    user = User.find_or_create_by(uid: auth_info['extra']['raw_info']['sub']) do |user|
+      user.name = auth_info['extra']['raw_info']['name']
+      user.email = auth_info['extra']['raw_info']['email']
+    end
+
+    user.last_login = Time.now
+    user.save
+
+    session[:userinfo] = user
+
     redirect_to recipes_path
   end
 
