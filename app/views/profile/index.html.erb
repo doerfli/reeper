@@ -1,0 +1,11 @@
+<div class="container">
+    <span class="heading_2">
+        <%=t 'profile.title' %>
+    </span>
+    <div class="mt-4">
+        <%= @user['email'] %>
+    </div>
+    <div class="mt-4">
+        <%= link_to t('profile.change_password'), change_password_path %>
+    </div>
+</div>
