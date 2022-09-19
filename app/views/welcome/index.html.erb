@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="mb-4">
+        <span class="heading_1">
+            <%=t 'welcome.title' %>
+        </span>
+    </div>
+
+    <div>
+        <%= button_to t('welcome.login'), '/auth/auth0', data: { turbo_method: :post }, class: 'button' %>
+    </div>
+</div>

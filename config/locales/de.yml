@@ -3,8 +3,19 @@ de:
   application_title: 'The recipe keeper'
   'yes': 'Ja'
   'no': 'Nein'
+  welcome:
+    title: Willkommen! 
+    login: Anmelden
   nav:
     search: 'Suchen'
+    login: 'Anmelden'
+    logout: 'Abmelden'
+    new_recipe: 'Neues Rezept'
+    recipes: 'Rezepte'
+    tags: 'Tags'
+  profile:
+    title: 'Benutzerprofil'
+    change_password: 'Passwort ändern'
   recipes:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'

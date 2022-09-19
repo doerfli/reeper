@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  include Secured
+  
   def index
     @recipes = Recipe.order("favorite desc").order_by_name.page params[:page]
   end
@@ -31,6 +33,7 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user_id = session[:userinfo]['id']
 
     unless @recipe.valid?
       flash.now[:error] = @recipe.errors.messages.map{ |k,v|
