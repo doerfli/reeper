@@ -5,9 +5,14 @@ de:
   'no': 'Nein'
   welcome:
     title: Willkommen! 
-    login: Anmeldung
+    login: Anmelden
   nav:
     search: 'Suchen'
+    login: 'Anmelden'
+    logout: 'Abmelden'
+    new_recipe: 'Neues Rezept'
+    recipes: 'Rezepte'
+    tags: 'Tags'
   recipes:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'
