@@ -37,7 +37,7 @@
         </a>
 
         <% unless session[:userinfo].nil? %>
-          <a class="nav_item_right">
+          <a class="nav_item_right" href="<%= profile_path %>">
             <li>
               <i class="fas fa-user"></i>
               <%= session[:userinfo]['email'] %>

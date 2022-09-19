@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   get '/welcome', to: 'welcome#index'
 
+  get '/profile', to: 'profile#index'
+  get '/profile/change_password', to: 'profile#change_password', as: 'change_password'
+
   get '/auth/auth0/callback' => 'auth0#callback', as: 'auth0_callback'
   get '/auth/failure' => 'auth0#failure', as: 'auth0_failure'
   get '/auth/logout' => 'auth0#logout', as: 'auth0_logout'

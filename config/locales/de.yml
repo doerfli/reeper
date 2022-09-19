@@ -13,6 +13,9 @@ de:
     new_recipe: 'Neues Rezept'
     recipes: 'Rezepte'
     tags: 'Tags'
+  profile:
+    title: 'Benutzerprofil'
+    change_password: 'Passwort ändern'
   recipes:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'
