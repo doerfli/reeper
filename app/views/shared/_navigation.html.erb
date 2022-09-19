@@ -22,17 +22,17 @@
       <% unless session[:userinfo].nil? %>
         <a class="nav_item_right" href="<%= recipes_path %>">
           <li>
-            <i class="fas fa-list-ul"></i>
+            <i class="fas fa-list-ul" title="<%= t('nav.recipes') %>"></i>
           </li>
         </a>
         <a class="nav_item_right" href="<%= new_recipe_path %>">
           <li>
-            <i class="fas fa-plus-square"></i>
+            <i class="fas fa-plus-square" title="<%= t('nav.new_recipe') %>"></i>
           </li>
         </a>
         <a class="nav_item_right" href="<%= tags_path %>">
           <li>
-            <i class="fas fa-tags"></i>
+            <i class="fas fa-tags" title="<%= t('nav.tags') %>"></i>
           </li>
         </a>
 
@@ -47,7 +47,7 @@
 
         <a class="nav_item_right" href="<%= auth0_logout_path %>" method=":post">
           <li>
-            <i class="fas fa-arrow-right-from-bracket"></i>
+            <i class="fas fa-arrow-right-from-bracket" title="<%= t('nav.logout') %>"></i>
           </li>
         </a>
       <% end %>
@@ -55,7 +55,7 @@
       <% if session[:userinfo].nil? %>
         <%= button_to '/auth/auth0', data: { turbo_method: :post }, class: 'button_link, nav_item_right' do %>
           <li>
-            <i class="fas fa-arrow-right-to-bracket"></i>
+            <i class="fas fa-arrow-right-to-bracket" title="<%= t('nav.login') %>"></i>
           </li>
         <% end %>
       <% end %>
