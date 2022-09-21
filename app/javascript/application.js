@@ -29,3 +29,4 @@ addEventListener("trix-attachment-add", event => {
     upload.start()
   }
 });
+
