@@ -12,13 +12,11 @@ export default class extends Controller {
   }
 
   save(event) {
-    console.log(event);
     event.preventDefault();
     this.saveButtonTarget.disabled = true;
     const altText = this.saveButtonTarget.dataset.alttext;
     this.saveButtonTarget.innerHTML = altText;
     this.spinnerTarget.classList.remove("hidden");
-    console.log("save");
     this.formTarget.submit();
   }
 }

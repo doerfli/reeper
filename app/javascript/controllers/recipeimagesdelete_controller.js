@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "filenames", "submitbutton" ]
+  static targets = [ "filenames", "submitbutton", "spinner", "form" ]
 
   select(event) {
     var filename = event.target.dataset.filename;
@@ -18,5 +18,12 @@ export default class extends Controller {
     }
     this.filenamesTarget.value = _.join(filenames_list, ",");
     this.submitbuttonTarget.disabled = filenames_list.length == 0;
+  }
+
+  save(event) {
+    event.preventDefault();
+    this.submitbuttonTarget.disabled = true;
+    this.spinnerTarget.classList.remove("hidden");
+    this.formTarget.submit();
   }
 }
