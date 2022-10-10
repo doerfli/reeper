@@ -2,7 +2,15 @@ class RecipesController < ApplicationController
   include Secured
   
   def index
-    @recipes = Recipe.order("favorite desc").order_by_name.page params[:page]
+    @recipes = Recipe
+
+    if params[:latest_first]
+      @recipes = @recipes.order(created_at: :desc)
+    else 
+      @recipes = @recipes.order(favorite: :desc).order(name: :asc)
+    end
+    
+    @recipes = @recipes.page params[:page]
   end
 
   def filter_by_tag
