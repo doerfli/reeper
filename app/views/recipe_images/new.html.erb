@@ -6,14 +6,23 @@
   </div>
   
   <div class="add_image" data-controller="recipeimagesadd">
-    <%= form_tag(recipe_recipe_images_path(@recipe), method: :post, multipart: true) do %>
+    <%= form_tag(recipe_recipe_images_path(@recipe), method: :post, multipart: true, data: { 'recipeimagesadd-target': 'form'}) do %>
       <div data-recipeimagesadd-target="files">
         <div>
           <%= file_field_tag 'image[]', { accept: 'image/*', multiple: true, class: 'input', placeholder: t('recipes.form.placeholder.add_image') } %>
         </div>
         <div data-recipeimagesadd-target="buttons" class="mt-4">
-          <%= button_tag t('action.save'), class: 'button' %>
-          <%= button_tag t('action.add_another'), type: 'button', class: 'button button-secondary ml-2', 'data-action': 'click->recipeimagesadd#add_another' %>
+          <span class="hidden" data-recipeimagesadd-target="spinner">
+            <i class="fas fa-2x fa-spinner fa-spin"></i>
+          </span>
+          <%= button_tag t('action.save'), class: 'button', 
+                data: { 
+                  'action': 'click->recipeimagesadd#save', 
+                  'recipeimagesadd-target': 'saveButton',
+                  'alttext': t('action.saving'),
+                } 
+          %>
+          <%= button_tag t('action.add_another'), type: 'button', class: 'button button-secondary', 'data-action': 'click->recipeimagesadd#add_another' %>
           <a href="<%= recipe_path(@recipe) %>" class="not-prose">
             <%= button_tag t('action.cancel'), type: 'button', class: 'button button-secondary' %>
           </a>

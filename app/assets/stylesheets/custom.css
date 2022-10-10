@@ -87,6 +87,11 @@
         @apply my-2 p-1 pl-3 pr-3 bg-amber-500 hover:bg-amber-600 text-gray-100 rounded-lg;
     }
 
+    .button:disabled {
+        /* @apply my-2 p-1 pl-3 pr-3 bg-amber-500 hover:bg-amber-600 text-gray-100 rounded-lg; */
+        @apply bg-gray-300 text-gray-600;
+    }
+
     .button-action {
         @apply bg-indigo-500 hover:bg-indigo-600;
     }

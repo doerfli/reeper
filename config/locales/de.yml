@@ -58,6 +58,7 @@ de:
   action:
     edit: 'Bearbeiten'
     save: 'Speichern'
+    saving: 'Wird gespeichert ...'
     cancel: 'Abbrechen'
     delete: 'Löschen'
     image_add: 'Bild hinzufügen'
