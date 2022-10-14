@@ -1,11 +1,11 @@
 @layer base {
     .prose {
         a:not(.not-prose) {
-            @apply no-underline p-1 rounded-md text-indigo-800;
+            @apply no-underline rounded-md text-indigo-800;
         }
 
         a:not(.not-prose).nocolor {
-            @apply no-underline p-1 rounded-md text-gray-700;
+            @apply no-underline p-0 rounded-md text-gray-700;
         }
     
         a:not(.not-prose):hover {
