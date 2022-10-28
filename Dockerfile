@@ -54,3 +54,5 @@ RUN gem update bundler && \
     bundle config set --local path 'vendor/bundle'
 
 COPY --from=builder /app /app
+
+CMD bundle exec rails s -p 3000 -b '0.0.0.0'
