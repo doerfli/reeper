@@ -11,7 +11,7 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        VARIANT: 3
+        VARIANT: 3.1-bullseye
         USER_UID: 1000
         USER_GID: 1000
         INSTALL_NODE: "true"
