@@ -14,7 +14,6 @@
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
-    <link rel="manifest" href="/manifest.json" />
   </head>
 
   <body>
@@ -24,10 +23,5 @@
       <%= yield %>
     </section>
 
-    <script>
-      if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' });
-      }
-    </script>
   </body>
 </html>
