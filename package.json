@@ -11,7 +11,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.8",
     "autoprefixer": "^10.4.12",
-    "clipboard-polyfill": "^3.0.3",
+    "clipboard-polyfill": "^4.0.0",
     "lodash": "^4.17.19",
     "postcss": "^8.4.19",
     "postcss-cli": "^10.1.0",
