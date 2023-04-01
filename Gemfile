@@ -9,7 +9,7 @@ gem 'rails', '~> 7.0.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18'
 # Use Puma as the app server
-gem 'puma', '~> 6.1'
+gem 'puma', '~> 6.2'
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 gem "sprockets-rails"
