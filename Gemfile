@@ -5,11 +5,11 @@ ruby File.read(".ruby-version").strip
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0.4'
+gem 'rails', '~> 7.0.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18'
 # Use Puma as the app server
-gem 'puma', '~> 6.2'
+gem 'puma', '~> 6.3'
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 gem "sprockets-rails"
@@ -40,7 +40,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 4.8'
 
-gem 'aws-sdk-s3', '~> 1.122', require: false
+gem 'aws-sdk-s3', '~> 1.127', require: false
 
 gem 'kaminari', '>=1.2.1'
 
