@@ -51,7 +51,7 @@ gem 'image_processing', '~> 1.12'
 gem 'dotenv-rails', groups: [:development, :test]
 
 # auth0 login
-gem 'omniauth-auth0', '~> 3.0'
+gem 'omniauth-auth0', '~> 3.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 group :development, :test do
