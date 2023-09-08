@@ -110,10 +110,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@rails/actiontext@^7.0.6":
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-7.0.6.tgz#42b2b275ce6b24031242c731828de9c02d58b53f"
-  integrity sha512-WHHkYmypUjlo6fvNxfKRluuHmIxZCEoK+g/hBsufoxvjvWSBx61qu0Xq0tCrGUYd4mUZ/kk8OqP96/UBI3vS/w==
+"@rails/actiontext@^7.0.7":
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-7.0.7.tgz#d80ba902aa48c0fe55728d7f3e8f7f0cab926cc6"
+  integrity sha512-2huBCSCdROtu3ouu/anTBEs+hvXKQYZ+gGpE3/DCx9Dg/xWRAI3doEHfF7A8uJhokQZrc0ZDOS8zhwwuh1dNzg==
   dependencies:
     "@rails/activestorage" ">= 7.0.0-alpha1"
 
@@ -124,15 +124,15 @@
   dependencies:
     spark-md5 "^3.0.1"
 
-"@rails/ujs@^7.0.6":
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.0.6.tgz#fd8937c92335f3da9495e07292511ad5f7547a6a"
-  integrity sha512-s5v3AC6AywOIFMz0RIMW83Xc8FPIvKMkP3ZHFlM4ISNkhdUwP9HdhVtxxo6z3dIhe9vI0Our2A8kN/QpUV02Qg==
+"@rails/ujs@^7.0.7":
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.0.7.tgz#54af8d66160a8a7bf7d8f184703d2bf4b3fab914"
+  integrity sha512-J2v5Ca7HgejO7diGKiDylaVDQKmbQ5FJih6Oo3hXuBKEuXlcaccJu64lj8MNVLaPVyZx0g4gaOQZQz95QEb/hg==
 
-"@tailwindcss/forms@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.3.tgz#e4d7989686cbcaf416c53f1523df5225332a86e7"
-  integrity sha512-y5mb86JUoiUgBjY/o6FJSFZSEttfb3Q5gllE4xoKjAAD+vBrnIhE4dViwUuow3va8mpH4s9jyUbUbrRGoRdc2Q==
+"@tailwindcss/forms@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.6.tgz#29c6c2b032b363e0c5110efed1499867f6d7e868"
+  integrity sha512-Fw+2BJ0tmAwK/w01tEFL5TiaJBX1NLT1/YbWgvm7ws3Qcn11kiXxzNTEQDMs5V3mQemhB56l3u0i9dwdzSQldA==
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
