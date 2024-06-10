@@ -25,6 +25,19 @@
       </div>
     </div>
     <div class="mb-4">
+      <%= f.label :rating %>
+      <div>
+        <%= f.hidden_field :rating, 'data-recipeform-target': 'rating' %>
+        <% 5.times do |i| %>
+          <% cls = if !@recipe.rating.nil? && i < @recipe.rating then 'fas' else 'far' end  %>
+          <i class="<%= cls %> fa-star" 
+              data-recipeform-target="rating-<%= i+1 %>"
+              data-action="click->recipeform#setrating"
+              data-recipeform-rating-param="<%= i+1 %>"></i>
+        <% end %>
+      </div>
+    </div>
+    <div class="mb-4">
       <%= f.label :tags %>
       <div>
         <%= f.text_field :tag_names, placeholder: t('recipes.form.placeholder.tags'), 'data-action': 'keyup->recipeform#findtags', 'data-recipeform-target': 'tags', autocomplete: 'off'  %>

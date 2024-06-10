@@ -1,17 +1,27 @@
 
 <div
-     data-controller="recipe" 
-     data-recipe-id="<%= @recipe.id %>" 
-     data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>" 
-     data-recipe-favorite-url="<%= favorite_recipe_path(@recipe, :format => :json) %>" 
-     data-recipe-editstate="false">
+    data-controller="recipe" 
+    data-recipe-id="<%= @recipe.id %>" 
+    data-recipe-url="<%= recipe_path(@recipe, :format => :json) %>" 
+    data-recipe-favorite-url="<%= favorite_recipe_path(@recipe, :format => :json) %>" 
+    data-recipe-editstate="false">
   <div>
     <span class="heading_1">
       <%= @recipe.name %>
       <% if @recipe.favorite %> 
-        <i class="fas fa-star is-size-5 text-primary"></i>
+        <i class="fas fa-heart is-size-5 text-primary"></i>
       <% end %>
     </span>
+  </div>
+  <div class="rating">
+    <% 5.times do |i| %>
+      <% if !@recipe.rating.nil? && i < @recipe.rating %>
+        <i class="fas fa-star"></i>
+      <% else %>
+        <i class="far fa-star"></i>
+      <% end %>
+    <% end %>
+    
   </div>
   <div class="ingredients">
     <p>
@@ -71,9 +81,9 @@
   <div class="bottomactions">
     <button class="button" data-action="click->recipe#favorite">
       <% if @recipe.favorite %> 
-        <i class="fas fa-star"></i>
+        <i class="fas fa-heart"></i>
       <% else %>
-        <i class="far fa-star"></i>
+        <i class="far fa-heart"></i>
       <% end %>
     </button>
     <a  href="<%= edit_recipe_path @recipe %>">

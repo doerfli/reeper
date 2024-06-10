@@ -2,8 +2,11 @@
   <% @recipes.each{ |r| %>
     <li>
       <a class="nocolor" href="<%= recipe_path(r) %>"><%= r.name %></a>
-      <% if r.favorite %> 
+      <% (r.rating || 0).times do |i| %>
         <i class="fas fa-star"></i>
+      <% end %>
+      <% if r.favorite %> 
+        <i class="fas fa-heart"></i>
       <% end %>
     </li>
   <% } %>
