@@ -15,6 +15,7 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"github.vscode-pull-request-github",
 				"oderwat.indent-rainbow",
 				"rebornix.Ruby",
 				"eamodio.gitlens",
