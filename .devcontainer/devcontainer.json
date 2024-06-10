@@ -17,10 +17,9 @@
 			"extensions": [
 				"github.vscode-pull-request-github",
 				"oderwat.indent-rainbow",
-				"rebornix.Ruby",
+				"shopify.ruby-extensions-pack",
 				"eamodio.gitlens",
 				"mhutchie.git-graph",
-				"castwide.solargraph",
 				"github.copilot",				
 				"github.copilot-chat",
 				"bradlc.vscode-tailwindcss",
