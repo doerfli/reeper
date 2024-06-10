@@ -29,7 +29,7 @@
       <div>
         <%= f.hidden_field :rating, 'data-recipeform-target': 'rating' %>
         <% 5.times do |i| %>
-          <% cls = if i < @recipe.rating then 'fas' else 'far' end  %>
+          <% cls = if !@recipe.rating.nil? && i < @recipe.rating then 'fas' else 'far' end  %>
           <i class="<%= cls %> fa-star" 
               data-recipeform-target="rating-<%= i+1 %>"
               data-action="click->recipeform#setrating"
