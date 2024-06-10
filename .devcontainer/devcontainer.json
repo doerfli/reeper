@@ -28,6 +28,7 @@
 			"github.copilot",
 			"gruntfuggly.todo-tree",
 			"oderwat.indent-rainbow",
+			"cweijan.vscode-postgresql-client2",
 			"2gua.rainbow-brackets"
 		]
 	},
