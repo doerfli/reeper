@@ -28,26 +28,13 @@
       <%= f.label :rating %>
       <div>
         <%= f.hidden_field :rating, 'data-recipeform-target': 'rating' %>
-        <i class="far fa-star" 
-            data-recipeform-target="rating-1"
-            data-action="click->recipeform#setrating"
-            data-recipeform-rating-param="1"></i>
-        <i class="far fa-star" 
-            data-recipeform-target="rating-2"
-            data-action="click->recipeform#setrating"
-            data-recipeform-rating-param="2"></i>
-        <i class="far fa-star" 
-            data-recipeform-target="rating-3"
-            data-action="click->recipeform#setrating"
-            data-recipeform-rating-param="3"></i>
-        <i class="far fa-star" 
-            data-recipeform-target="rating-4"
-            data-action="click->recipeform#setrating"
-            data-recipeform-rating-param="4"></i>
-        <i class="far fa-star" 
-            data-recipeform-target="rating-5"
-            data-action="click->recipeform#setrating"
-            data-recipeform-rating-param="5"></i>
+        <% 5.times do |i| %>
+          <% cls = if i < @recipe.rating then 'fas' else 'far' end  %>
+          <i class="<%= cls %> fa-star" 
+              data-recipeform-target="rating-<%= i+1 %>"
+              data-action="click->recipeform#setrating"
+              data-recipeform-rating-param="<%= i+1 %>"></i>
+        <% end %>
       </div>
     </div>
     <div class="mb-4">
