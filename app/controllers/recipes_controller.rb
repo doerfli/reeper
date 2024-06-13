@@ -1,15 +1,19 @@
 class RecipesController < ApplicationController
   include Secured
-  
+
   def index
     @recipes = Recipe
 
     if params[:latest_first]
       @recipes = @recipes.order(created_at: :desc)
-    else 
+    elsif params[:rating]
+      @recipes = @recipes.where(rating: params[:rating]).order(name: :asc)
+    elsif params[:rating_null]
+      @recipes = @recipes.where(rating: nil).order(name: :asc)
+    else
       @recipes = @recipes.order(favorite: :desc).order(name: :asc)
     end
-    
+
     @recipes = @recipes.page params[:page]
   end
 
@@ -20,7 +24,6 @@ class RecipesController < ApplicationController
 
   def search
     logger.debug "Search recipe for #{params[:term]}"
-    # @recipes = Recipe.where(ilike(:name, "%#{params[:term]}"))
     if params[:term].nil?
       @recipes = Recipe.all.order_by_name
     else

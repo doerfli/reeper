@@ -9,5 +9,15 @@
     <div class="recipes" data-search-target="list">
       <%= render partial: 'list' %>
     </div>
+    <div class="pb-4">
+      <a href="/"><%= t('recipes.show.alphabetically')%></a> |
+      <a href="/?latest_first=true"><%= t('recipes.show.bydate') %></a> |
+      <a href="/?rating=5"><i class="fa-solid fa-5"></i>&nbsp;<i class="fa-solid fa-star"></i></i></a> |
+      <a href="/?rating=4"><i class="fa-solid fa-4"></i>&nbsp;<i class="fa-solid fa-star"></i></i></a> | 
+      <a href="/?rating=3"><i class="fa-solid fa-3"></i>&nbsp;<i class="fa-solid fa-star"></i></i></a> |
+      <a href="/?rating=2"><i class="fa-solid fa-2"></i>&nbsp;<i class="fa-solid fa-star"></i></i></a> |
+      <a href="/?rating=1"><i class="fa-solid fa-1"></i>&nbsp;<i class="fa-solid fa-star"></i></i></a> | 
+      <a href="/?rating_null=true"><i class="fa-solid fa-0"></i>&nbsp;<i class="fa-regular fa-star"></i></i></a>
+    </div>
   </div>
 </div>

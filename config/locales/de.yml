@@ -34,6 +34,8 @@ de:
       durationunit: 'Min'
       tags: 'Tags'
       source: 'Quelle'
+      alphabetically: 'Alphabetisch'
+      bydate: 'Neueste zuerst'
     delete:
       are_you_sure: 'Wollen Sie dieses Rezept wirklich löschen?'
       info: 'Zu löschende Bilder auswählen'
