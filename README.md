@@ -35,3 +35,4 @@ bin/dev
 ## Start production via docker
 
 Use provided `docker-compose.prod.yml` file for startup of postgres db and container for the rails app. Don't forget to set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and db passwords. To change name of S3 bucket (_reeper_) and region (_eu-central-1_) use `S3_BUCKET_NAME` and `S3_BUCKET_REGION` environment variables. 
+
