@@ -3,8 +3,9 @@ import { Utils } from "../src/utils"
 
 export default class extends Controller {
   static targets = ["deleteButtons", 
-    "imagelg", "imagebox", "imagefulllink"
-  ]
+    "imagelg", "imagebox", "imagefulllink",
+    "favoriteicon",
+  ];
 
   delete() {
     var url = this.data.get("url");
@@ -46,9 +47,11 @@ export default class extends Controller {
       },
     }).then(function json(response) {
       return response.json()
-    }).then(function(data) {
-      Turbolinks.visit(data.redirect_url);
     });
+    // toggle heart icon
+    var favoriteIcon = this.favoriteiconTarget;
+    favoriteIcon.classList.toggle("far");
+    favoriteIcon.classList.toggle("fas");
   }
 
   imageLgShow(event) {

@@ -81,9 +81,9 @@
   <div class="bottomactions">
     <button class="button" data-action="click->recipe#favorite">
       <% if @recipe.favorite %> 
-        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart" data-recipe-target="favoriteicon"></i>
       <% else %>
-        <i class="far fa-heart"></i>
+        <i class="far fa-heart" data-recipe-target="favoriteicon"></i>
       <% end %>
     </button>
     <a  href="<%= edit_recipe_path @recipe %>">
