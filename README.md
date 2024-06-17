@@ -13,6 +13,12 @@ rake db:create
 rake db:migrate
 ```
 
+Restore dump
+
+```
+pg_restore -d reeper_development -h db -Upostgres file.dump
+```
+
 ### AWS credentials
 
 Create `.env.local` file with AWS credentials

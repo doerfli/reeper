@@ -13,3 +13,4 @@ docker-compose*
 /tmp
 /env.*
 .DS_Store
+*.dump
