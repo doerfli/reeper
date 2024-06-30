@@ -1,6 +1,8 @@
+require 'vips'
+
 class RecipeImagesController < ApplicationController
   include Secured
-  
+
   def new
     @recipe = Recipe.find(params[:recipe_id])
     @page_title = @recipe.name
@@ -17,11 +19,12 @@ class RecipeImagesController < ApplicationController
     params[:image].each{ |image|
       if image.content_type == "image/jpeg"
         # downgrade image quality to 60 to reduce size of image
-        img = MiniMagick::Image.read(image.read)
-        img.quality(60)
-        tmpfile = Tempfile.new('img')
-        img.write(tmpfile)
-        tmpfile.close
+        # img = MiniMagick::Image.read(image.read)
+        # img.quality(60)
+        # tmpfile = Tempfile.new('img')
+        # img.write(tmpfile)
+        # tmpfile.close
+        im = Vips::Image.new_from_file "./10x10.tif"  # "./10x10.jpg"
 
         recipe.recipe_images.attach(
           io: tmpfile.open,
