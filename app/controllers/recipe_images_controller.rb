@@ -21,6 +21,7 @@ class RecipeImagesController < ApplicationController
         # convert jpeg to webp using vips
         tmpfile = Tempfile.new('img', :encoding => 'ascii-8bit')
         im = Vips::Image.new_from_buffer image.read, ""
+        im = im.autorot
         tmpfile.write(im.webpsave_buffer(Q: 60))
         tmpfile.close
 
