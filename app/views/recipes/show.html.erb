@@ -62,8 +62,8 @@
     <div class="recipe_images not-prose">
       <% @recipe.recipe_images.each do |image| %>
         <div class="image">
-          <a class="not-prose" data-action="click->recipe#imageLgShow" data-imagefullurl="<%= url_for(image) %>" data-imagelgurl="<%= url_for(image.variant(resize: "800x2400")) %>">
-            <%= image_tag(image.variant(resize: "100x100")) %>
+          <a class="not-prose" data-action="click->recipe#imageLgShow" data-imagefullurl="<%= url_for(image) %>" data-imagelgurl="<%= url_for(image.variant(resize_to_fit: [800,2400])) %>">
+            <%= image_tag(image.variant(resize_to_fit: [100,100])) %>
           </a>
         </div>
       <% end %>
