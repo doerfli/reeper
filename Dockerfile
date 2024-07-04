@@ -12,7 +12,7 @@ ADD .ruby-version $HOME/
 ADD Gemfile* $HOME/
 
 RUN apk update && apk upgrade && \
-    apk add --update --no-cache nodejs yarn build-base libxml2-dev tzdata postgresql-dev vips && \
+    apk add --update --no-cache nodejs yarn build-base libxml2-dev tzdata postgresql-dev vips libffi-dev && \
     rm -rf /var/cache/apk/* 
 
 # # speed up install of nokogiri gem
