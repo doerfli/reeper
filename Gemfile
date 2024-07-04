@@ -90,3 +90,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #gem 'mailgun-ruby', '~>1.1.6'
 #gem 'devise', '~> 4.4', '>= 4.4.1'
 #gem 'bulma-rails', '~>0.6.2'
+
+gem "ruby-vips", "~> 2.2"
