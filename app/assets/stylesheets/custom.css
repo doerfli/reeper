@@ -228,9 +228,14 @@
         .prose :where(li):not(:where([class~="not-prose"] *)) {
             @apply my-0.5 !important;
         }
+        
 
         nav {
             @apply hidden !important;
+        }
+
+        .rating {
+            @apply mt-4;
         }
         
         .recipe_tags {
