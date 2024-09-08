@@ -40,13 +40,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 4.13'
 
-gem 'aws-sdk-s3', '~> 1.155', require: false
+gem 'aws-sdk-s3', '~> 1.159', require: false
 
 gem 'kaminari', '>=1.2.1'
 
 gem 'rtesseract', '~> 3.1'
 
-gem 'image_processing', '~> 1.12'
+gem 'image_processing', '~> 1.13'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
