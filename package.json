@@ -8,7 +8,7 @@
     "@rails/actiontext": "^7.2.100",
     "@rails/activestorage": "^7.1.3",
     "@rails/ujs": "^7.1.400",
-    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
     "autoprefixer": "^10.4.19",
     "clipboard-polyfill": "^4.1.0",
