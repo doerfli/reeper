@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.11'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem "ffi", "~>1.16.3"
+gem "ffi", "~>1.17.0"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
