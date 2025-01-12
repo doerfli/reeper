@@ -25,7 +25,8 @@ RUN gem update bundler && \
 # Add the app code
 COPY . $HOME
 
-RUN yarn install 
+RUN yarn install && \
+    bundle exec rake assets:precompile 
 
 # delete unneeded files
 RUN rm -rf node_modules tmp/cache vendor/assets spec
