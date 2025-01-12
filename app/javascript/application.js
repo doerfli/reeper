@@ -14,7 +14,6 @@ import "./src/forms_helper";
 import { clipboard } from "clipboard-polyfill";
 
 require("trix");
-require("@rails/ujs");
 require("@rails/activestorage");
 require("@rails/actiontext");
 

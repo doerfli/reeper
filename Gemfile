@@ -5,14 +5,13 @@ ruby File.read(".ruby-version").strip
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2.1'
+gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 6.4'
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
-gem "sprockets-rails"
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -96,3 +95,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "ruby-vips", "~> 2.2"
 
 gem "nokogiri", "~> 1.18"
+
+gem "propshaft", "~> 1.1"
