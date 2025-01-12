@@ -94,3 +94,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #gem 'bulma-rails', '~>0.6.2'
 
 gem "ruby-vips", "~> 2.2"
+
+gem "nokogiri", "~> 1.18"

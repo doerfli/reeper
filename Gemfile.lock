@@ -433,6 +433,8 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  aarch64-linux-gnu
+  aarch64-linux-musl
   x86_64-linux
 
 DEPENDENCIES
@@ -456,6 +458,7 @@ DEPENDENCIES
   kaminari (>= 1.2.1)
   listen (>= 3.0.5)
   mini_magick (~> 4.13)
+  nokogiri (~> 1.18)
   omniauth-auth0 (~> 3.1)
   omniauth-rails_csrf_protection (~> 1.0)
   pg (>= 0.18)
