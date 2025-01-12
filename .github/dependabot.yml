@@ -9,11 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 25
-    # ignore:
-    #   - dependency-name: "webpacker"
-    #     versions: 
-    #       - ">= 5"
+    open-pull-requests-limit: 30
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
@@ -26,13 +22,4 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 25
-    #ignore:
-    # - dependency-name: "webpack-cli" # major must be in sync with webpack-dev-server
-    #   versions: ["4.x"]
-    # - dependency-name: "webpack-dev-server" # major must be in sync with webpack-cli
-    #   versions: ["4.x"]
-    #   - dependency-name: "sass-loader"
-    #     versions: [ "11.x", "12.x" ]
-    #   - dependency-name: "eslint"
-    #     versions: [ "7.x" ]
+    open-pull-requests-limit: 30
