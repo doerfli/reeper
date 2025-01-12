@@ -2,10 +2,10 @@
 ARG RUBY_VERSION=3.3.6
 FROM ruby:${RUBY_VERSION}-alpine as builder
 
-ENV HOME=/app \
-    RAILS_ENV=production \
-    RAILS_SERVE_STATIC_FILES=true \
-    SECRET_KEY_BASE=abcdefgh12345678 
+ENV HOME /app 
+ENV RAILS_ENV production 
+ENV RAILS_SERVE_STATIC_FILES true 
+ENV SECRET_KEY_BASE abcdefgh12345678 
 WORKDIR $HOME
 
 ADD .ruby-version $HOME/
@@ -36,10 +36,10 @@ RUN rm -rf node_modules tmp/cache vendor/assets spec
 ### ------- Production ------- ###
 FROM ruby:${RUBY_VERSION}-alpine
 
-ENV HOME=/app \
-    RAILS_ENV=production \
-    RAILS_SERVE_STATIC_FILES=true \
-    SECRET_KEY_BASE=abcdefgh12345678
+ENV HOME=/app 
+ENV RAILS_ENV production 
+ENV RAILS_SERVE_STATIC_FILES true 
+ENV SECRET_KEY_BASE abcdefgh12345678
 WORKDIR $HOME
 
 RUN apk update && apk upgrade && \
