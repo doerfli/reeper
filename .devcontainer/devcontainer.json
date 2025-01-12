@@ -20,7 +20,6 @@
 			"extensions": [
 				"github.vscode-pull-request-github",
 				"oderwat.indent-rainbow",
-				"shopify.ruby-extensions-pack",
 				"eamodio.gitlens",
 				"mhutchie.git-graph",
 				"github.copilot",				
