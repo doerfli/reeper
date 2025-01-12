@@ -4,7 +4,6 @@ FROM ruby:${RUBY_VERSION}-alpine as builder
 
 ENV HOME /app 
 ENV RAILS_ENV production 
-ENV RAILS_SERVE_STATIC_FILES true 
 ENV SECRET_KEY_BASE abcdefgh12345678 
 WORKDIR $HOME
 
@@ -26,8 +25,7 @@ RUN gem update bundler && \
 # Add the app code
 COPY . $HOME
 
-RUN yarn install && \
-    bundle exec rake assets:precompile
+RUN yarn install 
 
 # delete unneeded files
 RUN rm -rf node_modules tmp/cache vendor/assets spec
@@ -38,7 +36,6 @@ FROM ruby:${RUBY_VERSION}-alpine
 
 ENV HOME=/app 
 ENV RAILS_ENV production 
-ENV RAILS_SERVE_STATIC_FILES true 
 ENV SECRET_KEY_BASE abcdefgh12345678
 WORKDIR $HOME
 
