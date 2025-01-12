@@ -160,7 +160,10 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.16.3)
+    ffi (1.17.1-aarch64-linux-gnu)
+    ffi (1.17.1-aarch64-linux-musl)
+    ffi (1.17.1-x86_64-linux-gnu)
+    ffi (1.17.1-x86_64-linux-musl)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -235,7 +238,11 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.1-aarch64-linux-gnu)
       racc (~> 1.4)
+    nokogiri (1.18.1-aarch64-linux-musl)
+      racc (~> 1.4)
     nokogiri (1.18.1-x86_64-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.18.1-x86_64-linux-musl)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -451,7 +458,7 @@ DEPENDENCIES
   debug (>= 1.0.0)
   dotenv-rails
   factory_bot_rails (~> 6.4.2)
-  ffi (~> 1.16.3)
+  ffi (~> 1.17.1)
   image_processing (~> 1.13)
   jbuilder (~> 2.11)
   jsbundling-rails
