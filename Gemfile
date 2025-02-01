@@ -9,7 +9,7 @@ gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18'
 # Use Puma as the app server
-gem 'puma', '~> 6.4'
+gem 'puma', '~> 6.6'
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 # Use Uglifier as compressor for JavaScript assets
