@@ -1,6 +1,6 @@
 ### ------- Builder ------- ###
-ARG RUBY_VERSION=3.3.6
-FROM ruby:${RUBY_VERSION}-alpine as builder
+ARG RUBY_VERSION=3.3.7
+FROM ruby:${RUBY_VERSION}-alpine AS builder
 
 ENV HOME /app 
 ENV RAILS_ENV production 
@@ -11,7 +11,7 @@ ADD .ruby-version $HOME/
 ADD Gemfile* $HOME/
 
 RUN apk update && apk upgrade && \
-    apk add --update --no-cache nodejs yarn build-base libxml2-dev tzdata postgresql-dev vips libffi-dev ruby-dev gcompat && \
+    apk add --update --no-cache nodejs yarn build-base libxml2-dev tzdata postgresql-dev vips libffi-dev ruby-dev gcompat yaml-dev && \
     rm -rf /var/cache/apk/* 
 
 # # speed up install of nokogiri gem
@@ -35,7 +35,7 @@ RUN rm -rf node_modules tmp/cache vendor/assets spec
 ### ------- Production ------- ###
 FROM ruby:${RUBY_VERSION}-alpine
 
-ENV HOME=/app 
+ENV HOME /app 
 ENV RAILS_ENV production 
 ENV SECRET_KEY_BASE abcdefgh12345678
 WORKDIR $HOME

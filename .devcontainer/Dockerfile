@@ -1,7 +1,7 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.183.0/containers/ruby/.devcontainer/base.Dockerfile
 
 # [Choice] Ruby version: 3, 3.0, 2, 2.7, 2.6
-ARG VARIANT="3-bullseye"
+ARG VARIANT="3.3-bullseye"
 FROM mcr.microsoft.com/devcontainers/ruby:${VARIANT}
 
 #ARG INSTALL_ZSH="true"
