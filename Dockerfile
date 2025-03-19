@@ -1,6 +1,6 @@
 ### ------- Builder ------- ###
 ARG RUBY_VERSION=3.3.7
-FROM ruby:${RUBY_VERSION}-alpine as builder
+FROM ruby:${RUBY_VERSION}-alpine AS builder
 
 ENV HOME /app 
 ENV RAILS_ENV production 
@@ -35,7 +35,7 @@ RUN rm -rf node_modules tmp/cache vendor/assets spec
 ### ------- Production ------- ###
 FROM ruby:${RUBY_VERSION}-alpine
 
-ENV HOME=/app 
+ENV HOME /app 
 ENV RAILS_ENV production 
 ENV SECRET_KEY_BASE abcdefgh12345678
 WORKDIR $HOME
