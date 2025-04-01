@@ -13,7 +13,7 @@
     "clipboard-polyfill": "^4.1.1",
     "lodash": "^4.17.19",
     "postcss": "^8.5.3",
-    "postcss-cli": "^11.0.0",
+    "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.1",
     "tailwindcss": "^3",
