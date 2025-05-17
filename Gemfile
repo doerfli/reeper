@@ -39,7 +39,7 @@ gem "ffi", "~>1.17.1"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'mini_magick', '~> 4.13'
+gem 'mini_magick', '~> 5.2'
 
 gem 'aws-sdk-s3', '~> 1.179', require: false
 
