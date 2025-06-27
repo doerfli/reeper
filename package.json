@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
-    "webpack": "^5.99.7",
+    "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1"
   },
   "scripts": {
