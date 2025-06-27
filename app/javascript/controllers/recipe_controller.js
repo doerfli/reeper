@@ -3,7 +3,6 @@ import { Utils } from "../src/utils"
 
 export default class extends Controller {
   static targets = ["deleteButtons", 
-    "imagelg", "imagebox", "imagefulllink",
     "favoriteicon",
   ];
 
@@ -52,19 +51,6 @@ export default class extends Controller {
     var favoriteIcon = this.favoriteiconTarget;
     favoriteIcon.classList.toggle("far");
     favoriteIcon.classList.toggle("fas");
-  }
-
-  imageLgShow(event) {
-    const imageurl = event.currentTarget.dataset.imagelgurl;
-    const imagefullurl = event.currentTarget.dataset.imagefullurl;
-    console.log(imageurl);
-    this.imagelgTarget.src = imageurl;
-    this.imagefulllinkTarget.href = imagefullurl;
-    this.imageboxTarget.classList.toggle("hidden");
-  }
-
-  imageLgClose(event) {
-    this.imageboxTarget.classList.add("hidden");
   }
 
 }
