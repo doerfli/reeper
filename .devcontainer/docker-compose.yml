@@ -11,7 +11,7 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        VARIANT: 3.3-bookworm
+        VARIANT: 3.4-bookworm
         USER_UID: 1000
         USER_GID: 1000
         INSTALL_NODE: "true"
