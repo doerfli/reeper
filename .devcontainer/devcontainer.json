@@ -10,7 +10,7 @@
 	"features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
 		// "ghcr.io/devcontainers/features/ruby:1": {
-			// "version": "3.3.7"
+		// 	"version": "3.4.5"
 		// }
 	},
 
@@ -34,7 +34,7 @@
 	"forwardPorts": [3000],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "gem update bundler && bundle install --jobs 4 && yarn install && ruby --version",
+	"postCreateCommand": "gem update bundler && bundle install --jobs 6 && yarn install && ruby --version",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
