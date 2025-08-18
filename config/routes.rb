@@ -31,12 +31,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ocr do
-    member do
-      post 'append_to_instructions'
-      post 'append_to_ingredients'
-    end
-  end
+  resources :ocr
 
   root to: 'recipes#index'
 end

@@ -1,7 +1,7 @@
 class Recipe < ApplicationRecord
   has_and_belongs_to_many :tags, after_remove: :after_remove_tag
   has_many_attached :recipe_images
-  has_rich_text :instructions 
+  has_rich_text :instructions
   has_rich_text :ingredients
 
   validates :name, presence: true
@@ -51,7 +51,7 @@ class Recipe < ApplicationRecord
   end
 
   def update_tags_count
-    tags.each do |tag| 
+    tags.each do |tag|
       tag.recipes_count = tag.recipes.count
       tag.save
     end
@@ -62,5 +62,5 @@ class Recipe < ApplicationRecord
     tag.recipes_count = tag.recipes.count
     tag.save
   end
-  
+
 end

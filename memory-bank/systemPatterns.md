@@ -186,8 +186,10 @@ User ──┐
 - **Tesseract**: Command-line OCR tool
 - **RTesseract Gem**: Ruby wrapper for Tesseract
 - **Image Processing**: Automatic text extraction from uploads
-- **Text Selection**: Users can select OCR text and append to recipe fields
-- **Rich Text Integration**: OCR text appends to Action Text fields (instructions/ingredients)
+- **Editable Storage**: OCR results saved to editable `ocr_text` field on Recipe model
+- **Latest First**: New OCR results are prepended (most recent on top)
+- **User Control**: Users can edit, delete old OCR content, and copy/paste into rich text fields
+- **Timestamped Results**: Each OCR operation includes timestamp for reference
 
 ### Database Patterns
 

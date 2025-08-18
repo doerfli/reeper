@@ -4,7 +4,7 @@
 
 - Recipe CRUD (create, read, update, delete)
 - Image attachments and OCR extraction
-- **OCR text append functionality:** Users can select text in OCR results and append to recipe instructions or ingredients
+- **OCR temporary storage:** OCR results are saved to a dedicated `ocr_text` field, shown on edit page for manual copy/paste
 - Tagging and search/filtering
 - Auth0 authentication
 - AWS S3 file storage

@@ -33,14 +33,28 @@ en:
   hello: "Hello world"
   recipes:
     title: 'Recipes'
+    form:
+      ocr_text: 'Recognized Text from Images'
+      ocr_text_help: 'Automatically recognized text from images (latest results on top). You can edit, delete, or copy text and paste into ingredients/instructions.'
+      placeholder:
+        ocr_text: 'Automatically recognized text from images...'
   ocr:
     show:
       title: Text Recognition
       submit: Start Text Recognition
       recognized_text_placeholder: Recognized text ...
       toclipboard: Copy to clipboard
-      append_to_instructions: Append to Instructions
-      append_to_ingredients: Append to Ingredients
       lang:
         deu: German
         eng: English
+  activerecord:
+    attributes:
+      recipe:
+        name: 'Name'
+        ingredients: 'Ingredients'
+        instructions: 'Instructions'
+        duration: 'Duration (minutes)'
+        rating: 'Rating'
+        tags: 'Tags'
+        source: 'Source'
+        ocr_text: 'Recognized Text (OCR)'

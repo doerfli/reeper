@@ -61,6 +61,15 @@ class RecipesController < ApplicationController
   def show
     @recipe = Recipe.find(params[:id])
     @page_title = @recipe.name
+
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @recipe.as_json(
+          only: [:id, :name, :duration, :source, :rating, :ocr_text]
+        )
+      }
+    end
   end
 
   def edit
@@ -72,7 +81,11 @@ class RecipesController < ApplicationController
     recipe = Recipe.find(params[:id])
     recipe.update(recipe_params)
     recipe.save
-    redirect_to action: :show, id: recipe
+
+    respond_to do |format|
+      format.html { redirect_to action: :show, id: recipe }
+      format.json { render json: { success: true, message: 'Recipe updated successfully' } }
+    end
   end
 
   def favorite
@@ -92,6 +105,6 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :ingredients, :instructions, :duration, :tag_names, :source, :rating)
+    params.require(:recipe).permit(:name, :ingredients, :instructions, :duration, :tag_names, :source, :rating, :ocr_text)
   end
 end

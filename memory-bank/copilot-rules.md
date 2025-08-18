@@ -21,6 +21,7 @@
 - Use Docker for all deployments
 - Use Tailwind CSS for all UI styling
 - **Development workflow:** Use `bin/dev` to start Rails server, plus `yarn build:css --watch` and `yarn build --watch` for asset building
+- **RESTful design:** Prefer standard controller actions (GET, POST, PATCH, DELETE) over custom actions when possible
 
 ## Workflow
 

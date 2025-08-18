@@ -1,6 +1,6 @@
 class OcrController < ApplicationController
   include Secured
-  
+
   def show
     @recipe = Recipe.find(params[:id])
 
@@ -8,9 +8,8 @@ class OcrController < ApplicationController
   end
 
   def create
-    # @recipe = Recipe.find(params[:id])
-    # image = @recipe.recipe_images.select{|i| i.id == params[:imgid]}.first
-    ri = Recipe.with_attached_recipe_images.find(params[:id]).recipe_images
+    recipe = Recipe.find(params[:id])
+    ri = recipe.recipe_images
     image = ri.select { |i| i.id == params[:imgid].to_i }.first
     x1 = params[:x1].to_i
     y1 = params[:y1].to_i
@@ -25,7 +24,7 @@ class OcrController < ApplicationController
     begin
       img = MiniMagick::Image.read(image.download)
       # orient image correctly
-      img = img.auto_orient 
+      img = img.auto_orient
       croparea = "#{width}x#{height}+#{x1}+#{y1}"
       logger.debug "croparea #{croparea}"
       img = img.crop croparea
@@ -33,34 +32,19 @@ class OcrController < ApplicationController
       ocrd = RTesseract.new(tmp.path, processor: 'mini_magick', lang: language)
       recognized_text = ocrd.to_s.strip
       logger.info recognized_text
+
+      # Prepend to existing OCR text with timestamp (latest on top)
+      timestamp = Time.current.strftime("%Y-%m-%d %H:%M")
+      existing_ocr = recipe.ocr_text || ''
+      updated_ocr = existing_ocr.blank? ?
+        "#{timestamp}:\n#{recognized_text}" :
+        "#{timestamp}:\n#{recognized_text}\n\n#{existing_ocr}"
+
+      recipe.update(ocr_text: updated_ocr)
     ensure
       tmp.unlink
     end
 
-    render json: { text: recognized_text }
-  end
-
-  def append_to_instructions
-    recipe = Recipe.find(params[:id])
-    text_to_append = params[:text]
-    
-    current_instructions = recipe.instructions.to_s
-    updated_instructions = current_instructions.blank? ? text_to_append : "#{current_instructions}\n\n#{text_to_append}"
-    
-    recipe.update(instructions: updated_instructions)
-    
-    render json: { success: true, message: 'Text appended to instructions' }
-  end
-
-  def append_to_ingredients
-    recipe = Recipe.find(params[:id])
-    text_to_append = params[:text]
-    
-    current_ingredients = recipe.ingredients.to_s
-    updated_ingredients = current_ingredients.blank? ? text_to_append : "#{current_ingredients}\n\n#{text_to_append}"
-    
-    recipe.update(ingredients: updated_ingredients)
-    
-    render json: { success: true, message: 'Text appended to ingredients' }
+    render json: { text: recognized_text, success: true }
   end
 end
