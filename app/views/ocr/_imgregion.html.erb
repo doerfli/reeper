@@ -24,7 +24,8 @@
         <i class="fas fa-spinner fa-spin"></i>
       </span>
       <%= button_tag t('ocr.show.toclipboard'), class: 'button', data: { action: 'click->ocr-selection#toclipboard', 'ocr-selection-target': 'toclipboardbtn'} %>
-            
+      <%= button_tag t('ocr.show.save_to_recipe'), class: 'button button-action', data: { action: 'click->ocr-selection#saveToRecipe', 'ocr-selection-target': 'saveToRecipeBtn'} %>
+      
       <%= text_area_tag :recognized, 
             nil, 
             class: 'textarea w-full', 
@@ -34,8 +35,6 @@
             }, 
             rows: 20, 
             autocomplete: 'off' 
-      %>
-
-    </div>
+      %>    </div>
   </div>
 </div>

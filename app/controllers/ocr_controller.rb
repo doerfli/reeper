@@ -32,19 +32,26 @@ class OcrController < ApplicationController
       ocrd = RTesseract.new(tmp.path, processor: 'mini_magick', lang: language)
       recognized_text = ocrd.to_s.strip
       logger.info recognized_text
-
-      # Prepend to existing OCR text with timestamp (latest on top)
-      timestamp = Time.current.strftime("%Y-%m-%d %H:%M")
-      existing_ocr = recipe.ocr_text || ''
-      updated_ocr = existing_ocr.blank? ?
-        "#{timestamp}:\n#{recognized_text}" :
-        "#{timestamp}:\n#{recognized_text}\n\n#{existing_ocr}"
-
-      recipe.update(ocr_text: updated_ocr)
     ensure
       tmp.unlink
     end
 
     render json: { text: recognized_text, success: true }
+  end
+
+  def save_text
+    recipe = Recipe.find(params[:id])
+    text_to_save = params[:text]
+    
+    # Prepend to existing OCR text with timestamp (latest on top)
+    timestamp = Time.current.strftime("%Y-%m-%d %H:%M")
+    existing_ocr = recipe.ocr_text || ''
+    updated_ocr = existing_ocr.blank? ?
+      "#{timestamp}:\n#{text_to_save}" :
+      "#{timestamp}:\n#{text_to_save}\n\n#{existing_ocr}"
+
+    recipe.update(ocr_text: updated_ocr)
+    
+    render json: { success: true, message: 'Text saved to recipe' }
   end
 end

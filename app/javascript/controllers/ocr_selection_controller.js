@@ -6,7 +6,7 @@ export default class extends Controller {
   static targets = [ "filenames", 
                      "canvasImg", "canvasSelect",
                      "submitbutton", "toclipboardbtn", "spinner", "language",
-                     "recognizedtext"]
+                     "recognizedtext", "saveToRecipeBtn"]
 
   initialize() {
     // initialize canvas size
@@ -157,5 +157,55 @@ export default class extends Controller {
     clipboard.writeText(this.recognizedtextTarget.value);
     // this.toclipboardbtnTarget.classList.remove("is-primary");
     this.toclipboardbtnTarget.classList.add("button-success");
+  }
+
+  saveToRecipe() {
+    const textarea = this.recognizedtextTarget;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    
+    // If text is selected, use only the selected text, otherwise use all text
+    let textToSave;
+    if (start !== end) {
+      textToSave = textarea.value.substring(start, end);
+    } else {
+      textToSave = textarea.value;
+    }
+    
+    if (!textToSave.trim()) {
+      alert('No text to save. Please run OCR first or select text to save.');
+      return;
+    }
+
+    const recipeId = this.data.get("id");
+    const url = `/ocr/${recipeId}/save_text`;
+
+    this.saveToRecipeBtnTarget.classList.add("button-loading");
+    
+    fetch(url, {
+      method: 'post',
+      credentials: 'same-origin',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': Utils.getCsrfToken(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'text': textToSave
+      })
+    }).then(response => {
+      this.saveToRecipeBtnTarget.classList.remove("button-loading");
+      return response.json()
+    }).then(data => {
+      if (data.success) {
+        this.saveToRecipeBtnTarget.classList.add("button-success");
+        setTimeout(() => {
+          this.saveToRecipeBtnTarget.classList.remove("button-success");
+        }, 2000);
+      }
+    }).catch(error => {
+      this.saveToRecipeBtnTarget.classList.remove("button-loading");
+      console.error('Error:', error);
+    });
   }
 }

@@ -3,7 +3,16 @@
 ## Architecture Overview
 
 ### System Architecture
-Reeper follows a **traditional Rails MVC architecture** with modern enhancements for file storage, authentication, and deployment.
+Reeper follows a **traditional Rails MVC architecture** with modern enhancements for file storage, authenti#### OCR Integration
+- **Tesseract**: Command-line OCR tool
+- **RTesseract Gem**: Ruby wrapper for Tesseract
+- **Image Processing**: Automatic text extraction from uploads
+- **Selective Save**: Users can save selected text portions or entire OCR results
+- **Manual Save**: OCR results are only saved to recipe when user clicks "Save to Recipe" button
+- **Editable Storage**: Saved OCR results in editable `ocr_text` field on Recipe model
+- **Latest First**: New OCR results are prepended (most recent on top)
+- **User Control**: Users can review, edit, delete OCR content, and copy/paste into rich text fields
+- **Timestamped Results**: Each saved OCR operation includes timestamp for referencend deployment.
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -186,10 +195,11 @@ User ──┐
 - **Tesseract**: Command-line OCR tool
 - **RTesseract Gem**: Ruby wrapper for Tesseract
 - **Image Processing**: Automatic text extraction from uploads
-- **Editable Storage**: OCR results saved to editable `ocr_text` field on Recipe model
+- **Manual Save**: OCR results are only saved to recipe when user clicks "Save to Recipe" button
+- **Editable Storage**: Saved OCR results in editable `ocr_text` field on Recipe model
 - **Latest First**: New OCR results are prepended (most recent on top)
-- **User Control**: Users can edit, delete old OCR content, and copy/paste into rich text fields
-- **Timestamped Results**: Each OCR operation includes timestamp for reference
+- **User Control**: Users can review, edit, delete OCR content, and copy/paste into rich text fields
+- **Timestamped Results**: Each saved OCR operation includes timestamp for reference
 
 ### Database Patterns
 

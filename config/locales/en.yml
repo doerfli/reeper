@@ -35,7 +35,7 @@ en:
     title: 'Recipes'
     form:
       ocr_text: 'Recognized Text from Images'
-      ocr_text_help: 'Automatically recognized text from images (latest results on top). You can edit, delete, or copy text and paste into ingredients/instructions.'
+      ocr_text_help: 'Saved text from OCR recognition (latest results on top). You can edit, delete, or copy text and paste into ingredients/instructions.'
       placeholder:
         ocr_text: 'Automatically recognized text from images...'
   ocr:
@@ -44,6 +44,7 @@ en:
       submit: Start Text Recognition
       recognized_text_placeholder: Recognized text ...
       toclipboard: Copy to clipboard
+      save_to_recipe: Save to Recipe (selected text or all)
       lang:
         deu: German
         eng: English
