@@ -20,7 +20,7 @@
 - Use Auth0 for authentication; do not implement local password storage
 - Use Docker for all deployments
 - Use Tailwind CSS for all UI styling
-- **Development workflow:** Use `bin/dev` to start the full development environment
+- **Development workflow:** Use `bin/dev` to start Rails server, plus `yarn build:css --watch` and `yarn build --watch` for asset building
 
 ## Workflow
 

@@ -27,3 +27,4 @@
 - Standardize on Ruby 3.4.5 for all environments
 - Use manual Ruby install in devcontainer for flexibility
 - Continue using Auth0 for authentication
+- **Development setup:** Requires `bin/dev` + separate `yarn build:css --watch` and `yarn build --watch` processes

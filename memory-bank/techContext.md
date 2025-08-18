@@ -17,7 +17,8 @@
 - Clone repository and install dependencies with `bundle install` and `yarn install`
 - Database setup: `rake db:create db:migrate`
 - Restore data: `pg_restore -d reeper_development -h db -Upostgres file.dump`
-- **Start development server:** `bin/dev` (starts Rails, Webpack dev server, and CSS build processes)
+- **Start development server:** `bin/dev` (starts Rails server)
+- **Start asset watchers:** Run `yarn build:css --watch` and `yarn build --watch` in separate terminals for CSS and JS building
 - Local file storage for development, S3 for production
 - Environment variables for secrets and credentials
 
