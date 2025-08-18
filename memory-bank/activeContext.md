@@ -3,6 +3,7 @@
 ## Current Focus (as of August 18, 2025)
 
 - **Ruby Upgrade:** Project has been upgraded to Ruby 3.4.5 (see recent commits and merged PR #657)
+- **OCR Enhancement:** Extended OCR functionality with buttons to append selected text to recipe instructions or ingredients
 - **Dependency Updates:** All dependencies are being kept up to date for security and compatibility
 - **Docker/Devcontainer:** Devcontainer and Dockerfile updated for new Ruby version and manual install
 - **Auth0 Integration:** Authentication flow stable, no recent changes

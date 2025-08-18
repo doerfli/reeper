@@ -4,6 +4,7 @@
 
 - Recipe CRUD (create, read, update, delete)
 - Image attachments and OCR extraction
+- **OCR text append functionality:** Users can select text in OCR results and append to recipe instructions or ingredients
 - Tagging and search/filtering
 - Auth0 authentication
 - AWS S3 file storage

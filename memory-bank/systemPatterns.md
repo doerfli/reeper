@@ -186,6 +186,8 @@ User ──┐
 - **Tesseract**: Command-line OCR tool
 - **RTesseract Gem**: Ruby wrapper for Tesseract
 - **Image Processing**: Automatic text extraction from uploads
+- **Text Selection**: Users can select OCR text and append to recipe fields
+- **Rich Text Integration**: OCR text appends to Action Text fields (instructions/ingredients)
 
 ### Database Patterns
 

@@ -53,6 +53,8 @@ de:
       submit: Texterkennung starten
       recognized_text_placeholder: Erkannter Text ...
       toclipboard: Copy to clipboard
+      append_to_instructions: Zu Anleitung hinzufügen
+      append_to_ingredients: Zu Zutaten hinzufügen
       lang:
         deu: Deutsch
         eng: Englisch

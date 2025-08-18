@@ -33,3 +33,14 @@ en:
   hello: "Hello world"
   recipes:
     title: 'Recipes'
+  ocr:
+    show:
+      title: Text Recognition
+      submit: Start Text Recognition
+      recognized_text_placeholder: Recognized text ...
+      toclipboard: Copy to clipboard
+      append_to_instructions: Append to Instructions
+      append_to_ingredients: Append to Ingredients
+      lang:
+        deu: German
+        eng: English

@@ -6,7 +6,7 @@ export default class extends Controller {
   static targets = [ "filenames", 
                      "canvasImg", "canvasSelect",
                      "submitbutton", "toclipboardbtn", "spinner", "language",
-                     "recognizedtext"]
+                     "recognizedtext", "appendInstructionsBtn", "appendIngredientsBtn"]
 
   initialize() {
     // initialize canvas size
@@ -157,5 +157,97 @@ export default class extends Controller {
     clipboard.writeText(this.recognizedtextTarget.value);
     // this.toclipboardbtnTarget.classList.remove("is-primary");
     this.toclipboardbtnTarget.classList.add("button-success");
+  }
+
+  getSelectedText() {
+    const textarea = this.recognizedtextTarget;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textarea.value.substring(start, end);
+    
+    if (selectedText.trim() === '') {
+      // If no text is selected, use all text
+      return '';
+    }
+    
+    return selectedText;
+  }
+
+  appendToInstructions() {
+    const selectedText = this.getSelectedText();
+    if (!selectedText.trim()) {
+      alert('Please select text to append or ensure the textarea has content.');
+      return;
+    }
+
+    const recipeId = this.data.get("id");
+    const url = `/ocr/${recipeId}/append_to_instructions`;
+
+    this.appendInstructionsBtnTarget.classList.add("button-loading");
+    
+    fetch(url, {
+      method: 'post',
+      credentials: 'same-origin',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': Utils.getCsrfToken(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'text': selectedText
+      })
+    }).then(response => {
+      this.appendInstructionsBtnTarget.classList.remove("button-loading");
+      return response.json()
+    }).then(data => {
+      if (data.success) {
+        this.appendInstructionsBtnTarget.classList.add("button-success");
+        setTimeout(() => {
+          this.appendInstructionsBtnTarget.classList.remove("button-success");
+        }, 2000);
+      }
+    }).catch(error => {
+      this.appendInstructionsBtnTarget.classList.remove("button-loading");
+      console.error('Error:', error);
+    });
+  }
+
+  appendToIngredients() {
+    const selectedText = this.getSelectedText();
+    if (!selectedText.trim()) {
+      alert('Please select text to append or ensure the textarea has content.');
+      return;
+    }
+
+    const recipeId = this.data.get("id");
+    const url = `/ocr/${recipeId}/append_to_ingredients`;
+
+    this.appendIngredientsBtnTarget.classList.add("button-loading");
+    
+    fetch(url, {
+      method: 'post',
+      credentials: 'same-origin',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': Utils.getCsrfToken(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'text': selectedText
+      })
+    }).then(response => {
+      this.appendIngredientsBtnTarget.classList.remove("button-loading");
+      return response.json()
+    }).then(data => {
+      if (data.success) {
+        this.appendIngredientsBtnTarget.classList.add("button-success");
+        setTimeout(() => {
+          this.appendIngredientsBtnTarget.classList.remove("button-success");
+        }, 2000);
+      }
+    }).catch(error => {
+      this.appendIngredientsBtnTarget.classList.remove("button-loading");
+      console.error('Error:', error);
+    });
   }
 }

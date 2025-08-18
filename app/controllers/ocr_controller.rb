@@ -39,4 +39,28 @@ class OcrController < ApplicationController
 
     render json: { text: recognized_text }
   end
+
+  def append_to_instructions
+    recipe = Recipe.find(params[:id])
+    text_to_append = params[:text]
+    
+    current_instructions = recipe.instructions.to_s
+    updated_instructions = current_instructions.blank? ? text_to_append : "#{current_instructions}\n\n#{text_to_append}"
+    
+    recipe.update(instructions: updated_instructions)
+    
+    render json: { success: true, message: 'Text appended to instructions' }
+  end
+
+  def append_to_ingredients
+    recipe = Recipe.find(params[:id])
+    text_to_append = params[:text]
+    
+    current_ingredients = recipe.ingredients.to_s
+    updated_ingredients = current_ingredients.blank? ? text_to_append : "#{current_ingredients}\n\n#{text_to_append}"
+    
+    recipe.update(ingredients: updated_ingredients)
+    
+    render json: { success: true, message: 'Text appended to ingredients' }
+  end
 end
