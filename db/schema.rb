@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_06_09_203524) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_18_212433) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -61,6 +61,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_06_09_203524) do
     t.boolean "favorite", default: false
     t.bigint "user_id"
     t.integer "rating"
+    t.text "ocr_text"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 

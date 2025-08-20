@@ -21,6 +21,8 @@ de:
     new: 'Neues Rezept erfassen'
     edit: 'Rezept bearbeiten'
     form:
+      ocr_text: 'Erkannter Text aus Bildern'
+      ocr_text_help: 'Gespeicherter Text aus OCR-Erkennung (neueste Ergebnisse oben). Sie können Text bearbeiten, löschen oder kopieren und in Zutaten/Anleitung einfügen.'
       placeholder:
         name: 'Wie heisst das Rezept?'
         ingredients: 'Welche Zutaten benötigt man für das Rezept?'
@@ -29,6 +31,7 @@ de:
         tags: 'Tags'
         add_image: 'Bild hinzufügen'
         source: 'Quelle des Rezepts (Zeitschrift, URL, ...)'
+        ocr_text: 'Automatisch erkannter Text aus Bildern...'
     show:
       duration: 'Dauer'
       durationunit: 'Min'
@@ -53,6 +56,7 @@ de:
       submit: Texterkennung starten
       recognized_text_placeholder: Erkannter Text ...
       toclipboard: Copy to clipboard
+      save_to_recipe: In Rezept speichern (ausgewählter Text oder alles)
       lang:
         deu: Deutsch
         eng: Englisch
@@ -78,6 +82,11 @@ de:
         name: 'Name'
         ingredients: 'Zutaten'
         instructions: 'Anleitung'
+        duration: 'Dauer (Minuten)'
+        rating: 'Bewertung'
+        tags: 'Tags'
+        source: 'Quelle'
+        ocr_text: 'Erkannter Text (OCR)'
         duration: 'Dauer'
         tags: 'Tags'
         images: 'Bilder'

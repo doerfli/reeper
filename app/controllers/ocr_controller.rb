@@ -1,6 +1,6 @@
 class OcrController < ApplicationController
   include Secured
-  
+
   def show
     @recipe = Recipe.find(params[:id])
 
@@ -8,9 +8,8 @@ class OcrController < ApplicationController
   end
 
   def create
-    # @recipe = Recipe.find(params[:id])
-    # image = @recipe.recipe_images.select{|i| i.id == params[:imgid]}.first
-    ri = Recipe.with_attached_recipe_images.find(params[:id]).recipe_images
+    recipe = Recipe.find(params[:id])
+    ri = recipe.recipe_images
     image = ri.select { |i| i.id == params[:imgid].to_i }.first
     x1 = params[:x1].to_i
     y1 = params[:y1].to_i
@@ -25,7 +24,7 @@ class OcrController < ApplicationController
     begin
       img = MiniMagick::Image.read(image.download)
       # orient image correctly
-      img = img.auto_orient 
+      img = img.auto_orient
       croparea = "#{width}x#{height}+#{x1}+#{y1}"
       logger.debug "croparea #{croparea}"
       img = img.crop croparea
@@ -37,6 +36,22 @@ class OcrController < ApplicationController
       tmp.unlink
     end
 
-    render json: { text: recognized_text }
+    render json: { text: recognized_text, success: true }
+  end
+
+  def save_text
+    recipe = Recipe.find(params[:id])
+    text_to_save = params[:text]
+    
+    # Prepend to existing OCR text with timestamp (latest on top)
+    timestamp = Time.current.strftime("%Y-%m-%d %H:%M")
+    existing_ocr = recipe.ocr_text || ''
+    updated_ocr = existing_ocr.blank? ?
+      "#{timestamp}:\n#{text_to_save}" :
+      "#{timestamp}:\n#{text_to_save}\n\n#{existing_ocr}"
+
+    recipe.update(ocr_text: updated_ocr)
+    
+    render json: { success: true, message: 'Text saved to recipe' }
   end
 end

@@ -31,7 +31,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ocr
+  resources :ocr do
+    member do
+      post 'save_text'
+    end
+  end
 
   root to: 'recipes#index'
 end
