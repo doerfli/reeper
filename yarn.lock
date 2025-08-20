@@ -22,10 +22,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.6.3.tgz#f13c7c205915eb91ae54c557f5e92bddd8be0e83"
   integrity sha512-4B4OijXeVNOPZlYA2oEwWOTkzyltLao+xbotHQeqN++Rv27Y6s818+n2Qkp8q+Fxhn0t/5lA5X1Mxktud8eayQ==
 
-"@fortawesome/fontawesome-free@^6.7.2":
-  version "6.7.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz#8249de9b7e22fcb3ceb5e66090c30a1d5492b81a"
-  integrity sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==
+"@fortawesome/fontawesome-free@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-7.0.0.tgz#e4a6788a2d395ea97e7812a096e29bf9c95b944c"
+  integrity sha512-X48nISrSOa89zu2VMljC4XaRf8NmgTwQBVHfS2Nu5G00ZwM31oOVrAtGxZF3b6wDYf9lJsf/Eq4cCSFKIkOWPQ==
 
 "@hotwired/stimulus-webpack-helpers@^1.0.1":
   version "1.0.1"
@@ -148,16 +148,16 @@
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
 "@rails/actiontext@^8.0":
-  version "8.0.200"
-  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-8.0.200.tgz#b0ed8ba50ec31dd8fcc7a8885403c58b2b4f378d"
-  integrity sha512-p9SVulDmWKMChQpNYFrRBGa2aIfMSw8vyCRW9bwHzihFB8eAZ1NE6ak88nr037gwurbCBv4UVdnwndtuh2piAA==
+  version "8.0.201"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-8.0.201.tgz#99ae52c0c69a3243a61f03dfe7f42f471b6cad05"
+  integrity sha512-SFo+kFo9SGMP+y4i8yJFyCBpPwrsMwOiGxNiyXqKEqFhqKuEnYyf26vT/u4wygm5lTCW8gexbGuGAahGhhq3pw==
   dependencies:
     "@rails/activestorage" ">= 8.0.0-alpha"
 
 "@rails/activestorage@>= 8.0.0-alpha", "@rails/activestorage@^8.0":
-  version "8.0.200"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-8.0.200.tgz#147c088e2b4167d6d49292431bdbdf10b118d5bd"
-  integrity sha512-V7GnZXsAMPDWVOBv4/XpHwj5sOw5bWjidWCuUbK3Zx1xt2pOfFaeJDUG7fEWb1MwP4aW1oVVlGkJBdXVyvru0A==
+  version "8.0.201"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-8.0.201.tgz#2d6dd9e7be24b2d57c83124d8189a06f27c8278b"
+  integrity sha512-nwc2UnffHA3lgStYP01JUF9ni9dZTPX7YJESj5qRjrox4Q3oA7bDErKySP6bS9fOTcwtrPvTHBH95gKpLEic6Q==
   dependencies:
     spark-md5 "^3.0.1"
 

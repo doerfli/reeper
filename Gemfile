@@ -22,7 +22,7 @@ gem 'coffee-rails', '~> 5.0.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11'
+gem 'jbuilder', '~> 2.14'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -39,9 +39,9 @@ gem "ffi", "~>1.17.1"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'mini_magick', '~> 5.2'
+gem 'mini_magick', '~> 5.3'
 
-gem 'aws-sdk-s3', '~> 1.191', require: false
+gem 'aws-sdk-s3', '~> 1.197', require: false
 
 gem 'kaminari', '>=1.2.1'
 
@@ -96,4 +96,4 @@ gem "ruby-vips", "~> 2.2"
 
 gem "nokogiri", "~> 1.18", '>= 1.18.9'
 
-gem "propshaft", "~> 1.1"
+gem "propshaft", "~> 1.2"
