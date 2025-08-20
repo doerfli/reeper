@@ -32,10 +32,12 @@ AWS_SECRET_ACCESS_KEY=BBBBB
 
 ## Start development server
 
-Start webpack-dev-server, css build, rails
+Start dev-server, css build, js build
 
 ```
 bin/dev
+yarn build:css --watch
+yarn build --watch
 ```
 
 ## Start production via docker
