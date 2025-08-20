@@ -42,7 +42,7 @@ class OcrController < ApplicationController
   def save_text
     recipe = Recipe.find(params[:id])
     text_to_save = params[:text]
-    
+
     # Prepend to existing OCR text with timestamp (latest on top)
     timestamp = Time.current.strftime("%Y-%m-%d %H:%M")
     existing_ocr = recipe.ocr_text || ''
@@ -51,7 +51,8 @@ class OcrController < ApplicationController
       "#{timestamp}:\n#{text_to_save}\n\n#{existing_ocr}"
 
     recipe.update(ocr_text: updated_ocr)
-    
+    recipe.save
+
     render json: { success: true, message: 'Text saved to recipe' }
   end
 end
