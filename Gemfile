@@ -47,6 +47,8 @@ gem 'kaminari', '>=1.2.1'
 
 gem 'rtesseract', '~> 3.1'
 
+gem 'ruby-openai', '~> 7.0'
+
 gem 'image_processing', '~> 1.13'
 
 gem 'dotenv-rails', groups: [:development, :test]

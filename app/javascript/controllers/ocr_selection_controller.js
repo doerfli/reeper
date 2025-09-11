@@ -6,7 +6,7 @@ export default class extends Controller {
   static targets = [ "filenames", 
                      "canvasImg", "canvasSelect",
                      "submitbutton", "toclipboardbtn", "spinner", "language",
-                     "recognizedtext", "saveToRecipeBtn"]
+                     "recognizedtext", "saveToRecipeBtn", "cleanupBtn"]
 
   initialize() {
     // initialize canvas size
@@ -207,5 +207,52 @@ export default class extends Controller {
       this.saveToRecipeBtnTarget.classList.remove("button-loading");
       console.error('Error:', error);
     });
+  }
+
+  async cleanupWithGpt(event) {
+    event.preventDefault()
+    const text = this.recognizedtextTarget.value
+    const language = this.languageTarget.value
+    
+    if (!text.trim()) {
+      alert('No text to cleanup')
+      return
+    }
+
+    const originalText = this.cleanupBtnTarget.textContent
+    this.cleanupBtnTarget.disabled = true
+    this.cleanupBtnTarget.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cleaning...'
+
+    try {
+      const recipeId = this.data.get("id")
+      const response = await fetch(`/ocr/${recipeId}/cleanup_with_gpt`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': Utils.getCsrfToken()
+        },
+        body: JSON.stringify({ 
+          text: text,
+          language: language
+        })
+      })
+
+      const data = await response.json()
+      
+      if (response.ok) {
+        this.recognizedtextTarget.value = data.cleaned_text
+        this.cleanupBtnTarget.classList.add("button-success")
+        setTimeout(() => {
+          this.cleanupBtnTarget.classList.remove("button-success")
+        }, 2000)
+      } else {
+        alert('Error: ' + data.error)
+      }
+    } catch (error) {
+      alert('Network error: ' + error.message)
+    } finally {
+      this.cleanupBtnTarget.disabled = false
+      this.cleanupBtnTarget.innerHTML = originalText
+    }
   }
 }

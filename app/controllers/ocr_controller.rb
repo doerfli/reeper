@@ -55,4 +55,30 @@ class OcrController < ApplicationController
 
     render json: { success: true, message: 'Text saved to recipe' }
   end
+
+  def cleanup_with_gpt
+    text = params[:text]
+    language = params[:language] || 'eng'
+
+    prompt = case language
+    when 'deu'
+      "Du bist ein Assistent zur OCR-Text-Bereinigung für Rezepte. Der folgende Text wurde mittels OCR aus einem Foto eines Kochbuchs oder einer Kochzeitschrift erkannt und enthält wahrscheinlich Rezepte, Zutaten oder Kochanweisungen. Bitte bereinige den Text, indem du Rechtschreibfehler korrigierst, die Formatierung verbesserst und den Text lesbarer machst, während du die ursprüngliche Bedeutung beibehältst. Achte besonders auf typische Küchenbegriffe, Mengenangaben und Zubereitungsschritte. Antworte auf Deutsch:"
+    when 'eng'
+      "You are an OCR text cleanup assistant for recipes. The following text was recognized via OCR from a photo of a cookbook or cooking magazine and likely contains recipes, ingredients, or cooking instructions. Please clean up the text by fixing spelling errors, improving formatting, and making it more readable while preserving the original meaning. Pay special attention to typical cooking terms, measurements, and preparation steps. Respond in English:"
+    else
+      "You are an OCR text cleanup assistant for recipes. The following text was recognized via OCR from a photo of a cookbook or cooking magazine and likely contains recipes, ingredients, or cooking instructions. Please clean up the text by fixing spelling errors, improving formatting, and making it more readable while preserving the original meaning. Pay special attention to typical cooking terms, measurements, and preparation steps:"
+    end
+
+    cleaned_text = openai_cleanup_service.cleanup(text, prompt)
+
+    render json: { cleaned_text: cleaned_text }
+  rescue => e
+    render json: { error: e.message }, status: :unprocessable_entity
+  end
+
+  private
+
+  def openai_cleanup_service
+    @openai_cleanup_service ||= OpenaiCleanupService.new
+  end
 end

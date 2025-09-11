@@ -44,6 +44,7 @@ en:
       submit: Start Text Recognition
       recognized_text_placeholder: Recognized text ...
       toclipboard: Copy to clipboard
+      cleanup_with_gpt: Cleanup with AI
       save_to_recipe: Save to Recipe (selected text or all)
       lang:
         deu: German
