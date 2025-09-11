@@ -44,7 +44,8 @@
 
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET_NAME`, `S3_BUCKET_REGION`
 - `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, `AUTH0_DOMAIN`, `AUTH0_DB_CONNECTION`
-- **OpenAI:** `openai_api_key` (stored in Rails credentials, not environment variables)
+- `OPENAI_API_KEY`: OpenAI API key for GPT cleanup functionality (production)
+- **Note:** OpenAI key can also be stored in Rails credentials for development
 
 ## Deployment
 

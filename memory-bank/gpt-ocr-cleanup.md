@@ -49,15 +49,37 @@ AI-powered text cleanup for OCR results using OpenAI's GPT-4 Mini model, specifi
 ## Configuration
 
 ### OpenAI API Key
-Stored in Rails credentials (encrypted):
+
+#### Development
+Two options available:
+1. **Environment Variable (Recommended)**:
+   ```bash
+   export OPENAI_API_KEY=your_openai_api_key_here
+   ```
+   
+2. **Rails Credentials**:
+   ```bash
+   EDITOR="code --wait" rails credentials:edit
+   ```
+   Add:
+   ```yaml
+   openai_api_key: your_openai_api_key_here
+   ```
+
+#### Production (Docker/Dokku)
+Set environment variable:
 ```bash
-EDITOR="code --wait" rails credentials:edit
+# Set the OpenAI API key for your app
+dokku config:set your-app-name OPENAI_API_KEY=your_actual_openai_api_key_here
+
+# Verify configuration
+dokku config:show your-app-name
 ```
 
-Key stored as:
-```yaml
-openai_api_key: sk-proj-...
-```
+#### Priority
+The service checks for API key in this order:
+1. `OPENAI_API_KEY` environment variable (production)
+2. `Rails.application.credentials.openai_api_key` (development fallback)
 
 ### Routes
 ```ruby
