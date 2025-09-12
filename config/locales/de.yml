@@ -56,6 +56,7 @@ de:
       submit: Texterkennung starten
       recognized_text_placeholder: Erkannter Text ...
       toclipboard: Copy to clipboard
+      cleanup_with_gpt: Mit KI bereinigen
       save_to_recipe: In Rezept speichern (ausgewählter Text oder alles)
       lang:
         deu: Deutsch
