@@ -4,7 +4,10 @@ class OpenaiCleanupService
     api_key = ENV['OPENAI_API_KEY'] || Rails.application.credentials.openai_api_key
     raise "OpenAI API key not configured. Set OPENAI_API_KEY environment variable or add to Rails credentials" if api_key.blank?
 
-    @client = OpenAI::Client.new(access_token: api_key)
+    @client = OpenAI::Client.new(
+      access_token: api_key,
+      log_errors: true
+    )
   end
 
   def cleanup(text, prompt)

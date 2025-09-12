@@ -47,7 +47,7 @@ gem 'kaminari', '>=1.2.1'
 
 gem 'rtesseract', '~> 3.1'
 
-gem 'ruby-openai', '~> 7.0'
+gem 'ruby-openai', '~> 8.0'
 
 gem 'image_processing', '~> 1.13'
 
