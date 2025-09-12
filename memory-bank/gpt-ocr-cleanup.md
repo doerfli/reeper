@@ -55,6 +55,10 @@ Two options available:
 1. **Environment Variable (Recommended)**:
    ```bash
    export OPENAI_API_KEY=your_openai_api_key_here
+   
+   # Optional: Override prompts per language
+   export OPENAI_CLEANUP_PROMPT_EN="Your custom English prompt..."
+   export OPENAI_CLEANUP_PROMPT_DE="Your custom German prompt..."
    ```
    
 2. **Rails Credentials**:
@@ -67,19 +71,23 @@ Two options available:
    ```
 
 #### Production (Docker/Dokku)
-Set environment variable:
+Set environment variables:
 ```bash
 # Set the OpenAI API key for your app
 dokku config:set your-app-name OPENAI_API_KEY=your_actual_openai_api_key_here
+
+# Optional: Override prompts per language
+dokku config:set your-app-name OPENAI_CLEANUP_PROMPT_EN="Your custom English prompt..."
+dokku config:set your-app-name OPENAI_CLEANUP_PROMPT_DE="Your custom German prompt..."
 
 # Verify configuration
 dokku config:show your-app-name
 ```
 
 #### Priority
-The service checks for API key in this order:
-1. `OPENAI_API_KEY` environment variable (production)
-2. `Rails.application.credentials.openai_api_key` (development fallback)
+The service checks for prompts in this order:
+1. `OPENAI_CLEANUP_PROMPT_EN` / `OPENAI_CLEANUP_PROMPT_DE` environment variables
+2. Built-in language-specific prompts (fallback)
 
 ### Routes
 ```ruby

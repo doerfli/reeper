@@ -55,7 +55,15 @@ EDITOR="code --wait" rails credentials:edit
 **Production/Dokku:**
 ```bash
 dokku config:set your-app-name OPENAI_API_KEY=your_actual_openai_api_key_here
+
+# Optional: Override cleanup prompts per language
+dokku config:set your-app-name OPENAI_CLEANUP_PROMPT_EN="Your custom English prompt..."
+dokku config:set your-app-name OPENAI_CLEANUP_PROMPT_DE="Your custom German prompt..."
 ```
+
+**Optional Configuration:**
+- `OPENAI_CLEANUP_PROMPT_EN`: Override the default English cleanup prompt
+- `OPENAI_CLEANUP_PROMPT_DE`: Override the default German cleanup prompt
 
 
 ## Start development server
