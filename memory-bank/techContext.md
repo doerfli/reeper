@@ -5,10 +5,11 @@
 - **Language:** Ruby 3.4.5
 - **Framework:** Ruby on Rails 8.x
 - **Database:** PostgreSQL
-- **Frontend:** Rails views, Tailwind CSS
+- **Frontend:** Rails views, Tailwind CSS, Stimulus controllers
 - **Authentication:** Auth0 (OmniAuth)
 - **File Storage:** AWS S3 (Active Storage)
 - **OCR:** Tesseract via RTesseract gem
+- **Image Processing:** MiniMagick (rotation, cropping, format conversion)
 - **AI Integration:** OpenAI GPT-4 Mini (via ruby-openai gem)
 - **Containerization:** Docker, Docker Compose
 - **CI/CD:** GitHub Actions

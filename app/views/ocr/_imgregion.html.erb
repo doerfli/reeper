@@ -1,6 +1,33 @@
 <div class="grid grid-cols-2 gap-4">
   <div>
-    <div class="canvases">
+    <!-- Rotation Controls -->
+    <div class="rotation-controls mb-4">
+      <button type="button" 
+              data-action="click->image-rotation#rotateCounterclockwise"
+              class="button button-secondary">
+        ↺ Rotate Left
+      </button>
+      
+      <button type="button" 
+              data-action="click->image-rotation#reset"
+              class="button button-secondary">
+        Reset
+      </button>
+      
+      <button type="button" 
+              data-action="click->image-rotation#rotateClockwise"
+              class="button button-secondary">
+        Rotate Right ↻
+      </button>
+      
+      <!-- Hidden input to track rotation for OCR processing -->
+      <input type="hidden" 
+             data-image-rotation-target="rotationInput"
+             name="rotation" 
+             value="0">
+    </div>
+    
+    <div class="canvases" data-image-rotation-target="image">
       <canvas 
         id="canvas0"
         class="ocrcanvas" 

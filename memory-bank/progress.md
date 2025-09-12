@@ -5,6 +5,7 @@
 - Recipe CRUD (create, read, update, delete)
 - Image attachments and OCR extraction
 - **OCR with AI cleanup:** OCR results can be cleaned up using GPT-4 Mini for better accuracy and formatting
+- **OCR with image rotation:** Images can be rotated client-side for better OCR recognition without modifying stored files
 - **OCR temporary storage:** OCR results are saved to a dedicated `ocr_text` field, shown on edit page for manual copy/paste
 - **Language-aware AI processing:** GPT cleanup adapts to German/English with recipe-specific prompts
 - Tagging and search/filtering
@@ -33,7 +34,20 @@
 
 ## Recent Completions (September 2025)
 
-### GPT OCR Cleanup Feature ✅
+### Image Rotation for OCR ✅ (September 12, 2025)
+- **Implementation:** Complete and tested
+- **Components:** Stimulus controller, CSS styling, backend integration
+- **Features:**
+  - Client-side rotation controls (90°, 180°, 270°, reset)
+  - CSS transform-based visual feedback with smooth transitions
+  - Session-only persistence (no database storage)
+  - Backend MiniMagick integration for actual OCR processing
+  - Preserves original stored images in ActiveStorage
+- **Files Modified:** 5 files across controllers, views, stylesheets
+- **Dependencies:** Leverages existing MiniMagick and Stimulus setup
+- **UX:** Three intuitive buttons with rotation arrows and reset option
+
+### GPT OCR Cleanup Feature ✅ (September 11, 2025)
 - **Implementation:** Complete and tested
 - **Components:** Controller action, service class, frontend integration
 - **Features:** 

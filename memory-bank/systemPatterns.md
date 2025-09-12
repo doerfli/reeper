@@ -7,12 +7,14 @@ Reeper follows a **traditional Rails MVC architecture** with modern enhancements
 - **Tesseract**: Command-line OCR tool
 - **RTesseract Gem**: Ruby wrapper for Tesseract
 - **Image Processing**: Automatic text extraction from uploads
+- **Image Rotation**: Client-side rotation controls with backend processing support
 - **Selective Save**: Users can save selected text portions or entire OCR results
 - **Manual Save**: OCR results are only saved to recipe when user clicks "Save to Recipe" button
 - **Editable Storage**: Saved OCR results in editable `ocr_text` field on Recipe model
 - **Latest First**: New OCR results are prepended (most recent on top)
 - **User Control**: Users can review, edit, delete OCR content, and copy/paste into rich text fields
-- **Timestamped Results**: Each saved OCR operation includes timestamp for referencend deployment.
+- **Timestamped Results**: Each saved OCR operation includes timestamp for reference
+- **AI Enhancement**: GPT-4 Mini integration for intelligent text cleanup and formattingnd deployment.
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -99,6 +101,14 @@ end
 - **Tailwind CSS**: Utility-first CSS framework
 - **Mobile-First**: Responsive breakpoints
 - **Touch-Friendly**: Large tap targets for mobile
+- **Stimulus Controllers**: Progressive enhancement for interactive features
+- **CSS Transforms**: Client-side image rotation with smooth transitions
+
+#### Frontend Interactivity
+- **Stimulus Framework**: Lightweight JavaScript framework for Rails
+- **Progressive Enhancement**: Core functionality works without JavaScript
+- **Session-State Management**: Temporary UI state that resets between sessions
+- **Event-Driven Architecture**: Controller communication via custom events
 
 ### Data Layer Patterns
 
@@ -111,6 +121,9 @@ end
 - **Active Storage Variants**: Automatic image resizing
 - **OCR Integration**: Tesseract for text extraction
 - **Background Processing**: Async image processing
+- **Rotation Support**: MiniMagick-based image rotation for OCR enhancement
+- **Non-Destructive Processing**: Original images preserved in storage
+- **Temporary Transformations**: Rotation applied only during OCR processing
 
 ## Technical Decisions
 
