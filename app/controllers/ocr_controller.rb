@@ -18,6 +18,7 @@ class OcrController < ApplicationController
     width = x2 - x1
     height = y2 - y1
     language = params[:language]
+    rotation = params[:rotation]&.to_i || 0
     tmp = Tempfile.new('for_rt')
     recognized_text = ''
 
@@ -25,6 +26,13 @@ class OcrController < ApplicationController
       img = MiniMagick::Image.read(image.download)
       # orient image correctly
       img = img.auto_orient
+
+      # Apply user-specified rotation if provided
+      if rotation != 0 && [90, 180, 270].include?(rotation)
+        img = img.rotate(rotation)
+        logger.debug "Applied rotation: #{rotation} degrees"
+      end
+
       croparea = "#{width}x#{height}+#{x1}+#{y1}"
       logger.debug "croparea #{croparea}"
       img = img.crop croparea

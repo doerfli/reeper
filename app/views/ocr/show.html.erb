@@ -3,7 +3,7 @@
     <%=t 'ocr.show.title' %> - <%=t @recipe.name %>
   </span>
 </div>
-<div data-controller="ocr-selection"  
+<div data-controller="ocr-selection image-rotation"  
       data-ocr-selection-id="<%= @recipe.id %>" 
       data-ocr-selection-imgid="<%= @recipe.recipe_images.first.id %>"
       data-ocr-selection-imgurl="<%= rails_blob_path(@recipe.recipe_images.first) %>" 

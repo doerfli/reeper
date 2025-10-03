@@ -123,6 +123,10 @@ export default class extends Controller {
     var textArea = this.recognizedtextTarget;
     var language = this.languageTarget.value;
     
+    // Get rotation value from the rotation input field
+    var rotationInput = document.querySelector('input[name="rotation"]');
+    var rotation = rotationInput ? parseInt(rotationInput.value) || 0 : 0;
+    
     this.spinnerTarget.classList.remove("hidden");
     // TODO show spinner
     fetch(url, {
@@ -140,7 +144,8 @@ export default class extends Controller {
         'y1': y1,
         'x2': x2,
         'y2': y2,
-        'language': language
+        'language': language,
+        'rotation': rotation
       })
     }).then(response => {
       this.spinnerTarget.classList.add("hidden");
