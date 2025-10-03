@@ -98,4 +98,4 @@ gem "ruby-vips", "~> 2.2"
 
 gem "nokogiri", "~> 1.18"
 
-gem "propshaft", "~> 1.2"
+gem "propshaft", "~> 1.3"
