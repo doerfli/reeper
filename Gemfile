@@ -9,7 +9,7 @@ gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18'
 # Use Puma as the app server
-gem 'puma', '~> 6.6'
+gem 'puma', '~> 7.0'
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -41,7 +41,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 5.3'
 
-gem 'aws-sdk-s3', '~> 1.197', require: false
+gem 'aws-sdk-s3', '~> 1.199', require: false
 
 gem 'kaminari', '>=1.2.1'
 
@@ -61,7 +61,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
-  gem 'factory_bot_rails', '~>6.5.0'
+  gem 'factory_bot_rails', '~>6.5.1'
   gem 'bundler-audit'
 end
 
@@ -96,6 +96,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "ruby-vips", "~> 2.2"
 
-gem "nokogiri", "~> 1.18", '>= 1.18.9'
+gem "nokogiri", "~> 1.18"
 
 gem "propshaft", "~> 1.2"
