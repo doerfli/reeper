@@ -4,7 +4,7 @@
 ARG VARIANT="bookworm"
 FROM mcr.microsoft.com/devcontainers/base:${VARIANT}
 
-ARG RUBY_VERSION=3.4.5
+ARG RUBY_VERSION=3.4.6
 ARG NODEJS_VERSION=22
 ARG YARN_VERSION=1
 
