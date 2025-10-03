@@ -148,9 +148,9 @@
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
 "@rails/actiontext@^8.0":
-  version "8.0.201"
-  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-8.0.201.tgz#99ae52c0c69a3243a61f03dfe7f42f471b6cad05"
-  integrity sha512-SFo+kFo9SGMP+y4i8yJFyCBpPwrsMwOiGxNiyXqKEqFhqKuEnYyf26vT/u4wygm5lTCW8gexbGuGAahGhhq3pw==
+  version "8.0.300"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-8.0.300.tgz#a5c89ef825f5e1b199456abc86c8f2f746227450"
+  integrity sha512-3uIRBH7SsjlgbpZQTEsgZg9bdH2umdjCoXp02oRF1PzEi/TcOTQD/PXTthkRiXdo0sA6y3PMgJNiPs/JfW4JLQ==
   dependencies:
     "@rails/activestorage" ">= 8.0.0-alpha"
 
