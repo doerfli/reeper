@@ -2,10 +2,10 @@
   "name": "reeper",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^7.0.1",
+    "@fortawesome/fontawesome-free": "^7.1.0",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
-    "@rails/actiontext": "^8.0",
+    "@rails/actiontext": "^8.1",
     "@rails/activestorage": "^8.0",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.19",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
-    "webpack": "^5.102.0",
+    "webpack": "^5.102.1",
     "webpack-cli": "^6.0.1"
   },
   "scripts": {
