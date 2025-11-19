@@ -1,6 +1,6 @@
 <ul class="list-none ps-0 md:ps-4">
   <% @recipes.each{ |r| %>
-    <li>
+    <li class="py-2">
       <a class="nocolor" href="<%= recipe_path(r) %>"><%= r.name %></a>
       <% (r.rating || 0).times do |i| %>
         <i class="fas fa-star"></i>

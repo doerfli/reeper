@@ -1,27 +1,25 @@
-@layer base {
-    .prose {
-        a:not(.not-prose) {
-            @apply no-underline rounded-md text-indigo-800;
-        }
-
-        a:not(.not-prose).nocolor {
-            @apply no-underline p-0 rounded-md text-gray-700;
-        }
-    
-        a:not(.not-prose):hover {
-            @apply bg-amber-100;
-        }
-    
-        @apply leading-4;
-        max-width: 80ch !important;
+.prose {
+    a:not(.not-prose) {
+        @apply no-underline rounded-md text-indigo-800;
     }
 
-    .prose_wide {
-        @apply prose md:prose-lg;
-        @apply !max-w-full;
+    a:not(.not-prose).nocolor {
+        @apply no-underline p-0 rounded-md text-gray-700;
     }
 
+    a:not(.not-prose):hover {
+        @apply bg-amber-100;
+    }
+
+    @apply leading-4;
+    max-width: 80ch !important;
 }
+
+.prose_wide {
+    @apply prose md:prose-lg;
+    @apply !max-w-full;
+}
+
 
 @layer components {
     .text-primary {
