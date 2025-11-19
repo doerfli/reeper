@@ -18,7 +18,7 @@
 
     .prose_wide {
         @apply prose md:prose-lg;
-        @apply max-w-full !important;
+        @apply !max-w-full;
     }
 
 }
@@ -117,7 +117,7 @@
 
     .modal {
         @apply absolute top-0 left-0 right-0 bottom-0 z-50;
-        @apply bg-gray-600 bg-opacity-90;
+        @apply bg-gray-600/90;
 
         > div {
             @apply top-0 bottom-0 mx-auto;
@@ -189,12 +189,12 @@
 
     /* Lightbox Styles */
     .lightbox-modal {
-        @apply fixed inset-0 bg-black bg-opacity-0 flex items-center justify-center z-50;
+        @apply fixed inset-0 bg-black/0 flex items-center justify-center z-50;
         transition: background-color 0.3s ease;
     }
 
     .lightbox-modal.lightbox-active {
-        @apply bg-opacity-90;
+        @apply bg-black/90;
     }
 
     .lightbox-content {
@@ -223,11 +223,11 @@
     }
 
     .lightbox-close {
-        @apply absolute top-4 right-4 text-white hover:text-gray-300 z-10 p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all duration-200;
+        @apply absolute top-4 right-4 text-white hover:text-gray-300 z-10 p-2 rounded-full bg-black/50 hover:bg-black/75 transition-all duration-200;
     }
 
     .lightbox-nav {
-        @apply absolute top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 p-3 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all duration-200 z-10;
+        @apply absolute top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 p-3 rounded-full bg-black/50 hover:bg-black/75 transition-all duration-200 z-10;
     }
 
     .lightbox-prev {
@@ -239,7 +239,7 @@
     }
 
     .lightbox-counter {
-        @apply absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white bg-black bg-opacity-50 px-3 py-1 rounded-full text-sm;
+        @apply absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white bg-black/50 px-3 py-1 rounded-full text-sm;
     }
 
     .lightbox-original-link {
@@ -321,16 +321,16 @@
     @media print {
 
         .prose {
-            @apply leading-3 !important;
+            @apply !leading-3;
         }
 
         .prose :where(li):not(:where([class~="not-prose"] *)) {
-            @apply my-0.5 !important;
+            @apply !my-0.5;
         }
         
 
         nav {
-            @apply hidden !important;
+            @apply !hidden;
         }
 
         .rating {
@@ -347,15 +347,15 @@
         }
 
         .recipe_source {
-            @apply hidden !important;
+            @apply !hidden;
         }
 
         .recipe_images {
-            @apply hidden !important;
+            @apply !hidden;
         }
 
         .bottomactions {
-            @apply hidden !important;
+            @apply !hidden;
         }
         
     }
