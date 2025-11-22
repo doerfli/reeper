@@ -279,9 +279,23 @@ h1 {
     ul a {
         @apply px-1;
     }
-
 }
 
+input[type="text"] {
+    @apply w-full border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black
+}
+
+.input_has_icons_left {
+    @apply flex relative items-center;
+
+    i {
+        @apply absolute pl-2;
+    }
+
+    input {
+        @apply pl-8;
+    }
+}
 
 /* Lightbox Styles */
 .lightbox-modal {

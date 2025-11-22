@@ -4,7 +4,7 @@
       <%= text_field_tag :search, nil, class: '', placeholder: t('action.search'), autocomplete: 'off',
           'data-action': 'keyup->search#search', 
           'data-search-target': 'term' %>
-      <i class="fas fa-search self-center"></i>
+      <i class="fas fa-search"></i>
     </p>
     <div class="recipes" data-search-target="list">
       <%= render partial: 'list' %>
