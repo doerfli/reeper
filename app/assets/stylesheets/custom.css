@@ -12,12 +12,12 @@
     }
 
     @apply leading-4;
-    max-width: 80ch !important;
+    max-width: 80ch important!;
 }
 
 .prose_wide {
     @apply prose md:prose-lg;
-    @apply !max-w-full;
+    @apply max-w-full!;
 }
 
 
@@ -142,7 +142,7 @@
     }
 
     trix-editor:focus-visible {
-        @apply outline-amber-200 outline border-0;
+        @apply outline-amber-200 border-0;
     }
 
     .input_has_icons_left {
@@ -319,16 +319,16 @@
     @media print {
 
         .prose {
-            @apply !leading-3;
+            @apply leading-3!;
         }
 
         .prose :where(li):not(:where([class~="not-prose"] *)) {
-            @apply !my-0.5;
+            @apply my-0.5!;
         }
         
 
         nav {
-            @apply !hidden;
+            @apply hidden!;
         }
 
         .rating {
@@ -345,15 +345,15 @@
         }
 
         .recipe_source {
-            @apply !hidden;
+            @apply hidden!;
         }
 
         .recipe_images {
-            @apply !hidden;
+            @apply hidden!;
         }
 
         .bottomactions {
-            @apply !hidden;
+            @apply hidden!;
         }
         
     }
