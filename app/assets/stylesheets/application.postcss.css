@@ -9,9 +9,16 @@
 @import "@fortawesome/fontawesome-free/css/regular.css";
 @import "./custom.css";
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Science+Gothic:wght@100..900&display=swap");
+
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
 @source "../../views/**/*.html.erb";
 @source "../../helpers/**/*.rb";
 @source "../../javascript/**/*.js";
+
+@theme {  
+    --font-noto-sans: "Noto Sans", sans-serif;
+    --font-family-sans: var(--font-noto-sans);
+}

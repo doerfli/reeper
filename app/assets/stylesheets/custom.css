@@ -271,6 +271,17 @@
  */
 
 
+h1 {
+    @apply text-2xl;
+}
+
+.navigaton_bar {
+    ul a {
+        @apply px-1;
+    }
+
+}
+
 
 /* Lightbox Styles */
 .lightbox-modal {
