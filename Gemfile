@@ -77,6 +77,7 @@ group :development do
   gem 'solargraph'
   gem 'debug', '>= 1.0.0'
   gem 'rack-mini-profiler'
+  gem "rails_live_reload"
 end
 
 group :test do
