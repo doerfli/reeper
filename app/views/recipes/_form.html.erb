@@ -1,31 +1,41 @@
 <div class="recipe noSubmitOnEnter" data-controller="recipeform" data-recipeform-url="<%= search_tags_path(term: 'term', format: :json) %>">
   <%= form_for @recipe do |f| %>
     <div class="mb-4">
-      <%= f.label :name %>
+      <div class="mb-2">
+        <%= f.label :name %>
+      </div>
       <div>
         <%= f.text_field :name, placeholder: t('recipes.form.placeholder.name') %>
       </div>
     </div>
     <div class="mb-4">
-      <%= f.label :ingredients %>
+      <div class="mb-2">
+        <%= f.label :ingredients %>
+      </div>
       <div>
         <%= f.rich_text_area :ingredients, placeholder: t('recipes.form.placeholder.ingredients') %>
       </div>
     </div>
     <div class="mb-4">
-      <%= f.label :instructions %>
+      <div class="mb-2">
+        <%= f.label :instructions %>
+      </div>
       <div>
         <%= f.rich_text_area :instructions, placeholder: t('recipes.form.placeholder.instructions') %>
       </div>
     </div>
     <div class="mb-4">
-      <%= f.label :duration %>
+      <div class="mb-2">
+        <%= f.label :duration %>
+      </div>
       <div>
         <%= f.number_field :duration, placeholder: t('recipes.form.placeholder.duration'), autocomplete: 'off' %>
       </div>
     </div>
     <div class="mb-4">
-      <%= f.label :rating %>
+      <div class="mb-2">
+        <%= f.label :rating %>
+      </div>
       <div>
         <%= f.hidden_field :rating, 'data-recipeform-target': 'rating' %>
         <% 5.times do |i| %>
@@ -38,7 +48,9 @@
       </div>
     </div>
     <div class="mb-4">
-      <%= f.label :tags %>
+      <div class="mb-2">
+        <%= f.label :tags %>
+      </div>
       <div>
         <%= f.text_field :tag_names, placeholder: t('recipes.form.placeholder.tags'), 'data-action': 'keyup->recipeform#findtags', 'data-recipeform-target': 'tags', autocomplete: 'off'  %>
       </div>
@@ -46,14 +58,18 @@
       </div>
     </div>
     <div class="mb-4">
-      <%= f.label :source %>
+      <div class="mb-2">
+        <%= f.label :source %>
+      </div>
       <div>
         <%= f.text_field :source, placeholder: t('recipes.form.placeholder.source'), autocomplete: 'off' %>
       </div>
     </div>
     <% if @recipe.ocr_text.present? %>
       <div class="mb-4">
-        <%= f.label :ocr_text, t('recipes.form.ocr_text') %>
+        <div class="mb-2">
+          <%= f.label :ocr_text, t('recipes.form.ocr_text') %>
+        </div>
         <div>
           <%= f.text_area :ocr_text, 
                 rows: 10, 

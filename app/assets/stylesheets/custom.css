@@ -275,6 +275,14 @@ h1 {
     @apply text-2xl;
 }
 
+.heading_1 {
+    @apply text-lg font-semibold border-solid border-amber-500 border-b-2 mb-2;  
+}
+
+label {
+    @apply italic font-medium border-solid border-amber-200 border-b-2;  
+}
+
 a {
     @apply no-underline;
 }
@@ -283,8 +291,14 @@ a:hover {
     @apply bg-amber-100;
 }
 
-input[type="text"] {
-    @apply w-full border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black
+input[type="text"],input[type="number"] {
+    @apply w-full border-0 border-b-2 border-gray-200;
+    @apply focus:ring-0 focus:border-black;
+}
+
+.button {
+    @apply my-4 p-2 px-4 bg-amber-500 text-gray-100 rounded-lg cursor-pointer;
+    @apply hover:bg-amber-600;
 }
 
 .navigaton_bar {
