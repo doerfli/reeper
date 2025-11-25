@@ -294,7 +294,7 @@ input[type="text"] {
 }
 
 .notification {
-    @apply w-full p-4 rounded-lg m-4;
+    @apply p-4 rounded-lg m-4;
 }
 
 .danger {
