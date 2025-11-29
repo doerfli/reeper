@@ -310,7 +310,7 @@ input[type="text"],input[type="number"] {
 
 .button {
     @apply my-4 p-2 px-4 bg-amber-500 text-gray-100 rounded-lg cursor-pointer;
-    @apply hover:bg-amber-600;
+    @apply hover:bg-indigo-500;
 }
 
 .prose {
