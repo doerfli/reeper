@@ -45,12 +45,12 @@
     </div>
   </div>
   <% unless @recipe.source.nil? || @recipe.source.empty? %>
-    <div class="recipe_source">
+    <div class="recipe_source mt-4">
       <p><span class="heading_3"><%= t('recipes.show.source') %>:</span> <%= with_url_links @recipe.source %></p>
     </div>
   <% end %>
   <% unless @recipe.tags.empty? %>
-    <div class="recipe_tags">
+    <div class="recipe_tags mt-4">
       <span class="heading_3"><%=t 'recipes.show.tags' %>:</span>
       <% @recipe.tags.each{ |t| %>
         <%= render :partial => 'shared/tag', :locals => { tag: t } %>

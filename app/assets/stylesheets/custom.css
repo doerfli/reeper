@@ -315,7 +315,7 @@ input[type="text"],input[type="number"] {
 
 .prose {
     @apply text-slate-900;
-    
+
     ul, ol {
         @apply marker:text-slate-700;
     }
@@ -410,6 +410,14 @@ trix-toolbar .trix-button-group-spacer {
     a {
         @apply text-blue-800;
     }
+}
+
+.tag {
+    @apply px-2 py-1 bg-gray-700 rounded-lg text-sm text-white font-light inline-block;
+    @apply hover:text-slate-800 hover:bg-amber-100;
+    /* div {
+        @apply mx-2 my-1;
+    } */
 }
 
 /* Lightbox Styles */
