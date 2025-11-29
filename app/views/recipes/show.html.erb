@@ -23,15 +23,15 @@
     <% end %>
     
   </div>
-  <div class="ingredients">
+  <div class="ingredients mt-4">
     <p>
       <span class="heading_2"><%= t('recipes.ingredients') %></span>
     </p>
-    <div>
+    <div class="prose">
       <%= @recipe.ingredients %>
     </div>
   </div>
-  <div class="instructions">
+  <div class="instructions mt-4">
     <p>
       <span class="heading_2">
         <%= t('recipes.instructions') %>
@@ -40,7 +40,7 @@
         <% end %>
       </span>
     </p>
-    <div class="content">
+    <div class="content mt-4 prose">
       <%= @recipe.instructions %>
     </div>
   </div>
