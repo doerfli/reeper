@@ -313,6 +313,13 @@ input[type="text"],input[type="number"] {
     @apply hover:bg-amber-600;
 }
 
+.prose {
+    
+    ul, ol {
+        @apply marker:text-slate-700;
+    }
+}
+
 trix-editor:focus-visible {
     @apply border-amber-200 border-2;
 }
