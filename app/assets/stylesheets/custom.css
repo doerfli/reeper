@@ -314,9 +314,19 @@ input[type="text"],input[type="number"] {
 }
 
 .prose {
+    @apply text-slate-900;
     
     ul, ol {
         @apply marker:text-slate-700;
+    }
+}
+
+trix-editor {
+    ul {
+        @apply list-disc;
+    }
+    ol {
+        @apply list-decimal;
     }
 }
 
