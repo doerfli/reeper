@@ -26,7 +26,8 @@
     "webpack-cli": "^6.0.1"
   },
   "scripts": {
-    "build:css": "copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* public/webfonts && postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css",
+    "copy:fonts": "copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* public/webfonts",
+    "build:css": "yarn copy:fonts && postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css",
     "build": "webpack --config webpack.config.js"
   }
 }
