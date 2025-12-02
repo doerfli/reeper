@@ -10,7 +10,12 @@
     </p>
     <div class="not-prose">
       <% @recipe.recipe_images.each do |image| %>
-        <%= image_tag image.variant(resize_to_fit: [100,100]), class: 'image_inline border-2 border-solid border-transparent', data: { 'filename': image.filename.to_s, action: 'click->recipeimagesdelete#select' } %>
+        <%= image_tag image.variant(resize_to_fit: [100,100]), 
+                class: 'image_inline border-2 border-solid border-transparent', 
+                data: { 
+                  'filename': image.filename.to_s, 
+                  action: 'click->recipeimagesdelete#select' 
+                  } %>
       <% end %>
     </div>
     <%= form_tag(delete_recipe_recipe_images_path(@recipe), method: :put, data: { 'recipeimagesdelete-target': 'form'}) do %>

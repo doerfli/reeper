@@ -406,6 +406,10 @@ trix-toolbar .trix-button-group-spacer {
     @apply mt-4;
 }
 
+.selected_for_delete {
+    @apply border-2 border-red-500;
+}
+
 .pagination-list {
     @apply py-4;
 
