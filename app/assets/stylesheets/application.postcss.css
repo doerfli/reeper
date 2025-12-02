@@ -4,12 +4,11 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @import "./actiontext.scss";
+@import "@fontsource/noto-sans/index.css";
 @import "@fortawesome/fontawesome-free/css/fontawesome.css";
 @import "@fortawesome/fontawesome-free/css/solid.css";
 @import "@fortawesome/fontawesome-free/css/regular.css";
 @import "./custom.css";
-
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";

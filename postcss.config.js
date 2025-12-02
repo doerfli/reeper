@@ -8,6 +8,9 @@ module.exports = {
           if (asset.url.includes('webfonts/')) {
             return asset.url.replace(/.*webfonts\//, '/webfonts/');
           }
+          if (asset.url.includes('files/noto-sans')) {
+            return asset.url.replace(/.*files\//, '/webfonts/');
+          }
           return asset.url;
         }
       })

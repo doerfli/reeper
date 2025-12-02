@@ -2,6 +2,7 @@
   "name": "reeper",
   "private": true,
   "dependencies": {
+    "@fontsource/noto-sans": "^5.2.10",
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
@@ -26,7 +27,7 @@
     "webpack-cli": "^6.0.1"
   },
   "scripts": {
-    "copy:fonts": "copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* public/webfonts && copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* app/assets/builds/webfonts",
+    "copy:fonts": "copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* node_modules/@fontsource/noto-sans/files/* public/webfonts && copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* node_modules/@fontsource/noto-sans/files/* app/assets/builds/webfonts",
     "build:css": "yarn copy:fonts && postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css",
     "build": "webpack --config webpack.config.js"
   }
