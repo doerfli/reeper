@@ -51,7 +51,7 @@
   <% end %>
   <% unless @recipe.tags.empty? %>
     <div class="recipe_tags mt-4">
-      <span class="heading_3"><%=t 'recipes.show.tags' %>:</span>
+      <span class="heading_3 mr-2"><%=t 'recipes.show.tags' %>:</span>
       <% @recipe.tags.each{ |t| %>
         <%= render :partial => 'shared/tag', :locals => { tag: t } %>
       <% } %>

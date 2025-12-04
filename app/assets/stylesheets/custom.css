@@ -431,12 +431,28 @@ trix-toolbar .trix-button-group-spacer {
 }
 
 .tag {
-    @apply px-2 py-1 bg-gray-700 rounded-lg text-sm text-white font-light inline-block;
+    @apply px-2 py-1 mr-0.5 my-1 bg-gray-700 rounded-lg text-sm text-white font-light inline-block;
     @apply hover:text-slate-800 hover:bg-amber-100;
-    /* div {
-        @apply mx-2 my-1;
-    } */
 }
+
+.tag_two_segments {
+    @apply inline-block mr-1 my-2;
+
+    span {
+        @apply px-2 py-1;
+    }
+
+    span:nth-child(1) {
+        @apply rounded-l-lg;
+        @apply bg-gray-700 text-white font-light;
+    }
+
+    span:nth-child(2) {
+        @apply rounded-r-lg;
+        @apply bg-amber-600  text-white font-light;
+    }
+}
+
 
 /* Lightbox Styles */
 .lightbox-modal {
