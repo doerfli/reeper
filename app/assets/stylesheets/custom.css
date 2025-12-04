@@ -37,7 +37,7 @@ input[type="number"] {
 }
 
 input[type="file"] {
-    @apply pl-2 p-4 py-2;
+    @apply px-4 py-2;
     @apply border border-slate-400 rounded-md;
     @apply focus:ring-0 focus:border-amber-200;
 }
