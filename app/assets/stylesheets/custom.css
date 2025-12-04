@@ -91,7 +91,7 @@ trix-toolbar .trix-button-group-spacer {
     @apply hidden;
 }
 
-.navigaton_bar {
+.navigation_bar {
     ul a {
         @apply px-1;
     }
