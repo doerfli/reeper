@@ -6,6 +6,6 @@
         <%= @user['email'] %>
     </div>
     <div class="mt-4">
-        <%= link_to t('profile.change_password'), change_password_path %>
+        <%= button_to t('profile.change_password'), change_password_path, method: :get, class: 'button' %>
     </div>
 </div>
