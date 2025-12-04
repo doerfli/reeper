@@ -1,5 +1,10 @@
-@import "tailwindcss";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
 @import "./actiontext.scss";
+@import "@fontsource/noto-sans/index.css";
 @import "@fortawesome/fontawesome-free/css/fontawesome.css";
 @import "@fortawesome/fontawesome-free/css/solid.css";
 @import "@fortawesome/fontawesome-free/css/regular.css";
@@ -11,3 +16,9 @@
 @source "../../views/**/*.html.erb";
 @source "../../helpers/**/*.rb";
 @source "../../javascript/**/*.js";
+
+@theme {  
+    --font-noto-sans: "Noto Sans", sans-serif;
+    --font-family-sans: var(--font-noto-sans);
+    --font-sans: var(--font-noto-sans);
+}

@@ -78,7 +78,7 @@ export default class extends Controller {
   }
 
   showModal() {
-    this.modalTarget.classList.remove("hidden")
+    this.modalTarget.classList.remove("invisible")
     // Trigger reflow to ensure transition works
     this.modalTarget.offsetHeight
     this.modalTarget.classList.add("lightbox-active")
@@ -87,7 +87,7 @@ export default class extends Controller {
   hideModal() {
     this.modalTarget.classList.remove("lightbox-active")
     setTimeout(() => {
-      this.modalTarget.classList.add("hidden")
+      this.modalTarget.classList.add("invisible")
     }, 300) // Match CSS transition duration
   }
 
