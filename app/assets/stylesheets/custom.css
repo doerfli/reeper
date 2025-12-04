@@ -323,7 +323,7 @@ input[type="file"]::file-selector-button {
 }
 
 .button {
-    @apply my-4 p-2 px-4 bg-amber-500 text-gray-100 rounded-lg cursor-pointer;
+    @apply my-2 p-2 px-4 bg-amber-500 text-gray-100 rounded-lg cursor-pointer;
     @apply hover:bg-indigo-500;
 }
 
