@@ -13,7 +13,7 @@
       <% end %>
     </span>
   </div>
-  <div class="rating mt-4">
+  <div class="rating mt-2">
     <% 5.times do |i| %>
       <% if !@recipe.rating.nil? && i < @recipe.rating %>
         <i class="fas fa-star"></i>
@@ -27,7 +27,7 @@
     <p>
       <span class="heading_2"><%= t('recipes.ingredients') %></span>
     </p>
-    <div class="prose">
+    <div class="prose mt-4">
       <%= @recipe.ingredients %>
     </div>
   </div>
@@ -40,7 +40,7 @@
         <% end %>
       </span>
     </p>
-    <div class="content mt-4 prose">
+    <div class="content prose mt-4">
       <%= @recipe.instructions %>
     </div>
   </div>
