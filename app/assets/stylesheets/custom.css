@@ -568,3 +568,45 @@ trix-toolbar .trix-button-group-spacer {
     }
 }
 /* End Lightbox Styles */
+
+@media print {
+
+    .prose {
+        @apply leading-3!;
+    }
+
+    .prose :where(li):not(:where([class~="not-prose"] *)) {
+        @apply my-0.5!;
+    }
+    
+
+    nav {
+        @apply hidden!;
+    }
+
+    .rating {
+        @apply mt-4;
+    }
+    
+    .recipe_tags {
+        @apply mt-8;
+    }
+
+    .tag {
+        @apply px-0 py-1 my-1 mr-0.5 bg-transparent text-base text-gray-700 font-normal inline-block;
+        @apply hover:text-indigo-800 hover:bg-amber-100;
+    }
+
+    .recipe_source {
+        @apply hidden!;
+    }
+
+    .recipe_images {
+        @apply hidden!;
+    }
+
+    .bottomactions {
+        @apply hidden!;
+    }
+    
+}
