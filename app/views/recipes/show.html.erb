@@ -46,12 +46,12 @@
   </div>
   <% unless @recipe.source.nil? || @recipe.source.empty? %>
     <div class="recipe_source mt-4">
-      <p><span class="heading_3"><%= t('recipes.show.source') %>:</span> <%= with_url_links @recipe.source %></p>
+      <p><span class="heading_2"><%= t('recipes.show.source') %>:</span> <%= with_url_links @recipe.source %></p>
     </div>
   <% end %>
   <% unless @recipe.tags.empty? %>
     <div class="recipe_tags mt-4">
-      <span class="heading_3 mr-2"><%=t 'recipes.show.tags' %>:</span>
+      <span class="heading_2 mr-2"><%=t 'recipes.show.tags' %>:</span>
       <% @recipe.tags.each{ |t| %>
         <%= render :partial => 'shared/tag', :locals => { tag: t } %>
       <% } %>
@@ -59,11 +59,11 @@
   <% end %>
 
   <% if @recipe.recipe_images.count > 0 %>
-    <div class="mb-6" data-controller="lightbox">
-      <h3 class="text-lg font-semibold mb-3 text-gray-800">Recipe Images</h3>
+    <div class="mb-6 mt-4" data-controller="lightbox">
+      <p><span class="heading_2">Recipe Images:</span></p>
       
       <!-- Image Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         <% @recipe.recipe_images.each_with_index do |image, index| %>
           <%= image_tag image.variant(resize_to_fit: [400,400]), 
               class: "w-full h-48 object-cover rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-200 hover:scale-105 transform transition-transform",
