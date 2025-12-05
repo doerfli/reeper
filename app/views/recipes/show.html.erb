@@ -13,7 +13,7 @@
       <% end %>
     </span>
   </div>
-  <div class="rating">
+  <div class="rating mt-2">
     <% 5.times do |i| %>
       <% if !@recipe.rating.nil? && i < @recipe.rating %>
         <i class="fas fa-star"></i>
@@ -23,15 +23,15 @@
     <% end %>
     
   </div>
-  <div class="ingredients">
+  <div class="ingredients mt-4">
     <p>
       <span class="heading_2"><%= t('recipes.ingredients') %></span>
     </p>
-    <div>
+    <div class="prose mt-4">
       <%= @recipe.ingredients %>
     </div>
   </div>
-  <div class="instructions">
+  <div class="instructions mt-4">
     <p>
       <span class="heading_2">
         <%= t('recipes.instructions') %>
@@ -40,18 +40,18 @@
         <% end %>
       </span>
     </p>
-    <div class="content">
+    <div class="content prose mt-4">
       <%= @recipe.instructions %>
     </div>
   </div>
   <% unless @recipe.source.nil? || @recipe.source.empty? %>
-    <div class="recipe_source">
-      <p><span class="heading_3"><%= t('recipes.show.source') %>:</span> <%= with_url_links @recipe.source %></p>
+    <div class="recipe_source mt-4">
+      <p><span class="heading_2"><%= t('recipes.show.source') %>:</span> <%= with_url_links @recipe.source %></p>
     </div>
   <% end %>
   <% unless @recipe.tags.empty? %>
-    <div class="recipe_tags">
-      <span class="heading_3"><%=t 'recipes.show.tags' %>:</span>
+    <div class="recipe_tags mt-4">
+      <span class="heading_2 mr-2"><%=t 'recipes.show.tags' %>:</span>
       <% @recipe.tags.each{ |t| %>
         <%= render :partial => 'shared/tag', :locals => { tag: t } %>
       <% } %>
@@ -59,11 +59,11 @@
   <% end %>
 
   <% if @recipe.recipe_images.count > 0 %>
-    <div class="mb-6" data-controller="lightbox">
-      <h3 class="text-lg font-semibold mb-3 text-gray-800">Recipe Images</h3>
+    <div class="mb-6 mt-4" data-controller="lightbox">
+      <p><span class="heading_2">Recipe Images:</span></p>
       
       <!-- Image Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         <% @recipe.recipe_images.each_with_index do |image, index| %>
           <%= image_tag image.variant(resize_to_fit: [400,400]), 
               class: "w-full h-48 object-cover rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-200 hover:scale-105 transform transition-transform",
@@ -80,7 +80,7 @@
       </div>
 
       <!-- Lightbox Modal -->
-      <div class="lightbox-modal hidden" 
+      <div class="lightbox-modal invisible" 
            data-lightbox-target="modal"
            data-action="click->lightbox#handleBackdropClick">
         
@@ -130,11 +130,11 @@
         </div>
 
         <!-- View Original Link -->
-        <div class="lightbox-original-link">
+        <div class="lightbox-original-link p-4">
           <a data-lightbox-target="originalLink" 
              href="#" 
              target="_blank" 
-             class="text-white hover:text-gray-300 bg-black bg-opacity-50 hover:bg-opacity-75 px-3 py-1 rounded-full text-sm transition-all duration-200">
+            class="text-white hover:text-gray-300 bg-black/50 hover:bg-black/75 px-6 py-2 rounded-full text-sm transition-all duration-200">
             <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
             </svg>

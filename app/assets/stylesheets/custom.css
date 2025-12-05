@@ -1,364 +1,339 @@
-@layer base {
-    .prose {
-        a:not(.not-prose) {
-            @apply no-underline rounded-md text-indigo-800;
-        }
-
-        a:not(.not-prose).nocolor {
-            @apply no-underline p-0 rounded-md text-gray-700;
-        }
-    
-        a:not(.not-prose):hover {
-            @apply bg-amber-100;
-        }
-    
-        @apply leading-4;
-        max-width: 80ch !important;
-    }
-
-    .prose_wide {
-        @apply prose md:prose-lg;
-        @apply max-w-full !important;
-    }
-
+h1 {
+    @apply text-2xl;
 }
 
-@layer components {
-    .text-primary {
-        @apply text-amber-500;
+.heading_1 {
+    @apply text-lg font-semibold border-solid border-amber-500 border-b-2 mb-2;  
+}
+
+.heading_2 {
+    @apply italic font-medium border-solid border-amber-200 border-b-2;
+
+    .subheading {
+        @apply pl-2 font-light italic;
+    }
+}
+
+.heading_3 {
+    @apply italic;
+}
+
+label {
+    @apply italic font-medium border-solid border-amber-200 border-b-2;
+}
+
+a {
+    @apply no-underline;
+}
+
+a:hover {
+    @apply bg-amber-100;
+}
+
+input[type="text"],
+input[type="number"] {
+    @apply w-full border-0 border-b-2 border-gray-200;
+    @apply focus:ring-0 focus:border-amber-200;
+}
+
+input[type="file"] {
+    @apply px-4 py-2;
+    @apply border border-slate-400 rounded-md;
+    @apply focus:ring-0 focus:border-amber-200;
+}
+
+/* Style the file input button */
+input[type="file"]::file-selector-button {
+    @apply mr-4 py-2 px-4 rounded-md border-0 cursor-pointer;
+    @apply bg-amber-500 text-gray-100 font-medium;
+    @apply hover:bg-indigo-500 transition-colors;
+}
+
+.button {
+    @apply my-2 p-2 px-4 bg-amber-500 text-gray-100 rounded-lg cursor-pointer;
+    @apply hover:bg-indigo-500;
+}
+
+.prose {
+    @apply text-slate-900;
+
+    ul, ol {
+        @apply marker:text-slate-700;
+    }
+}
+
+trix-editor {
+    ul {
+        @apply list-disc;
+    }
+    ol {
+        @apply list-decimal;
+    }
+}
+
+trix-editor:focus-visible {
+    @apply border-amber-200 border-2;
+}
+
+trix-toolbar .trix-button-row {
+    @apply justify-start;
+}
+
+trix-toolbar .trix-button--icon-link {
+    @apply hidden;
+}
+
+trix-toolbar .trix-button-group--file-tools {
+    @apply hidden;
+}
+
+trix-toolbar .trix-button-group-spacer {
+    @apply hidden;
+}
+
+.navigation_bar {
+    ul a {
+        @apply px-1;
+    }
+}
+
+.notification {
+    @apply p-4 rounded-lg m-4;
+}
+
+.danger {
+    @apply bg-red-500 text-white;
+}
+
+.warning {
+    @apply bg-yellow-500 text-white;
+}
+
+.info {
+    @apply bg-blue-500 text-white;
+}
+
+.success {
+    @apply bg-green-500 text-slate-100;
+}
+
+.input_has_icons_left {
+    @apply flex relative items-center;
+
+    i {
+        @apply absolute pl-2;
     }
 
-    .heading_1 {
-        @apply pr-2 font-semibold border-solid border-amber-500 border-b-2;  
+    input {
+        @apply pl-8;
+    }
+}
+
+.recipes {
+    @apply mt-4;
+}
+
+.selected_for_delete {
+    @apply border-2 border-red-500;
+}
+
+.pagination-list {
+    @apply py-4;
+
+    li {
+        @apply list-none inline-block px-2;
     }
 
-    h1 {
-        @apply prose md:prose-lg;
+    li.current-page {
+        a {
+            @apply text-amber-500;
+        }
+    }
+}
+
+.rating-filters {
+    a {
+        @apply text-blue-800;
+    }
+}
+
+.canvases {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+    .ocrcanvas {
+        width: 100%;
+        height: 100%;
+        position: absolute;
     }
     
-    .heading_2 {
-        @apply pr-2 font-medium border-solid border-amber-200 border-b-2;  
+    #canvas0 {
+        z-index: 0;
+    }
+    #canvas1 {
+        z-index: 10;
+        background-color: transparent;
+    }
+}
 
-        .subheading {
-            @apply prose md:prose-lg;
-            @apply pl-2 font-light italic;
-        }
+.tag {
+    @apply px-2 py-1 mr-0.5 my-1 bg-gray-700 rounded-lg text-sm text-white font-light inline-block;
+    @apply hover:text-slate-800 hover:bg-amber-100;
+}
+
+.tag_two_segments {
+    @apply inline-block mr-1 my-2;
+
+    span {
+        @apply px-2 py-1;
     }
 
-    .heading_3 {
-        @apply prose md:prose-lg;
-        @apply pr-2 italic font-medium;  
+    span:nth-child(1) {
+        @apply rounded-l-lg;
+        @apply bg-gray-700 text-white font-light;
     }
 
-    .nav_item_right {
-        @apply py-1 px-2 mr-2 rounded-md;
-        @apply hover:bg-amber-100;
+    span:nth-child(2) {
+        @apply rounded-r-lg;
+        @apply bg-amber-600  text-white font-light;
     }
+}
 
-    .pagination-list {
-        li {
-            @apply list-none inline-block px-2;
 
-            a {
-                @apply text-gray-400;
-                @apply hover:text-indigo-800 hover:bg-amber-100
-            }
+/* Lightbox Styles */
+.lightbox-modal {
+    @apply fixed inset-0 bg-black/0 flex items-center justify-center z-50;
+    transition: background-color 0.3s ease;
+}
 
-        }
-        li.current-page {
-            a {
-                @apply text-amber-500;
-            }
-        }
+.lightbox-modal.lightbox-active {
+    @apply bg-black/90;
+}
+
+.lightbox-content {
+    @apply relative max-w-[90vw] max-h-[90vh] flex items-center justify-center;
+}
+
+.lightbox-image {
+    @apply max-w-full max-h-full object-contain shadow-2xl;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.lightbox-image:not(.loading) {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.lightbox-spinner {
+    @apply absolute inset-0 flex items-center justify-center;
+    opacity: 0;
+}
+
+.lightbox-image.loading + .lightbox-spinner {
+    opacity: 1;
+}
+
+.lightbox-close {
+    @apply absolute top-4 right-4 text-white hover:text-gray-300 z-10 p-2 rounded-full bg-black/50 hover:bg-black/75 transition-all duration-200;
+}
+
+.lightbox-nav {
+    @apply absolute top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 p-3 rounded-full bg-black/50 hover:bg-black/75 transition-all duration-200 z-10;
+}
+
+.lightbox-prev {
+    @apply left-4;
+}
+
+.lightbox-next {
+    @apply right-4;
+}
+
+.lightbox-counter {
+    @apply absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white bg-black/50 px-3 py-1 rounded-full text-sm;
+}
+
+.lightbox-original-link {
+    @apply absolute bottom-4 right-4 z-10;
+    
+    a {
+        @apply text-white visited:text-stone-200;
     }
+}
 
-    .tag {
-        @apply px-2 py-1 my-1 mr-1 bg-gray-700 rounded-md text-sm text-white font-light inline-block;
-        @apply hover:text-indigo-800 hover:bg-amber-100;
-    }
-
-    .tag_two_segments {
-        @apply my-1 mr-1 inline-block;
-
-        span:nth-child(1) {
-            @apply px-2 py-1  bg-gray-700 rounded-l-md text-sm text-white font-light inline-block;
-        }
-
-        span:nth-child(2) {
-            @apply px-2 py-1  bg-amber-500 rounded-r-md text-sm text-gray-700 font-light inline-block;
-        }
-    }
-
-    .button {
-        @apply my-2 p-1 pl-3 pr-3 bg-amber-500 hover:bg-amber-600 text-gray-100 rounded-lg;
-    }
-
-    .button:disabled {
-        /* @apply my-2 p-1 pl-3 pr-3 bg-amber-500 hover:bg-amber-600 text-gray-100 rounded-lg; */
-        @apply bg-gray-300 text-gray-600;
-    }
-
-    .button-action {
-        @apply bg-indigo-500 hover:bg-indigo-600;
-    }
-
-    .button-secondary {
-        @apply bg-amber-100 hover:bg-amber-200 text-gray-500;
-    }
-
-    .button-success {
-        @apply bg-green-500 hover:bg-green-600;
-    }
-
-    .button-loading {
-        @apply bg-gray-400 cursor-not-allowed;
-        opacity: 0.6;
-    }
-
-    .modal {
-        @apply absolute top-0 left-0 right-0 bottom-0 z-50;
-        @apply bg-gray-600 bg-opacity-90;
-
-        > div {
-            @apply top-0 bottom-0 mx-auto;
-            @apply flex justify-center items-center h-screen;
-        }
-    }
-
-    label {
-        @apply pr-2 italic font-medium;
-        @apply border-solid border-amber-200 border-b-2;  
-    }
-
-    [type='text'],
-    [type='number'] {
-        @apply prose print:prose md:prose-lg;
-        @apply py-1 w-full;
-        @apply border-t-0 border-x-0 border-b-2;
-    }
-
-    [type='text']:focus,
-    [type='number']:focus {
-        @apply w-full;
-        @apply ring-0 border-amber-200;
-    }
-
-    trix-editor:focus-visible {
-        @apply outline-amber-200 outline border-0;
-    }
-
-    .input_has_icons_left {
-        @apply relative my-1;
-        
-        i, input {
-            
-        }
-        input {
-            @apply pl-8;
-        }
-        i {
-            @apply absolute inset-y-0 left-0 flex items-center pl-2;
-        }
-    }
-
-    .notification {
-        @apply p-2 my-4;
-        @apply border-2 border-solid rounded-md;
-        @apply text-gray-800;
-    }
-
-    .danger {
-        @apply border-red-500 bg-red-200;
-    }
-
-    .warning {
-        @apply border-yellow-500 bg-yellow-200;
-    }
-
-    .info {
-        @apply border-blue-500 bg-blue-200;
-    }
-
-    .success {
-        @apply border-green-500 bg-green-200;
-    }
-
-    .image_inline {
-        @apply inline-block;
-    }
-
-    /* Lightbox Styles */
-    .lightbox-modal {
-        @apply fixed inset-0 bg-black bg-opacity-0 flex items-center justify-center z-50;
-        transition: background-color 0.3s ease;
-    }
-
-    .lightbox-modal.lightbox-active {
-        @apply bg-opacity-90;
-    }
-
-    .lightbox-content {
-        @apply relative max-w-[90vw] max-h-[90vh] flex items-center justify-center;
-    }
-
-    .lightbox-image {
-        @apply max-w-full max-h-full object-contain shadow-2xl;
-        opacity: 0;
-        transform: scale(0.9);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .lightbox-image:not(.loading) {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    .lightbox-spinner {
-        @apply absolute inset-0 flex items-center justify-center;
-        opacity: 0;
-    }
-
-    .lightbox-image.loading + .lightbox-spinner {
-        opacity: 1;
-    }
-
-    .lightbox-close {
-        @apply absolute top-4 right-4 text-white hover:text-gray-300 z-10 p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all duration-200;
-    }
-
+/* Mobile optimizations */
+@media (max-width: 768px) {
     .lightbox-nav {
-        @apply absolute top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 p-3 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all duration-200 z-10;
+        @apply p-2;
     }
-
-    .lightbox-prev {
-        @apply left-4;
+    
+    .lightbox-nav svg {
+        @apply w-6 h-6;
     }
-
-    .lightbox-next {
-        @apply right-4;
+    
+    .lightbox-close {
+        @apply top-2 right-2 p-1;
     }
-
+    
     .lightbox-counter {
-        @apply absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white bg-black bg-opacity-50 px-3 py-1 rounded-full text-sm;
+        @apply bottom-2 text-xs px-2;
     }
 
     .lightbox-original-link {
-        @apply absolute bottom-4 right-4 z-10;
-        
-        a {
-            @apply text-white visited:text-stone-200;
-        }
+        @apply bottom-2 right-2;
     }
 
-    /* Mobile optimizations */
-    @media (max-width: 768px) {
-        .lightbox-nav {
-            @apply p-2;
-        }
-        
-        .lightbox-nav svg {
-            @apply w-6 h-6;
-        }
-        
-        .lightbox-close {
-            @apply top-2 right-2 p-1;
-        }
-        
-        .lightbox-counter {
-            @apply bottom-2 text-xs px-2;
-        }
+    .lightbox-original-link a {
+        @apply text-xs px-2 py-1;
+    }
 
-        .lightbox-original-link {
-            @apply bottom-2 right-2;
-        }
-
-        .lightbox-original-link a {
-            @apply text-xs px-2 py-1;
-        }
-
-        .lightbox-original-link svg {
-            @apply w-3 h-3;
-        }
+    .lightbox-original-link svg {
+        @apply w-3 h-3;
     }
 }
+/* End Lightbox Styles */
 
-@layer utilities {
+@media print {
+
+    .prose {
+        @apply leading-3!;
+    }
+
+    .prose :where(li):not(:where([class~="not-prose"] *)) {
+        @apply my-0.5!;
+    }
+    
+
+    nav {
+        @apply hidden!;
+    }
+
+    .rating {
+        @apply mt-4;
+    }
+    
+    .recipe_tags {
+        @apply mt-8;
+    }
+
+    .tag {
+        @apply px-0 py-1 my-1 mr-0.5 bg-transparent text-base text-gray-700 font-normal inline-block;
+        @apply hover:text-indigo-800 hover:bg-amber-100;
+    }
+
+    .recipe_source {
+        @apply hidden!;
+    }
+
     .recipe_images {
-        .image {
-            @apply inline-block p-1;
-            @apply border-4 border-transparent;
-        }
-
-        .image:hover {
-            @apply border-4 border-amber-200 border-solid;
-        }
+        @apply hidden!;
     }
 
-    .selected_for_delete {
-        @apply border-2 border-solid border-red-500;
+    .bottomactions {
+        @apply hidden!;
     }
-
-    .canvases {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        
-        .ocrcanvas {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-        }
-        
-        #canvas0 {
-            z-index: 0;
-        }
-        #canvas1 {
-            z-index: 10;
-            background-color: transparent;
-        }
-    }
-
-    @media print {
-
-        .prose {
-            @apply leading-3 !important;
-        }
-
-        .prose :where(li):not(:where([class~="not-prose"] *)) {
-            @apply my-0.5 !important;
-        }
-        
-
-        nav {
-            @apply hidden !important;
-        }
-
-        .rating {
-            @apply mt-4;
-        }
-        
-        .recipe_tags {
-            @apply mt-8;
-        }
-
-        .tag {
-            @apply px-0 py-1 my-1 mr-0.5 bg-transparent text-base text-gray-700 font-normal inline-block;
-            @apply hover:text-indigo-800 hover:bg-amber-100;
-        }
-
-        .recipe_source {
-            @apply hidden !important;
-        }
-
-        .recipe_images {
-            @apply hidden !important;
-        }
-
-        .bottomactions {
-            @apply hidden !important;
-        }
-        
-    }
+    
 }
-
-
