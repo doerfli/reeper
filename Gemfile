@@ -55,7 +55,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 # auth0 login
 gem 'omniauth-auth0', '~> 3.1'
-gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem 'omniauth-rails_csrf_protection', '~> 2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
