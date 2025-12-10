@@ -56,6 +56,22 @@ class OcrController < ApplicationController
     render json: { success: true, message: 'Text saved to recipe' }
   end
 
+  def scan
+    # Access uploaded files:
+    # params[:files].each do |file|
+    #   file.tempfile      # Tempfile object with the uploaded data
+    #   file.original_filename  # Original filename from user's system
+    #   file.content_type  # MIME type (e.g., 'image/jpeg')
+    # end
+
+    # TODO: Process images for OCR in next step
+    # - Extract text from each image using OCR
+    # - Combine results
+    # - Populate form fields with extracted data
+
+    render json: { success: true, message: 'Files uploaded successfully' }
+  end
+
   def cleanup_with_gpt
     text = params[:text]
     language = params[:language] || 'eng'

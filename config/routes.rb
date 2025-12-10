@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   end
 
   resources :ocr do
+    collection do
+      post 'scan'
+    end
     member do
       post 'save_text'
       post 'cleanup_with_gpt'
