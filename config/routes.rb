@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     collection do
       get 'filter_by_tag/:tagid' => :filter_by_tag, as: 'filter_by_tag'
       get 'search(/:term)' => :search, as: 'search'
+      get 'new_magic' => :new_magic
     end
     member do
       put 'favorite'

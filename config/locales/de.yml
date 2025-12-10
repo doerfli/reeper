@@ -11,6 +11,7 @@ de:
     login: 'Anmelden'
     logout: 'Abmelden'
     new_recipe: 'Neues Rezept'
+    new_magic_recipe: 'Neues Rezept (magisch)'
     recipes: 'Rezepte'
     tags: 'Tags'
   profile:
@@ -19,6 +20,7 @@ de:
   recipes:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'
+    new_magic: 'Neues Rezept erfassen (magisch)'
     edit: 'Rezept bearbeiten'
     form:
       ocr_text: 'Erkannter Text aus Bildern'
