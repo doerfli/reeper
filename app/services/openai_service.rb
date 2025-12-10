@@ -1,4 +1,4 @@
-class OpenaiCleanupService
+class OpenaiService
   def initialize
     # Try environment variable first, fallback to credentials for development
     api_key = ENV['OPENAI_API_KEY'] || Rails.application.credentials.openai_api_key

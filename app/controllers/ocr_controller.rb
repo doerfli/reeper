@@ -72,7 +72,7 @@ class OcrController < ApplicationController
       "You are an OCR text cleanup assistant for recipes. The following text was recognized via OCR from a photo of a cookbook or cooking magazine and likely contains recipes, ingredients, or cooking instructions. Please clean up the text by fixing spelling errors, improving formatting, and making it more readable while preserving the original meaning. Pay special attention to typical cooking terms, measurements, and preparation steps. IMPORTANT: Never add new instructions or ingredients that are not in the original text. When cleaning up ingredients, if the amount is unclear, mark it with ?amount?:"
     end
 
-    cleaned_text = openai_cleanup_service.cleanup(text, prompt)
+    cleaned_text = openai_service.cleanup(text, prompt)
 
     render json: { cleaned_text: cleaned_text }
   rescue => e
@@ -81,7 +81,7 @@ class OcrController < ApplicationController
 
   private
 
-  def openai_cleanup_service
-    @openai_cleanup_service ||= OpenaiCleanupService.new
+  def openai_service
+    @openai_service ||= OpenaiService.new
   end
 end
