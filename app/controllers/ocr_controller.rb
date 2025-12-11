@@ -74,10 +74,10 @@ class OcrController < ApplicationController
       render json: { success: true, redirect_url: new_recipe_path }
     rescue JSON::ParserError => e
       logger.error "OCR JSON parse error: #{e.message}"
-      render json: { success: false, error: 'Failed to parse OCR results. Please try again.' }
+      render json: { success: false, error: I18n.t('ocr.errors.parse_failed') }
     rescue => e
       logger.error "OCR error: #{e.message}"
-      render json: { success: false, error: 'OCR processing failed. Please try again.' }
+      render json: { success: false, error: I18n.t('ocr.errors.processing_failed') }
     end
   end
 
