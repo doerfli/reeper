@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { Utils } from "../src/utils"
 
 export default class extends Controller {
-  static targets = ["dropzone", "fileInput", "spinner", "successMessage", "errorMessage", "resetButton", "form"]
+  static targets = ["dropzone", "fileInput", "spinner", "successMessage", "errorMessage", "resetButton"]
   static values = { url: String }
 
   connect() {
@@ -84,11 +84,8 @@ export default class extends Controller {
   }
 
   uploadFiles(files) {
-    // Disable dropzone and form
+    // Disable dropzone
     this.dropzoneTarget.classList.add('opacity-50', 'pointer-events-none')
-    if (this.hasFormTarget) {
-      this.formTarget.classList.add('opacity-50', 'pointer-events-none')
-    }
 
     // Show spinner
     this.spinnerTarget.classList.remove('hidden')
@@ -115,9 +112,21 @@ export default class extends Controller {
     })
     .then(data => {
       if (data.success) {
-        this.showSuccess(data.message || 'Files uploaded successfully')
-        this.resetButtonTarget.classList.remove('hidden')
+        // Redirect to new recipe page with pre-populated data
+        if (data.redirect_url) {
+          // Keep spinner visible during redirect
+          if (typeof Turbo !== 'undefined') {
+            Turbo.visit(data.redirect_url)
+          } else {
+            window.location.href = data.redirect_url
+          }
+        } else {
+          this.showSuccess(data.message || 'Files uploaded successfully')
+          this.resetButtonTarget.classList.remove('hidden')
+          this.spinnerTarget.classList.add('hidden')
+        }
       } else {
+        this.spinnerTarget.classList.add('hidden')
         this.showError(data.error || 'Upload failed')
         this.enableDropzone()
       }
@@ -143,9 +152,6 @@ export default class extends Controller {
 
   enableDropzone() {
     this.dropzoneTarget.classList.remove('opacity-50', 'pointer-events-none')
-    if (this.hasFormTarget) {
-      this.formTarget.classList.remove('opacity-50', 'pointer-events-none')
-    }
   }
 
   hideMessages() {

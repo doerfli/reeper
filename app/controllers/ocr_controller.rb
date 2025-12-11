@@ -57,22 +57,28 @@ class OcrController < ApplicationController
   end
 
   def scan
-    # Access uploaded files:
-    # params[:files].each do |file|
-    #   file.tempfile      # Tempfile object with the uploaded data
-    #   file.original_filename  # Original filename from user's system
-    #   file.content_type  # MIME type (e.g., 'image/jpeg')
-    # end
-    params[:files].each do |file|
-      openai_service.ocr(file.tempfile, file.content_type)
+    # Process only the first uploaded file
+    file = params[:files].first
+
+    begin
+      magic_data_json = openai_service.ocr(file.tempfile, file.content_type)
+      magic_data = JSON.parse(magic_data_json)
+
+      # Store OCR data in session for form pre-population
+      session[:ocr_data] = {
+        'title' => magic_data['title'],
+        'ingredients' => magic_data['ingredients'],
+        'steps' => magic_data['steps']
+      }
+
+      render json: { success: true, redirect_url: new_recipe_path }
+    rescue JSON::ParserError => e
+      logger.error "OCR JSON parse error: #{e.message}"
+      render json: { success: false, error: 'Failed to parse OCR results. Please try again.' }
+    rescue => e
+      logger.error "OCR error: #{e.message}"
+      render json: { success: false, error: 'OCR processing failed. Please try again.' }
     end
-
-    # TODO: Process images for OCR in next step
-    # - Extract text from each image using OCR
-    # - Combine results
-    # - Populate form fields with extracted data
-
-    render json: { success: true, message: 'Files uploaded successfully' }
   end
 
   def cleanup_with_gpt
