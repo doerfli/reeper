@@ -45,6 +45,35 @@
 - **Dependencies:** Added ruby-openai gem
 - **Configuration:** OpenAI API key configured in Rails credentials
 
+# Progress Tracking
+
+## Current Sprint
+
+### In Progress
+- [ ] AI OCR Recipe Extraction (PR #725)
+  - Feature branch: `feature/ai-ocr`
+  - Magic recipe functionality implementation
+  - Status: Active development
+
+### Recently Completed
+- Previous features and tasks (to be updated based on git history)
+
+## Upcoming Tasks
+- Complete AI OCR feature
+- Code review and testing for PR #725
+- Documentation updates
+- Integration testing
+
+## Blockers
+- None currently identified
+
+## Technical Debt
+- To be identified during feature development
+
+## Notes
+- Focus: Completing AI OCR feature on `feature/ai-ocr` branch
+- PR #725 requires review before merge to main
+
 ## Known Issues
 
 - Ruby upgrades require coordinated changes in Docker, workflows, and documentation
