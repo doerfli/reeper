@@ -55,8 +55,8 @@ class OpenaiService
       parameters: {
         # model: "gpt-5-nano",
         prompt: {
-          "id": "pmpt_69389bf4c7a481909d47bcf85f423781063a569321686620",
-          "version": "8"
+          "id": Rails.configuration.openai.prompt_id,
+          "version": Rails.configuration.openai.prompt_version
         },
         input: [
           {
