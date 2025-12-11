@@ -20,7 +20,7 @@ de:
   recipes:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'
-    new_magic: 'Neues Rezept erfassen (magisch)'
+    new_magic: 'Neues Rezept mit Hilfe von KI erfassen'
     edit: 'Rezept bearbeiten'
     form:
       ocr_text: 'Erkannter Text aus Bildern'
