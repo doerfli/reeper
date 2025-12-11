@@ -49,14 +49,14 @@ class OpenaiService
 
     # puts "Image format detected: #{image_format} for content type: #{content_type} content #{image_data[0..30]}..."
     filedata = "data:image/#{image_format};base64,#{image_data}"
-    puts filedata[0..100] + "..."
+    Rails.logger.debug "Sending file to OpenAI API -> #{filedata[0..100]}..."
 
     response = @client.responses.create(
       parameters: {
-        model: "gpt-5-nano",
+        # model: "gpt-5-nano",
         prompt: {
           "id": "pmpt_69389bf4c7a481909d47bcf85f423781063a569321686620",
-          "version": "5"
+          "version": "8"
         },
         input: [
           {
@@ -84,12 +84,12 @@ class OpenaiService
       }
     )
 
-    # puts "OpenAI OCR response: #{response}"
+    Rails.logger.debug "OpenAI OCR response: #{response}"
 
     output = response.dig("output") || []
     message = output.find { |item| item["type"] == "message" }
     llm_response_text = message&.dig("content", 0, "text")
-    puts llm_response_text
+    Rails.logger.info "OpenAI OCR response text: #{llm_response_text}"
     llm_response_text
   end
 end
