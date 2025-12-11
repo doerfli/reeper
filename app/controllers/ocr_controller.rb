@@ -63,6 +63,9 @@ class OcrController < ApplicationController
     #   file.original_filename  # Original filename from user's system
     #   file.content_type  # MIME type (e.g., 'image/jpeg')
     # end
+    params[:files].each do |file|
+      openai_service.ocr(file.tempfile, file.content_type)
+    end
 
     # TODO: Process images for OCR in next step
     # - Extract text from each image using OCR
