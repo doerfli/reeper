@@ -43,8 +43,10 @@ export default class extends Controller {
 
   // Click to select handler
   clickToSelect(event) {
-    event.preventDefault()
-    this.fileInputTarget.click()
+    // Only trigger if clicking the dropzone itself or its children (not disabled)
+    if (!this.dropzoneTarget.classList.contains('pointer-events-none')) {
+      this.fileInputTarget.click()
+    }
   }
 
   fileSelected(event) {
@@ -84,8 +86,8 @@ export default class extends Controller {
   }
 
   uploadFiles(files) {
-    // Disable dropzone
-    this.dropzoneTarget.classList.add('opacity-50', 'pointer-events-none')
+    // Hide dropzone
+    this.dropzoneTarget.classList.add('hidden')
 
     // Show spinner
     this.spinnerTarget.classList.remove('hidden')
@@ -151,7 +153,7 @@ export default class extends Controller {
   }
 
   enableDropzone() {
-    this.dropzoneTarget.classList.remove('opacity-50', 'pointer-events-none')
+    this.dropzoneTarget.classList.remove('hidden')
   }
 
   hideMessages() {

@@ -42,8 +42,9 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
 
     # Check for OCR data in session and pre-populate
-    if session[:ocr_data].present?
-      ocr_data = session[:ocr_data]
+    logger.debug "OCR data in flash: #{flash[:ocr_data]}"
+    if flash[:ocr_data].present?
+      ocr_data = flash[:ocr_data]
       @recipe.name = ocr_data['title'] if ocr_data['title'].present?
       @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
       @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?

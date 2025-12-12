@@ -49,7 +49,7 @@ class OpenaiService
 
     # puts "Image format detected: #{image_format} for content type: #{content_type} content #{image_data[0..30]}..."
     filedata = "data:image/#{image_format};base64,#{image_data}"
-    Rails.logger.debug "Sending file to OpenAI API -> #{filedata[0..100]}..."
+    Rails.logger.debug "Sending data to OpenAI API (Prompt id #{Rails.configuration.openai.prompt_id} version #{Rails.configuration.openai.prompt_version} -> #{filedata[0..100]}..."
 
     response = @client.responses.create(
       parameters: {
