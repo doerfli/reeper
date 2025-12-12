@@ -62,17 +62,13 @@ class OcrController < ApplicationController
 
     begin
       magic_data_json = openai_service.ocr(file.tempfile, file.content_type)
-      magic_data = JSON.parse(magic_data_json)
-      # logger.debug "OCR extracted data: #{magic_data}"
 
-      # Store OCR data in session for form pre-population
-      flash[:ocr_data] = {
-        'title' => magic_data['title'],
-        'ingredients' => magic_data['ingredients'],
-        'steps' => magic_data['steps']
-      }
+      # Save OCR result to database and store id in flash to avoid flash size limits
+      ocrresult = OcrResult.create(result: magic_data_json.to_s)
+      ocrresult.save
+      flash[:ocr_data] = ocrresult.id
 
-      logger.debug "OCR data stored in flash: #{flash[:ocr_data]}"
+      logger.debug "OCR data id stored in flash: #{flash[:ocr_data]}"
 
       render json: { success: true, redirect_url: new_recipe_path }
     rescue JSON::ParserError => e

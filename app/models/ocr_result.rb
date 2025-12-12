@@ -1,0 +1,2 @@
+class OcrResult < ApplicationRecord
+end

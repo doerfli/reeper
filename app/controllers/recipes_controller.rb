@@ -44,14 +44,15 @@ class RecipesController < ApplicationController
     # Check for OCR data in session and pre-populate
     logger.debug "OCR data in flash: #{flash[:ocr_data]}"
     if flash[:ocr_data].present?
-      ocr_data = flash[:ocr_data]
-      @recipe.name = ocr_data['title'] if ocr_data['title'].present?
-      @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
-      @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
-      flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
-
-      # Clear session data after use
-      session.delete(:ocr_data)
+      ocr_data_id = flash[:ocr_data]
+      ocrresult = OcrResult.find_by(id: ocr_data_id)
+      if ocrresult.present?
+        ocr_data = JSON.parse(ocrresult.result)
+        @recipe.name = ocr_data['title'] if ocr_data['title'].present?
+        @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
+        @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
+        flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
+      end
     end
   end
 
