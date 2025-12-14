@@ -65,6 +65,7 @@ class OcrController < ApplicationController
 
       # Save OCR result to database and store id in flash to avoid flash size limits
       ocrresult = OcrResult.create(result: magic_data_json.to_s)
+      ocrresult.image.attach(file)
       ocrresult.save
       flash[:ocr_data] = ocrresult.id
 
