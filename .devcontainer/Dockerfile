@@ -2,11 +2,7 @@
 
 # [Choice] Ruby version: 3, 3.0, 2, 2.7, 2.6
 ARG VARIANT="bookworm"
-FROM mcr.microsoft.com/devcontainers/base:${VARIANT}
-
-ARG RUBY_VERSION=3.4.7
-ARG NODEJS_VERSION=22
-ARG YARN_VERSION=1
+FROM mcr.microsoft.com/devcontainers/ruby:${VARIANT}
 
 #ARG INSTALL_ZSH="true"
 
@@ -27,12 +23,3 @@ RUN echo "eval \"\$(starship init bash)\"" >> /home/vscode/.bashrc && echo "eval
 
 USER vscode
 
-RUN curl https://mise.run | sh
-RUN echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
-RUN echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
-
-RUN /home/vscode/.local/bin/mise use -g rust@latest
-RUN /home/vscode/.local/bin/mise use -g ruby@$RUBY_VERSION
-RUN /home/vscode/.local/bin/mise use -g node@$NODEJS_VERSION
-RUN /home/vscode/.local/bin/mise use -g yarn@$YARN_VERSION
-RUN /home/vscode/.local/bin/mise settings add idiomatic_version_file_enable_tools '[]'
