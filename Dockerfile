@@ -42,7 +42,7 @@ WORKDIR $HOME
 
 RUN apk update && apk upgrade && \
     apk add --update --no-cache \
-        nodejs tzdata imagemagick postgresql-client \
+        nodejs tzdata imagemagick postgresql-client curl \
         tesseract-ocr tesseract-ocr-data-deu leptonica vips libffi && \
     rm -rf /var/cache/apk/* 
 
@@ -53,5 +53,8 @@ RUN gem update bundler && \
     bundle config set --local path 'vendor/bundle'
 
 COPY --from=builder /app /app
+
+HEALTHCHECK \
+    CMD curl -f http://localhost:3000/health || exit 1
 
 CMD bundle exec rails s -p 3000 -b '0.0.0.0'
