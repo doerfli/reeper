@@ -54,7 +54,7 @@ RUN gem update bundler && \
 
 COPY --from=builder /app /app
 
-HEALTHCHECK --interval=300s --timeout=3s --start-period=30s --retries=3 \
+HEALTHCHECK --interval=300s --timeout=3s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:3000/health || exit 1
 
 CMD bundle exec rails s -p 3000 -b '0.0.0.0'
