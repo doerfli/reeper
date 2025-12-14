@@ -40,11 +40,37 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
+    @ocrresult = nil
+
+    # Check for OCR data in session and pre-populate
+    logger.debug "OCR data in flash: #{flash[:ocr_data]}"
+    if flash[:ocr_data].present?
+      ocr_data_id = flash[:ocr_data]
+      @ocrresult = OcrResult.find_by(id: ocr_data_id)
+      if @ocrresult.present?
+        ocr_data = JSON.parse(@ocrresult.result)
+        @recipe.name = ocr_data['title'] if ocr_data['title'].present?
+        @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
+        @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
+        flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
+      end
+    end
+  end
+
+  def new_magic
+    @recipe = Recipe.new
   end
 
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = session[:userinfo]['id']
+
+    if (params[:ocrresult_id].present?)
+      ocrresult = OcrResult.find_by(id: params[:ocrresult_id])
+      if ocrresult.present?
+        @recipe.recipe_images.attach(ocrresult.image.blob) if ocrresult.image.attached?
+      end
+    end
 
     unless @recipe.valid?
       flash.now[:error] = @recipe.errors.messages.map{ |k,v|
@@ -106,5 +132,19 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:name, :ingredients, :instructions, :duration, :tag_names, :source, :rating, :ocr_text)
+  end
+
+  def format_ingredients_as_html(ingredients)
+    return '' if ingredients.blank?
+
+    items = ingredients.map { |item| "<li>#{ERB::Util.html_escape(item)}</li>" }.join
+    "<ul>#{items}</ul>"
+  end
+
+  def format_steps_as_html(steps)
+    return '' if steps.blank?
+
+    items = steps.map { |step| "<li>#{ERB::Util.html_escape(step)}</li>" }.join
+    "<ol>#{items}</ol>"
   end
 end

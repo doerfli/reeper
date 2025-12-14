@@ -64,6 +64,8 @@ dokku config:set your-app-name OPENAI_CLEANUP_PROMPT_DE="Your custom German prom
 **Optional Configuration:**
 - `OPENAI_CLEANUP_PROMPT_EN`: Override the default English cleanup prompt
 - `OPENAI_CLEANUP_PROMPT_DE`: Override the default German cleanup prompt
+- `OPENAI_PROMPT_ID`: Override the default OpenAI prompt ID for OCR (default: `pmpt_69389bf4c7a481909d47bcf85f423781063a569321686620`)
+- `OPENAI_PROMPT_VERSION`: Override the default OpenAI prompt version for OCR (default: `8`)
 
 
 ## Start development server

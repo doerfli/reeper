@@ -81,6 +81,7 @@
         </div>
       </div>
     <% end %>
+    <%= hidden_field_tag :ocrresult_id, @ocrresult.id if @ocrresult.present? %>
     <div class="mb-4">
       <div>
         <%= f.button t('action.save'), class: 'button' %>

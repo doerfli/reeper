@@ -56,6 +56,31 @@ class OcrController < ApplicationController
     render json: { success: true, message: 'Text saved to recipe' }
   end
 
+  def scan
+    # Process only the first uploaded file
+    file = params[:files].first
+
+    begin
+      magic_data_json = openai_service.ocr(file.tempfile, file.content_type)
+
+      # Save OCR result to database and store id in flash to avoid flash size limits
+      ocrresult = OcrResult.create(result: magic_data_json.to_s)
+      ocrresult.image.attach(file)
+      ocrresult.save
+      flash[:ocr_data] = ocrresult.id
+
+      logger.debug "OCR data id stored in flash: #{flash[:ocr_data]}"
+
+      render json: { success: true, redirect_url: new_recipe_path }
+    rescue JSON::ParserError => e
+      logger.error "OCR JSON parse error: #{e.message}"
+      render json: { success: false, error: I18n.t('ocr.errors.parse_failed') }
+    rescue => e
+      logger.error "OCR error: #{e.message}"
+      render json: { success: false, error: I18n.t('ocr.errors.processing_failed') }
+    end
+  end
+
   def cleanup_with_gpt
     text = params[:text]
     language = params[:language] || 'eng'

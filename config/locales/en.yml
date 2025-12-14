@@ -49,6 +49,16 @@ en:
       lang:
         deu: German
         eng: English
+    dropzone:
+      title: 'Drop images here or click to select (max 10)'
+      formats: 'Supported formats: JPG, PNG, WebP, HEIC, HEIF'
+      uploading: 'Sprinkling AI magic on your recipe...'
+      reset_button: 'Upload More Images'
+    errors:
+      parse_failed: 'Failed to parse OCR results. Please try again.'
+      processing_failed: 'OCR processing failed. Please try again.'
+    warnings:
+      ai_generated_data: '🤖 AI took a crack at reading your recipe - please double-check before saving!'
   activerecord:
     attributes:
       recipe:

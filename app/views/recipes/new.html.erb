@@ -3,3 +3,15 @@
 </div>
 
 <%= render partial: 'form' %>
+
+<% if @ocrresult&.image&.attached? %>
+  <div class="mt-4">
+    <span class="heading_2"><%= t('ocr.source_image') %>:</span>
+    <div class="mt-2">
+      <%= image_tag @ocrresult.image.variant(resize_to_fit: [400,400]), 
+        class: "w-full h-48 object-cover rounded-lg shadow-md",
+        loading: "lazy",
+        alt: "Recipe image" %>
+    </div>
+  </div>
+<% end %>

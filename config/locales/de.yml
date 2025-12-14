@@ -11,6 +11,7 @@ de:
     login: 'Anmelden'
     logout: 'Abmelden'
     new_recipe: 'Neues Rezept'
+    new_magic_recipe: 'Neues Rezept (magisch)'
     recipes: 'Rezepte'
     tags: 'Tags'
   profile:
@@ -19,6 +20,7 @@ de:
   recipes:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'
+    new_magic: 'Neues Rezept mit Hilfe von KI erfassen'
     edit: 'Rezept bearbeiten'
     form:
       ocr_text: 'Erkannter Text aus Bildern'
@@ -61,6 +63,16 @@ de:
       lang:
         deu: Deutsch
         eng: Englisch
+    dropzone:
+      title: 'Bilder hier ablegen oder klicken zum Auswählen (max 10)'
+      formats: 'Unterstützte Formate: JPG, PNG, WebP, HEIC, HEIF'
+      uploading: 'KI-Zauber wird gestreut...'
+      reset_button: 'Weitere Bilder hochladen'
+    errors:
+      parse_failed: 'OCR-Ergebnisse konnten nicht verarbeitet werden. Bitte versuchen Sie es erneut.'
+      processing_failed: 'OCR-Verarbeitung fehlgeschlagen. Bitte versuchen Sie es erneut.'
+    warnings:
+      ai_generated_data: '🤖 KI hat Ihr Rezept gelesen - bitte vor dem Speichern nochmal prüfen!'
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'
