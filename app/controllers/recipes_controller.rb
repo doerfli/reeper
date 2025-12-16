@@ -101,6 +101,21 @@ class RecipesController < ApplicationController
   def edit
     @recipe = Recipe.find(params[:id])
     @page_title = @recipe.name
+    @ocrresult = nil
+
+    # Check for OCR data in session and pre-populate
+    logger.debug "OCR data in flash: #{flash[:ocr_data]}"
+    if flash[:ocr_data].present?
+      ocr_data_id = flash[:ocr_data]
+      @ocrresult = OcrResult.find_by(id: ocr_data_id)
+      if @ocrresult.present?
+        ocr_data = JSON.parse(@ocrresult.result)
+        @recipe.name = ocr_data['title'] if ocr_data['title'].present?
+        @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
+        @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
+        flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
+      end
+    end
   end
 
   def update
@@ -119,6 +134,52 @@ class RecipesController < ApplicationController
     recipe.favorite = !recipe.favorite
     recipe.save
     render json: { redirect_url: recipe_path(recipe.id) }
+  end
+
+  def reparse_image
+    @recipe = Recipe.find(params[:id])
+    attachment_id = params[:attachment_id]
+
+    begin
+      # Find the selected image attachment
+      attachment = @recipe.recipe_images.find(attachment_id)
+
+      # Download the image blob and get content type
+      blob = attachment.blob
+      image_file = blob.download
+      content_type = blob.content_type
+
+      # Create a temporary file for the OpenAI service
+      temp_file = Tempfile.new(['recipe_image', File.extname(blob.filename.to_s)])
+      temp_file.binmode
+      temp_file.write(image_file)
+      temp_file.rewind
+
+      # Call OpenAI service to parse the image
+      openai = OpenaiService.new
+      magic_data_json = openai.ocr(temp_file, content_type)
+
+      # Save OCR result to database
+      ocrresult = OcrResult.create(result: magic_data_json.to_s)
+      ocrresult.image.attach(blob)
+      ocrresult.save
+      flash[:ocr_data] = ocrresult.id
+
+      logger.debug "Reparse OCR data id stored in flash: #{flash[:ocr_data]}"
+
+      redirect_to edit_recipe_path(@recipe)
+    rescue JSON::ParserError => e
+      logger.error "Reparse JSON parse error: #{e.message}"
+      flash[:error] = I18n.t('ocr.errors.parse_failed')
+      redirect_to recipe_path(@recipe)
+    rescue => e
+      logger.error "Reparse error: #{e.message}"
+      flash[:error] = I18n.t('ocr.errors.processing_failed')
+      redirect_to recipe_path(@recipe)
+    ensure
+      temp_file&.close
+      temp_file&.unlink
+    end
   end
 
   def destroy

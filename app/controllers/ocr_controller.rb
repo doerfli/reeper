@@ -104,6 +104,56 @@ class OcrController < ApplicationController
     render json: { error: e.message }, status: :unprocessable_entity
   end
 
+  def select_image_for_reparse
+    @recipe = Recipe.find(params[:id])
+    @page_title = I18n.t('recipes.select_image_for_reparse.title')
+  end
+
+  def reparse_image
+    @recipe = Recipe.find(params[:id])
+    attachment_id = params[:attachment_id]
+
+    begin
+      # Find the selected image attachment
+      attachment = @recipe.recipe_images.find(attachment_id)
+
+      # Download the image blob and get content type
+      blob = attachment.blob
+      image_file = blob.download
+      content_type = blob.content_type
+
+      # Create a temporary file for the OpenAI service
+      temp_file = Tempfile.new(['recipe_image', File.extname(blob.filename.to_s)])
+      temp_file.binmode
+      temp_file.write(image_file)
+      temp_file.rewind
+
+      # Call OpenAI service to parse the image
+      magic_data_json = openai_service.ocr(temp_file, content_type)
+
+      # Save OCR result to database
+      ocrresult = OcrResult.create(result: magic_data_json.to_s)
+      ocrresult.image.attach(blob)
+      ocrresult.save
+      flash[:ocr_data] = ocrresult.id
+
+      logger.debug "Reparse OCR data id stored in flash: #{flash[:ocr_data]}"
+
+      redirect_to edit_recipe_path(@recipe)
+    rescue JSON::ParserError => e
+      logger.error "Reparse JSON parse error: #{e.message}"
+      flash[:error] = I18n.t('ocr.errors.parse_failed')
+      redirect_to recipe_path(@recipe)
+    rescue => e
+      logger.error "Reparse error: #{e.message}"
+      flash[:error] = I18n.t('ocr.errors.processing_failed')
+      redirect_to recipe_path(@recipe)
+    ensure
+      temp_file&.close
+      temp_file&.unlink
+    end
+  end
+
   private
 
   def openai_service

@@ -11,7 +11,7 @@ de:
     login: 'Anmelden'
     logout: 'Abmelden'
     new_recipe: 'Neues Rezept'
-    new_magic_recipe: 'Neues Rezept (magisch)'
+    new_magic_recipe: 'Rezept per KI-Upload'
     recipes: 'Rezepte'
     tags: 'Tags'
   profile:
@@ -20,11 +20,16 @@ de:
   recipes:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'
-    new_magic: 'Neues Rezept mit Hilfe von KI erfassen'
+    new_magic: 'Rezept per Foto-Upload erfassen'
     edit: 'Rezept bearbeiten'
+    select_image_for_reparse:
+      title: 'Welches Bild soll die KI lesen?'
+      description: 'Wähle ein Foto, aus dem die KI versuchen soll, das Rezept zu extrahieren.'
+      parse_button: 'Bild %{number} analysieren'
+      parsing: 'KI studiert das Rezept...'
     form:
       ocr_text: 'Erkannter Text aus Bildern'
-      ocr_text_help: 'Gespeicherter Text aus OCR-Erkennung (neueste Ergebnisse oben). Sie können Text bearbeiten, löschen oder kopieren und in Zutaten/Anleitung einfügen.'
+      ocr_text_help: 'Gespeicherter Text aus OCR-Erkennung (neueste Ergebnisse oben). Du kannst Text bearbeiten, löschen oder kopieren und in Zutaten/Anleitung einfügen.'
       placeholder:
         name: 'Wie heisst das Rezept?'
         ingredients: 'Welche Zutaten benötigt man für das Rezept?'
@@ -42,7 +47,7 @@ de:
       alphabetically: 'Alphabetisch'
       bydate: 'Neueste zuerst'
     delete:
-      are_you_sure: 'Wollen Sie dieses Rezept wirklich löschen?'
+      are_you_sure: 'Willst du dieses Rezept wirklich löschen?'
       info: 'Zu löschende Bilder auswählen'
     ingredients: 'Zutaten'
     instructions: 'Anleitung'
@@ -66,13 +71,13 @@ de:
     dropzone:
       title: 'Bilder hier ablegen oder klicken zum Auswählen (max 10)'
       formats: 'Unterstützte Formate: JPG, PNG, WebP, HEIC, HEIF'
-      uploading: 'KI-Zauber wird gestreut...'
+      uploading: 'KI entziffert dein Rezept...'
       reset_button: 'Weitere Bilder hochladen'
     errors:
       parse_failed: 'OCR-Ergebnisse konnten nicht verarbeitet werden. Bitte versuchen Sie es erneut.'
       processing_failed: 'OCR-Verarbeitung fehlgeschlagen. Bitte versuchen Sie es erneut.'
     warnings:
-      ai_generated_data: '🤖 KI hat Ihr Rezept gelesen - bitte vor dem Speichern nochmal prüfen!'
+      ai_generated_data: '🤖 KI hat ihr Bestes gegeben - schau lieber nochmal drüber!'
   actions: 'Aktionen'
   action:
     edit: 'Bearbeiten'
@@ -85,6 +90,7 @@ de:
     add_another: 'Weitere Datei'
     search: 'Suche'
     image_ocr: 'Texterkennung'
+    image_reparse: 'Per KI neu einlesen'
   activerecord:
     models:
       recipe:
