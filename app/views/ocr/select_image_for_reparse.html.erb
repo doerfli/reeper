@@ -1,0 +1,44 @@
+<div data-controller="reparse">
+  <div>
+    <span class="heading_1">
+      <%= t('recipes.select_image_for_reparse.title') %>
+    </span>
+  </div>
+
+  <div class="mt-6">
+    <p class="text-gray-600 mb-4">
+      <%= t('recipes.select_image_for_reparse.description') %>
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+      <% @recipe.recipe_images.each_with_index do |image, index| %>
+        <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-blue-500 transition-colors">
+          <%= image_tag image.variant(resize_to_fit: [400,400]), 
+              class: "w-full h-64 object-cover rounded-lg mb-3",
+              alt: "Recipe image #{index + 1}" %>
+          
+          <%= form_with url: reparse_image_ocr_path(@recipe), method: :post, data: { action: "submit->reparse#onSubmit" } do |f| %>
+            <%= f.hidden_field :attachment_id, value: image.id %>
+            <%= f.button type: "submit", class: "button w-full", data: { reparse_target: "button" } do %>
+              <span data-reparse-target="buttonText">
+                <i class="fas fa-wand-magic-sparkles mr-2"></i>
+                <%= t('recipes.select_image_for_reparse.parse_button', number: index + 1) %>
+              </span>
+              <span data-reparse-target="spinner" class="hidden">
+                <i class="fas fa-spinner fa-spin mr-2"></i>
+                <%= t('recipes.select_image_for_reparse.parsing') %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to recipe_path(@recipe), class: 'button' do %>
+      <i class="fas fa-arrow-left mr-2"></i>
+      <%= t('action.cancel') %>
+    <% end %>
+  </div>
+</div>

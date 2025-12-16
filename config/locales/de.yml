@@ -22,9 +22,14 @@ de:
     new: 'Neues Rezept erfassen'
     new_magic: 'Neues Rezept mit Hilfe von KI erfassen'
     edit: 'Rezept bearbeiten'
+    select_image_for_reparse:
+      title: 'Bild zum neu Erkennen wählen'
+      description: 'Wähle, welches Rezeptbild mit KI geparst werden soll, um die Rezeptdaten zu extrahieren.'
+      parse_button: 'Bild %{number} parsen'
+      parsing: 'Rezept wird mit KI geparst...'
     form:
       ocr_text: 'Erkannter Text aus Bildern'
-      ocr_text_help: 'Gespeicherter Text aus OCR-Erkennung (neueste Ergebnisse oben). Sie können Text bearbeiten, löschen oder kopieren und in Zutaten/Anleitung einfügen.'
+      ocr_text_help: 'Gespeicherter Text aus OCR-Erkennung (neueste Ergebnisse oben). Du kannst Text bearbeiten, löschen oder kopieren und in Zutaten/Anleitung einfügen.'
       placeholder:
         name: 'Wie heisst das Rezept?'
         ingredients: 'Welche Zutaten benötigt man für das Rezept?'
@@ -42,7 +47,7 @@ de:
       alphabetically: 'Alphabetisch'
       bydate: 'Neueste zuerst'
     delete:
-      are_you_sure: 'Wollen Sie dieses Rezept wirklich löschen?'
+      are_you_sure: 'Willst du dieses Rezept wirklich löschen?'
       info: 'Zu löschende Bilder auswählen'
     ingredients: 'Zutaten'
     instructions: 'Anleitung'
@@ -84,7 +89,8 @@ de:
     image_delete: 'Bild löschen'
     add_another: 'Weitere Datei'
     search: 'Suche'
-    image_ocr: 'Texterkennung'
+    image_ocr: 'Texterkennung'    
+    image_reparse: 'Mit Magie neu parsen'  
   activerecord:
     models:
       recipe:

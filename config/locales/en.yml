@@ -33,6 +33,11 @@ en:
   hello: "Hello world"
   recipes:
     title: 'Recipes'
+    select_image_for_reparse:
+      title: 'Select Image to Re-parse'
+      description: 'Choose which recipe image you want to parse with AI to extract the recipe data.'
+      parse_button: 'Parse Image %{number}'
+      parsing: 'Parsing recipe with AI...'
     form:
       ocr_text: 'Recognized Text from Images'
       ocr_text_help: 'Saved text from OCR recognition (latest results on top). You can edit, delete, or copy text and paste into ingredients/instructions.'
@@ -59,6 +64,15 @@ en:
       processing_failed: 'OCR processing failed. Please try again.'
     warnings:
       ai_generated_data: '🤖 AI took a crack at reading your recipe - please double-check before saving!'
+  action:
+    edit: 'Edit'
+    save: 'Save'
+    cancel: 'Cancel'
+    delete: 'Delete'
+    image_add: 'Add Image'
+    image_delete: 'Delete Images'
+    image_ocr: 'Text Recognition'
+    image_reparse: 'Magic Re-parse'
   activerecord:
     attributes:
       recipe:

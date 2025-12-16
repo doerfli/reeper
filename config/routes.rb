@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     member do
       post 'save_text'
       post 'cleanup_with_gpt'
+      get 'select_image_for_reparse'
+      post 'reparse_image'
     end
   end
 

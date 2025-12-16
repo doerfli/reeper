@@ -83,8 +83,11 @@
     <% end %>
     <%= hidden_field_tag :ocrresult_id, @ocrresult.id if @ocrresult.present? %>
     <div class="mb-4">
-      <div>
+      <div class="flex gap-2">
         <%= f.button t('action.save'), class: 'button' %>
+        <% if @recipe.persisted? %>
+          <%= link_to t('action.cancel'), recipe_path(@recipe), class: 'button' %>
+        <% end %>
       </div>
     </div>
   <% end %>
