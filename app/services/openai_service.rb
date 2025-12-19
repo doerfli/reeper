@@ -49,14 +49,16 @@ class OpenaiService
 
     # puts "Image format detected: #{image_format} for content type: #{content_type} content #{image_data[0..30]}..."
     filedata = "data:image/#{image_format};base64,#{image_data}"
-    Rails.logger.debug "Sending data to OpenAI API (Prompt id #{Rails.configuration.openai.prompt_id} version #{Rails.configuration.openai.prompt_version} -> #{filedata[0..100]}..."
+    prompt_id = Rails.configuration.openai.recipe_ocr_prompt_id
+    prompt_version = Rails.configuration.openai.recipe_ocr_prompt_version
+    Rails.logger.debug "Sending data to OpenAI API (Prompt id #{prompt_id} version #{prompt_version} -> #{filedata[0..100]}..."
 
     response = @client.responses.create(
       parameters: {
         # model: "gpt-5-nano",
         prompt: {
-          "id": Rails.configuration.openai.prompt_id,
-          "version": Rails.configuration.openai.prompt_version
+          "id": prompt_id,
+          "version": prompt_version
         },
         input: [
           {
