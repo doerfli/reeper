@@ -47,7 +47,6 @@ export default class extends Controller {
   setrating(event) {
     var rating = this.ratingTarget;
     var value = parseInt(event.params.rating);
-    console.log("set rating", value);
     rating.setAttribute("value", value);
     // toggle classes
     for (var i = 1; i <= 5; i++) {

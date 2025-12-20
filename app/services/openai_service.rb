@@ -91,7 +91,19 @@ class OpenaiService
     output = response.dig("output") || []
     message = output.find { |item| item["type"] == "message" }
     llm_response_text = message&.dig("content", 0, "text")
-    Rails.logger.info "OpenAI OCR response text: #{llm_response_text}"
-    llm_response_text
+
+    begin
+      parsed = JSON.parse(llm_response_text)
+      recipes = parsed['recipes'] || []
+      Rails.logger.warn "No recipes found in OpenAI response" if recipes.empty?
+      Rails.logger.info "OpenAI OCR recipes: #{recipes}"
+      recipes
+    rescue JSON::ParserError => e
+      Rails.logger.error "Failed to parse OpenAI response: #{e.message}"
+      []
+    rescue => e
+      Rails.logger.error "Unexpected error parsing recipes: #{e.message}"
+      []
+    end
   end
 end

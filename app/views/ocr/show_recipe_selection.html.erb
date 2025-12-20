@@ -1,0 +1,35 @@
+<div>
+  <div>
+    <span class="heading_1">
+      <%= @page_title %>
+    </span>
+  </div>
+
+  <div class="mt-6">
+    <p class="text-gray-600 mb-4">
+      <%= t('ocr.select_recipe.description') %>
+    </p>
+
+    <div class="mt-6 space-y-3">
+      <% @recipes.each_with_index do |recipe, index| %>
+        <%= form_with url: select_recipe_ocr_index_path, method: :post, local: true, class: "block" do |f| %>
+          <%= f.hidden_field :ocr_result_id, value: @ocr_result.id %>
+          <%= f.hidden_field :recipe_index, value: index %>
+          <%= f.hidden_field :reparse_recipe_id, value: @reparse_recipe_id if @reparse_recipe_id.present? %>
+          <%= f.button type: "submit", class: "text-left w-full p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors" do %>
+            <span class="text-lg font-medium text-gray-900">
+              <%= recipe&.dig('title') || t('ocr.select_recipe.untitled') %>
+            </span>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to recipes_path, class: 'button' do %>
+      <i class="fas fa-times mr-2"></i>
+      <%= t('action.cancel') %>
+    <% end %>
+  </div>
+</div>

@@ -29,7 +29,7 @@ export default class extends Controller {
   }
 
   deleteAbort() {
-    console.log("deleteDialogClose");
+
     this.deleteButtonsTargets.forEach(element => {
       element.classList.add("hidden");
     });  
