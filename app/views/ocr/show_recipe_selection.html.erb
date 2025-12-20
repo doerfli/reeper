@@ -15,6 +15,7 @@
         <%= form_with url: select_recipe_ocr_index_path, method: :post, local: true, class: "block" do |f| %>
           <%= f.hidden_field :ocr_result_id, value: @ocr_result.id %>
           <%= f.hidden_field :recipe_index, value: index %>
+          <%= f.hidden_field :reparse_recipe_id, value: @reparse_recipe_id if @reparse_recipe_id.present? %>
           <%= f.button type: "submit", class: "text-left w-full p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors" do %>
             <span class="text-lg font-medium text-gray-900">
               <%= recipe['title'] || t('ocr.select_recipe.untitled') %>

@@ -120,6 +120,8 @@ class OcrController < ApplicationController
     @ocr_result = OcrResult.find(params[:id])
     @recipes = JSON.parse(@ocr_result.result)
     @page_title = I18n.t('ocr.select_recipe.title')
+    # Get reparse_recipe_id from flash if present (will be consumed after this request)
+    @reparse_recipe_id = flash[:reparse_recipe_id]
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('ocr.errors.not_found')
     redirect_to recipes_path
@@ -132,6 +134,7 @@ class OcrController < ApplicationController
   def select_recipe
     ocr_result_id = params[:ocr_result_id]
     recipe_index = params[:recipe_index].to_i
+    reparse_recipe_id = params[:reparse_recipe_id]
 
     # Validate recipe_index, default to 0 if invalid
     recipe_index = 0 if recipe_index < 0
@@ -141,10 +144,8 @@ class OcrController < ApplicationController
     flash[:recipe_index] = recipe_index
 
     # Check if this is a reparse flow
-    if flash[:reparse_recipe_id].present?
-      recipe_id = flash[:reparse_recipe_id]
-      flash.delete(:reparse_recipe_id)
-      redirect_to edit_recipe_path(recipe_id)
+    if reparse_recipe_id.present?
+      redirect_to edit_recipe_path(reparse_recipe_id)
     else
       redirect_to new_recipe_path
     end
