@@ -93,7 +93,7 @@ trix-toolbar .trix-button-group-spacer {
 
 .navigation_bar {
     ul a {
-        @apply px-1;
+        @apply px-1 mr-2 md:mr-0;
     }
 }
 
