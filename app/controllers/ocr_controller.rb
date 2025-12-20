@@ -64,7 +64,7 @@ class OcrController < ApplicationController
       magic_data_json = openai_service.ocr(file.tempfile, file.content_type)
 
       # Save OCR result to database and store id in flash to avoid flash size limits
-      ocrresult = OcrResult.create(result: magic_data_json.to_s)
+      ocrresult = OcrResult.create(result: magic_data_json[0].to_json)
       ocrresult.image.attach(file)
       ocrresult.save
       flash[:ocr_data] = ocrresult.id
@@ -123,7 +123,7 @@ class OcrController < ApplicationController
       content_type = blob.content_type
 
       # Create a temporary file for the OpenAI service
-      temp_file = Tempfile.new(['recipe_image', File.extname(blob.filename.to_s)])
+      temp_file = Tempfile.new(['recipe_image', File.extname(blob.filename.to_json)])
       temp_file.binmode
       temp_file.write(image_file)
       temp_file.rewind
@@ -132,7 +132,7 @@ class OcrController < ApplicationController
       magic_data_json = openai_service.ocr(temp_file, content_type)
 
       # Save OCR result to database
-      ocrresult = OcrResult.create(result: magic_data_json.to_s)
+      ocrresult = OcrResult.create(result: magic_data_json[0].to_s)
       ocrresult.image.attach(blob)
       ocrresult.save
       flash[:ocr_data] = ocrresult.id

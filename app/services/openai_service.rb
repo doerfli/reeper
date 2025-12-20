@@ -91,7 +91,8 @@ class OpenaiService
     output = response.dig("output") || []
     message = output.find { |item| item["type"] == "message" }
     llm_response_text = message&.dig("content", 0, "text")
-    Rails.logger.info "OpenAI OCR response text: #{llm_response_text}"
-    llm_response_text
+    recipes = JSON.parse(llm_response_text)['recipes'] rescue []
+    Rails.logger.info "OpenAI OCR recipes: #{recipes}"
+    recipes
   end
 end
