@@ -63,15 +63,22 @@ class OcrController < ApplicationController
     begin
       magic_data_json = openai_service.ocr(file.tempfile, file.content_type)
 
-      # Save OCR result to database and store id in flash to avoid flash size limits
-      ocrresult = OcrResult.create(result: magic_data_json[0].to_json)
+      # Save full OCR result array to database and store id in flash to avoid flash size limits
+      ocrresult = OcrResult.create(result: magic_data_json.to_json)
       ocrresult.image.attach(file)
       ocrresult.save
-      flash[:ocr_data] = ocrresult.id
 
-      logger.debug "OCR data id stored in flash: #{flash[:ocr_data]}"
+      logger.debug "OCR data id stored in flash: #{ocrresult.id}"
 
-      render json: { success: true, redirect_url: new_recipe_path }
+      # If multiple recipes detected, redirect to selection page
+      if magic_data_json.length > 1
+        render json: { success: true, redirect_url: select_recipe_ocr_path(ocrresult.id) }
+      else
+        # Single recipe, proceed directly to new recipe form
+        flash[:ocr_data] = ocrresult.id
+        flash[:recipe_index] = 0
+        render json: { success: true, redirect_url: new_recipe_path }
+      end
     rescue JSON::ParserError => e
       logger.error "OCR JSON parse error: #{e.message}"
       render json: { success: false, error: I18n.t('ocr.errors.parse_failed') }
@@ -109,6 +116,40 @@ class OcrController < ApplicationController
     @page_title = I18n.t('recipes.select_image_for_reparse.title')
   end
 
+  def show_recipe_selection
+    @ocr_result = OcrResult.find(params[:id])
+    @recipes = JSON.parse(@ocr_result.result)
+    @page_title = I18n.t('ocr.select_recipe.title')
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = I18n.t('ocr.errors.not_found')
+    redirect_to recipes_path
+  rescue JSON::ParserError => e
+    logger.error "Error parsing OCR result: #{e.message}"
+    flash[:error] = I18n.t('ocr.errors.parse_failed')
+    redirect_to recipes_path
+  end
+
+  def select_recipe
+    ocr_result_id = params[:ocr_result_id]
+    recipe_index = params[:recipe_index].to_i
+
+    # Validate recipe_index, default to 0 if invalid
+    recipe_index = 0 if recipe_index < 0
+
+    # Store both values in flash
+    flash[:ocr_data] = ocr_result_id
+    flash[:recipe_index] = recipe_index
+
+    # Check if this is a reparse flow
+    if flash[:reparse_recipe_id].present?
+      recipe_id = flash[:reparse_recipe_id]
+      flash.delete(:reparse_recipe_id)
+      redirect_to edit_recipe_path(recipe_id)
+    else
+      redirect_to new_recipe_path
+    end
+  end
+
   def reparse_image
     @recipe = Recipe.find(params[:id])
     attachment_id = params[:attachment_id]
@@ -131,15 +172,23 @@ class OcrController < ApplicationController
       # Call OpenAI service to parse the image
       magic_data_json = openai_service.ocr(temp_file, content_type)
 
-      # Save OCR result to database
-      ocrresult = OcrResult.create(result: magic_data_json[0].to_s)
+      # Save full OCR result array to database
+      ocrresult = OcrResult.create(result: magic_data_json.to_json)
       ocrresult.image.attach(blob)
       ocrresult.save
-      flash[:ocr_data] = ocrresult.id
 
-      logger.debug "Reparse OCR data id stored in flash: #{flash[:ocr_data]}"
+      logger.debug "Reparse OCR data id stored: #{ocrresult.id}"
 
-      redirect_to edit_recipe_path(@recipe)
+      # If multiple recipes detected, redirect to selection page
+      if magic_data_json.length > 1
+        flash[:reparse_recipe_id] = @recipe.id
+        redirect_to select_recipe_ocr_path(ocrresult.id)
+      else
+        # Single recipe, proceed directly to edit form
+        flash[:ocr_data] = ocrresult.id
+        flash[:recipe_index] = 0
+        redirect_to edit_recipe_path(@recipe)
+      end
     rescue JSON::ParserError => e
       logger.error "Reparse JSON parse error: #{e.message}"
       flash[:error] = I18n.t('ocr.errors.parse_failed')

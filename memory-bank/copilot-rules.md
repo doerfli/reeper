@@ -22,6 +22,7 @@
 - Use Tailwind CSS for all UI styling
 - **Development workflow:** Use `bin/dev` to start Rails server, plus `yarn build:css --watch` and `yarn build --watch` for asset building
 - **RESTful design:** Prefer standard controller actions (GET, POST, PATCH, DELETE) over custom actions when possible
+- **Internationalization:** Always use locale files (`config/locales/en.yml` and `config/locales/de.yml`) for all user-facing text. Never hardcode text in views or controllers. Use `t('key')` or `I18n.t('key')` without default values.
 
 ## Workflow
 

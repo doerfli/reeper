@@ -54,6 +54,10 @@ en:
       lang:
         deu: German
         eng: English
+    select_recipe:
+      title: 'Select Recipe'
+      description: 'Select which recipe to continue with:'
+      untitled: 'Untitled Recipe'
     dropzone:
       title: 'Drop images here or click to select (max 10)'
       formats: 'Supported formats: JPG, PNG, WebP, HEIC, HEIF'
@@ -62,6 +66,7 @@ en:
     errors:
       parse_failed: 'Failed to parse OCR results. Please try again.'
       processing_failed: 'OCR processing failed. Please try again.'
+      not_found: 'OCR result not found'
     warnings:
       ai_generated_data: '🤖 AI did its best - you might want to double-check this!'
   action:

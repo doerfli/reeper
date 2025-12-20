@@ -46,9 +46,11 @@ class RecipesController < ApplicationController
     logger.debug "OCR data in flash: #{flash[:ocr_data]}"
     if flash[:ocr_data].present?
       ocr_data_id = flash[:ocr_data]
+      recipe_index = flash[:recipe_index] || 0
       @ocrresult = OcrResult.find_by(id: ocr_data_id)
       if @ocrresult.present?
-        ocr_data = JSON.parse(@ocrresult.result)
+        parsed_recipes = JSON.parse(@ocrresult.result)
+        ocr_data = parsed_recipes[recipe_index]
         @recipe.name = ocr_data['title'] if ocr_data['title'].present?
         @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
         @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
@@ -107,9 +109,11 @@ class RecipesController < ApplicationController
     logger.debug "OCR data in flash: #{flash[:ocr_data]}"
     if flash[:ocr_data].present?
       ocr_data_id = flash[:ocr_data]
+      recipe_index = flash[:recipe_index] || 0
       @ocrresult = OcrResult.find_by(id: ocr_data_id)
       if @ocrresult.present?
-        ocr_data = JSON.parse(@ocrresult.result)
+        parsed_recipes = JSON.parse(@ocrresult.result)
+        ocr_data = parsed_recipes[recipe_index]
         @recipe.name = ocr_data['title'] if ocr_data['title'].present?
         @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
         @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?

@@ -68,6 +68,10 @@ de:
       lang:
         deu: Deutsch
         eng: Englisch
+    select_recipe:
+      title: 'Rezept auswählen'
+      description: 'Wähle aus, mit welchem Rezept du fortfahren möchtest:'
+      untitled: 'Unbenanntes Rezept'
     dropzone:
       title: 'Bilder hier ablegen oder klicken zum Auswählen (max 10)'
       formats: 'Unterstützte Formate: JPG, PNG, WebP, HEIC, HEIF'
@@ -76,6 +80,7 @@ de:
     errors:
       parse_failed: 'OCR-Ergebnisse konnten nicht verarbeitet werden. Bitte versuchen Sie es erneut.'
       processing_failed: 'OCR-Verarbeitung fehlgeschlagen. Bitte versuchen Sie es erneut.'
+      not_found: 'OCR-Ergebnis nicht gefunden'
     warnings:
       ai_generated_data: '🤖 KI hat ihr Bestes gegeben - schau lieber nochmal drüber!'
   actions: 'Aktionen'

@@ -37,12 +37,14 @@ Rails.application.routes.draw do
   resources :ocr do
     collection do
       post 'scan'
+      post 'select_recipe'
     end
     member do
       post 'save_text'
       post 'cleanup_with_gpt'
       get 'select_image_for_reparse'
       post 'reparse_image'
+      get 'select_recipe', to: 'ocr#show_recipe_selection', as: 'select_recipe'
     end
   end
 
