@@ -165,7 +165,7 @@ class OcrController < ApplicationController
       content_type = blob.content_type
 
       # Create a temporary file for the OpenAI service
-      temp_file = Tempfile.new(['recipe_image', File.extname(blob.filename.to_json)])
+      temp_file = Tempfile.new(['recipe_image', File.extname(blob.filename.to_s)])
       temp_file.binmode
       temp_file.write(image_file)
       temp_file.rewind

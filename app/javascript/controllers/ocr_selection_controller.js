@@ -111,7 +111,7 @@ export default class extends Controller {
   }
 
   submit(event) {
-    console.log(event);
+
     var url = this.data.get("ocrurl");
     var id = this.data.get("id");
     var imgid = this.data.get("imgid");

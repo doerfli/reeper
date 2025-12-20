@@ -67,6 +67,7 @@ en:
       parse_failed: 'Failed to parse OCR results. Please try again.'
       processing_failed: 'OCR processing failed. Please try again.'
       not_found: 'OCR result not found'
+      invalid_recipe_index: 'Invalid recipe index. Please try again.'
     warnings:
       ai_generated_data: '🤖 AI did its best - you might want to double-check this!'
   action:
