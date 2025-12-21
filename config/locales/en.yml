@@ -39,6 +39,7 @@ en:
       parse_button: 'Analyze Image %{number}'
       parsing: 'AI is studying your recipe...'
     form:
+      ai_suggested_tags: 'AI Suggested Tags'
       ocr_text: 'Recognized Text from Images'
       ocr_text_help: 'Saved text from OCR recognition (latest results on top). You can edit, delete, or copy text and paste into ingredients/instructions.'
       placeholder:

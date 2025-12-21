@@ -41,6 +41,7 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @ocrresult = nil
+    @suggested_tags = nil
 
     # Check for OCR data in session and pre-populate
     logger.debug "OCR data in flash: #{flash[:ocr_data]}"
@@ -54,6 +55,11 @@ class RecipesController < ApplicationController
         @recipe.name = ocr_data['title'] if ocr_data['title'].present?
         @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
         @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
+        # Extract suggested tags from OCR data
+        if ocr_data['tags'].present? && ocr_data['tags'].is_a?(Array)
+          tags = ocr_data['tags'].reject { |tag| tag == '[not found]' || tag.blank? }
+          @suggested_tags = tags if tags.any?
+        end
         flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
       end
     end
@@ -104,6 +110,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @page_title = @recipe.name
     @ocrresult = nil
+    @suggested_tags = nil
 
     # Check for OCR data in session and pre-populate
     logger.debug "OCR data in flash: #{flash[:ocr_data]}"
@@ -120,6 +127,11 @@ class RecipesController < ApplicationController
           @recipe.name = ocr_data['title'] if ocr_data['title'].present?
           @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
           @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
+          # Extract suggested tags from OCR data
+          if ocr_data['tags'].present? && ocr_data['tags'].is_a?(Array)
+            tags = ocr_data['tags'].reject { |tag| tag == '[not found]' || tag.blank? }
+            @suggested_tags = tags if tags.any?
+          end
           flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
         else
           logger.error "Invalid recipe index: #{recipe_index} for #{parsed_recipes.length} recipes"

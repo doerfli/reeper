@@ -56,6 +56,21 @@
       </div>
       <div data-recipeform-target="tagsSuggestion" class="tagsSuggestion">
       </div>
+      <% if defined?(@suggested_tags) && @suggested_tags.present? %>
+        <div class="mt-2">
+          <div class="text-sm text-gray-600 mb-1"><%= t('recipes.form.ai_suggested_tags') %></div>
+          <div class="flex flex-wrap gap-2">
+            <% @suggested_tags.each do |tag| %>
+              <button type="button"
+                      class="px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-full text-sm cursor-pointer transition-all duration-200 ai-suggested-tag"
+                      data-action="click->recipeform#addSuggestedTag"
+                      data-tag-value="<%= tag %>">
+                <%= tag %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
     <div class="mb-4">
       <div class="mb-2">
