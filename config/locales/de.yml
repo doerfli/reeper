@@ -28,6 +28,7 @@ de:
       parse_button: 'Bild %{number} analysieren'
       parsing: 'KI studiert das Rezept...'
     form:
+      ai_suggested_tags: 'KI-Vorschläge'
       ocr_text: 'Erkannter Text aus Bildern'
       ocr_text_help: 'Gespeicherter Text aus OCR-Erkennung (neueste Ergebnisse oben). Du kannst Text bearbeiten, löschen oder kopieren und in Zutaten/Anleitung einfügen.'
       placeholder:

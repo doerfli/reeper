@@ -41,22 +41,8 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @ocrresult = nil
-
-    # Check for OCR data in session and pre-populate
-    logger.debug "OCR data in flash: #{flash[:ocr_data]}"
-    if flash[:ocr_data].present?
-      ocr_data_id = flash[:ocr_data]
-      recipe_index = flash[:recipe_index] || 0
-      @ocrresult = OcrResult.find_by(id: ocr_data_id)
-      if @ocrresult.present?
-        parsed_recipes = JSON.parse(@ocrresult.result)
-        ocr_data = parsed_recipes[recipe_index]
-        @recipe.name = ocr_data['title'] if ocr_data['title'].present?
-        @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
-        @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
-        flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
-      end
-    end
+    @suggested_tags = nil
+    populate_from_ocr_data(@recipe)
   end
 
   def new_magic
@@ -104,29 +90,8 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @page_title = @recipe.name
     @ocrresult = nil
-
-    # Check for OCR data in session and pre-populate
-    logger.debug "OCR data in flash: #{flash[:ocr_data]}"
-    if flash[:ocr_data].present?
-      ocr_data_id = flash[:ocr_data]
-      recipe_index = flash[:recipe_index] || 0
-      @ocrresult = OcrResult.find_by(id: ocr_data_id)
-      if @ocrresult.present?
-        parsed_recipes = JSON.parse(@ocrresult.result)
-
-        # Validate recipe_index bounds
-        if recipe_index >= 0 && recipe_index < parsed_recipes.length
-          ocr_data = parsed_recipes[recipe_index]
-          @recipe.name = ocr_data['title'] if ocr_data['title'].present?
-          @recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
-          @recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
-          flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
-        else
-          logger.error "Invalid recipe index: #{recipe_index} for #{parsed_recipes.length} recipes"
-          flash.now[:error] = I18n.t('ocr.errors.invalid_recipe_index')
-        end
-      end
-    end
+    @suggested_tags = nil
+    populate_from_ocr_data(@recipe)
   end
 
   def update
@@ -204,6 +169,39 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:name, :ingredients, :instructions, :duration, :tag_names, :source, :rating, :ocr_text)
+  end
+
+  def populate_from_ocr_data(recipe)
+    # Check for OCR data in session and pre-populate
+    logger.debug "OCR data in flash: #{flash[:ocr_data]}"
+    return unless flash[:ocr_data].present?
+
+    ocr_data_id = flash[:ocr_data]
+    recipe_index = flash[:recipe_index] || 0
+    @ocrresult = OcrResult.find_by(id: ocr_data_id)
+    return unless @ocrresult.present?
+
+    parsed_recipes = JSON.parse(@ocrresult.result)
+
+    # Validate recipe_index bounds
+    unless recipe_index >= 0 && recipe_index < parsed_recipes.length
+      logger.error "Invalid recipe index: #{recipe_index} for #{parsed_recipes.length} recipes"
+      flash.now[:error] = I18n.t('ocr.errors.invalid_recipe_index')
+      return
+    end
+
+    ocr_data = parsed_recipes[recipe_index]
+    recipe.name = ocr_data['title'] if ocr_data['title'].present?
+    recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
+    recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
+
+    # Extract suggested tags from OCR data
+    if ocr_data['tags'].present? && ocr_data['tags'].is_a?(Array)
+      tags = ocr_data['tags'].reject { |tag| tag == '[not found]' || tag.blank? }
+      @suggested_tags = tags if tags.any?
+    end
+
+    flash.now[:warning] = I18n.t('ocr.warnings.ai_generated_data')
   end
 
   def format_ingredients_as_html(ingredients)
