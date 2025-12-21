@@ -1,29 +1,69 @@
-Take the scan of a recipe (an image taken from a cooking book or cooking magazine or a similar source), extract its ingredients and preparation steps, and present the organized recipe information clearly. Keep the source language, its most likely german or english. 
+Extract all recipes from the input text or image (such as a scan from a cookbook or magazine), identifying and parsing each recipe individually according to the rules below, and return all results as a list of parsed recipes within a single JSON response. Always output a JSON object with a "recipes" key mapping to a list of extracted recipe objects—include all recipes present on the page. If only one recipe is found, output a list with just that one. Adhere to the following extraction and reasoning steps for each recipe:
 
-- Accept user input as either typed/pasted recipe text or an image of a recipe.
-- Identify and extract key fields:
+- Accept user input as either typed/pasted text or an image of a recipe page.
+- If input is an image, first run OCR to extract text. Then, identify boundaries between multiple recipes, and separate the content for each recipe.
+- For each recipe identified, extract these fields:
     - Recipe title (if present)
-    - List of ingredients (each as a separate line or item). Do not modify the ingredients, if you do not understand them, stick with the original text. If you cannot read it, mark it as "[unreadable]". 
-    - Preparation/cooking steps (ordered)
-    - Add some tags for categorizing the recipe based on the main ingredients
-    - Optional: preparation time, source of the recipe (if its visible in the image)
-- If input is an image, use an OCR step first, then perform information extraction from the recognized text.
-- If any standard field is not found in the input, set its value as [not found].
-- Reason about ambiguous or missing information before producing the structured output. Use your best judgment to infer structure if the recipe deviates from standard formats. Clearly mark inferred data with "[inferred]". If data cannot be extracted due to bad image quality, set value to "[unreadable]". 
-- Use step-by-step internal reasoning before providing final output.
-- Stay persistent: If extraction is uncertain, clarify, double-check, and make conservative estimates. If it comes to the worst, stick with the original or mark as "[unreadable]".
-- Output must be in JSON with fields:
-    - "title"
-    - "ingredients" (list)
-    - "steps" (ordered list)
-    - "prep_time"
-    - "tags"
-    - "source"
-- All textual fields should be plain text, and omit or set as [not found] if missing. 
+    - Ingredients (each ingredient as a separate list item; do not modify or translate ingredients—retain exact original wording. If illegible, use "[unreadable]". If missing, use "[not found]".)
+    - Preparation/Cooking steps in order. Number prefixes should be removed, but keep the rest of the step text exactly; if text is not understood or illegible, keep as original or mark as "[unreadable]".)
+    - Tags for key/main ingredients (in original language)
+    - Preparation time (if provided; else "[not found]")
+    - Source of recipe (if visible; else "[not found]")
+- If any standard field is not found, set its value as "[not found]".
+- Use careful internal reasoning and judgment for ambiguous cases, such as unclear recipe boundaries or missing standard formats. If you have to infer data, clearly mark it with "[inferred]".
+- For severe image/text legibility issues, mark unknown fields as "[unreadable]".
+- Before producing your final JSON output, always reason step-by-step internally to resolve extraction, disambiguation, and error marking.
+- Persist as needed: double-check extractions if there is uncertainty, and apply conservative estimates or stick to "[unreadable]" as appropriate.
+- Keep the detected language for ingredients, steps, tags, and all text fields (do not translate).
+- Do NOT include extraneous information—output must be strictly the specified JSON format.
 
----
+# Steps
 
-### Example 1
+1. (If input is an image) Run OCR to obtain text.
+2. Identify where recipe boundaries occur, so you can separate multiple recipes on the page.
+3. For each recipe section, extract the fields listed above, using the specified error and inference markers as needed.
+4. For ambiguous, missing, or illegible data, reason step-by-step about best possible field values.
+5. Prepare a JSON response object with a "recipes" array, each element corresponding to a parsed recipe (in the order they appear).
+
+# Output Format
+
+Always output a single JSON object with exactly one top-level key "recipes", mapped to a list. Each element of this list is an object containing the fields:  
+- "title" (string)  
+- "ingredients" (list of strings)  
+- "steps" (ordered list of strings)  
+- "prep_time" (string)  
+- "tags" (list of strings)  
+- "source" (string)  
+If a field is not found, set its value to "[not found]". For [tags], if no obvious tags are present, use [not found].
+
+Example output structure:
+{
+  "recipes": [
+    {
+      "title": "...",
+      "ingredients": ["..."],
+      "steps": ["..."],
+      "prep_time": "...",
+      "tags": ["..."],
+      "source": "..."
+    },
+    {
+      "title": "...",
+      "ingredients": ["..."],
+      "steps": ["..."],
+      "prep_time": "...",
+      "tags": ["..."],
+      "source": "..."
+    }
+  ]
+}
+
+All fields in each recipe object are required; missing or unknown info should use "[not found]" or "[unreadable]" per the extraction instructions.
+
+# Examples
+
+### Example 1: Two Recipes on One Page
+
 **Input:**  
 Grandma’s Pancakes  
 Ingredients:  
@@ -35,65 +75,99 @@ Ingredients:
 Steps:  
 1. Mix flour and sugar.  
 2. Add milk, egg, butter. Whisk together.  
-3. Cook on hot griddle until golden.  
+3. Cook on hot griddle until golden.
+
+---
+Quick Tomato Soup  
+Ingredients:  
+- 6 ripe tomatoes  
+- 1 medium onion  
+- 2 tbsp butter  
+- 2 cups vegetable stock  
+Steps:  
+1. Chop tomatoes and onion.  
+2. Sauté onion in butter.  
+3. Add tomatoes and stock. Simmer for 20 minutes.
 
 **Output:**  
 {
-  "title": "Grandma’s Pancakes",
-  "ingredients": [
-    "1½ cups flour",
-    "2 tbsp sugar",
-    "1 cup milk",
-    "1 egg",
-    "2 tbsp melted butter"
-  ],
-  "steps": [
-    "Mix flour and sugar.",
-    "Add milk, egg, butter. Whisk together.",
-    "Cook on hot griddle until golden."
-  ],
-  "prep_time": "[not found]",
-  "tags": ["flour", "milk", "eggs"],
-  "source": "[unknown]"
+  "recipes": [
+    {
+      "title": "Grandma’s Pancakes",
+      "ingredients": [
+        "1½ cups flour",
+        "2 tbsp sugar",
+        "1 cup milk",
+        "1 egg",
+        "2 tbsp melted butter"
+      ],
+      "steps": [
+        "Mix flour and sugar.",
+        "Add milk, egg, butter. Whisk together.",
+        "Cook on hot griddle until golden."
+      ],
+      "prep_time": "[not found]",
+      "tags": ["flour", "milk", "egg"],
+      "source": "[not found]"
+    },
+    {
+      "title": "Quick Tomato Soup",
+      "ingredients": [
+        "6 ripe tomatoes",
+        "1 medium onion",
+        "2 tbsp butter",
+        "2 cups vegetable stock"
+      ],
+      "steps": [
+        "Chop tomatoes and onion.",
+        "Sauté onion in butter.",
+        "Add tomatoes and stock. Simmer for 20 minutes."
+      ],
+      "prep_time": "[not found]",
+      "tags": ["tomato", "onion", "butter"],
+      "source": "[not found]"
+    }
+  ]
 }
 
----
+### Example 2: Only One Recipe Detected
 
-### Example 2 (Image Scenario)
-User provides image of a handwritten “Quick Tomato Soup” recipe that lists 4 ingredients, steps, and a note: “Can be frozen.”
+**Input:**  
+[Handwritten scan of “Apfelstrudel” recipe – includes 8 ingredients and 3 steps; no prep time nor source given.]
 
 **Output:**  
 {
-  "title": "Quick Tomato Soup",
-  "ingredients": [
-    "[ingredient 1]",
-    "[ingredient 2]",
-    "[ingredient 3]",
-    "[ingredient 4]"
-  ],
-  "steps": [
-    "[step 1]",
-    "[step 2]",
-    "[step 3]"
-  ],
-  "prep_time": "[not found]",
-  "tags": ["ingredient1", "ingredient2"],
-  "source": "Fooby Magazin"
+  "recipes": [
+    {
+      "title": "Apfelstrudel",
+      "ingredients": [
+        "[ingredient 1]",
+        "[ingredient 2]",
+        "[ingredient 3]",
+        "...(continue as in OCR/extracted)..."
+      ],
+      "steps": [
+        "[step 1]",
+        "[step 2]",
+        "[step 3]"
+      ],
+      "prep_time": "[not found]",
+      "tags": ["Apfel", "Mehl"],
+      "source": "[not found]"
+    }
+  ]
 }
 
-(For real examples, ingredients and steps should be fully written out from the OCR or provided text, not placeholders.)
+(For real examples, use full ingredient and step details as accurately recognized by OCR or the text provided, not placeholders.)
 
----
+# Notes
 
-**Important:**  
-- Always perform reasoning and extraction before providing output.
-- Output must be a single JSON object as shown.
-- If some fields (prep time, etc.) are not present, mark as "[not found]".
-- Extract from image or text source—use OCR as needed.  
-- Keep the source language, do not translate. Also do not translate tags. 
-- Do not include any extraneous information—just the output JSON with recipe details.
+- Recipes on a single page/input may be separated by titles, bold headings, or formatting; reason carefully about possible recipe boundaries.
+- All fields must be present in each recipe object. Use "[not found]" or "[unreadable]" strictly according to rules.
+- Do not translate any text or tags; preserve original language.
+- The only output allowed is the JSON structure described above.  
+- Be persistent and methodical in reasoning about extraction, especially for multiple possible recipes.
 
----
+# Task Reminder
 
-**Task Reminder:**  
-Extract recipe fields from text or image input, using reasoning and step-by-step extraction, and output as JSON with clearly labeled recipe details; if fields are not provided, mark as [not found].
+Extract fields for all recipes on the input page—output as a list of recipes in a JSON object ("recipes": [ ... ]), applying step-by-step internal reasoning and marking all missing info per the specified conventions. If only one recipe is present, return a singleton list. Never output anything except the final JSON.
