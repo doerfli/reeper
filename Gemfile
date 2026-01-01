@@ -41,7 +41,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 5.3'
 
-gem 'aws-sdk-s3', '~> 1.208', require: false
+gem 'aws-sdk-s3', '~> 1.209', require: false
 
 gem 'kaminari', '>=1.2.1'
 
