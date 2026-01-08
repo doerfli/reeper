@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.14'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem "ffi", "~>1.17.1"
+gem "ffi", "~>1.17.3"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -41,7 +41,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 5.3'
 
-gem 'aws-sdk-s3', '~> 1.208', require: false
+gem 'aws-sdk-s3', '~> 1.209', require: false
 
 gem 'kaminari', '>=1.2.1'
 
@@ -97,6 +97,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "ruby-vips", "~> 2.2"
 
-gem "nokogiri", "~> 1.18"
+gem "nokogiri", "~> 1.19"
 
 gem "propshaft", "~> 1.3"
