@@ -100,3 +100,5 @@ gem "ruby-vips", "~> 2.2"
 gem "nokogiri", "~> 1.19"
 
 gem "propshaft", "~> 1.3"
+
+gem "omniai-mistral", "~> 3.0"
