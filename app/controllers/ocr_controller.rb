@@ -65,7 +65,6 @@ class OcrController < ApplicationController
       # Process based on selected AI method
       magic_data_json = if ai_method == 'mistral_openai'
         # Two-phase: Mistral OCR -> OpenAI parsing
-        mistral_service = MistralaiService.new
         markdown = mistral_service.ocr_to_markdown(file.tempfile, file.content_type)
 
         if markdown.blank?
@@ -103,9 +102,9 @@ class OcrController < ApplicationController
     rescue JSON::ParserError => e
       logger.error "OCR JSON parse error: #{e}"
       render json: { success: false, error: I18n.t('ocr.errors.parse_failed') }
-    # rescue => e
-    #   logger.error "OCR error: #{e.s}"
-    #   render json: { success: false, error: I18n.t('ocr.errors.processing_failed') }
+    rescue => e
+      logger.error "OCR error: #{e.s}"
+      render json: { success: false, error: I18n.t('ocr.errors.processing_failed') }
     end
   end
 
@@ -195,7 +194,6 @@ class OcrController < ApplicationController
       # Process based on selected AI method
       magic_data_json = if ai_method == 'mistral_openai'
         # Two-phase: Mistral OCR -> OpenAI parsing
-        mistral_service = MistralaiService.new
         markdown = mistral_service.ocr_to_markdown(temp_file, content_type)
 
         if markdown.blank?

@@ -1,6 +1,8 @@
 class MistralaiService
   def initialize
-    # Try environment variable first, fallback to credentials for development
+    # API key validation happens at runtime (not initialization) to allow
+    # the service to be instantiated even when Mistral AI is not configured.
+    # This is intentional - the key is only checked when the service is actually used.
     api_key = ENV['MISTRAL_API_KEY']
     raise "Mistral API key not configured. Set MISTRAL_API_KEY environment variable" if api_key.blank?
 
@@ -11,7 +13,10 @@ class MistralaiService
     # Read and encode the image file as base64
     image_data = if image_file.respond_to?(:read)
       # Handle uploaded file (Tempfile)
-      Base64.strict_encode64(image_file.read)
+      image_file.rewind
+      data = Base64.strict_encode64(image_file.read)
+      image_file.rewind  # Reset for potential subsequent reads
+      data
     elsif image_file.is_a?(String)
       # Handle file path
       File.open(image_file, 'rb') { |f| Base64.strict_encode64(f.read) }
