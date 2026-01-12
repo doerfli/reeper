@@ -59,12 +59,33 @@ class OcrController < ApplicationController
   def scan
     # Process only the first uploaded file
     file = params[:files].first
+    ai_method = params[:ai_method] || 'openai_direct'
 
     begin
-      magic_data_json = openai_service.ocr(file.tempfile, file.content_type)
+      # Process based on selected AI method
+      magic_data_json = if ai_method == 'mistral_openai'
+        # Two-phase: Mistral OCR -> OpenAI parsing
+        mistral_service = MistralaiService.new
+        markdown = mistral_service.ocr_to_markdown(file.tempfile, file.content_type)
+
+        if markdown.blank?
+          raise "Mistral OCR returned empty markdown"
+        end
+
+        openai_service.parse_markdown_to_recipes(markdown)
+      else
+        # Direct OpenAI OCR
+        openai_service.ocr(file.tempfile, file.content_type)
+      end
+
+      if magic_data_json.empty?
+        raise "No recipes extracted from image"
+      end
+
+      logger.debug "OCR extracted recipes: #{magic_data_json}"
 
       # Save full OCR result array to database and store id in flash to avoid flash size limits
-      ocrresult = OcrResult.create(result: magic_data_json.to_json)
+      ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: ai_method)
       ocrresult.image.attach(file)
       ocrresult.save
 
@@ -80,11 +101,11 @@ class OcrController < ApplicationController
         render json: { success: true, redirect_url: new_recipe_path }
       end
     rescue JSON::ParserError => e
-      logger.error "OCR JSON parse error: #{e.message}"
+      logger.error "OCR JSON parse error: #{e}"
       render json: { success: false, error: I18n.t('ocr.errors.parse_failed') }
-    rescue => e
-      logger.error "OCR error: #{e.message}"
-      render json: { success: false, error: I18n.t('ocr.errors.processing_failed') }
+    # rescue => e
+    #   logger.error "OCR error: #{e.s}"
+    #   render json: { success: false, error: I18n.t('ocr.errors.processing_failed') }
     end
   end
 
@@ -154,6 +175,7 @@ class OcrController < ApplicationController
   def reparse_image
     @recipe = Recipe.find(params[:id])
     attachment_id = params[:attachment_id]
+    ai_method = params[:ai_method] || 'openai_direct'
 
     begin
       # Find the selected image attachment
@@ -164,17 +186,34 @@ class OcrController < ApplicationController
       image_file = blob.download
       content_type = blob.content_type
 
-      # Create a temporary file for the OpenAI service
+      # Create a temporary file for the AI service
       temp_file = Tempfile.new(['recipe_image', File.extname(blob.filename.to_s)])
       temp_file.binmode
       temp_file.write(image_file)
       temp_file.rewind
 
-      # Call OpenAI service to parse the image
-      magic_data_json = openai_service.ocr(temp_file, content_type)
+      # Process based on selected AI method
+      magic_data_json = if ai_method == 'mistral_openai'
+        # Two-phase: Mistral OCR -> OpenAI parsing
+        mistral_service = MistralaiService.new
+        markdown = mistral_service.ocr_to_markdown(temp_file, content_type)
+
+        if markdown.blank?
+          raise "Mistral OCR returned empty markdown"
+        end
+
+        openai_service.parse_markdown_to_recipes(markdown)
+      else
+        # Direct OpenAI OCR
+        openai_service.ocr(temp_file, content_type)
+      end
+
+      if magic_data_json.empty?
+        raise "No recipes extracted from image"
+      end
 
       # Save full OCR result array to database
-      ocrresult = OcrResult.create(result: magic_data_json.to_json)
+      ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: ai_method)
       ocrresult.image.attach(blob)
       ocrresult.save
 

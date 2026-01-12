@@ -59,6 +59,10 @@ en:
       title: 'Select Recipe'
       description: 'Select which recipe to continue with:'
       untitled: 'Untitled Recipe'
+    ai_method:
+      label: 'AI Recognition Method'
+      openai_direct: 'OpenAI Direct'
+      mistral_openai: 'Mistral + OpenAI'
     dropzone:
       title: 'Drop images here or click to select (max 10)'
       formats: 'Supported formats: JPG, PNG, WebP, HEIC, HEIF'

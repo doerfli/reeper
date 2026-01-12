@@ -73,6 +73,10 @@ de:
       title: 'Rezept auswählen'
       description: 'Wähle aus, mit welchem Rezept du fortfahren möchtest:'
       untitled: 'Unbenanntes Rezept'
+    ai_method:
+      label: 'KI-Erkennungsmethode'
+      openai_direct: 'OpenAI Direkt'
+      mistral_openai: 'Mistral + OpenAI'
     dropzone:
       title: 'Bilder hier ablegen oder klicken zum Auswählen (max 10)'
       formats: 'Unterstützte Formate: JPG, PNG, WebP, HEIC, HEIF'

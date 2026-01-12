@@ -10,6 +10,19 @@
       <%= t('recipes.select_image_for_reparse.description') %>
     </p>
 
+    <div class="mb-6">
+      <label class="text-gray-700 font-semibold heading_2" for="ai_method_select_reparse">
+        <%= t 'ocr.ai_method.label' %>
+      </label>
+      <select id="ai_method_select_reparse" 
+              name="ai_method" 
+              data-reparse-target="aiMethod"
+              class="block w-full md:w-1/2 mt-2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        <option value="mistral_openai" selected><%= t 'ocr.ai_method.mistral_openai' %></option>
+        <option value="openai_direct"><%= t 'ocr.ai_method.openai_direct' %></option>
+      </select>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
       <% @recipe.recipe_images.each_with_index do |image, index| %>
         <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-blue-500 transition-colors">
@@ -19,6 +32,7 @@
           
           <%= form_with url: reparse_image_ocr_path(@recipe), method: :post, data: { action: "submit->reparse#onSubmit" } do |f| %>
             <%= f.hidden_field :attachment_id, value: image.id %>
+            <%= f.hidden_field :ai_method, value: "", data: { reparse_target: "aiMethodField" } %>
             <%= f.button type: "submit", class: "button w-full", data: { reparse_target: "button" } do %>
               <span data-reparse-target="buttonText">
                 <i class="fas fa-wand-magic-sparkles mr-2"></i>

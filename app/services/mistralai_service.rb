@@ -34,7 +34,7 @@ class MistralaiService
     response = @client.ocr(filedata, kind: :image)
     recognized_markdown = response.pages[0].markdown
 
-    Rails.logger.debug "Mistral OCR result:\n#{recognized_markdown}"
+    Rails.logger.debug "Mistral OCR result:\n#{recognized_markdown[0..100]}..."
     recognized_markdown
   end
 end

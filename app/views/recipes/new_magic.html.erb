@@ -2,4 +2,16 @@
   <span class="heading_1"><%=t 'recipes.new_magic' %></span>
 </div>
 
+<div class="mb-4 mt-4">
+  <label class="text-gray-700 font-semibold heading_2" for="ai_method_select">
+    <%= t 'ocr.ai_method.label' %>
+  </label>
+  <select id="ai_method_select" 
+          name="ai_method" 
+          class="block w-full md:w-1/2 mt-2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+    <option value="mistral_openai" selected><%= t 'ocr.ai_method.mistral_openai' %></option>
+    <option value="openai_direct"><%= t 'ocr.ai_method.openai_direct' %></option>
+  </select>
+</div>
+
 <%= render 'shared/dropzone', url: scan_ocr_index_path %>

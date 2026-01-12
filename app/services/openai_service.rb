@@ -106,4 +106,53 @@ class OpenaiService
       []
     end
   end
+
+  def parse_markdown_to_recipes(markdown_text)
+    prompt_id = Rails.configuration.openai.recipe_markdown_prompt_id
+    prompt_version = Rails.configuration.openai.recipe_markdown_prompt_version
+    Rails.logger.debug "Sending markdown to OpenAI API (Prompt id #{prompt_id} version #{prompt_version})"
+
+    response = @client.responses.create(
+      parameters: {
+        prompt: {
+          "id": prompt_id,
+          "version": prompt_version
+        },
+        input: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "input_text",
+                text: markdown_text
+              }
+            ]
+          }
+        ],
+        reasoning: {
+          "summary": "auto"
+        }
+      }
+    )
+
+    Rails.logger.debug "OpenAI markdown parsing response: #{response}"
+
+    output = response.dig("output") || []
+    message = output.find { |item| item["type"] == "message" }
+    llm_response_text = message&.dig("content", 0, "text")
+
+    begin
+      parsed = JSON.parse(llm_response_text)
+      recipes = parsed['recipes'] || []
+      Rails.logger.warn "No recipes found in OpenAI markdown parsing response" if recipes.empty?
+      Rails.logger.info "OpenAI parsed #{recipes.length} recipes from markdown"
+      recipes
+    rescue JSON::ParserError => e
+      Rails.logger.error "Failed to parse OpenAI markdown response: #{e.message}"
+      []
+    rescue => e
+      Rails.logger.error "Unexpected error parsing recipes from markdown: #{e.message}"
+      []
+    end
+  end
 end

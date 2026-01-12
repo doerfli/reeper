@@ -1,11 +1,18 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["button", "buttonText", "spinner"]
+  static targets = ["button", "buttonText", "spinner", "aiMethod", "aiMethodField"]
 
   onSubmit(event) {
     const form = event.target
     const button = form.querySelector('[data-reparse-target="button"]')
+    
+    // Get selected AI method and populate hidden field
+    const selectedMethod = document.querySelector('select[name="ai_method"]')
+    const aiMethodField = form.querySelector('[data-reparse-target="aiMethodField"]')
+    if (selectedMethod && aiMethodField) {
+      aiMethodField.value = selectedMethod.value
+    }
     
     if (button) {
       // Find the button text and spinner within this specific button
