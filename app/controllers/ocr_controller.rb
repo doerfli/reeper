@@ -61,7 +61,7 @@ class OcrController < ApplicationController
     file = params[:files].first
 
     begin
-      markdown = mistral_service.ocr(file.tempfile, file.content_type)
+      markdown = mistral_service.ocr_to_markdown(file.tempfile, file.content_type)
       magic_data_json = openai_service.ocr(file.tempfile, file.content_type)
 
       # Save full OCR result array to database and store id in flash to avoid flash size limits
@@ -212,6 +212,6 @@ class OcrController < ApplicationController
   end
 
   def mistral_service
-    @mistral_service ||= MistralAIService.new
+    @mistral_service ||= MistralaiService.new
   end
 end
