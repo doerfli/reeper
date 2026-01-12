@@ -1,73 +1,69 @@
 # Active Context
 
-## Current Focus: OCR Prompt Refinement
-**Branch**: `main`
-**Recent Activity**: Multiple recipes feature completed and merged
+## Current Focus: Two-Phase AI Recognition (Mistral + OpenAI)
+**Branch**: `feature/mistral-ai-ocr`
+**Recent Activity**: Implemented two-phase AI recognition with Mistral OCR and OpenAI parsing
 
 ## Overview
-The multiple recipes support feature has been successfully merged to main (PR #734). The OCR prompt has been updated to improve extraction quality and consistency. The project is now in a stable state with all core OCR features operational.
+The two-phase AI recognition feature has been successfully implemented, allowing users to choose between "OpenAI Direct" (image → recipe) and "Mistral + OpenAI" (image → markdown → recipe) methods. This provides flexibility in AI processing and enables comparison of different OCR approaches.
 
 ## Recently Completed
-- ✅ Multiple recipes detection and parsing
-- ✅ Recipe selection UI workflow
-- ✅ Flash data management for recipe selection
-- ✅ Reparse flow integration for existing recipes
-- ✅ OpenAI prompt updates to support multi-recipe extraction
-- ✅ PR #734 merged on December 21, 2025
-- ✅ OCR prompt refinement (commit a175873)
+- ✅ Added `ai_method` column to `ocr_results` table (migration)
+- ✅ Created `OpenaiService#parse_markdown_to_recipes` method
+- ✅ Updated `OcrController#scan` with two-phase logic
+- ✅ Updated `OcrController#reparse_image` with two-phase logic
+- ✅ Added AI method dropdown selector to upload view
+- ✅ Added AI method dropdown selector to reparse view
+- ✅ Updated JavaScript controllers to handle method selection
+- ✅ Added translations (EN/DE) for AI method options
+- ✅ Mistral + OpenAI set as default method
 
 ## Current State
-- On `main` branch
-- All features merged and operational
-- Latest commit: a175873 (update prompt)
-- Tag 3.3.0 released (navbar mobile improvements)
-- System stable and ready for next feature
+- On `feature/mistral-ai-ocr` branch
+- Two-phase feature fully implemented
+- Ready for testing and merge
+- All error handling in place (fails entirely on two-phase errors)
 
-## Active Implementation (Merged)
+## Active Implementation
 
-### Multiple Recipes Support (✅ COMPLETED)
-All implementation completed and merged to main:
+### Two-Phase AI Recognition (✅ COMPLETED)
+All implementation completed:
 
-1. **OpenAI Service** - Parses response as array of recipes
-2. **OCR Controller** - Recipe selection actions and multi-recipe flow
-3. **Recipes Controller** - Retrieves selected recipe by index
-4. **Recipe Selection View** - UI for selecting from multiple recipes
-5. **Routes** - Recipe selection endpoints
-6. **OpenAI Configuration** - Multi-recipe prompt integration
-7. **Locales** - German and English translations
-8. **Prompt File** (`config/prompts/openai_ocr.txt`) - Detailed extraction rules for multiple recipes
+1. **Database**: `ai_method` string column in `ocr_results` (default: 'openai_direct')
+2. **OpenAI Service**: New `parse_markdown_to_recipes` method using `recipe_markdown_prompt_id`
+3. **OCR Controller**: Conditional logic for `mistral_openai` vs `openai_direct`
+4. **Upload View** (`new_magic.html.erb`): Dropdown for AI method selection
+5. **Reparse View** (`select_image_for_reparse.html.erb`): Dropdown for AI method selection
+6. **JavaScript**: Updated dropzone and reparse controllers
+7. **Locales**: EN/DE translations for "Mistral + OpenAI" and "OpenAI Direct"
 
-### Recent Prompt Updates
-- Enhanced OCR extraction rules for better multi-recipe detection
-- Improved field extraction with clear error markers (`[not found]`, `[unreadable]`, `[inferred]`)
-- Added step-by-step reasoning guidelines for ambiguous cases
-- Better handling of language detection (no translation)
+### How It Works
+- **Mistral + OpenAI**: Image → Mistral OCR (markdown) → OpenAI parse (structured recipe JSON)
+- **OpenAI Direct**: Image → OpenAI (structured recipe JSON)
+- **Error Handling**: Two-phase process fails entirely if either step fails (no partial results)
+- **Tracking**: `ai_method` stored in `OcrResult` for debugging/auditing
 
 ## Active Dependencies
-- OpenAI API with multi-recipe prompt (operational)
-- OcrResult model for temporary storage
-- Flash data for cross-request state management
+- OpenAI API with two prompts (ocr and markdown parsing)
+- Mistral AI OCR service via OmniAI gem
+- OcrResult model with `ai_method` tracking
 - Ruby 3.4.8
 - Rails 8.x
 - Auth0 for authentication
 - AWS S3 for file storage
 
 ## Next Steps
-1. 🧪 Monitor OCR accuracy with new prompt in production
-2. 🔧 Address test suite dependency issues (chromedriver-helper)
-3. 📊 Consider adding user feedback mechanism for OCR quality
-4. 🎯 Plan next feature or enhancement
-5. 📝 Update documentation if needed
+1. 🧪 Test two-phase recognition with various recipe images
+2. 📊 Compare accuracy between Mistral+OpenAI vs OpenAI Direct
+3. 🔄 Merge to main once testing complete
+4. 📝 Update documentation with new feature
+5. 🎯 Monitor performance and cost of both methods in production
 
 ## Known Issues
-- **Test suite dependency**: `chromedriver-helper` gem incompatibility with Ruby 3.4.8/Selenium
-- **Empty array handling**: Service uses `rescue []` for JSON parsing - could be more explicit
-- **Bounds validation**: Recipe selection should validate `recipe_index` is within array bounds
-- **Test coverage**: `spec/controllers/ocr_controller_spec.rb` needs comprehensive tests
+- None currently - feature fully implemented and ready for testing
 
 ## Notes
-- Multiple recipes feature is production-ready
-- Backward compatible with single-recipe images
-- Reparse flow supports recipe selection
-- Flash-based state management working well
-- OpenAI prompt provides detailed extraction guidelines
+- Mistral + OpenAI is the default method
+- Users can switch between methods in both upload and reparse flows
+- Same UI styling applied to both upload and reparse views
+- Backward compatible - existing records default to 'openai_direct'
