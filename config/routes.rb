@@ -48,5 +48,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :ocr_debug, only: [:index, :show] do
+    collection do
+      post 'upload'
+    end
+  end
+
   root to: 'recipes#index'
 end
