@@ -4,9 +4,12 @@
 
 - Recipe CRUD (create, read, update, delete)
 - Image attachments and OCR extraction
+- **Two-phase AI recognition:** Users can choose between "Mistral + OpenAI" (image → markdown → recipe) or "OpenAI Direct" (image → recipe)
+- **Multiple AI services:** Mistral AI for OCR, OpenAI for structured extraction
 - **OCR with AI cleanup:** OCR results can be cleaned up using GPT-4 Mini for better accuracy and formatting
 - **OCR temporary storage:** OCR results are saved to a dedicated `ocr_text` field, shown on edit page for manual copy/paste
 - **Language-aware AI processing:** GPT cleanup adapts to German/English with recipe-specific prompts
+- **Multiple recipes support:** Detect and select from multiple recipes in a single image
 - Tagging and search/filtering
 - Auth0 authentication
 - AWS S3 file storage
@@ -27,13 +30,31 @@
 
 - Project is stable and in active development
 - All core features are implemented and working
-- **NEW:** Multiple recipes support completed (December 2025)
+- **NEW:** Two-phase AI recognition implemented (January 2026)
+- Multiple AI services operational (Mistral AI + OpenAI)
 - GPT-powered OCR with multi-recipe extraction operational
 - Ruby 3.4.8 in use
 - No critical bugs open
-- Tagged release 3.3.0 (December 21, 2025)
+- Latest release: Tag 3.3.0 (December 21, 2025)
 
 ## Recent Completions
+
+### Two-Phase AI Recognition ✅ (January 2026)
+- **Implementation:** Complete, ready for testing
+- **Branch:** `feature/mistral-ai-ocr`
+- **Components:** 
+  - AI method selection dropdown (upload and reparse)
+  - Mistral AI OCR integration for markdown extraction
+  - OpenAI markdown-to-recipe parsing
+  - Database tracking of AI method used
+  - Conditional processing logic in controllers
+  - Full error handling (fail entirely on errors)
+- **Features:**
+  - User choice between two AI approaches
+  - "Mistral + OpenAI" as default method
+  - Same UI in both upload and reparse flows
+  - Backward compatible with existing records
+- **Status:** Ready for merge after testing
 
 ### Multiple Recipes Support ✅ (December 2025)
 - **Implementation:** Complete, merged, and deployed
@@ -61,13 +82,24 @@
 
 # Progress Tracking
 
-## Current Sprint (December 2025)
+## Current Sprint (January 2026)
 
 ### In Progress
-- [ ] Monitoring OCR accuracy with new multi-recipe prompt
-- [ ] Planning next feature enhancements
+- [x] Two-Phase AI Recognition implementation - COMPLETED
+- [ ] Testing two-phase feature with various recipe images
+- [ ] Comparing accuracy between Mistral+OpenAI vs OpenAI Direct
 
-### Recently Completed (December 2025)
+### Recently Completed (January 2026)
+- ✅ Two-Phase AI Recognition feature (branch: feature/mistral-ai-ocr)
+- ✅ Added `ai_method` tracking to OcrResult model
+- ✅ Created OpenAI markdown parsing method
+- ✅ Updated OCR controllers with conditional AI logic
+- ✅ Added AI method selection UI (upload and reparse)
+- ✅ JavaScript controller updates for method selection
+- ✅ Internationalization (EN/DE) for AI methods
+- ✅ Error handling for two-phase failures
+
+### Completed Earlier (December 2025)
 - ✅ Multiple Recipes Support (PR #734) - MERGED
 - ✅ Multiple recipes detection and selection UI
 - ✅ OpenAI prompt integration for multi-recipe extraction
@@ -84,13 +116,14 @@
 - ✅ Basic AI OCR recipe extraction (magic recipe feature)
 
 ## Upcoming Tasks
-1. Monitor and evaluate OCR accuracy with enhanced prompt in production
-2. Address test suite dependency issues (chromedriver-helper)
-3. Add comprehensive tests for OCR controller
-4. Improve error handling in OpenAI service
-5. Add validation for recipe_index bounds checking
-6. Consider adding user feedback/analytics for multi-recipe accuracy
-7. Plan and scope next feature development
+1. Test two-phase AI recognition with diverse recipe images
+2. Compare accuracy and performance between AI methods
+3. Merge feature/mistral-ai-ocr to main
+4. Monitor production performance of both AI methods
+5. Address test suite dependency issues (chromedriver-helper)
+6. Add comprehensive tests for OCR controller
+7. Consider adding analytics/feedback for AI method comparison
+8. Plan and scope next feature development
 
 ## Blockers
 - **Test Suite Issue**: chromedriver-helper gem incompatible with Ruby 3.4.8

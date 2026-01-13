@@ -1,0 +1,54 @@
+<%
+  # Required parameters:
+  # url - Upload endpoint URL
+  #
+  # Optional parameters with defaults:
+  title_key ||= 'ocr.dropzone.title'
+  formats_key ||= 'ocr.dropzone.formats'
+  uploading_key ||= 'ocr.dropzone.uploading'
+  reset_button_key ||= 'ocr.dropzone.reset_button'
+  accept ||= 'image/*,.heic,.heif'
+  multiple ||= true
+  wrapper_classes ||= 'mb-6 mt-4'
+%>
+
+<div data-controller="dropzone" data-dropzone-url-value="<%= url %>" class="<%= wrapper_classes %>">
+  <!-- Dropzone Area -->
+  <div data-dropzone-target="dropzone" 
+       data-action="dragenter->dropzone#dragenter dragover->dropzone#dragover dragleave->dropzone#dragleave drop->dropzone#drop click->dropzone#clickToSelect"
+       class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400 transition-colors">
+    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+    <p class="text-gray-600 mb-2"><%=t title_key %></p>
+    <p class="text-sm text-gray-500"><%=t formats_key %></p>
+    
+    <!-- Hidden File Input -->
+    <input type="file" 
+           data-dropzone-target="fileInput" 
+           data-action="change->dropzone#fileSelected"
+           accept="<%= accept %>" 
+           <%= 'multiple' if multiple %>
+           class="hidden">
+  </div>
+
+  <!-- Spinner -->
+  <div data-dropzone-target="spinner" class="hidden text-center mt-4">
+    <i class="fas fa-spinner fa-spin text-2xl text-blue-500"></i>
+    <p class="text-gray-600 mt-2"><%=t uploading_key %></p>
+  </div>
+
+  <!-- Success Message -->
+  <div data-dropzone-target="successMessage" class="notification success hidden mt-4"></div>
+
+  <!-- Error Message -->
+  <div data-dropzone-target="errorMessage" class="notification danger hidden mt-4"></div>
+
+  <!-- Reset Button -->
+  <div class="mt-4 text-center">
+    <button type="button" 
+            data-dropzone-target="resetButton" 
+            data-action="click->dropzone#reset"
+            class="button hidden">
+      <i class="fas fa-redo"></i> <%=t reset_button_key %>
+    </button>
+  </div>
+</div>

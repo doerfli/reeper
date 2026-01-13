@@ -4,7 +4,15 @@
 
 ### System Architecture
 Reeper follows a **traditional Rails MVC architecture** with modern enhancements for file storage, authenti#### OCR Integration
-- **Tesseract**: Command-line OCR tool
+- **Two-Phase AI Recognition**: Users can choose between two AI approaches:
+  - **Mistral + OpenAI**: Image → Mistral OCR (markdown) → OpenAI (structured recipe)
+  - **OpenAI Direct**: Image → OpenAI (structured recipe)
+- **AI Method Selection**: Dropdown in upload and reparse flows
+- **AI Method Tracking**: `ai_method` field in OcrResult model tracks which method was used
+- **Multiple AI Services**: Integration with Mistral AI and OpenAI
+- **Structured Output**: Both methods produce consistent recipe JSON
+- **Error Handling**: Two-phase process fails entirely if either step fails
+- **Tesseract**: Command-line OCR tool (legacy support)
 - **RTesseract Gem**: Ruby wrapper for Tesseract
 - **Image Processing**: Automatic text extraction from uploads
 - **Selective Save**: Users can save selected text portions or entire OCR results

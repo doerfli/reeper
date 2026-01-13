@@ -1,0 +1,202 @@
+Extract all recipes from the input markdown (output from an OCR process applied to a cookbook or magazine scan). Identify and parse each recipe individually according to the detailed rules below, and return all results as a list of parsed recipes within a single JSON response. Always output a JSON object with a "recipes" key mapping to a list of extracted recipe objects—include all recipes present in the input. If only one recipe is found, output a list with just that one. Apply all extraction and reasoning steps as follows:
+
+- Input will always be markdown text that was generated as the output of OCR from an image (typically of a cookbook or magazine), and may contain irrelevant or non-recipe text before or after the actual recipe(s). There may be more than one recipe per input. The markdown structure may vary—recipe titles may appear as headers but not always as the first header; recipes may appear in columns or other layouts as reflected by the markdown.
+- Ignore the prior instructions relating to running OCR: the OCR step has already taken place. Your starting input is always the markdown output of an OCR tool, structured to reflect the original page (including possible column layout).
+- Carefully read through the entire input markdown. Your objective is to:
+    - Identify the start and end of each recipe or recipe section
+    - Discard irrelevant content before the first recipe and after the last recipe
+    - Discard any irrelevant text that does not belong within the actual recipe(s)
+    - Extract all recipes present. There may be more than one per page.
+    - The title of each recipe may not always be the first header; search through all the markdown to find all possible recipes.
+- For each recipe you identify, extract these fields:
+    - Recipe title (if present)
+    - Ingredients (each as a separate list item—retain original OCR wording; if illegible, use "[unreadable]". If missing, use "[not found]".)
+    - Preparation/Cooking steps in order (remove number prefixes but preserve original step text; if not understood or illegible, mark as "[unreadable]".)
+    - Tags for key/main ingredients (in original language)
+    - Preparation time (if provided; else "[not found]")
+    - Source of recipe (if visible; else "[not found]")
+- If any standard field is not found, set its value as "[not found]".
+- For ambiguous, garbled, or uncertain areas, reason step-by-step internally prior to producing the output:
+    - Consider possible recipe boundaries, headers, list structure, and markdown formatting
+    - If you must infer field values, mark with "[inferred]"
+    - For unreadable text or illegible/uncertain OCR areas, use "[unreadable]"
+    - Double-check all recipe extractions before final output; if unsure, err toward marking with "[unreadable]"/"[not found]"
+- Preserve the detected language for all ingredients, steps, tags, and all other text fields; do NOT translate any content.
+- Include only the recipes and relevant fields; exclude all other or extraneous content from your JSON output. Strictly obey the output format as described.
+- Persist until all objectives are satisfied and all extracted recipes are included, reasoning step-by-step internally before producing your answer.
+
+# Steps
+
+1. Carefully review the entire input markdown, which reflects an OCR process from a cookbook or magazine. Ignore instructions about OCR and image input—the input is already markdown.
+2. Identify boundaries for all recipe sections, considering that recipes may begin at any point and titles may not be the first header.
+3. For each recipe, extract and populate all required fields as specified above. Apply error and inference markers ("[not found]", "[unreadable]", "[inferred]") where appropriate.
+4. Apply step-by-step reasoning to resolve ambiguity, missing or illegible text, or non-standard formatting.
+5. Output a JSON object with the "recipes" array, each containing the specified fields, in the order they appear.
+
+# Output Format
+
+Always output a single JSON object with exactly one top-level key "recipes", mapping to a list. Each list element must have these fields:
+- "title" (string)
+- "ingredients" (list of strings)
+- "steps" (ordered list of strings)
+- "prep_time" (string)
+- "tags" (list of strings)
+- "source" (string)
+
+If a field is not found, set its value to "[not found]". For "tags", if no obvious tags are present, use "[not found]".
+
+Example output structure:
+{
+  "recipes": [
+    {
+      "title": "...",
+      "ingredients": ["..."],
+      "steps": ["..."],
+      "prep_time": "...",
+      "tags": ["..."],
+      "source": "..."
+    },
+    {
+      "title": "...",
+      "ingredients": ["..."],
+      "steps": ["..."],
+      "prep_time": "...",
+      "tags": ["..."],
+      "source": "..."
+    }
+  ]
+}
+
+All fields in each recipe object are required; missing or unknown info should use "[not found]" or "[unreadable]" per the extraction instructions.
+
+# Examples
+
+### Example 1: Two Recipes in Markdown
+
+**Input:**  
+# Grandma’s Pancakes
+
+**Ingredients**
+- 1½ cups flour
+- 2 tbsp sugar
+- 1 cup milk
+- 1 egg
+- 2 tbsp melted butter
+
+**Steps**
+1. Mix flour and sugar.
+2. Add milk, egg, butter. Whisk together.
+3. Cook on hot griddle until golden.
+
+---
+
+# Quick Tomato Soup
+
+**Ingredients**
+- 6 ripe tomatoes
+- 1 medium onion
+- 2 tbsp butter
+- 2 cups vegetable stock
+
+**Steps**
+1. Chop tomatoes and onion.
+2. Sauté onion in butter.
+3. Add tomatoes and stock. Simmer for 20 minutes.
+
+**Output:**  
+{
+  "recipes": [
+    {
+      "title": "Grandma’s Pancakes",
+      "ingredients": [
+        "1½ cups flour",
+        "2 tbsp sugar",
+        "1 cup milk",
+        "1 egg",
+        "2 tbsp melted butter"
+      ],
+      "steps": [
+        "Mix flour and sugar.",
+        "Add milk, egg, butter. Whisk together.",
+        "Cook on hot griddle until golden."
+      ],
+      "prep_time": "[not found]",
+      "tags": ["flour", "milk", "egg"],
+      "source": "[not found]"
+    },
+    {
+      "title": "Quick Tomato Soup",
+      "ingredients": [
+        "6 ripe tomatoes",
+        "1 medium onion",
+        "2 tbsp butter",
+        "2 cups vegetable stock"
+      ],
+      "steps": [
+        "Chop tomatoes and onion.",
+        "Sauté onion in butter.",
+        "Add tomatoes and stock. Simmer for 20 minutes."
+      ],
+      "prep_time": "[not found]",
+      "tags": ["tomato", "onion", "butter"],
+      "source": "[not found]"
+    }
+  ]
+}
+
+### Example 2: Recipe with Irrelevant OCR Content
+
+**Input:**  
+"From the table of contents of Issue 27..."
+
+# Apfelstrudel
+
+**Zutaten**
+- 3 Äpfel
+- 200g Mehl
+- 2 EL Zucker
+- 75g Butter
+
+**Zubereitung**
+1. Äpfel schälen und schneiden.
+2. Mit Mehl, Zucker, Butter vermengen.
+3. Im Ofen bei 180°C 40 Minuten backen.
+
+"See next page for more..."
+
+**Output:**  
+{
+  "recipes": [
+    {
+      "title": "Apfelstrudel",
+      "ingredients": [
+        "3 Äpfel",
+        "200g Mehl",
+        "2 EL Zucker",
+        "75g Butter"
+      ],
+      "steps": [
+        "Äpfel schälen und schneiden.",
+        "Mit Mehl, Zucker, Butter vermengen.",
+        "Im Ofen bei 180°C 40 Minuten backen."
+      ],
+      "prep_time": "[not found]",
+      "tags": ["Äpfel", "Mehl"],
+      "source": "[not found]"
+    }
+  ]
+}
+
+(For real-world examples, recipe markdown may have variations and interruptions; use full details as found in input.)
+
+# Notes
+
+- Recipes in the input markdown may be separated by headers, bolded text, horizontal rules, or formatting; boundaries may not be explicit—apply careful, persistent reasoning.
+- Remove irrelevant or clearly non-recipe content from both before/after and between recipes.
+- Do not include any information except the exact JSON structure described above.
+- Always analyze the full input before output; be thorough when segmenting recipes.
+- Never translate detected language or modify original ingredient/step wording.
+
+# Task Reminder
+
+Extract all recipes, segmenting from possibly messy markdown OCR output. For each, extract all required fields, tagging missing or unreadable data per instructions. Output recipes as a list under the "recipes" key in a strict JSON object. Never output anything except the required JSON.

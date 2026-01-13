@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_14_143839) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_12_215525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,6 +53,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_14_143839) do
   end
 
   create_table "ocr_results", force: :cascade do |t|
+    t.string "ai_method", default: "openai_direct"
     t.datetime "created_at", null: false
     t.string "result"
     t.datetime "updated_at", null: false

@@ -59,6 +59,10 @@ en:
       title: 'Select Recipe'
       description: 'Select which recipe to continue with:'
       untitled: 'Untitled Recipe'
+    ai_method:
+      label: 'AI Recognition Method'
+      openai_direct: 'OpenAI Direct'
+      mistral_openai: 'Mistral + OpenAI'
     dropzone:
       title: 'Drop images here or click to select (max 10)'
       formats: 'Supported formats: JPG, PNG, WebP, HEIC, HEIF'
@@ -71,6 +75,12 @@ en:
       invalid_recipe_index: 'Invalid recipe index. Please try again.'
     warnings:
       ai_generated_data: '🤖 AI did its best - you might want to double-check this!'
+  ocr_debug:
+    title: 'Mistral AI OCR Debug'
+    dropzone:
+      title: 'Drop image here or click to select'
+      formats: 'Supported formats: JPG, PNG, WebP, HEIC, HEIF'
+      uploading: 'Mistral AI is processing your image...'
   action:
     edit: 'Edit'
     save: 'Save'

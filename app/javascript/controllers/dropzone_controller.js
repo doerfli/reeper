@@ -98,6 +98,12 @@ export default class extends Controller {
       formData.append('files[]', files[i])
     }
 
+    // Add AI method selection if present
+    const aiMethodSelect = document.querySelector('select[name="ai_method"]')
+    if (aiMethodSelect) {
+      formData.append('ai_method', aiMethodSelect.value)
+    }
+
     // Upload to server
     fetch(this.urlValue, {
       method: 'POST',

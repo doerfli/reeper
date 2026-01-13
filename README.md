@@ -7,7 +7,11 @@ Runtime docker images are available.
 ## Features
 
 - Recipe management with images and OCR text recognition
+- **AI-powered recipe extraction with two methods:**
+  - **Mistral + OpenAI**: Image → Mistral OCR (markdown) → OpenAI parsing (structured recipe)
+  - **OpenAI Direct**: Image → OpenAI (structured recipe)
 - AI-powered OCR text cleanup using GPT-4 Mini
+- Multiple recipes detection from single image
 - Tagging and search functionality
 - Auth0 authentication
 - AWS S3 file storage
@@ -38,9 +42,9 @@ AWS_ACCESS_KEY_ID=AAAAAAA
 AWS_SECRET_ACCESS_KEY=BBBBB
 ```
 
-### OpenAI API Key (for OCR text cleanup)
+### OpenAI API Key (for AI recipe extraction and OCR cleanup)
 
-For the GPT-powered OCR text cleanup feature, configure your OpenAI API key:
+For the AI-powered recipe extraction and OCR cleanup features, configure your OpenAI API key:
 
 **Development:**
 ```bash
@@ -64,8 +68,26 @@ dokku config:set your-app-name OPENAI_CLEANUP_PROMPT_DE="Your custom German prom
 **Optional Configuration:**
 - `OPENAI_CLEANUP_PROMPT_EN`: Override the default English cleanup prompt
 - `OPENAI_CLEANUP_PROMPT_DE`: Override the default German cleanup prompt
-- `OPENAI_PROMPT_ID`: Override the default OpenAI prompt ID for OCR (default: `pmpt_69389bf4c7a481909d47bcf85f423781063a569321686620`)
-- `OPENAI_PROMPT_VERSION`: Override the default OpenAI prompt version for OCR (default: `8`)
+- `OPENAI_PROMPT_OCR_ID`: Override the default OpenAI prompt ID for direct OCR (default: `pmpt_694514e453388194a1e4c121407ef02204bec5d20e21b070`)
+- `OPENAI_PROMPT_OCR_VERSION`: Override the default OpenAI prompt version for direct OCR (default: `2`)
+- `OPENAI_MARKDOWN_PROMPT_ID`: Override the default OpenAI prompt ID for markdown parsing (default: `pmpt_696554b87ef88190bbc1156b6c5fe84f0050d5451e60ae6c`)
+- `OPENAI_MARKDOWN_PROMPT_VERSION`: Override the default OpenAI prompt version for markdown parsing (default: `2`)
+
+### Mistral AI API Key (for two-phase OCR)
+
+For the Mistral + OpenAI two-phase recipe extraction, configure your Mistral AI API key:
+
+**Development:**
+```bash
+export MISTRAL_API_KEY=your_mistral_api_key_here
+```
+
+**Production/Dokku:**
+```bash
+dokku config:set your-app-name MISTRAL_API_KEY=your_actual_mistral_api_key_here
+```
+
+**Note:** The Mistral API key is only required if you plan to use the "Mistral + OpenAI" recognition method. The "OpenAI Direct" method only requires the OpenAI API key. 
 
 
 ## Start development server
@@ -80,5 +102,20 @@ yarn build --watch
 
 ## Start production via docker
 
-Use provided `docker-compose.prod.yml` file for startup of postgres db and container for the rails app. Don't forget to set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `OPENAI_API_KEY` and db passwords. To change name of S3 bucket (_reeper_) and region (_eu-central-1_) use `S3_BUCKET_NAME` and `S3_BUCKET_REGION` environment variables. 
+Use provided `docker-compose.prod.yml` file for startup of postgres db and container for the rails app. Don't forget to set the following environment variables:
+
+**Required:**
+- `AWS_ACCESS_KEY_ID`: AWS access key
+- `AWS_SECRET_ACCESS_KEY`: AWS secret key
+- `OPENAI_API_KEY`: OpenAI API key for AI recipe extraction
+- Database passwords
+
+**Optional:**
+- `MISTRAL_API_KEY`: Mistral AI API key (only needed for "Mistral + OpenAI" method)
+- `S3_BUCKET_NAME`: Override S3 bucket name (default: _reeper_)
+- `S3_BUCKET_REGION`: Override S3 region (default: _eu-central-1_)
+- `OPENAI_PROMPT_OCR_ID`: Custom OpenAI prompt ID for direct OCR
+- `OPENAI_PROMPT_OCR_VERSION`: Custom OpenAI prompt version
+- `OPENAI_MARKDOWN_PROMPT_ID`: Custom OpenAI prompt ID for markdown parsing
+- `OPENAI_MARKDOWN_PROMPT_VERSION`: Custom OpenAI prompt version 
 

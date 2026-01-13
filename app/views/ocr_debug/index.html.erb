@@ -1,0 +1,10 @@
+<div>
+  <span class="heading_1"><%=t 'ocr_debug.title' %></span>
+</div>
+
+<%= render 'shared/dropzone', 
+     url: upload_ocr_debug_index_path, 
+     title_key: 'ocr_debug.dropzone.title', 
+     formats_key: 'ocr_debug.dropzone.formats',
+     uploading_key: 'ocr_debug.dropzone.uploading',
+     multiple: false %>
