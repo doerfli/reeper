@@ -149,10 +149,10 @@ class OpenaiService
       recipes
     rescue JSON::ParserError => e
       Rails.logger.error "Failed to parse OpenAI markdown response: #{e.message}"
-      []
+      raise
     rescue => e
       Rails.logger.error "Unexpected error parsing recipes from markdown: #{e.message}"
-      []
+      raise
     end
   end
 end
