@@ -33,7 +33,7 @@ class MistralaiService
       else 'jpeg' # default
     end
 
-    # puts "Image format detected: #{image_format} for content type: #{content_type} content #{image_data[0..30]}..."
+    Rails.logger.debug "Image format detected: #{image_format} for content type: #{content_type}"
     filedata = "data:image/#{image_format};base64,#{image_data}"
 
     response = @client.ocr(filedata, kind: :image)
