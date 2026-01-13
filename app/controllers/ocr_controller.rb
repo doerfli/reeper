@@ -103,7 +103,7 @@ class OcrController < ApplicationController
       logger.error "OCR JSON parse error: #{e}"
       render json: { success: false, error: I18n.t('ocr.errors.parse_failed') }
     rescue => e
-      logger.error "OCR error: #{e.s}"
+      logger.error "OCR error: #{e.message}"
       render json: { success: false, error: I18n.t('ocr.errors.processing_failed') }
     end
   end
