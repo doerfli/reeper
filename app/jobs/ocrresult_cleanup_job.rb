@@ -2,11 +2,11 @@ class OcrresultCleanupJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    log.info "Starting OCR result cleanup job with args}"
-    old_results = OcrResult.where('created_at < ?', 3.days.ago)
+    logger.info "Starting OCR result cleanup job with args: #{args.inspect}"
+    old_results = OcrResult.where('created_at < ?', 1.day.ago)
     # Process the results (e.g., delete them)
-    old_results.destroy_all
-    log.info "Deleted #{old_results.size} old OCR results"
+    deleted = old_results.destroy_all
+    logger.info "Deleted #{deleted.size} old OCR results"
   end
 
 end

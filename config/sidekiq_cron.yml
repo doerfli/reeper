@@ -1,0 +1,5 @@
+ocrresult_cleanup:
+  cron: "0 3 * * *"  # Run at 3am daily
+  class: "OcrresultCleanupJob"
+  active_job: true
+  description: "Clean up OCR results older than 3 days"

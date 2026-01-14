@@ -1,5 +1,0 @@
-production:
-  ocrresult_cleanup_job:
-    class: OcrresultCleanupJob
-    # args: [42, { status: "custom_status" }]
-    schedule: every minute
