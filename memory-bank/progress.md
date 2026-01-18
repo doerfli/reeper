@@ -39,6 +39,20 @@
 
 ## Recent Completions
 
+### OCR Result Cleanup Job ✅ (January 2026)
+- **Implementation:** Complete and ready for merge
+- **Branch:** `feature/ocrresult-cleanup`
+- **PR:** #753
+- **Components:**
+  - OcrresultCleanupJob with proper logging
+  - Cleanup of OCR results older than 1 day
+  - Redis requirement documented in README
+- **Fixes:**
+  - Replaced undefined `log` with `logger`
+  - Fixed message interpolation bugs
+  - Proper deleted count tracking
+- **Status:** Ready for merge and cron scheduling
+
 ### Two-Phase AI Recognition ✅ (January 2026)
 - **Implementation:** Complete, ready for testing
 - **Branch:** `feature/mistral-ai-ocr`
@@ -85,11 +99,13 @@
 ## Current Sprint (January 2026)
 
 ### In Progress
-- [x] Two-Phase AI Recognition implementation - COMPLETED
-- [ ] Testing two-phase feature with various recipe images
-- [ ] Comparing accuracy between Mistral+OpenAI vs OpenAI Direct
+- [ ] Review and merge PR #753 (OCR result cleanup)
+- [ ] Configure Sidekiq cron schedule for cleanup job
 
 ### Recently Completed (January 2026)
+- ✅ OCR Result Cleanup Job (branch: feature/ocrresult-cleanup, PR #753)
+- ✅ Fixed OcrresultCleanupJob logging issues
+- ✅ Added Redis requirement to README
 - ✅ Two-Phase AI Recognition feature (branch: feature/mistral-ai-ocr)
 - ✅ Added `ai_method` tracking to OcrResult model
 - ✅ Created OpenAI markdown parsing method

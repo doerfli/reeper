@@ -54,7 +54,10 @@ RUN gem update bundler && \
 
 COPY --from=builder /app /app
 
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 HEALTHCHECK \
     CMD curl -f http://localhost:3000/health || exit 1
 
-CMD bundle exec rails s -p 3000 -b '0.0.0.0'
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
