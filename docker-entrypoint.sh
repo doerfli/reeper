@@ -3,8 +3,8 @@ set -e
 
 # Check if Redis is available before starting Sidekiq
 REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
-REDIS_HOST=$(echo $REDIS_URL | sed -E 's|redis://([^:/]+).*|\1|')
-REDIS_PORT=$(echo $REDIS_URL | sed -E 's|.*:([0-9]+).*|\1|')
+REDIS_HOST=$(echo $REDIS_URL | sed -E 's|redis://(:.*@)?([^:/@]+).*|\2|')
+REDIS_PORT=$(echo $REDIS_URL | sed -E 's|.*:([0-9]+)(/.*)?$|\1|')
 
 if nc -z -w 2 ${REDIS_HOST} ${REDIS_PORT} 2>/dev/null; then
   echo "✓ Redis is available at ${REDIS_HOST}:${REDIS_PORT}, starting Sidekiq..."
