@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/health', to: 'health#index'
+  get '/health', to: 'health#liveness'
+  get '/health/liveness', to: 'health#liveness'
+  get '/health/readiness', to: 'health#readiness'
 
   get '/welcome', to: 'welcome#index'
 

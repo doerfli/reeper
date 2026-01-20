@@ -58,6 +58,6 @@ COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 HEALTHCHECK \
-    CMD curl -f http://localhost:3000/health || exit 1
+    CMD curl -f http://localhost:3000/health/liveness || exit 1
 
 CMD ["/usr/local/bin/docker-entrypoint.sh"]

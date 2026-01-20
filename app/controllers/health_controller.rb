@@ -3,22 +3,35 @@ require 'sidekiq/api'
 class HealthController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def index
-    health_status = {
-      status: 'ok',
-      timestamp: Time.current.iso8601,
-      checks: {
-        database: check_database,
-        redis: check_redis
-      }
+  def liveness
+    checks = {
+      database: check_database
     }
+    render_health_response(checks)
+  end
 
-    status_code = health_status[:checks].values.all? { |check| check[:status] == 'ok' || check[:status] == 'warning' } ? :ok : :service_unavailable
-
-    render json: health_status, status: status_code
+  def readiness
+    checks = {
+      database: check_database,
+      redis: check_redis,
+      sidekiq: check_sidekiq
+    }
+    render_health_response(checks)
   end
 
   private
+
+  def render_health_response(checks)
+    health_status = {
+      status: 'ok',
+      timestamp: Time.current.iso8601,
+      checks: checks
+    }
+
+    status_code = checks.values.all? { |check| check[:status] == 'ok' } ? :ok : :service_unavailable
+
+    render json: health_status, status: status_code
+  end
 
   def check_database
     start_time = Time.current
@@ -44,7 +57,22 @@ class HealthController < ApplicationController
     redis = Redis.new(url: redis_url, timeout: 1)
     redis.ping
 
-    # Check if Sidekiq processes are actually running
+    response_time = ((Time.current - start_time) * 1000).round(2)
+
+    {
+      status: 'ok',
+      message: 'Redis connection is active',
+      response_time_ms: response_time
+    }
+  rescue Redis::CannotConnectError, Redis::TimeoutError, SocketError => e
+    {
+      status: 'error',
+      message: "Redis unavailable: #{e.message}"
+    }
+  end
+
+  def check_sidekiq
+    start_time = Time.current
     processes = Sidekiq::ProcessSet.new
     workers_count = processes.size
 
@@ -59,16 +87,16 @@ class HealthController < ApplicationController
       }
     else
       {
-        status: 'warning',
-        message: 'Redis is up but no Sidekiq workers are running',
+        status: 'error',
+        message: 'No Sidekiq workers are running',
         response_time_ms: response_time,
         workers: 0
       }
     end
-  rescue Redis::CannotConnectError, Redis::TimeoutError, SocketError => e
+  rescue StandardError => e
     {
       status: 'error',
-      message: "Redis unavailable: #{e.message}"
+      message: "Sidekiq check failed: #{e.message}"
     }
   end
 end
