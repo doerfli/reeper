@@ -4,6 +4,16 @@ This repository contains a self-hosted recipe web application implemented in Rub
 
 Runtime docker images are available.
 
+## Requirements
+
+- Ruby 3.4+
+- PostgreSQL
+- ImageMagick
+- Tesseract OCR
+- Redis (required for Sidekiq background jobs)
+  - Recommended: Redis 6+
+  - Start locally: `docker run --rm -p 6379:6379 redis:6`
+
 ## Features
 
 - Recipe management with images and OCR text recognition

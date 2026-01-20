@@ -1,47 +1,43 @@
 # Active Context
 
-## Current Focus: Two-Phase AI Recognition (Mistral + OpenAI)
-**Branch**: `feature/mistral-ai-ocr`
-**Recent Activity**: Implemented two-phase AI recognition with Mistral OCR and OpenAI parsing
+## Current Focus: OCR Result Cleanup Job
+**Branch**: `feature/ocrresult-cleanup`
+**PR**: #753 - OCR result cleanup
+**Recent Activity**: Fixed logging in OcrresultCleanupJob and documented Redis requirement
 
 ## Overview
 The two-phase AI recognition feature has been successfully implemented, allowing users to choose between "OpenAI Direct" (image → recipe) and "Mistral + OpenAI" (image → markdown → recipe) methods. This provides flexibility in AI processing and enables comparison of different OCR approaches.
 
 ## Recently Completed
-- ✅ Added `ai_method` column to `ocr_results` table (migration)
-- ✅ Created `OpenaiService#parse_markdown_to_recipes` method
-- ✅ Updated `OcrController#scan` with two-phase logic
-- ✅ Updated `OcrController#reparse_image` with two-phase logic
-- ✅ Added AI method dropdown selector to upload view
-- ✅ Added AI method dropdown selector to reparse view
-- ✅ Updated JavaScript controllers to handle method selection
-- ✅ Added translations (EN/DE) for AI method options
-- ✅ Mistral + OpenAI set as default method
+- ✅ Fixed OcrresultCleanupJob logging (replaced `log` with `logger`)
+- ✅ Fixed start message interpolation bug (was `args}` now `args: #{args.inspect}`)
+- ✅ Fixed deleted count logging (capture destroy_all return value)
+- ✅ Changed `1.days.ago` to `1.day.ago` (Rails convention)
+- ✅ Added Redis requirement to README with docker run example
 
 ## Current State
-- On `feature/mistral-ai-ocr` branch
-- Two-phase feature fully implemented
-- Ready for testing and merge
-- All error handling in place (fails entirely on two-phase errors)
+- On `feature/ocrresult-cleanup` branch
+- PR #753 open for OCR result cleanup
+- OcrresultCleanupJob logging fixed
+- Redis requirement documented in README
+- Job ready for cron scheduling via Sidekiq
 
 ## Active Implementation
 
-### Two-Phase AI Recognition (✅ COMPLETED)
-All implementation completed:
+### OCR Result Cleanup Job (✅ COMPLETED)
+All fixes implemented:
 
-1. **Database**: `ai_method` string column in `ocr_results` (default: 'openai_direct')
-2. **OpenAI Service**: New `parse_markdown_to_recipes` method using `recipe_markdown_prompt_id`
-3. **OCR Controller**: Conditional logic for `mistral_openai` vs `openai_direct`
-4. **Upload View** (`new_magic.html.erb`): Dropdown for AI method selection
-5. **Reparse View** (`select_image_for_reparse.html.erb`): Dropdown for AI method selection
-6. **JavaScript**: Updated dropzone and reparse controllers
-7. **Locales**: EN/DE translations for "Mistral + OpenAI" and "OpenAI Direct"
+1. **OcrresultCleanupJob**: Fixed logging to use `logger` instead of undefined `log` method
+2. **Message formatting**: Fixed start message interpolation (`args: #{args.inspect}`)
+3. **Deleted count**: Properly capture and log deleted record count from `destroy_all`
+4. **Rails convention**: Changed `1.days.ago` to `1.day.ago`
+5. **Documentation**: Added Redis requirement to README with docker run example
 
 ### How It Works
-- **Mistral + OpenAI**: Image → Mistral OCR (markdown) → OpenAI parse (structured recipe JSON)
-- **OpenAI Direct**: Image → OpenAI (structured recipe JSON)
-- **Error Handling**: Two-phase process fails entirely if either step fails (no partial results)
-- **Tracking**: `ai_method` stored in `OcrResult` for debugging/auditing
+- **Job**: Deletes OCR results older than 1 day
+- **Scheduling**: Can be scheduled via Sidekiq Cron (config/sidekiq_cron.yml)
+- **Logging**: Uses Rails logger for proper output visibility
+- **Query**: `OcrResult.where('created_at < ?', 1.day.ago).destroy_all`
 
 ## Active Dependencies
 - OpenAI API with two prompts (ocr and markdown parsing)
@@ -53,17 +49,17 @@ All implementation completed:
 - AWS S3 for file storage
 
 ## Next Steps
-1. 🧪 Test two-phase recognition with various recipe images
-2. 📊 Compare accuracy between Mistral+OpenAI vs OpenAI Direct
-3. 🔄 Merge to main once testing complete
-4. 📝 Update documentation with new feature
-5. 🎯 Monitor performance and cost of both methods in production
+1. ✅ Review and merge PR #753
+2. 🕐 Add Sidekiq cron schedule for OcrresultCleanupJob (if not already configured)
+3. 🔧 Consider adding per-environment Sidekiq configs (local vs production)
+4. 🧪 Test job execution in production
+5. 📊 Monitor OCR result cleanup metrics
 
 ## Known Issues
-- None currently - feature fully implemented and ready for testing
+- None currently - logging fixes complete and tested
 
 ## Notes
-- Mistral + OpenAI is the default method
-- Users can switch between methods in both upload and reparse flows
-- Same UI styling applied to both upload and reparse views
-- Backward compatible - existing records default to 'openai_direct'
+- Redis is required for Sidekiq background jobs (documented in README)
+- Local Redis can be started via: `docker run --rm -p 6379:6379 redis:6`
+- docker-compose.yml already includes Redis service (redis:8.4)
+- Job uses Rails.logger for proper output in production and development
