@@ -45,8 +45,6 @@ gem 'aws-sdk-s3', '~> 1.209', require: false
 
 gem 'kaminari', '>=1.2.1'
 
-gem 'rtesseract', '~> 3.1'
-
 gem 'ruby-openai', '~> 8.0'
 
 gem 'image_processing', '~> 1.13'
