@@ -12,15 +12,7 @@ Reeper follows a **traditional Rails MVC architecture** with modern enhancements
 - **Multiple AI Services**: Integration with Mistral AI and OpenAI
 - **Structured Output**: Both methods produce consistent recipe JSON
 - **Error Handling**: Two-phase process fails entirely if either step fails
-- **Tesseract**: Command-line OCR tool (legacy support)
-- **RTesseract Gem**: Ruby wrapper for Tesseract
-- **Image Processing**: Automatic text extraction from uploads
-- **Selective Save**: Users can save selected text portions or entire OCR results
-- **Manual Save**: OCR results are only saved to recipe when user clicks "Save to Recipe" button
-- **Editable Storage**: Saved OCR results in editable `ocr_text` field on Recipe model
-- **Latest First**: New OCR results are prepended (most recent on top)
-- **User Control**: Users can review, edit, delete OCR content, and copy/paste into rich text fields
-- **Timestamped Results**: Each saved OCR operation includes timestamp for referencend deployment.
+- **Image Processing**: AI-powered text extraction from uploadsnd deployment.
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -47,8 +39,9 @@ Reeper follows a **traditional Rails MVC architecture** with modern enhancements
 2. **PostgreSQL Database**: Primary data store for recipes, users, tags
 3. **AWS S3 Storage**: External file storage for recipe images
 4. **Auth0 Service**: External authentication provider
-5. **Tesseract OCR**: Image text extraction service
-6. **Docker Container**: Deployment packaging and runtime environment
+5. **OpenAI Service**: AI-powered recipe extraction and text processing
+6. **Mistral AI Service**: Alternative AI-powered OCR service
+7. **Docker Container**: Deployment packaging and runtime environment
 
 ## Design Patterns
 
@@ -199,15 +192,12 @@ User ──┐
 - **Credentials**: Environment variable configuration
 - **Bucket Configuration**: Regional deployment support
 
-#### OCR Integration
-- **Tesseract**: Command-line OCR tool
-- **RTesseract Gem**: Ruby wrapper for Tesseract
-- **Image Processing**: Automatic text extraction from uploads
-- **Manual Save**: OCR results are only saved to recipe when user clicks "Save to Recipe" button
-- **Editable Storage**: Saved OCR results in editable `ocr_text` field on Recipe model
-- **Latest First**: New OCR results are prepended (most recent on top)
-- **User Control**: Users can review, edit, delete OCR content, and copy/paste into rich text fields
-- **Timestamped Results**: Each saved OCR operation includes timestamp for reference
+#### AI Integration
+- **OpenAI Service**: GPT-4 for recipe extraction and text cleanup
+- **Mistral AI Service**: Alternative OCR to markdown processing
+- **Two-Phase Processing**: Mistral OCR followed by OpenAI parsing
+- **Method Selection**: User chooses AI approach per upload
+- **Structured Output**: Consistent JSON format from both methods
 
 ### Database Patterns
 

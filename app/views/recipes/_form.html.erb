@@ -80,22 +80,6 @@
         <%= f.text_field :source, placeholder: t('recipes.form.placeholder.source'), autocomplete: 'off' %>
       </div>
     </div>
-    <% if @recipe.ocr_text.present? %>
-      <div class="mb-4">
-        <div class="mb-2">
-          <%= f.label :ocr_text, t('recipes.form.ocr_text') %>
-        </div>
-        <div>
-          <%= f.text_area :ocr_text, 
-                rows: 10, 
-                class: 'textarea w-full',
-                placeholder: t('recipes.form.placeholder.ocr_text') %>
-        </div>
-        <div class="text-sm text-gray-600 mt-1">
-          <%= t('recipes.form.ocr_text_help') %>
-        </div>
-      </div>
-    <% end %>
     <%= hidden_field_tag :ocrresult_id, @ocrresult.id if @ocrresult.present? %>
     <div class="mb-4">
       <div class="flex gap-2">

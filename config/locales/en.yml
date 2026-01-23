@@ -40,21 +40,7 @@ en:
       parsing: 'AI is studying your recipe...'
     form:
       ai_suggested_tags: 'AI Suggested Tags'
-      ocr_text: 'Recognized Text from Images'
-      ocr_text_help: 'Saved text from OCR recognition (latest results on top). You can edit, delete, or copy text and paste into ingredients/instructions.'
-      placeholder:
-        ocr_text: 'Automatically recognized text from images...'
   ocr:
-    show:
-      title: Text Recognition
-      submit: Start Text Recognition
-      recognized_text_placeholder: Recognized text ...
-      toclipboard: Copy to clipboard
-      cleanup_with_gpt: Cleanup with AI
-      save_to_recipe: Save to Recipe (selected text or all)
-      lang:
-        deu: German
-        eng: English
     select_recipe:
       title: 'Select Recipe'
       description: 'Select which recipe to continue with:'
@@ -100,4 +86,3 @@ en:
         rating: 'Rating'
         tags: 'Tags'
         source: 'Source'
-        ocr_text: 'Recognized Text (OCR)'
