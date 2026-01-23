@@ -8,8 +8,7 @@
 - **Frontend:** Rails views, Tailwind CSS
 - **Authentication:** Auth0 (OmniAuth)
 - **File Storage:** AWS S3 (Active Storage)
-- **OCR:** Tesseract via RTesseract gem
-- **AI Integration:** OpenAI GPT-4 Mini (via ruby-openai gem)
+- **AI Integration:** OpenAI GPT-4 (via ruby-openai gem), Mistral AI
 - **Containerization:** Docker, Docker Compose
 - **CI/CD:** GitHub Actions
 
@@ -36,8 +35,8 @@
 
 ## Dependencies
 
-- Rails, pg, puma, cssbundling-rails, jsbundling-rails, uglifier, coffee-rails, turbolinks, jbuilder, ffi, mini_magick, aws-sdk-s3, kaminari, rtesseract, image_processing
-- **AI:** ruby-openai (~> 7.0)
+- Rails, pg, puma, cssbundling-rails, jsbundling-rails, uglifier, coffee-rails, turbolinks, jbuilder, ffi, mini_magick, aws-sdk-s3, kaminari, image_processing
+- **AI:** ruby-openai (~> 7.0), mistralai (~> 1.1)
 - Dev dependencies: bootsnap, rspec-rails, rubocop, etc.
 
 ## Environment Variables

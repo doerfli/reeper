@@ -190,12 +190,6 @@
       </a>
     <% end %>
     <% if @recipe.recipe_images.count > 0 %>
-      <a href="<%= ocr_path @recipe %>" >
-        <button class="button">
-          <i class="fas fa-font"></i>
-          <span><%=t 'action.image_ocr' %></span>
-        </button>
-      </a>
       <a href="<%= select_image_for_reparse_ocr_path @recipe %>" >
         <button class="button">
           <i class="fas fa-wand-magic-sparkles"></i>

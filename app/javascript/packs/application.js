@@ -22,7 +22,5 @@ import { _ } from "lodash";
 
 import "../src/forms_helper";
 
-import { clipboard } from "clipboard-polyfill";
-
 require("trix")
 require("@rails/actiontext")

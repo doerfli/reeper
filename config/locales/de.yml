@@ -29,8 +29,6 @@ de:
       parsing: 'KI studiert das Rezept...'
     form:
       ai_suggested_tags: 'KI-Vorschläge'
-      ocr_text: 'Erkannter Text aus Bildern'
-      ocr_text_help: 'Gespeicherter Text aus OCR-Erkennung (neueste Ergebnisse oben). Du kannst Text bearbeiten, löschen oder kopieren und in Zutaten/Anleitung einfügen.'
       placeholder:
         name: 'Wie heisst das Rezept?'
         ingredients: 'Welche Zutaten benötigt man für das Rezept?'
@@ -39,7 +37,6 @@ de:
         tags: 'Tags'
         add_image: 'Bild hinzufügen'
         source: 'Quelle des Rezepts (Zeitschrift, URL, ...)'
-        ocr_text: 'Automatisch erkannter Text aus Bildern...'
     show:
       duration: 'Dauer'
       durationunit: 'Min'
@@ -59,16 +56,6 @@ de:
   tags:
     title: Tags
   ocr:
-    show:
-      title: Texterkennung
-      submit: Texterkennung starten
-      recognized_text_placeholder: Erkannter Text ...
-      toclipboard: Copy to clipboard
-      cleanup_with_gpt: Mit KI bereinigen
-      save_to_recipe: In Rezept speichern (ausgewählter Text oder alles)
-      lang:
-        deu: Deutsch
-        eng: Englisch
     select_recipe:
       title: 'Rezept auswählen'
       description: 'Wähle aus, mit welchem Rezept du fortfahren möchtest:'
@@ -116,7 +103,6 @@ de:
         rating: 'Bewertung'
         tags: 'Tags'
         source: 'Quelle'
-        ocr_text: 'Erkannter Text (OCR)'
         duration: 'Dauer'
         tags: 'Tags'
         images: 'Bilder'

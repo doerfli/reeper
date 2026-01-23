@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_12_215525) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_23_091620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,7 +64,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_12_215525) do
     t.integer "duration"
     t.boolean "favorite", default: false
     t.string "name"
-    t.text "ocr_text"
     t.integer "rating"
     t.string "source"
     t.datetime "updated_at", precision: nil, null: false

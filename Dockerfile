@@ -43,7 +43,7 @@ WORKDIR $HOME
 RUN apk update && apk upgrade && \
     apk add --update --no-cache \
         nodejs tzdata imagemagick postgresql-client curl \
-        tesseract-ocr tesseract-ocr-data-deu leptonica vips libffi && \
+        vips libffi && \
     rm -rf /var/cache/apk/* 
 
 # Install gems

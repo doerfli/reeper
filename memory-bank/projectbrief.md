@@ -8,7 +8,7 @@
 
 ### Functional Requirements
 1. **Recipe Management**: Create, read, update, delete recipes with rich text support
-2. **Image Handling**: Attach multiple images to recipes with OCR text extraction
+2. **Image Handling**: Attach multiple images to recipes with AI-powered recipe extraction
 3. **Tagging System**: Organize recipes with tags and filtering capabilities
 4. **Search Functionality**: Full-text search across recipes and tags
 5. **User Authentication**: Secure login via Auth0 integration
@@ -21,7 +21,7 @@
 2. **Ruby 3.4.5**: Latest stable Ruby version for performance and security
 3. **PostgreSQL**: Robust database with full-text search capabilities
 4. **Docker Support**: Containerized deployment for easy hosting
-5. **OCR Integration**: Text extraction from recipe images using Tesseract
+5. **AI Integration**: Recipe extraction from images using OpenAI or Mistral AI
 6. **Responsive UI**: Tailwind CSS for modern, mobile-first design
 
 ## Project Goals

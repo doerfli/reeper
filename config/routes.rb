@@ -36,13 +36,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ocr do
+  resources :ocr, only: [] do
     collection do
       post 'scan'
       post 'select_recipe'
     end
     member do
-      post 'save_text'
       post 'cleanup_with_gpt'
       get 'select_image_for_reparse'
       post 'reparse_image'

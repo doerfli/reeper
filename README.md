@@ -9,7 +9,6 @@ Runtime docker images are available.
 - Ruby 3.4+
 - PostgreSQL
 - ImageMagick
-- Tesseract OCR
 - Redis (required for Sidekiq background jobs)
   - Recommended: Redis 6+
   - Start locally: `docker run --rm -p 6379:6379 redis:6`
