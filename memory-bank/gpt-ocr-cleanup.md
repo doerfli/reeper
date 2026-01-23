@@ -14,10 +14,10 @@ AI-powered text cleanup for OCR results using OpenAI's GPT-4 Mini model, specifi
 ### Technical Implementation
 
 #### Files Created/Modified
-1. **View:** `app/views/ocr/_imgregion.html.erb` - Added cleanup button
+1. **View:** `app/views/ocr/_imgregion.html.erb` - Added cleanup button (REMOVED)
 2. **Controller:** `app/controllers/ocr_controller.rb` - Added `cleanup_with_gpt` action
-3. **Service:** `app/services/openai_cleanup_service.rb` - OpenAI integration service
-4. **JavaScript:** `app/javascript/controllers/ocr_selection_controller.js` - Frontend functionality
+3. **Service:** `app/services/openai_cleanup_service.rb` - OpenAI integration service (REMOVED)
+4. **JavaScript:** `app/javascript/controllers/ocr_selection_controller.js` - Frontend functionality (REMOVED)
 5. **Routes:** `config/routes.rb` - Added cleanup endpoint
 6. **Locales:** English/German translations added
 7. **Dependencies:** Added `ruby-openai` gem to Gemfile
