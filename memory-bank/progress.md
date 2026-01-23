@@ -3,11 +3,10 @@
 ## What Works
 
 - Recipe CRUD (create, read, update, delete)
-- Image attachments and OCR extraction
+- Image attachments and AI-powered recipe extraction
 - **Two-phase AI recognition:** Users can choose between "Mistral + OpenAI" (image → markdown → recipe) or "OpenAI Direct" (image → recipe)
 - **Multiple AI services:** Mistral AI for OCR, OpenAI for structured extraction
 - **OCR with AI cleanup:** OCR results can be cleaned up using GPT-4 Mini for better accuracy and formatting
-- **OCR temporary storage:** OCR results are saved to a dedicated `ocr_text` field, shown on edit page for manual copy/paste
 - **Language-aware AI processing:** GPT cleanup adapts to German/English with recipe-specific prompts
 - **Multiple recipes support:** Detect and select from multiple recipes in a single image
 - Tagging and search/filtering
@@ -38,6 +37,26 @@
 - Latest release: Tag 3.3.0 (December 21, 2025)
 
 ## Recent Completions
+
+### Legacy Tesseract OCR Removal ✅ (January 2026)
+- **Implementation:** Complete and ready for merge
+- **Branch:** `feature/remove-tesseract`
+- **PR:** #759
+- **Components:**
+  - Removed OcrController show, create, save_text methods
+  - Deleted views: show.html.erb, _imgregion.html.erb, application_wide.html.erb
+  - Deleted JavaScript controllers: imgregion_controller.js, ocr_selection_controller.js
+  - Updated routes to explicit configuration
+  - Removed ocr_text field from recipes form
+  - Created migration to drop ocr_text column
+  - Removed clipboard-polyfill dependency
+  - Updated all documentation (techContext, systemPatterns, projectbrief, README)
+- **Impact:**
+  - Application now uses AI-only OCR workflow
+  - No more manual text region selection
+  - Simpler codebase with fewer dependencies
+  - Better user experience with automatic recipe extraction
+- **Status:** Ready for merge
 
 ### OCR Result Cleanup Job ✅ (January 2026)
 - **Implementation:** Complete and ready for merge
