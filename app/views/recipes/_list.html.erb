@@ -12,4 +12,4 @@
   <% } %>
 </ul>
 
-<%= paginate @recipes, window: 2 %>
+<%= paginate @recipes, window: 2, params: { full: true } %>
