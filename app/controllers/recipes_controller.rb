@@ -34,7 +34,11 @@ class RecipesController < ApplicationController
     @recipes = @recipes.page params[:page]
 
     respond_to do |format|
-      format.html { render partial: 'list' }
+      if params[:full].nil?
+        format.html { render partial: 'list' }
+      else
+        format.html { render 'index' }
+      end
     end
   end
 
