@@ -55,3 +55,4 @@ yarn-debug.log*
 .DS_Store
 /public/webfonts/*
 !/public/webfonts/.keep
+vendor/bundle/

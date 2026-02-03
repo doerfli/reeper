@@ -101,7 +101,7 @@ gem "propshaft", "~> 1.3"
 
 gem "omniai-mistral", "~> 3.0"
 
-gem 'sidekiq', '~> 7.0'
-gem 'sidekiq-cron', '~> 1.12'
+gem 'sidekiq', '~> 8.1'
+gem 'sidekiq-cron', '~> 2.3'
 gem 'redis', '~> 5.0'
-gem 'connection_pool', '~> 2.4'
+gem 'connection_pool', '~> 3.0'
