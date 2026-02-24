@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@v0.34.1
+        uses: aquasecurity/trivy-action@v0.31.0
         with:
           image-ref: ghcr.io/doerfli/reeper/reeper:main
           format: 'sarif'
