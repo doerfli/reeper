@@ -1,7 +1,6 @@
 require 'sidekiq/api'
 
 class HealthController < ApplicationController
-  skip_before_action :verify_authenticity_token
 
   def liveness
     checks = {
