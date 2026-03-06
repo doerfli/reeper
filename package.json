@@ -26,6 +26,9 @@
     "webpack": "^5.105.4",
     "webpack-cli": "^6.0.1"
   },
+    "resolutions": {
+    "dompurify": "3.3.2"
+  },
   "scripts": {
     "copy:fonts": "copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* node_modules/@fontsource/noto-sans/files/* public/webfonts && copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* node_modules/@fontsource/noto-sans/files/* app/assets/builds/webfonts",
     "build:css": "yarn copy:fonts && postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css",
