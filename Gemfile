@@ -106,3 +106,6 @@ gem 'sidekiq', '~> 8.1'
 gem 'sidekiq-cron', '~> 2.3'
 gem 'redis', '~> 5.0'
 gem 'connection_pool', '~> 3.0'
+
+# fix for CVE-2026-27820
+gem "zlib", ">= 3.2.3"
