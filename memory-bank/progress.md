@@ -32,7 +32,7 @@
 - **NEW:** Two-phase AI recognition implemented (January 2026)
 - Multiple AI services operational (Mistral AI + OpenAI)
 - GPT-powered OCR with multi-recipe extraction operational
-- Ruby 3.4.8 in use
+- Ruby 4.0.2 in use
 - No critical bugs open
 - Latest release: Tag 3.3.0 (December 21, 2025)
 
@@ -161,7 +161,7 @@
 8. Plan and scope next feature development
 
 ## Blockers
-- **Test Suite Issue**: chromedriver-helper gem incompatible with Ruby 3.4.8
+- **Test Suite Issue**: chromedriver-helper gem incompatible with Ruby 4.0.2
   - Prevents running full test suite
   - May need to migrate to selenium-webdriver without helper gem
   - Not blocking feature development but needs resolution soon

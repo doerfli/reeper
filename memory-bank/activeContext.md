@@ -53,7 +53,7 @@ All components removed:
 - OpenAI API with two prompts (ocr and markdown parsing)
 - Mistral AI OCR service via OmniAI gem
 - OcrResult model with `ai_method` tracking
-- Ruby 3.4.8
+- Ruby 4.0.2
 - Rails 8.x
 - Auth0 for authentication
 - AWS S3 for file storage
