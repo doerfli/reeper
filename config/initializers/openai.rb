@@ -1,7 +1,7 @@
 Rails.application.configure do
   openai_prompt_ocr_id = 'pmpt_694514e453388194a1e4c121407ef02204bec5d20e21b070'
   openai_prompt_ocr_version = '2'
-  openai_prompt_markdown_id = 'pmpt_696554b87ef88190bbc1156b6c5fe84f0050d5451e60ae6c'
+  openai_prompt_markdown_id = 'pmpt_69beaa47d824819380be066549da3ff70c095f694abc2646'
   openai_prompt_markdown_version = '2'
 
   config.openai = ActiveSupport::OrderedOptions.new
