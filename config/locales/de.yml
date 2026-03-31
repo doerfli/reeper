@@ -69,6 +69,7 @@ de:
       formats: 'Unterstützte Formate: JPG, PNG, WebP, HEIC, HEIF'
       uploading: 'KI entziffert dein Rezept...'
       reset_button: 'Weitere Bilder hochladen'
+      process_button: 'Bilder verarbeiten'
     errors:
       parse_failed: 'OCR-Ergebnisse konnten nicht verarbeitet werden. Bitte versuchen Sie es erneut.'
       processing_failed: 'OCR-Verarbeitung fehlgeschlagen. Bitte versuchen Sie es erneut.'
