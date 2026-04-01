@@ -24,7 +24,7 @@
   "devDependencies": {
     "copyfiles": "^2.4.1",
     "webpack": "^5.105.4",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^7.0.2"
   },
   "resolutions": {
     "dompurify": "3.3.2"
