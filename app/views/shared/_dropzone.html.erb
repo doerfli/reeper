@@ -48,14 +48,17 @@
   <div data-dropzone-target="previewContainer" class="hidden"></div>
 
   <!-- Process / Upload Button (preview mode only) -->
-  <div class="mt-4 text-center">
-    <button type="button"
-            data-dropzone-target="uploadButton"
-            data-action="click->dropzone#submit"
-            class="button hidden">
-      <i class="fas fa-magic"></i> <%=t process_button_key %>
-    </button>
-  </div>
+  <% if preview_mode %>
+    <div class="mt-4 text-center">
+      <button type="button"
+              data-dropzone-target="uploadButton"
+              data-action="click->dropzone#submit"
+              class="button"
+              disabled>
+        <i class="fas fa-paper-plane"></i> <%=t process_button_key %>
+      </button>
+    </div>
+  <% end %>
 
   <!-- Reset Button -->
   <div class="mt-4 text-center">

@@ -11,6 +11,11 @@ export default class extends Controller {
     this.acceptedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif']
     this.pendingFiles = []
     this.pendingObjectUrls = []
+    
+    // Initialize button state in preview mode
+    if (this.previewModeValue && this.hasUploadButtonTarget) {
+      this.uploadButtonTarget.disabled = true
+    }
   }
 
   // Drag and drop handlers
@@ -89,7 +94,7 @@ export default class extends Controller {
         this.pendingFiles.push(files[i])
       }
       this.renderPreviews()
-      this.uploadButtonTarget.classList.remove('hidden')
+      this.uploadButtonTarget.disabled = false
     } else {
       // All validations passed, upload files
       this.uploadFiles(files)
@@ -142,7 +147,7 @@ export default class extends Controller {
     this.pendingFiles.splice(index, 1)
 
     if (this.pendingFiles.length === 0) {
-      this.uploadButtonTarget.classList.add('hidden')
+      this.uploadButtonTarget.disabled = true
       this.pendingObjectUrls.forEach(url => URL.revokeObjectURL(url))
       this.pendingObjectUrls = []
       this.previewContainerTarget.classList.add('hidden')
@@ -155,7 +160,7 @@ export default class extends Controller {
   submit() {
     const filesToUpload = this.pendingFiles.slice()
     this.pendingFiles = []
-    this.uploadButtonTarget.classList.add('hidden')
+    this.uploadButtonTarget.disabled = true
     this.previewContainerTarget.classList.add('hidden')
     this.uploadFiles(filesToUpload)
   }
