@@ -11,7 +11,7 @@
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/typography": "^0.5.19",
-    "dompurify": "^3.3.2",
+    "dompurify": "^3.3.3",
     "lodash": "^4.17.23",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
@@ -27,7 +27,7 @@
     "webpack-cli": "^6.0.1"
   },
   "resolutions": {
-    "dompurify": "3.3.2"
+    "dompurify": "3.3.3"
   },
   "scripts": {
     "copy:fonts": "copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* node_modules/@fontsource/noto-sans/files/* public/webfonts && copyfiles -f node_modules/@fortawesome/fontawesome-free/webfonts/* node_modules/@fontsource/noto-sans/files/* app/assets/builds/webfonts",
