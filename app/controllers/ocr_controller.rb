@@ -33,6 +33,10 @@ class OcrController < ApplicationController
       ocrresult.image.attach(file)
       ocrresult.save
 
+      if params[:files].length > 1
+        params[:files][1..].each { |f| ocrresult.extra_images.attach(f) }
+      end
+
       logger.debug "OCR data id stored in flash: #{ocrresult.id}"
 
       # If multiple recipes detected, redirect to selection page

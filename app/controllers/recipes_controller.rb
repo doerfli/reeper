@@ -61,6 +61,7 @@ class RecipesController < ApplicationController
       ocrresult = OcrResult.find_by(id: params[:ocrresult_id])
       if ocrresult.present?
         @recipe.recipe_images.attach(ocrresult.image.blob) if ocrresult.image.attached?
+        ocrresult.extra_images.each { |img| @recipe.recipe_images.attach(img.blob) }
       end
     end
 

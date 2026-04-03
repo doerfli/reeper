@@ -7,12 +7,14 @@
   formats_key ||= 'ocr.dropzone.formats'
   uploading_key ||= 'ocr.dropzone.uploading'
   reset_button_key ||= 'ocr.dropzone.reset_button'
+  process_button_key ||= 'ocr.dropzone.process_button'
   accept ||= 'image/*,.heic,.heif'
   multiple ||= true
   wrapper_classes ||= 'mb-6 mt-4'
+  preview_mode ||= false
 %>
 
-<div data-controller="dropzone" data-dropzone-url-value="<%= url %>" class="<%= wrapper_classes %>">
+<div data-controller="dropzone" data-dropzone-url-value="<%= url %>" data-dropzone-preview-mode-value="<%= preview_mode %>" class="<%= wrapper_classes %>">
   <!-- Dropzone Area -->
   <div data-dropzone-target="dropzone" 
        data-action="dragenter->dropzone#dragenter dragover->dropzone#dragover dragleave->dropzone#dragleave drop->dropzone#drop click->dropzone#clickToSelect"
@@ -41,6 +43,22 @@
 
   <!-- Error Message -->
   <div data-dropzone-target="errorMessage" class="notification danger hidden mt-4"></div>
+
+  <!-- Image Previews (preview mode only) -->
+  <div data-dropzone-target="previewContainer" class="hidden"></div>
+
+  <!-- Process / Upload Button (preview mode only) -->
+  <% if preview_mode %>
+    <div class="mt-4 text-center">
+      <button type="button"
+              data-dropzone-target="uploadButton"
+              data-action="click->dropzone#submit"
+              class="button disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled>
+        <i class="fas fa-paper-plane"></i> <%=t process_button_key %>
+      </button>
+    </div>
+  <% end %>
 
   <!-- Reset Button -->
   <div class="mt-4 text-center">

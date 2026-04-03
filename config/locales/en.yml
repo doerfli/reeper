@@ -54,6 +54,7 @@ en:
       formats: 'Supported formats: JPG, PNG, WebP, HEIC, HEIF'
       uploading: 'AI is deciphering your recipe...'
       reset_button: 'Upload More Images'
+      process_button: 'Process Images'
     errors:
       parse_failed: 'Failed to parse OCR results. Please try again.'
       processing_failed: 'OCR processing failed. Please try again.'
