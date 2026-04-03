@@ -54,11 +54,6 @@ input[type="file"]::file-selector-button {
     @apply hover:bg-indigo-500;
 }
 
-.button:disabled {
-    @apply bg-gray-300 text-gray-500 cursor-not-allowed;
-    @apply hover:bg-gray-300;
-}
-
 .prose {
     @apply text-slate-900;
 
