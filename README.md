@@ -81,6 +81,8 @@ dokku config:set your-app-name OPENAI_CLEANUP_PROMPT_DE="Your custom German prom
 - `OPENAI_PROMPT_OCR_VERSION`: Override the default OpenAI prompt version for direct OCR (default: `2`)
 - `OPENAI_MARKDOWN_PROMPT_ID`: Override the default OpenAI prompt ID for markdown parsing (default: `pmpt_696554b87ef88190bbc1156b6c5fe84f0050d5451e60ae6c`)
 - `OPENAI_MARKDOWN_PROMPT_VERSION`: Override the default OpenAI prompt version for markdown parsing (default: `2`)
+- `OPENAI_URL_PROMPT_ID`: OpenAI stored prompt ID for URL import parsing (required – replace placeholder default)
+- `OPENAI_URL_PROMPT_VERSION`: Override the default OpenAI prompt version for URL import (default: `1`)
 
 ### Mistral AI API Key (for two-phase OCR)
 
@@ -97,6 +99,24 @@ dokku config:set your-app-name MISTRAL_API_KEY=your_actual_mistral_api_key_here
 ```
 
 **Note:** The Mistral API key is only required if you plan to use the "Mistral + OpenAI" recognition method. The "OpenAI Direct" method only requires the OpenAI API key. 
+
+### Jina AI API Key (for URL import)
+
+For the URL-based recipe import feature, the app fetches web page content via [Jina.ai reader](https://jina.ai/reader/). No API key is required for basic (free tier) usage.
+
+**Development:**
+```bash
+# Optional: set for authenticated/paid-tier usage
+export JINA_API_KEY=your_jina_api_key_here
+```
+
+**Production/Dokku:**
+```bash
+# Optional
+dokku config:set your-app-name JINA_API_KEY=your_actual_jina_api_key_here
+```
+
+**Note:** Without `JINA_API_KEY` the free unauthenticated tier is used. Set the key to use your Jina.ai account quota and higher rate limits.
 
 
 ## Start development server
@@ -117,6 +137,8 @@ Use provided `docker-compose.prod.yml` file for startup of postgres db and conta
 - `AWS_ACCESS_KEY_ID`: AWS access key
 - `AWS_SECRET_ACCESS_KEY`: AWS secret key
 - `OPENAI_API_KEY`: OpenAI API key for AI recipe extraction
+- `MISTRAL_API_KEY`: Mistral AI API key (required for Mistral + OpenAI method)
+- `JINA_API_KEY`: Jina.ai API key (optional, for authenticated URL import)
 - Database passwords
 
 **Optional:**

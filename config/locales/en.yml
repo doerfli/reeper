@@ -33,6 +33,8 @@ en:
   hello: "Hello world"
   recipes:
     title: 'Recipes'
+    new_magic: 'Import Recipe from Image'
+    new_url: 'Import Recipe from URL'
     select_image_for_reparse:
       title: 'Which Image Should the AI Read?'
       description: 'Pick a photo and let the AI try to extract your recipe from it.'
@@ -40,6 +42,14 @@ en:
       parsing: 'AI is studying your recipe...'
     form:
       ai_suggested_tags: 'AI Suggested Tags'
+  nav:
+    recipes: 'Recipes'
+    new_recipe: 'New Recipe'
+    new_magic_recipe: 'Import Recipe via AI Upload'
+    new_url_recipe: 'Import Recipe from URL'
+    tags: 'Tags'
+    login: 'Login'
+    logout: 'Logout'
   ocr:
     select_recipe:
       title: 'Select Recipe'
@@ -77,6 +87,16 @@ en:
     image_delete: 'Delete Images'
     image_ocr: 'Text Recognition'
     image_reparse: 'Re-read with AI'
+  url_import:
+    url_label: 'Recipe URL'
+    url_placeholder: 'https://example.com/my-recipe'
+    submit: 'Import Recipe'
+    processing: 'Fetching and analysing recipe...'
+    errors:
+      invalid_url: 'Invalid URL — must start with http:// or https://'
+      fetch_failed: 'Could not fetch content from the provided URL'
+      no_recipes: 'No recipes found at the provided URL'
+      processing_failed: 'An error occurred while processing the URL'
   activerecord:
     attributes:
       recipe:
