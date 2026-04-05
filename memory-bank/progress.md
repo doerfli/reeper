@@ -4,21 +4,23 @@
 
 - Recipe CRUD (create, read, update, delete)
 - Image attachments and AI-powered recipe extraction
-- **Two-phase AI recognition:** Users can choose between "Mistral + OpenAI" (image → markdown → recipe) or "OpenAI Direct" (image → recipe)
-- **Multiple AI services:** Mistral AI for OCR, OpenAI for structured extraction
-- **OCR with AI cleanup:** OCR results can be cleaned up using GPT-4 Mini for better accuracy and formatting
+- **Two-phase AI recognition:** Mistral AI (image → markdown) + OpenAI (markdown → structured recipe)
+- **Multiple image uploads:** Dropzone supports uploading multiple images at once with preview
+- **Multiple AI services:** Mistral AI for OCR (via OmniAI gem), OpenAI for structured extraction
+- **OCR with AI cleanup:** OCR results can be cleaned up using GPT-4 Mini for better accuracy
 - **Language-aware AI processing:** GPT cleanup adapts to German/English with recipe-specific prompts
 - **Multiple recipes support:** Detect and select from multiple recipes in a single image
 - Tagging and search/filtering
 - Auth0 authentication
 - AWS S3 file storage
-- Dockerized development and production environments
+- Dockerized development and production environments (images pushed to ghcr.io)
 - Responsive UI with Tailwind CSS
 - Database backup/restore
+- Trivy weekly vulnerability scan (CI)
 
 ## What's Left to Build
 
-- Enhanced import/export for recipes
+- **Import recipe from URL** (in progress — feature/import-from-url branch)
 - Improved mobile experience
 - Plugin/extension architecture
 - Advanced search (ingredient-based, fuzzy)
@@ -29,125 +31,81 @@
 
 - Project is stable and in active development
 - All core features are implemented and working
-- **NEW:** Two-phase AI recognition implemented (January 2026)
-- Multiple AI services operational (Mistral AI + OpenAI)
-- GPT-powered OCR with multi-recipe extraction operational
-- Ruby 4.0.2 in use
+- Multiple image uploads shipped in 3.8.0 (April 2026)
+- AI-only OCR workflow (Tesseract fully removed since 3.7.0)
+- Ruby: **4.0.2** (.ruby-version), Gemfile.lock updated to 4.0.9 (in progress)
+- Rails: **8.1.x**
 - No critical bugs open
-- Latest release: Tag 3.3.0 (December 21, 2025)
+- Latest release: **Tag 3.8.0** (April 2026)
 
 ## Recent Completions
 
-### Legacy Tesseract OCR Removal ✅ (January 2026)
-- **Implementation:** Complete and ready for merge
-- **Branch:** `feature/remove-tesseract`
-- **PR:** #759
+### Multiple Image Upload (3.8.0) ✅ (April 2026)
+- **PR:** #809 (feature/upload_multiple)
 - **Components:**
-  - Removed OcrController show, create, save_text methods
-  - Deleted views: show.html.erb, _imgregion.html.erb, application_wide.html.erb
-  - Deleted JavaScript controllers: imgregion_controller.js, ocr_selection_controller.js
-  - Updated routes to explicit configuration
-  - Removed ocr_text field from recipes form
-  - Created migration to drop ocr_text column
-  - Removed clipboard-polyfill dependency
-  - Updated all documentation (techContext, systemPatterns, projectbrief, README)
-- **Impact:**
-  - Application now uses AI-only OCR workflow
-  - No more manual text region selection
-  - Simpler codebase with fewer dependencies
-  - Better user experience with automatic recipe extraction
-- **Status:** Ready for merge
+  - Enhanced Dropzone with multiple image preview support
+  - Disabled upload button during preview mode (improved UX)
+  - Replaced AI method selection dropdown with details/summary element
+- **Status:** Merged and released as 3.8.0
+
+### Trivy Vulnerability Scanning ✅ (March 2026)
+- **PR:** #783 (feature/trivy), #828 (feature/trivyignore)
+- Weekly Trivy scan CI workflow added
+- .trivyignore file for known false positives
+
+### Docker Build Fixes ✅ (February 2026)
+- **PR #779** (bugfix/docker-build): Fixed Docker login and image tags to use ghcr.io
+- **PR #780** (feature/docker-build, 3.7.4): Enabled pushing images for all events
+
+### Ruby 4.0.2 Upgrade ✅ (February 2026)
+- **PR:** #801 (feature/ruby-4_0_2), tagged 3.7.12
+- Updated Ruby from 3.x to 4.0.2
+
+### Legacy Tesseract OCR Removal ✅ (January 2026)
+- **PR:** #759 (feature/remove-tesseract), tagged 3.7.0
+- Removed all Tesseract OCR components, manual region selection UI, and orphaned JS controllers
+- Application now uses AI-only OCR workflow
 
 ### OCR Result Cleanup Job ✅ (January 2026)
-- **Implementation:** Complete and ready for merge
-- **Branch:** `feature/ocrresult-cleanup`
-- **PR:** #753
-- **Components:**
-  - OcrresultCleanupJob with proper logging
-  - Cleanup of OCR results older than 1 day
-  - Redis requirement documented in README
-- **Fixes:**
-  - Replaced undefined `log` with `logger`
-  - Fixed message interpolation bugs
-  - Proper deleted count tracking
-- **Status:** Ready for merge and cron scheduling
+- **PR:** #753 (feature/ocrresult-cleanup)
+- OcrresultCleanupJob cleans up OCR results older than 1 day
+- Sidekiq cron scheduled for automated cleanup
 
 ### Two-Phase AI Recognition ✅ (January 2026)
-- **Implementation:** Complete, ready for testing
-- **Branch:** `feature/mistral-ai-ocr`
-- **Components:** 
-  - AI method selection dropdown (upload and reparse)
-  - Mistral AI OCR integration for markdown extraction
-  - OpenAI markdown-to-recipe parsing
-  - Database tracking of AI method used
-  - Conditional processing logic in controllers
-  - Full error handling (fail entirely on errors)
-- **Features:**
-  - User choice between two AI approaches
-  - "Mistral + OpenAI" as default method
-  - Same UI in both upload and reparse flows
-  - Backward compatible with existing records
-- **Status:** Ready for merge after testing
+- **PR:** #752 (feature/mistral-ai-ocr)
+- Mistral AI OCR for markdown extraction + OpenAI for structured recipe parsing
+- AI method tracking in OcrResult model
+- User choice between "Mistral + OpenAI" or "OpenAI Direct"
 
 ### Multiple Recipes Support ✅ (December 2025)
-- **Implementation:** Complete, merged, and deployed
-- **PR #734:** Successfully merged to main
-- **Components:** 
-  - Multi-recipe detection and parsing
-  - Recipe selection UI workflow
-  - Flash-based state management
-  - Reparse flow integration
-  - Enhanced OpenAI prompt with detailed extraction rules
-- **Release:** Tag 3.3.0 created
-- **Status:** Production-ready and operational
+- **PR:** #734, tagged 3.3.0
+- Multi-recipe detection, recipe selection UI, flash-based state management
 
 ### GPT OCR Cleanup Feature ✅ (September 2025)
-- **Implementation:** Complete and tested
-- **Components:** Controller action, service class, frontend integration
-- **Features:** 
-  - Language-aware prompts (German/English)
-  - Recipe-specific cleanup optimization
-  - Error handling and user feedback
-  - Cost-effective GPT-4 Mini integration
-- **Files Modified:** 7 files across controllers, services, views, routes, locales
-- **Dependencies:** Added ruby-openai gem
-- **Configuration:** OpenAI API key configured in Rails credentials
+- Language-aware OCR cleanup with GPT-4 Mini
+- German/English recipe-specific prompts
 
 # Progress Tracking
 
-## Current Sprint (January 2026)
+## Current Sprint (April 2026)
 
 ### In Progress
-- [ ] Review and merge PR #753 (OCR result cleanup)
-- [ ] Configure Sidekiq cron schedule for cleanup job
+- 🔄 Import recipe from URL (branch: feature/import-from-url)
+  - Foundation: omniai + omniai-mistral gems added
+  - Ruby 4.0.9 Gemfile.lock update in progress
+  - Feature implementation not yet started
 
-### Recently Completed (January 2026)
-- ✅ OCR Result Cleanup Job (branch: feature/ocrresult-cleanup, PR #753)
-- ✅ Fixed OcrresultCleanupJob logging issues
-- ✅ Added Redis requirement to README
-- ✅ Two-Phase AI Recognition feature (branch: feature/mistral-ai-ocr)
-- ✅ Added `ai_method` tracking to OcrResult model
-- ✅ Created OpenAI markdown parsing method
-- ✅ Updated OCR controllers with conditional AI logic
-- ✅ Added AI method selection UI (upload and reparse)
-- ✅ JavaScript controller updates for method selection
-- ✅ Internationalization (EN/DE) for AI methods
-- ✅ Error handling for two-phase failures
-
-### Completed Earlier (December 2025)
-- ✅ Multiple Recipes Support (PR #734) - MERGED
-- ✅ Multiple recipes detection and selection UI
-- ✅ OpenAI prompt integration for multi-recipe extraction
-- ✅ Reparse flow integration with recipe selection
-- ✅ Internationalization for recipe selection
-- ✅ Flash-based state management between requests
-- ✅ Enhanced OCR prompt with detailed extraction rules
-- ✅ Tag 3.3.0 release
-- ✅ Navbar mobile spacing improvements
-
-### Completed Earlier (September 2025)
-- ✅ GPT OCR Cleanup Feature (PR completed)
-- ✅ Ruby 3.4.5 upgrade
+### Recently Completed
+- ✅ PR #809: Multiple image uploads (3.8.0)
+- ✅ PR #828: .trivyignore file
+- ✅ PR #801: Ruby 4.0.2 upgrade (3.7.12)
+- ✅ PR #783/784: Trivy + security workflow updates
+- ✅ PR #779/780: Docker build fixes (3.7.4)
+- ✅ PR #761: Search paging bugfix (3.7.1)
+- ✅ PR #759: Tesseract OCR removal (3.7.0)
+- ✅ PR #753: OCR result cleanup job
+- ✅ PR #752: Two-phase AI recognition
+- ✅ PR #734: Multiple recipes support (3.3.0)
 - ✅ Basic AI OCR recipe extraction (magic recipe feature)
 
 ## Upcoming Tasks

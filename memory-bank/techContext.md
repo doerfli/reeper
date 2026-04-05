@@ -2,13 +2,13 @@
 
 ## Technology Stack
 
-- **Language:** Ruby 3.4.5
+- **Language:** Ruby 4.0.2 (.ruby-version) / 4.0.9 (Gemfile.lock — update in progress)
 - **Framework:** Ruby on Rails 8.x
 - **Database:** PostgreSQL
 - **Frontend:** Rails views, Tailwind CSS
 - **Authentication:** Auth0 (OmniAuth)
 - **File Storage:** AWS S3 (Active Storage)
-- **AI Integration:** OpenAI GPT-4 (via ruby-openai gem), Mistral AI
+- **AI Integration:** OpenAI GPT-4 (via ruby-openai gem), Mistral AI (via omniai + omniai-mistral gems)
 - **Containerization:** Docker, Docker Compose
 - **CI/CD:** GitHub Actions
 
@@ -36,7 +36,7 @@
 ## Dependencies
 
 - Rails, pg, puma, cssbundling-rails, jsbundling-rails, uglifier, coffee-rails, turbolinks, jbuilder, ffi, mini_magick, aws-sdk-s3, kaminari, image_processing
-- **AI:** ruby-openai (~> 7.0), mistralai (~> 1.1)
+- **AI:** ruby-openai (~> 7.0), omniai (~> 1.x), omniai-mistral (~> 1.x)
 - Dev dependencies: bootsnap, rspec-rails, rubocop, etc.
 
 ## Environment Variables

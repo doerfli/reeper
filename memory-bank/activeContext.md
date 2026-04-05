@@ -1,80 +1,71 @@
 # Active Context
 
-## Current Focus: Legacy Tesseract OCR Removal
-**Branch**: `feature/remove-tesseract`
-**PR**: #759 - Remove Tesseract OCR
-**Recent Activity**: Completed removal of all legacy Tesseract OCR components, including manual region selection interface, orphaned controllers, and unused dependencies
+## Current Focus: Import from URL Feature
+**Branch**: `feature/import-from-url`
+**Recent Activity**: Set up dependencies for URL-based recipe import feature; added omniai and omniai-mistral gems
 
 ## Overview
-The legacy Tesseract-based manual OCR system has been completely removed in favor of the AI-powered two-phase recognition feature. The application now uses only Mistral AI + OpenAI for recipe extraction from images, providing better accuracy and user experience without manual text region selection.
+The application is now stable at version 3.8.0 with a full AI-powered OCR workflow (Mistral AI + OpenAI). The current focus is building recipe import from URL functionality. Recent foundational work includes adding omniai/omniai-mistral gems and updating Ruby to 4.0.9 in Gemfile.lock.
 
-## Recently Completed
-- ✅ Removed legacy Tesseract OCR interface (OcrController#show method)
-- ✅ Deleted manual region selection views (show.html.erb, _imgregion.html.erb)
-- ✅ Deleted unused application_wide.html.erb layout
-- ✅ Removed JavaScript controllers (imgregion_controller.js, ocr_selection_controller.js)
-- ✅ Cleaned up clipboard-polyfill dependency (imports and package removal)
-- ✅ Updated routes to explicit configuration (removed show, save_text)
-- ✅ Removed ocr_text field from recipes form
-- ✅ Created migration to drop ocr_text column from database
-- ✅ Removed all Tesseract/RTesseract references from documentation
+## Recently Completed (Since Last Memory Bank Update)
+
+### Merged to main (post memory bank update):
+- ✅ **PR #759** (feature/remove-tesseract) → Tagged 3.7.0: Removed all legacy Tesseract OCR components
+- ✅ **PR #761** (bugfix/search-paging) → Tagged 3.7.1: Fixed search paging using params
+- ✅ **PR #779** (bugfix/docker-build): Fixed Docker login/image tags to use ghcr.io
+- ✅ **PR #780** (feature/docker-build) → Tagged 3.7.4: Fixed Docker push workflow for all events
+- ✅ **PR #783** (feature/trivy) → Added weekly Trivy vulnerability scan workflow
+- ✅ **PR #784** (feature/security) → Commented out bundler-audit/yarn-audit CI jobs
+- ✅ **PR #801** (feature/ruby-4_0_2) → Tagged 3.7.12: Upgraded to Ruby 4.0.2
+- ✅ **PR #809** (feature/upload_multiple) → **Tagged 3.8.0**: Multiple image uploads with enhanced Dropzone UI
+- ✅ **PR #828** (feature/trivyignore) → Added .trivyignore file
+
+### Current WIP (on feature/import-from-url, not yet released):
+- ✅ Added omniai and omniai-mistral gems to Gemfile
+- ✅ Updated Ruby to 4.0.9 in Gemfile.lock
+- ✅ Updated JS dependencies (yarn.lock)
+- 🔄 Import recipe from URL feature (in progress)
 
 ## Current State
-- On `feature/remove-tesseract` branch
-- PR #759 open for Tesseract removal
-- All legacy OCR components removed
-- Migration ready (ocr_text column drop)
-- Application using AI-only OCR workflow
-- Ready for review and merge
+- On `main` branch (HEAD also tracked as `feature/import-from-url`)
+- Latest release: **3.8.0** (multiple image uploads)
+- Ruby: **4.0.2** (.ruby-version), **4.0.9** (Gemfile.lock — update in progress)
+- Rails: **8.1.x**
+- AI OCR: AI-only workflow (Mistral + OpenAI via OmniAI gem)
+- Docker build: Pushes to ghcr.io
 
 ## Active Implementation
 
-### Legacy Tesseract OCR Removal (✅ COMPLETED)
-All components removed:
+### Multiple Image Upload (3.8.0 — MERGED)
+- Enhanced Dropzone component with multiple image preview
+- Disabled upload button during preview mode
+- Replaced AI method dropdown with details/summary UI element
 
-1. **Views**: Deleted show.html.erb, _imgregion.html.erb, application_wide.html.erb
-2. **Controllers**: Removed show, create, save_text methods from OcrController
-3. **JavaScript**: Deleted imgregion_controller.js, ocr_selection_controller.js
-4. **Routes**: Updated to explicit configuration, removed RESTful show and save_text routes
-5. **Translations**: Removed ocr.show.* and recipes.form.ocr_text* keys
-6. **Database**: Created migration to drop ocr_text column from recipes table
-7. **Dependencies**: Removed clipboard-polyfill imports and package
-8. **Documentation**: Updated all references to AI-only OCR approach
-
-### What Was Removed
-- **Manual OCR Interface**: Canvas-based region selection requiring Tesseract
-- **Orphaned Controllers**: ocr_selection_controller.js (258 lines, no view references)
-- **Unused Dependencies**: clipboard-polyfill package and imports
-- **Database Field**: ocr_text column from recipes table (legacy storage)
-- **Routes**: /ocr/:id (show), /ocr/:id/save_text endpoints
-- **Layouts**: application_wide.html.erb (only used by removed show action)
+### Import Recipe from URL (IN PROGRESS)
+- Foundation: omniai + omniai-mistral gems added
+- Feature: Allow users to import recipes by providing a URL
+- Status: Early stage, implementation not yet committed
 
 ## Active Dependencies
-- OpenAI API with two prompts (ocr and markdown parsing)
-- Mistral AI OCR service via OmniAI gem
+- OpenAI API (structured recipe extraction)
+- Mistral AI OCR (via OmniAI gem: omniai + omniai-mistral)
 - OcrResult model with `ai_method` tracking
-- Ruby 4.0.2
-- Rails 8.x
+- Ruby 4.0.2 / Rails 8.1.x
 - Auth0 for authentication
 - AWS S3 for file storage
-- **Removed**: Tesseract command-line tool (no longer needed)
-- **Removed**: RTesseract gem (already removed previously)
-- **Removed**: clipboard-polyfill npm package
+- Trivy for vulnerability scanning (weekly CI)
 
 ## Next Steps
-1. 🔍 Review PR #759 (feature/remove-tesseract)
-2. ✅ Merge PR #759 to main
-3. 🚀 Deploy to production
-4. 🧪 Verify AI-only OCR workflow in production
-5. 📊 Monitor recipe extraction success rates
-6. 🧹 Consider future cleanup: Remove ocr_text references in specs/tests
+1. 🔄 Implement URL import feature on `feature/import-from-url` branch
+2. 🧪 Test import workflow end-to-end
+3. 🚀 Open PR and merge when ready
+4. 📦 Tag new release post-merge
 
 ## Known Issues
-- None currently - all legacy OCR components successfully removed
+- `.ruby-version` still says 4.0.2 but Gemfile.lock was updated to 4.0.9 (inconsistency to resolve)
 
 ## Notes
-- Application now uses AI-only OCR workflow (no manual region selection)
-- All Tesseract dependencies removed from codebase
-- Migration 20260123091620_remove_ocr_text_from_recipes.rb drops ocr_text column
 - OcrController retains: cleanup_with_gpt, scan, reparse_image, show_recipe_selection
-- All documentation updated to reflect AI-powered approach
+- No manual OCR / Tesseract — all removed as of 3.7.0
+- Trivy weekly scan enabled; .trivyignore added for known false positives
+- Docker images pushed to ghcr.io
