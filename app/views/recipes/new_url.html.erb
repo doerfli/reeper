@@ -2,12 +2,9 @@
   <span class="heading_1"><%=t 'recipes.new_url' %></span>
 </div>
 
-<div class="mt-4">
-  <%= form_tag url_imports_path, method: :post do %>
+<div class="mt-4" data-controller="urlimport">
+  <%= form_tag url_imports_path, method: :post, data: { urlimport_target: "form" } do %>
     <div class="mb-4">
-      <div class="mb-2">
-        <label for="url"><%= t 'url_import.url_label' %></label>
-      </div>
       <div>
         <%= text_field_tag :url,
                            params[:url],
@@ -21,10 +18,17 @@
     </div>
 
     <div class="mt-4">
-      <button type="submit"
-              class="button">
-        <i class="fas fa-link"></i>
-        <%= t 'url_import.submit' %>
+      <button type="button"
+              class="button"
+              data-urlimport-target="button"
+              data-action="click->urlimport#onSubmit">
+        <span data-urlimport-target="buttonText">
+          <i class="fas fa-link"></i>
+          <%= t 'url_import.submit' %>
+        </span>
+        <span data-urlimport-target="spinner" class="hidden">
+          <i class="fas fa-spinner fa-spin"></i>
+        </span>
       </button>
     </div>
   <% end %>
