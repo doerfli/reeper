@@ -47,6 +47,10 @@ gem 'kaminari', '>=1.2.1'
 
 gem 'ruby-openai', '~> 8.0'
 
+gem 'omniai', '~> 3.0'
+
+gem 'omniai-mistral', '~> 3.0'
+
 gem 'image_processing', '~> 1.13'
 
 gem 'dotenv-rails', groups: [:development, :test]
@@ -99,8 +103,6 @@ gem "ruby-vips", "~> 2.2"
 gem "nokogiri", "~> 1.19"
 
 gem "propshaft", "~> 1.3"
-
-gem "omniai-mistral", "~> 3.0"
 
 gem 'sidekiq', '~> 8.1'
 gem 'sidekiq-cron', '~> 2.3'
