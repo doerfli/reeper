@@ -12,6 +12,7 @@ de:
     logout: 'Abmelden'
     new_recipe: 'Neues Rezept'
     new_magic_recipe: 'Rezept per KI-Upload'
+    new_url_recipe: 'Rezept per URL importieren'
     recipes: 'Rezepte'
     tags: 'Tags'
   profile:
@@ -21,6 +22,7 @@ de:
     title: 'Rezepte'
     new: 'Neues Rezept erfassen'
     new_magic: 'Rezept per Foto-Upload erfassen'
+    new_url: 'Rezept per URL importieren'
     edit: 'Rezept bearbeiten'
     select_image_for_reparse:
       title: 'Welches Bild soll die KI lesen?'
@@ -53,6 +55,16 @@ de:
       select: Bild wählen
       image_missing: Kein Bild ausgewählt
   url: Rezept Adresse
+  url_import:
+    url_label: 'Rezept-URL'
+    url_placeholder: 'https://beispiel.de/mein-rezept'
+    submit: 'Rezept importieren'
+    processing: 'Rezept wird abgerufen und analysiert...'
+    errors:
+      invalid_url: 'Ungültige URL — muss mit http:// oder https:// beginnen'
+      fetch_failed: 'Inhalt der angegebenen URL konnte nicht abgerufen werden'
+      no_recipes: 'Kein Rezept unter der angegebenen URL gefunden'
+      processing_failed: 'Beim Verarbeiten der URL ist ein Fehler aufgetreten'
   tags:
     title: Tags
   ocr:

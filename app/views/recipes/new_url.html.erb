@@ -1,0 +1,35 @@
+<div>
+  <span class="heading_1"><%=t 'recipes.new_url' %></span>
+</div>
+
+<div class="mt-4" data-controller="urlimport">
+  <%= form_tag url_imports_path, method: :post, data: { urlimport_target: "form" } do %>
+    <div class="mb-4">
+      <div>
+        <%= text_field_tag :url,
+                           params[:url],
+                           id: 'url',
+                           required: true,
+                           autofocus: true,
+                           placeholder: t('url_import.url_placeholder'),
+                           autocomplete: 'off',
+                           inputmode: 'url' %>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <button type="button"
+              class="button"
+              data-urlimport-target="button"
+              data-action="click->urlimport#onSubmit">
+        <span data-urlimport-target="buttonText">
+          <i class="fas fa-link"></i>
+          <%= t 'url_import.submit' %>
+        </span>
+        <span data-urlimport-target="spinner" class="hidden">
+          <i class="fas fa-spinner fa-spin"></i>
+        </span>
+      </button>
+    </div>
+  <% end %>
+</div>

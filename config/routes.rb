@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get 'filter_by_tag/:tagid' => :filter_by_tag, as: 'filter_by_tag'
       get 'search(/:term)' => :search, as: 'search'
       get 'new_magic' => :new_magic
+      get 'new_url' => :new_url
     end
     member do
       put 'favorite'
@@ -54,6 +55,8 @@ Rails.application.routes.draw do
       post 'upload'
     end
   end
+
+  resources :url_imports, only: [:create], controller: 'url_import'
 
   root to: 'recipes#index'
 end

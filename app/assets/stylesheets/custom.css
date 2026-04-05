@@ -31,7 +31,8 @@ a:hover {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="url"] {
     @apply w-full border-0 border-b-2 border-gray-200;
     @apply focus:ring-0 focus:border-amber-200;
 }

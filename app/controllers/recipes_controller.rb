@@ -53,6 +53,10 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def new_url
+    @page_title = I18n.t('recipes.new_url')
+  end
+
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = session[:userinfo]['id']
