@@ -2,7 +2,7 @@ vulnerabilities:
   - id: CVE-2026-33210 
     expired_at: 2026-05-01
     paths: 
-      - ^usr/local/lib/ruby/gems/4.0.0
+      - "usr/local/lib/ruby/gems/4.0.0/specifications/default/json-2.18.0.gemspec"
     statement: overriden by newer json version 2.19.3 in Gemfile
   - id: CVE-2026-41316
     expired_at: 2026-06-01
