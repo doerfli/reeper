@@ -1,0 +1,9 @@
+vulnerabilities:
+  - id: CVE-2026-33210 
+    expired_at: 2026-05-01
+    statement: overriden by newer json version 2.19.3 in Gemfile
+  - id: CVE-2026-41316
+    expired_at: 2026-06-01
+    paths: 
+      - ^/usr/local/lib/ruby/gems/4.0.0
+    statement: overriden by newer erb version 6.0.4 in Gemfile
