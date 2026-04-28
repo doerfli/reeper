@@ -52,4 +52,5 @@ jobs:
           format: 'table'
           exit-code: '1'
           severity: 'HIGH,CRITICAL'
+          trivyignores: .trivyignore.yaml
 
