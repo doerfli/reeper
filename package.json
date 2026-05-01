@@ -9,7 +9,7 @@
     "@rails/actiontext": "^8.1",
     "@rails/activestorage": "^8.1",
     "@tailwindcss/forms": "^0.5.11",
-    "@tailwindcss/postcss": "^4.2.2",
+    "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/typography": "^0.5.19",
     "dompurify": "^3.4.2",
     "lodash": "^4.17.23",
