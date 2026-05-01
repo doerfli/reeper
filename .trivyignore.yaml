@@ -2,10 +2,10 @@ vulnerabilities:
   - id: CVE-2026-33210 
     expired_at: 2026-06-01
     paths: 
-      - "usr/local/lib/ruby/gems/4.0.0/specifications/default/json-2.18.0.gemspec"
-    statement: overriden by newer json version 2.19.3 in Gemfile
+      - "usr/local/lib/ruby/gems/4.0.0/specifications/default/*"
+    statement: "Overridden by Gemfile; default version is never loaded at runtime."
   - id: CVE-2026-41316
     expired_at: 2026-06-01
-    statement: overriden by newer erb version 6.0.4 in Gemfile
-    parths:
-      - "usr/local/lib/ruby/gems/4.0.0/specifications/default/erb-6.0.1.gemspec"
+    paths:
+      - "usr/local/lib/ruby/gems/4.0.0/specifications/default/*"
+    statement: "Overridden by Gemfile; default version is never loaded at runtime."
