@@ -482,7 +482,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sidekiq (8.1.2)
+    sidekiq (8.1.3)
       connection_pool (>= 3.0.0)
       json (>= 2.16.0)
       logger (>= 1.7.0)
@@ -811,7 +811,7 @@ CHECKSUMS
   rubyzip (3.2.2) sha256=c0ed99385f0625415c8f05bcae33fe649ed2952894a95ff8b08f26ca57ea5b3c
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   selenium-webdriver (4.43.0) sha256=a634377b964b701c6ac0a009ce3a08fa34ec1e1e7fe9a6d57e3088d14529a65c
-  sidekiq (8.1.2) sha256=4a1266f22bb1dad675d77bf32e8d4c04e990640e3b271650f47ea7299c38fceb
+  sidekiq (8.1.3) sha256=a42f51aca3705d21cb50f37f5ec07e69de8708e126be4cf94b45cf15b84b3762
   sidekiq-cron (2.3.1) sha256=96ab3da372289a30dc744c1daa2ae2e85960b2444a6f6ed68df1ff7882c44aac
   snaky_hash (2.0.3) sha256=25a3d299566e8153fb02fa23fd9a9358845950f7a523ddbbe1fa1e0d79a6d456
   solargraph (0.58.3) sha256=debefdc927d1e72383b2c4add89e71373d902b9904617efdb687749509fe2e69
