@@ -9,7 +9,7 @@ gem 'rails', '~> 8.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18'
 # Use Puma as the app server
-gem 'puma', '~> 7.2'
+gem 'puma', '~> 8.0'
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -44,7 +44,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 5.3'
 
-gem 'aws-sdk-s3', '~> 1.218', require: false
+gem 'aws-sdk-s3', '~> 1.220', require: false
 
 gem 'kaminari', '>=1.2.1'
 
