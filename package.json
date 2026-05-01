@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
-    "webpack": "^5.105.4",
+    "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2"
   },
   "resolutions": {
