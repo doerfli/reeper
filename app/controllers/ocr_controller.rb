@@ -9,14 +9,14 @@ class OcrController < ApplicationController
     begin
       # Process based on selected AI method
       magic_data_json = if ai_method == 'mistral_openai'
-        # Two-phase: Mistral OCR -> OpenAI parsing
+        # Two-phase: Mistral OCR -> Mistral parsing
         markdown = mistral_service.ocr_to_markdown(file.tempfile, file.content_type)
 
         if markdown.blank?
           raise "Mistral OCR returned empty markdown"
         end
 
-        openai_service.parse_markdown_to_recipes(markdown)
+        mistral_service.parse_markdown_to_recipes(markdown)
       else
         # Direct OpenAI OCR
         openai_service.ocr(file.tempfile, file.content_type)
