@@ -51,7 +51,7 @@ class MistralaiService
     system_prompt = File.read(system_prompt_file_path)
 
     # Use the client.chat block syntax with system and user prompts
-    completion = @client.chat do |chat|
+    completion = @client.chat(model: "mistral-small-latest") do |chat|
       chat.system(system_prompt)
       chat.user(markdown_text)
     end
