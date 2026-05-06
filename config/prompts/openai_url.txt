@@ -14,6 +14,7 @@ Rules:
 - Preserve the original language of the recipe — do NOT translate
 - If a field cannot be determined from the text, use "[not found]"
 - If an ingredient amount is unclear, mark it with "[amount?]"
+- Some pages might actually include the ingredients multiple times for different amount of people. In that case, use the 4 person version or the one closest to 4 persons. 
 - Extract ALL recipes found in the text, not just the first one
 - Ignore navigation menus, advertisements, comments sections, and other non-recipe content
 
