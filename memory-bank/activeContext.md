@@ -1,9 +1,9 @@
 # Active Context
 
-## Current Focus: Mistral-Only AI Method + Configurable Model/Prompt
+## Current Focus: Mistral URL Import + Model Selector
 **Branch**: `feature/use-mistral-model`
 **PR**: #850 — use Mistral for markdown parsing
-**Recent Activity**: Added `mistral_only` as new default AI method, fixed `mistral_openai` bug, made Mistral model/prompt configurable
+**Recent Activity**: Added Mistral URL import path (`mistral_url` / `jina_mistral`) with AI model selector dropdown in URL import UI
 
 ## Overview
 The application is stable at version 3.8.0 with a full AI-powered OCR workflow (Mistral AI + OpenAI). The current focus is the URL import feature, which is functionally complete on the feature branch and has an open PR (#830).
@@ -32,6 +32,12 @@ The application is stable at version 3.8.0 with a full AI-powered OCR workflow (
 - ✅ **`ocr_controller.rb`**: both `scan` and `reparse_image` actions have 3-way branch (`mistral_only` / `mistral_openai` / else), default fallback → `'mistral_only'`
 - ✅ **Views** (`new_magic.html.erb`, `select_image_for_reparse.html.erb`): `mistral_only` added as first/default option; all three methods shown
 - ✅ **i18n**: `mistral_only` key added to `en.yml` ('Mistral Only') and `de.yml` ('Mistral')
+- ✅ **Mistral URL import**: `config/initializers/mistral.rb` extended with `url_model` (`mistral-small-latest`, ENV: `MISTRAL_URL_MODEL`) and `url_prompt_file` (`mistral_url.txt`, ENV: `MISTRAL_URL_PROMPT_FILE`)
+- ✅ **`config/prompts/mistral_url.txt`**: copy of `openai_url.txt` for Mistral URL parsing
+- ✅ **`mistralai_service.rb`**: new `parse_url_to_recipes` method (mirrors `parse_markdown_to_recipes`, uses `url_model`/`url_prompt_file`)
+- ✅ **`url_import_controller.rb`**: reads `params[:ai_method]` (default `'mistral_url'`); branches to `MistralaiService#parse_url_to_recipes` (`jina_mistral`) or `OpenaiService#parse_url_to_recipes` (`jina_openai`)
+- ✅ **`new_url.html.erb`**: `<details>/<select>` AI model dropdown added (same pattern as OCR pages); default: `mistral_url`
+- ✅ **i18n** (`en.yml`, `de.yml`): `url_import.ai_method.*` keys added (`label`, `mistral_url`, `openai_url`)
 
 ## Current State
 - On branch `feature/use-mistral-model` (PR #850 open)
@@ -45,19 +51,26 @@ The application is stable at version 3.8.0 with a full AI-powered OCR workflow (
 ## Active Implementation
 
 ### Mistral-Only AI Method + Configurable Model/Prompt (PR #850 open)
-- **AI method values**: `mistral_only` (default), `mistral_openai`, `openai_direct`
+- **AI method values (image OCR)**: `mistral_only` (default), `mistral_openai`, `openai_direct`
 - **`mistral_only`**: Mistral OCR → `mistral_service.parse_markdown_to_recipes`
 - **`mistral_openai`**: Mistral OCR → `openai_service.parse_markdown_to_recipes`
 - **`openai_direct`**: `openai_service.ocr` (single-phase)
 - **Configurable via ENV**: `MISTRAL_MARKDOWN_MODEL`, `MISTRAL_MARKDOWN_PROMPT_FILE`
 - **Prompt files**: `config/prompts/mistral_markdown.txt` (Mistral), `config/prompts/openai_markdown.txt` (OpenAI)
-- **Files changed vs main**: `config/initializers/mistral.rb` (new), `config/prompts/mistral_markdown.txt` (new), `mistralai_service.rb`, `ocr_controller.rb`, `new_magic.html.erb`, `select_image_for_reparse.html.erb`, `en.yml`, `de.yml`, `Gemfile.lock`, `.devcontainer/devcontainer-lock.json`, `config/audit/vulnerabilities.yml`
+
+### Mistral URL Import with Model Selector (PR #850 open)
+- **AI method values (URL import)**: `mistral_url` (default), `openai_url`
+- **`mistral_url`**: Jina fetch → `mistral_service.parse_url_to_recipes` → `ai_method: 'jina_mistral'`
+- **`openai_url`**: Jina fetch → `openai_service.parse_url_to_recipes` → `ai_method: 'jina_openai'`
+- **Configurable via ENV**: `MISTRAL_URL_MODEL`, `MISTRAL_URL_PROMPT_FILE`
+- **Prompt files**: `config/prompts/mistral_url.txt` (copy of `openai_url.txt`)
+- **Files changed vs main**: `config/initializers/mistral.rb`, `config/prompts/mistral_markdown.txt` (new), `config/prompts/mistral_url.txt` (new), `mistralai_service.rb`, `ocr_controller.rb`, `url_import_controller.rb`, `new_magic.html.erb`, `select_image_for_reparse.html.erb`, `new_url.html.erb`, `en.yml`, `de.yml`, `Gemfile.lock`, `.devcontainer/devcontainer-lock.json`, `config/audit/vulnerabilities.yml`
 
 ## Active Dependencies
-- OpenAI API (structured recipe extraction + URL import)
-- Mistral AI OCR + parsing (via OmniAI gem: omniai + omniai-mistral)
+- OpenAI API (structured recipe extraction + URL import fallback)
+- Mistral AI OCR + parsing (via OmniAI gem: omniai + omniai-mistral); default for both image scan and URL import
 - Jina.ai reader API (URL → markdown conversion)
-- OcrResult model with `ai_method` tracking
+- OcrResult model with `ai_method` tracking (`mistral_only`, `mistral_openai`, `openai_direct`, `jina_mistral`, `jina_openai`)
 - Ruby 4.0.2 / Bundler 4.0.11 / Rails 8.1.x
 - Auth0 for authentication
 - AWS S3 for file storage
