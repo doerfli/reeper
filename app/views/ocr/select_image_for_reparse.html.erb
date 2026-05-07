@@ -13,7 +13,7 @@
     <details class="mb-2">
       <summary class="text-xs text-gray-500 cursor-pointer hover:text-gray-700 select-none">
         <span><%= t 'ocr.ai_method.label' %>:</span>
-        <span class="font-medium" id="ai_method_display_reparse"><%= t 'ocr.ai_method.mistral_openai' %></span>
+        <span class="font-medium" id="ai_method_display_reparse"><%= t 'ocr.ai_method.mistral_only' %></span>
         <span class="text-gray-400">▼</span>
       </summary>
       <div class="mt-2 pl-2">
@@ -22,7 +22,8 @@
                 data-reparse-target="aiMethod"
                 class="block w-full md:w-1/2 px-2 py-1 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 onchange="document.getElementById('ai_method_display_reparse').textContent = this.options[this.selectedIndex].text">
-          <option value="mistral_openai" selected><%= t 'ocr.ai_method.mistral_openai' %></option>
+          <option value="mistral_only" selected><%= t 'ocr.ai_method.mistral_only' %></option>
+          <option value="mistral_openai"><%= t 'ocr.ai_method.mistral_openai' %></option>
           <option value="openai_direct"><%= t 'ocr.ai_method.openai_direct' %></option>
         </select>
       </div>

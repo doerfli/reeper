@@ -57,6 +57,7 @@ en:
       untitled: 'Untitled Recipe'
     ai_method:
       label: 'AI Recognition Method'
+      mistral_only: 'Mistral Only'
       openai_direct: 'OpenAI Direct'
       mistral_openai: 'Mistral + OpenAI'
     dropzone:

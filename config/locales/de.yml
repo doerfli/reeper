@@ -74,6 +74,7 @@ de:
       untitled: 'Unbenanntes Rezept'
     ai_method:
       label: 'KI-Erkennungsmethode'
+      mistral_only: 'Mistral'
       openai_direct: 'OpenAI Direkt'
       mistral_openai: 'Mistral + OpenAI'
     dropzone:

@@ -47,11 +47,11 @@ class MistralaiService
     Rails.logger.debug "Sending markdown to Mistral AI API for parsing"
 
     # Load the system prompt from the file
-    system_prompt_file_path = Rails.root.join("config", "prompts", "openai_markdown.txt")
+    system_prompt_file_path = Rails.root.join("config", "prompts", Rails.configuration.mistral.markdown_prompt_file)
     system_prompt = File.read(system_prompt_file_path)
 
     # Use the client.chat block syntax with system and user prompts
-    completion = @client.chat(model: "mistral-small-latest") do |chat|
+    completion = @client.chat(model: Rails.configuration.mistral.markdown_model) do |chat|
       chat.system(system_prompt)
       chat.user(markdown_text)
     end
