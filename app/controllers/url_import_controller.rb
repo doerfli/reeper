@@ -9,6 +9,8 @@ class UrlImportController < ApplicationController
       redirect_to new_url_recipes_path and return
     end
 
+    ai_method = params[:ai_method].presence || 'mistral_url'
+
     begin
       markdown = jina_service.fetch_markdown(url)
 
@@ -17,14 +19,20 @@ class UrlImportController < ApplicationController
         redirect_to new_url_recipes_path and return
       end
 
-      magic_data_json = openai_service.parse_url_to_recipes(markdown)
+      if ai_method == 'openai_url'
+        magic_data_json = openai_service.parse_url_to_recipes(markdown)
+        used_ai_method = 'jina_openai'
+      else
+        magic_data_json = mistral_service.parse_url_to_recipes(markdown)
+        used_ai_method = 'jina_mistral'
+      end
 
       if magic_data_json.empty?
         flash[:alert] = I18n.t('url_import.errors.no_recipes')
         redirect_to new_url_recipes_path and return
       end
 
-      ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: 'jina_openai')
+      ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: used_ai_method)
 
       if magic_data_json.length > 1
         redirect_to select_recipe_ocr_path(ocrresult.id)
@@ -55,5 +63,9 @@ class UrlImportController < ApplicationController
 
   def openai_service
     @openai_service ||= OpenaiService.new
+  end
+
+  def mistral_service
+    @mistral_service ||= MistralaiService.new
   end
 end
