@@ -10,7 +10,9 @@
 - **OCR with AI cleanup:** OCR results can be cleaned up using GPT-4 Mini for better accuracy
 - **Language-aware AI processing:** GPT cleanup adapts to German/English with recipe-specific prompts
 - **Multiple recipes support:** Detect and select from multiple recipes in a single image
-- **Import recipe from URL:** Jina.ai reader → OpenAI extraction → recipe creation (PR #830, pending merge)
+- **Import recipe from URL:** Jina.ai reader → OpenAI extraction → recipe creation (merged)
+- **Three AI methods for image scan:** `mistral_only` (default, Mistral OCR + Mistral parsing), `mistral_openai` (Mistral OCR + OpenAI parsing), `openai_direct` (OpenAI vision)
+- **Configurable Mistral model/prompt:** via `MISTRAL_MARKDOWN_MODEL` and `MISTRAL_MARKDOWN_PROMPT_FILE` env vars
 - Tagging and search/filtering
 - Auth0 authentication
 - AWS S3 file storage
@@ -21,7 +23,7 @@
 
 ## What's Left to Build
 
-- **Import recipe from URL** (PR #830 open — feature complete, pending merge)
+- **Mistral model tuning** (PR #850 open — feature complete, pending merge)
 - Improved mobile experience
 - Plugin/extension architecture
 - Advanced search (ingredient-based, fuzzy)
@@ -33,24 +35,34 @@
 - Project is stable and in active development
 - All core features are implemented and working
 - Multiple image uploads shipped in 3.8.0 (April 2026)
-- URL import feature complete on `feature/import-from-url` — PR #830 open
+- Mistral-only method + configurable model/prompt on `feature/use-mistral-model` — PR #850 open
 - AI-only OCR workflow (Tesseract fully removed since 3.7.0)
 - Ruby: **4.0.2** (.ruby-version and Gemfile.lock)
-- Bundler: **4.0.9** (Gemfile.lock — Bundler version, not Ruby)
+- Bundler: **4.0.11** (Gemfile.lock — Bundler version, not Ruby)
 - Rails: **8.1.x**
 - No critical bugs open
 - Latest release: **Tag 3.8.0** (April 2026)
 
 ## Recent Completions
 
-### Import Recipe from URL (feature complete — PR #830 open) 🔄 (April 2026)
-- **Branch:** feature/import-from-url
+### Mistral-Only AI Method + Configurable Model/Prompt (feature complete — PR #850 open) 🔄 (May 2026)
+- **Branch:** feature/use-mistral-model
+- **Components:**
+  - `config/initializers/mistral.rb`: `config.mistral.markdown_model` + `config.mistral.markdown_prompt_file` (ENV-overridable)
+  - `config/prompts/mistral_markdown.txt`: Mistral-specific prompt file (copy of OpenAI version)
+  - `mistralai_service.rb`: model and prompt path now read from `Rails.configuration.mistral.*`
+  - `ocr_controller.rb`: 3-way branch for `mistral_only` / `mistral_openai` / `openai_direct`; default → `mistral_only`
+  - Views + i18n: `mistral_only` added as new default option in both scan dropdowns
+- **Status:** Feature complete, PR open, pending merge
+
+### Import Recipe from URL ✅ (April 2026)
+- **Branch:** feature/import-from-url (merged)
 - **Components:**
   - `UrlImportController`: validates URL, fetches via Jina, parses with OpenAI, stores OcrResult (`ai_method: 'jina_openai'`), redirects
   - `JinaService`: fetches page as markdown via `https://r.jina.ai/<url>`, optional `JINA_API_KEY`
   - `openai_url.txt` prompt: extracts all recipes from markdown, preserves language, returns JSON
   - `new_url.html.erb` view + navigation link + i18n keys (en/de)
-- **Status:** Feature complete, PR open, pending merge
+- **Status:** Merged
 
 ### Multiple Image Upload (3.8.0) ✅ (April 2026)
 - **PR:** #809 (feature/upload_multiple)
