@@ -1,5 +1,5 @@
 ### ------- Builder ------- ###
-ARG RUBY_VERSION=4.0.2
+ARG RUBY_VERSION=4.0.3
 FROM ruby:${RUBY_VERSION}-alpine AS builder
 
 ENV HOME=/app 
