@@ -1,9 +1,9 @@
 # Active Context
 
-## Current Focus: Import from URL Feature
-**Branch**: `feature/import-from-url`
-**PR**: #830 — feat: implement URL import feature for recipes
-**Recent Activity**: Core URL import feature implemented; PR open for review
+## Current Focus: Mistral URL Import + Model Selector
+**Branch**: `feature/use-mistral-model`
+**PR**: #850 — use Mistral for markdown parsing
+**Recent Activity**: Added Mistral URL import path (`mistral_url` / `jina_mistral`) with AI model selector dropdown in URL import UI
 
 ## Overview
 The application is stable at version 3.8.0 with a full AI-powered OCR workflow (Mistral AI + OpenAI). The current focus is the URL import feature, which is functionally complete on the feature branch and has an open PR (#830).
@@ -20,56 +20,68 @@ The application is stable at version 3.8.0 with a full AI-powered OCR workflow (
 - ✅ **PR #801** (feature/ruby-4_0_2) → Tagged 3.7.12: Upgraded to Ruby 4.0.2
 - ✅ **PR #809** (feature/upload_multiple) → **Tagged 3.8.0**: Multiple image uploads with enhanced Dropzone UI
 - ✅ **PR #828** (feature/trivyignore) → Added .trivyignore file
+- ✅ **PR #830** (feature/import-from-url): URL import feature (Jina.ai + OpenAI, `ai_method: 'jina_openai'`)
 
-### Current WIP (on feature/import-from-url, not yet merged — PR #830):
-- ✅ Added omniai and omniai-mistral gems to Gemfile
-- ✅ Updated Ruby to 4.0.9 in Gemfile.lock
-- ✅ Updated JS dependencies (yarn.lock)
-- ✅ **UrlImportController** (`app/controllers/url_import_controller.rb`): handles URL validation, Jina fetch, OpenAI parse, OcrResult creation, redirect to select or new recipe
-- ✅ **JinaService** (`app/services/jina_service.rb`): fetches markdown from URL via Jina.ai reader API (`https://r.jina.ai/<url>`), supports optional `JINA_API_KEY` env var
-- ✅ **OpenAI prompt** (`config/prompts/openai_url.txt`): extracts recipes from Jina markdown; preserves language; returns JSON `{recipes: [...]}` with title, ingredients, steps, prep_time, tags, source
-- ✅ **`openai_service.rb`**: updated with `parse_url_to_recipes` method
-- ✅ **Routes**: new `url_import` resource with `POST /url_import`; recipes namespace has `new_url` route
-- ✅ **View** (`app/views/recipes/new_url.html.erb`): form to enter recipe URL
-- ✅ **Navigation**: link to "Import from URL" added to `_navigation.html.erb`
-- ✅ **i18n**: keys added to `en.yml` and `de.yml` for `url_import.*`
-- ✅ `ai_method` tracked as `'jina_openai'` in OcrResult
+### Current WIP (on feature/use-mistral-model, not yet merged — PR #850):
+- ✅ Bundler updated from 4.0.9 → 4.0.11 (Gemfile.lock)
+- ✅ **New `mistral_only` AI method**: Mistral OCR → Mistral parsing (new default in UI and controller)
+- ✅ **Fixed `mistral_openai`**: now correctly routes to Mistral OCR → OpenAI parsing (was accidentally using Mistral parser in both phases)
+- ✅ **`config/initializers/mistral.rb`**: configures `Rails.configuration.mistral.markdown_model` (default: `mistral-small-latest`, override via `MISTRAL_MARKDOWN_MODEL`) and `markdown_prompt_file` (default: `mistral_markdown.txt`, override via `MISTRAL_MARKDOWN_PROMPT_FILE`)
+- ✅ **`config/prompts/mistral_markdown.txt`**: duplicate of `openai_markdown.txt` for Mistral-specific tuning
+- ✅ **`mistralai_service.rb`**: `parse_markdown_to_recipes` now reads model/prompt from `Rails.configuration.mistral.*`
+- ✅ **`ocr_controller.rb`**: both `scan` and `reparse_image` actions have 3-way branch (`mistral_only` / `mistral_openai` / else), default fallback → `'mistral_only'`
+- ✅ **Views** (`new_magic.html.erb`, `select_image_for_reparse.html.erb`): `mistral_only` added as first/default option; all three methods shown
+- ✅ **i18n**: `mistral_only` key added to `en.yml` ('Mistral Only') and `de.yml` ('Mistral')
+- ✅ **Mistral URL import**: `config/initializers/mistral.rb` extended with `url_model` (`mistral-small-latest`, ENV: `MISTRAL_URL_MODEL`) and `url_prompt_file` (`mistral_url.txt`, ENV: `MISTRAL_URL_PROMPT_FILE`)
+- ✅ **`config/prompts/mistral_url.txt`**: copy of `openai_url.txt` for Mistral URL parsing
+- ✅ **`mistralai_service.rb`**: new `parse_url_to_recipes` method (mirrors `parse_markdown_to_recipes`, uses `url_model`/`url_prompt_file`)
+- ✅ **`url_import_controller.rb`**: reads `params[:ai_method]` (default `'mistral_url'`); branches to `MistralaiService#parse_url_to_recipes` (`jina_mistral`) or `OpenaiService#parse_url_to_recipes` (`jina_openai`)
+- ✅ **`new_url.html.erb`**: `<details>/<select>` AI model dropdown added (same pattern as OCR pages); default: `mistral_url`
+- ✅ **i18n** (`en.yml`, `de.yml`): `url_import.ai_method.*` keys added (`label`, `mistral_url`, `openai_url`)
 
 ## Current State
-- On branch `feature/import-from-url` (3 commits ahead of main)
+- On branch `feature/use-mistral-model` (PR #850 open)
 - Latest release: **3.8.0** (multiple image uploads)
 - Ruby: **4.0.2** (.ruby-version + Gemfile.lock)
-- Bundler: **4.0.9** (Gemfile.lock — note: this is the Bundler version, NOT Ruby)
+- Bundler: **4.0.11** (Gemfile.lock — note: this is the Bundler version, NOT Ruby)
 - Rails: **8.1.x**
 - AI OCR: AI-only workflow (Mistral + OpenAI via OmniAI gem)
 - Docker build: Pushes to ghcr.io
 
 ## Active Implementation
 
-### Import Recipe from URL (FEATURE COMPLETE — PR #830 open)
-- **Flow**: User enters URL → JinaService fetches markdown → OpenAI extracts recipes → OcrResult stored → redirect to select or new recipe
-- **JinaService**: uses `https://r.jina.ai/<url>`, `Accept: text/plain`, optional Bearer token
-- **ai_method**: `'jina_openai'`
-- **Env vars needed**: `JINA_API_KEY` (optional), `OPENAI_API_KEY`
-- **Files changed vs main**: `.env`, `.env.example`, `README.md`, `custom.css`, `recipes_controller.rb`, `url_import_controller.rb`, `jina_service.rb`, `openai_service.rb`, `new_url.html.erb`, `_navigation.html.erb`, `openai.rb`, `de.yml`, `en.yml`, `openai_url.txt`, `routes.rb`
+### Mistral-Only AI Method + Configurable Model/Prompt (PR #850 open)
+- **AI method values (image OCR)**: `mistral_only` (default), `mistral_openai`, `openai_direct`
+- **`mistral_only`**: Mistral OCR → `mistral_service.parse_markdown_to_recipes`
+- **`mistral_openai`**: Mistral OCR → `openai_service.parse_markdown_to_recipes`
+- **`openai_direct`**: `openai_service.ocr` (single-phase)
+- **Configurable via ENV**: `MISTRAL_MARKDOWN_MODEL`, `MISTRAL_MARKDOWN_PROMPT_FILE`
+- **Prompt files**: `config/prompts/mistral_markdown.txt` (Mistral), `config/prompts/openai_markdown.txt` (OpenAI)
+
+### Mistral URL Import with Model Selector (PR #850 open)
+- **AI method values (URL import)**: `mistral_url` (default), `openai_url`
+- **`mistral_url`**: Jina fetch → `mistral_service.parse_url_to_recipes` → `ai_method: 'jina_mistral'`
+- **`openai_url`**: Jina fetch → `openai_service.parse_url_to_recipes` → `ai_method: 'jina_openai'`
+- **Configurable via ENV**: `MISTRAL_URL_MODEL`, `MISTRAL_URL_PROMPT_FILE`
+- **Prompt files**: `config/prompts/mistral_url.txt` (copy of `openai_url.txt`)
+- **Files changed vs main**: `config/initializers/mistral.rb`, `config/prompts/mistral_markdown.txt` (new), `config/prompts/mistral_url.txt` (new), `mistralai_service.rb`, `ocr_controller.rb`, `url_import_controller.rb`, `new_magic.html.erb`, `select_image_for_reparse.html.erb`, `new_url.html.erb`, `en.yml`, `de.yml`, `Gemfile.lock`, `.devcontainer/devcontainer-lock.json`, `config/audit/vulnerabilities.yml`
 
 ## Active Dependencies
-- OpenAI API (structured recipe extraction + URL import)
-- Mistral AI OCR (via OmniAI gem: omniai + omniai-mistral)
+- OpenAI API (structured recipe extraction + URL import fallback)
+- Mistral AI OCR + parsing (via OmniAI gem: omniai + omniai-mistral); default for both image scan and URL import
 - Jina.ai reader API (URL → markdown conversion)
-- OcrResult model with `ai_method` tracking
-- Ruby 4.0.2 / Bundler 4.0.9 / Rails 8.1.x
+- OcrResult model with `ai_method` tracking (`mistral_only`, `mistral_openai`, `openai_direct`, `jina_mistral`, `jina_openai`)
+- Ruby 4.0.2 / Bundler 4.0.11 / Rails 8.1.x
 - Auth0 for authentication
 - AWS S3 for file storage
 - Trivy for vulnerability scanning (weekly CI)
 
 ## Next Steps
-1. 🔍 Review and merge PR #830
+1. 🔍 Review and merge PR #850
 2. 📦 Tag new release post-merge (3.9.0?)
-3. 🧪 Confirm `.ruby-version` matches Ruby version in Gemfile.lock (both 4.0.2)
 
 ## Known Issues
-- None (`.ruby-version` is 4.0.2; Gemfile.lock Ruby is 4.0.2; Bundler is 4.0.9 — all consistent)
+- None (`.ruby-version` is 4.0.2; Gemfile.lock Ruby is 4.0.2; Bundler is 4.0.11 — all consistent)
 
 ## Notes
 - OcrController retains: cleanup_with_gpt, scan, reparse_image, show_recipe_selection

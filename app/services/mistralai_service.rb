@@ -42,4 +42,66 @@ class MistralaiService
     Rails.logger.debug "Mistral OCR result:\n#{recognized_markdown[0..100]}..."
     recognized_markdown
   end
+
+  def parse_markdown_to_recipes(markdown_text)
+    Rails.logger.debug "Sending markdown to Mistral AI API for parsing"
+
+    # Load the system prompt from the file
+    system_prompt_file_path = Rails.root.join("config", "prompts", Rails.configuration.mistral.markdown_prompt_file)
+    system_prompt = File.read(system_prompt_file_path)
+
+    # Use the client.chat block syntax with system and user prompts
+    completion = @client.chat(model: Rails.configuration.mistral.markdown_model) do |chat|
+      chat.system(system_prompt)
+      chat.user(markdown_text)
+    end
+
+    Rails.logger.debug "Mistral AI markdown parsing response: #{completion.text}"
+
+    llm_response_text = completion.text.gsub(/```json/, '').gsub(/```/, '')
+
+    begin
+      parsed = JSON.parse(llm_response_text)
+      recipes = parsed['recipes'] || []
+      Rails.logger.warn "No recipes found in Mistral AI response" if recipes.empty?
+      Rails.logger.info "Mistral AI parsed #{recipes.length} recipes from markdown"
+      recipes
+    rescue JSON::ParserError => e
+      Rails.logger.error "Failed to parse Mistral AI markdown response: #{e.message}"
+      raise
+    rescue => e
+      Rails.logger.error "Unexpected error parsing recipes from markdown: #{e.message}"
+      raise
+    end
+  end
+
+  def parse_url_to_recipes(markdown_text)
+    Rails.logger.debug "Sending URL markdown to Mistral AI API for parsing"
+
+    system_prompt_file_path = Rails.root.join("config", "prompts", Rails.configuration.mistral.url_prompt_file)
+    system_prompt = File.read(system_prompt_file_path)
+
+    completion = @client.chat(model: Rails.configuration.mistral.url_model) do |chat|
+      chat.system(system_prompt)
+      chat.user(markdown_text)
+    end
+
+    Rails.logger.debug "Mistral AI URL parsing response: #{completion.text}"
+
+    llm_response_text = completion.text.gsub(/```json/, '').gsub(/```/, '')
+
+    begin
+      parsed = JSON.parse(llm_response_text)
+      recipes = parsed['recipes'] || []
+      Rails.logger.warn "No recipes found in Mistral AI URL response" if recipes.empty?
+      Rails.logger.info "Mistral AI parsed #{recipes.length} recipes from URL markdown"
+      recipes
+    rescue JSON::ParserError => e
+      Rails.logger.error "Failed to parse Mistral AI URL response: #{e.message}"
+      raise
+    rescue => e
+      Rails.logger.error "Unexpected error parsing recipes from URL: #{e.message}"
+      raise
+    end
+  end
 end

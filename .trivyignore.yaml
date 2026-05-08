@@ -9,3 +9,9 @@ vulnerabilities:
     paths:
       - "usr/local/lib/ruby/gems/4.0.0/specifications/default/*"
     statement: "Overridden by Gemfile; default version is never loaded at runtime."
+  - id: CVE-2026-42246
+    expired_at: 2026-06-01
+    paths:
+      - "usr/local/lib/ruby/gems/4.0.0/specifications/*"
+    statement: "Overridden by Gemfile; default version is never loaded at runtime."
+  

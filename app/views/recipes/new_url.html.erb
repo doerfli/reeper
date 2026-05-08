@@ -17,6 +17,23 @@
       </div>
     </div>
 
+    <details class="mb-4">
+      <summary class="text-xs text-gray-500 cursor-pointer hover:text-gray-700 select-none">
+        <span><%= t 'url_import.ai_method.label' %>:</span>
+        <span class="font-medium" id="url_ai_method_display"><%= t 'url_import.ai_method.mistral_url' %></span>
+        <span class="text-gray-400">▼</span>
+      </summary>
+      <div class="mt-2 pl-2">
+        <select id="url_ai_method_select"
+                name="ai_method"
+                class="block w-full md:w-1/2 px-2 py-1 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onchange="document.getElementById('url_ai_method_display').textContent = this.options[this.selectedIndex].text">
+          <option value="mistral_url" selected><%= t 'url_import.ai_method.mistral_url' %></option>
+          <option value="openai_url"><%= t 'url_import.ai_method.openai_url' %></option>
+        </select>
+      </div>
+    </details>
+
     <div class="mt-4">
       <button type="button"
               class="button"

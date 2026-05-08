@@ -57,6 +57,7 @@ en:
       untitled: 'Untitled Recipe'
     ai_method:
       label: 'AI Recognition Method'
+      mistral_only: 'Mistral Only'
       openai_direct: 'OpenAI Direct'
       mistral_openai: 'Mistral + OpenAI'
     dropzone:
@@ -92,6 +93,10 @@ en:
     url_placeholder: 'https://example.com/my-recipe'
     submit: 'Import Recipe'
     processing: 'Fetching and analysing recipe...'
+    ai_method:
+      label: 'AI Model'
+      mistral_url: 'Mistral (default)'
+      openai_url: 'OpenAI'
     errors:
       invalid_url: 'Invalid URL — must start with http:// or https://'
       fetch_failed: 'Could not fetch content from the provided URL'

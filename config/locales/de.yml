@@ -60,6 +60,10 @@ de:
     url_placeholder: 'https://beispiel.de/mein-rezept'
     submit: 'Rezept importieren'
     processing: 'Rezept wird abgerufen und analysiert...'
+    ai_method:
+      label: 'KI-Modell'
+      mistral_url: 'Mistral (Standard)'
+      openai_url: 'OpenAI'
     errors:
       invalid_url: 'Ungültige URL — muss mit http:// oder https:// beginnen'
       fetch_failed: 'Inhalt der angegebenen URL konnte nicht abgerufen werden'
@@ -74,6 +78,7 @@ de:
       untitled: 'Unbenanntes Rezept'
     ai_method:
       label: 'KI-Erkennungsmethode'
+      mistral_only: 'Mistral'
       openai_direct: 'OpenAI Direkt'
       mistral_openai: 'Mistral + OpenAI'
     dropzone:
