@@ -25,17 +25,17 @@ services:
       - db
 
   db:
-    image: postgres:16
+    image: postgres:18.3-alpine
     restart: unless-stopped
     volumes: 
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     ports: 
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: password
 
   redis:
-    image: redis:8.4
+    image: redis:8.6
     restart: unless-stopped
     ports:
       - 6379:6379
