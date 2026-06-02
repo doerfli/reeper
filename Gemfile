@@ -54,7 +54,7 @@ gem 'omniai', '~> 3.0'
 
 gem 'omniai-mistral', '~> 3.0'
 
-gem 'image_processing', '~> 1.13'
+gem 'image_processing', '~> 2.0'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
