@@ -11,23 +11,28 @@ updates:
       interval: "monthly"
     open-pull-requests-limit: 50
     cooldown:
-      default: 3
+      default-days: 3
+      semver-major-days: 7
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "monthly"
     cooldown:
-      default: 3
+      default-days: 3
+      semver-major-days: 7
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
     cooldown:
-      default: 3
+      default-days: 3
+      semver-major-days: 7
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 50
     cooldown:
-      default: 3
+      default-days: 3
+      semver-major-days: 7
+      
