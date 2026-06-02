@@ -9,17 +9,25 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 30
+    open-pull-requests-limit: 50
+    cooldown:
+      default: 3
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default: 3
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default: 3
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 30
+    open-pull-requests-limit: 50
+    cooldown:
+      default: 3
