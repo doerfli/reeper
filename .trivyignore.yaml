@@ -1,6 +1,6 @@
 vulnerabilities:
   - id: CVE-2026-33210 
-    expired_at: 2026-06-01
+    expired_at: 2026-07-01
     paths: 
       - "usr/local/lib/ruby/gems/4.0.0/specifications/default/*"
     statement: "Overridden by Gemfile; default version is never loaded at runtime."
