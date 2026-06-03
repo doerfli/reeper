@@ -24,11 +24,6 @@ updates:
           - "*"
         update-types:
           - "minor"
-      bundler-major:
-        patterns:
-          - "*"
-        update-types:
-          - "major"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
@@ -60,9 +55,4 @@ updates:
           - "*"
         update-types:
           - "minor"
-      npm-major:
-        patterns:
-          - "*"
-        update-types:
-          - "major"
 
