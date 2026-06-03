@@ -25,7 +25,7 @@ gem 'coffee-rails', '~> 5.0.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.14'
+gem 'jbuilder', '~> 2.15'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -44,7 +44,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 5.3'
 
-gem 'aws-sdk-s3', '~> 1.220', require: false
+gem 'aws-sdk-s3', '~> 1.224', require: false
 
 gem 'kaminari', '>=1.2.1'
 
@@ -59,7 +59,7 @@ gem 'image_processing', '~> 2.0'
 gem 'dotenv-rails', groups: [:development, :test]
 
 # auth0 login
-gem 'omniauth-auth0', '~> 3.1'
+gem 'omniauth-auth0', '~> 3.2'
 gem 'omniauth-rails_csrf_protection', '~> 2.0'
 
 group :development, :test do
