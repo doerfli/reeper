@@ -49,18 +49,18 @@ class OpenaiService
 
     # puts "Image format detected: #{image_format} for content type: #{content_type} content #{image_data[0..30]}..."
     filedata = "data:image/#{image_format};base64,#{image_data}"
-    prompt_id = Rails.configuration.openai.recipe_ocr_prompt_id
-    prompt_version = Rails.configuration.openai.recipe_ocr_prompt_version
-    Rails.logger.debug "Sending data to OpenAI API (Prompt id #{prompt_id} version #{prompt_version} -> #{filedata[0..100]}..."
+    model = Rails.configuration.openai.recipe_ocr_model
+    system_prompt = File.read(Rails.root.join("config", "prompts", Rails.configuration.openai.recipe_ocr_prompt_file))
+    Rails.logger.debug "Sending data to OpenAI API (model #{model}) -> #{filedata[0..100]}..."
 
     response = @client.responses.create(
       parameters: {
-        # model: "gpt-5-nano",
-        prompt: {
-          "id": prompt_id,
-          "version": prompt_version
-        },
+        model: model,
         input: [
+          {
+            role: "system",
+            content: system_prompt
+          },
           {
             role: "user",
             content: [
@@ -108,17 +108,18 @@ class OpenaiService
   end
 
   def parse_markdown_to_recipes(markdown_text)
-    prompt_id = Rails.configuration.openai.recipe_markdown_prompt_id
-    prompt_version = Rails.configuration.openai.recipe_markdown_prompt_version
-    Rails.logger.debug "Sending markdown to OpenAI API (Prompt id #{prompt_id} version #{prompt_version})"
+    model = Rails.configuration.openai.recipe_markdown_model
+    system_prompt = File.read(Rails.root.join("config", "prompts", Rails.configuration.openai.recipe_markdown_prompt_file))
+    Rails.logger.debug "Sending markdown to OpenAI API (model #{model})"
 
     response = @client.responses.create(
       parameters: {
-        prompt: {
-          "id": prompt_id,
-          "version": prompt_version
-        },
+        model: model,
         input: [
+          {
+            role: "system",
+            content: system_prompt
+          },
           {
             role: "user",
             content: [
@@ -157,17 +158,18 @@ class OpenaiService
   end
 
   def parse_url_to_recipes(markdown_text)
-    prompt_id = Rails.configuration.openai.recipe_url_prompt_id
-    prompt_version = Rails.configuration.openai.recipe_url_prompt_version
-    Rails.logger.debug "Sending URL markdown to OpenAI API (Prompt id #{prompt_id} version #{prompt_version})"
+    model = Rails.configuration.openai.recipe_url_model
+    system_prompt = File.read(Rails.root.join("config", "prompts", Rails.configuration.openai.recipe_url_prompt_file))
+    Rails.logger.debug "Sending URL markdown to OpenAI API (model #{model})"
 
     response = @client.responses.create(
       parameters: {
-        prompt: {
-          "id": prompt_id,
-          "version": prompt_version
-        },
+        model: model,
         input: [
+          {
+            role: "system",
+            content: system_prompt
+          },
           {
             role: "user",
             content: [
