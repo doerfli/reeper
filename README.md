@@ -77,12 +77,12 @@ dokku config:set your-app-name OPENAI_CLEANUP_PROMPT_DE="Your custom German prom
 **Optional Configuration:**
 - `OPENAI_CLEANUP_PROMPT_EN`: Override the default English cleanup prompt
 - `OPENAI_CLEANUP_PROMPT_DE`: Override the default German cleanup prompt
-- `OPENAI_PROMPT_OCR_ID`: Override the default OpenAI prompt ID for direct OCR (default: `pmpt_694514e453388194a1e4c121407ef02204bec5d20e21b070`)
-- `OPENAI_PROMPT_OCR_VERSION`: Override the default OpenAI prompt version for direct OCR (default: `2`)
-- `OPENAI_MARKDOWN_PROMPT_ID`: Override the default OpenAI prompt ID for markdown parsing (default: `pmpt_696554b87ef88190bbc1156b6c5fe84f0050d5451e60ae6c`)
-- `OPENAI_MARKDOWN_PROMPT_VERSION`: Override the default OpenAI prompt version for markdown parsing (default: `2`)
-- `OPENAI_URL_PROMPT_ID`: OpenAI stored prompt ID for URL import parsing (required – replace placeholder default)
-- `OPENAI_URL_PROMPT_VERSION`: Override the default OpenAI prompt version for URL import (default: `1`)
+- `OPENAI_OCR_MODEL`: Override the OpenAI model used for direct OCR (default: `gpt-5.4-nano`)
+- `OPENAI_OCR_PROMPT_FILE`: Override the prompt file (in `config/prompts/`) used for direct OCR (default: `openai_ocr.txt`)
+- `OPENAI_MARKDOWN_MODEL`: Override the OpenAI model used for markdown parsing (default: `gpt-5.4-nano`)
+- `OPENAI_MARKDOWN_PROMPT_FILE`: Override the prompt file used for markdown parsing (default: `openai_markdown.txt`)
+- `OPENAI_URL_MODEL`: Override the OpenAI model used for URL import parsing (default: `gpt-5.4-nano`)
+- `OPENAI_URL_PROMPT_FILE`: Override the prompt file used for URL import parsing (default: `openai_url.txt`)
 
 ### Mistral AI API Key (for two-phase OCR)
 
@@ -145,8 +145,7 @@ Use provided `docker-compose.prod.yml` file for startup of postgres db and conta
 - `MISTRAL_API_KEY`: Mistral AI API key (only needed for "Mistral + OpenAI" method)
 - `S3_BUCKET_NAME`: Override S3 bucket name (default: _reeper_)
 - `S3_BUCKET_REGION`: Override S3 region (default: _eu-central-1_)
-- `OPENAI_PROMPT_OCR_ID`: Custom OpenAI prompt ID for direct OCR
-- `OPENAI_PROMPT_OCR_VERSION`: Custom OpenAI prompt version
-- `OPENAI_MARKDOWN_PROMPT_ID`: Custom OpenAI prompt ID for markdown parsing
-- `OPENAI_MARKDOWN_PROMPT_VERSION`: Custom OpenAI prompt version 
+- `OPENAI_OCR_MODEL` / `OPENAI_OCR_PROMPT_FILE`: Custom model/prompt file for direct OCR
+- `OPENAI_MARKDOWN_MODEL` / `OPENAI_MARKDOWN_PROMPT_FILE`: Custom model/prompt file for markdown parsing
+- `OPENAI_URL_MODEL` / `OPENAI_URL_PROMPT_FILE`: Custom model/prompt file for URL import parsing
 
