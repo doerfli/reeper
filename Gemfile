@@ -114,3 +114,6 @@ gem 'connection_pool', '~> 3.0'
 
 # fix for CVE-2026-27820
 gem "zlib", ">= 3.2.3"
+
+# fix for CVE-2026-54904
+gem "concurrent-ruby", "~> 1.3.7"
