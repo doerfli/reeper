@@ -1,7 +1,7 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.183.0/containers/ruby/.devcontainer/base.Dockerfile
 
 # [Choice] Ruby version: 3, 3.0, 2, 2.7, 2.6
-ARG VARIANT="bookworm"
+ARG VARIANT="trixie"
 FROM mcr.microsoft.com/devcontainers/base:${VARIANT}
 
 ARG RUBY_VERSION=4.0.5
