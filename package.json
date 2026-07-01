@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@fontsource/noto-sans": "^5.2.10",
-    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@fortawesome/fontawesome-free": "^7.3.0",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@rails/actiontext": "^8.1",
@@ -23,8 +23,8 @@
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
-    "webpack": "^5.107.2",
-    "webpack-cli": "^7.0.3"
+    "webpack": "^5.108.1",
+    "webpack-cli": "^7.1.0"
   },
   "resolutions": {
     "dompurify": "3.4.11"
