@@ -28,6 +28,10 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'HIGH,CRITICAL'
+          # Ruby's own bundled/default gem specs; app only loads gems from vendor/bundle
+          # (see Dockerfile `bundle config set --local path vendor/bundle`). Update the
+          # ruby version segment here if RUBY_VERSION's ABI version changes.
+          skip-dirs: 'usr/local/lib/ruby/gems/4.0.0/specifications'
           trivyignores: .trivyignore.yaml
 
       - name: Upload Trivy scan results to GitHub Security tab
