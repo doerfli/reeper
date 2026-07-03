@@ -10,8 +10,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6.0.2
-    - uses: ruby/setup-ruby@v1
+    - uses: actions/checkout@v7.0.0
+    - uses: ruby/setup-ruby@v1.314.0
       with:
         ruby-version: '4.0.5'
         bundler-cache: true
@@ -21,8 +21,8 @@ jobs:
   brakeman:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6.0.2
-    - uses: ruby/setup-ruby@v1
+    - uses: actions/checkout@v7.0.0
+    - uses: ruby/setup-ruby@v1.314.0
       with:
         ruby-version: '4.0.5'
         bundler-cache: true
@@ -32,8 +32,8 @@ jobs:
   # bundler-audit:
   #   runs-on: ubuntu-latest
   #   steps:
-  #   - uses: actions/checkout@v6.0.2
-  #   - uses: ruby/setup-ruby@v1
+  #   - uses: actions/checkout@v7.0.0
+  #   - uses: ruby/setup-ruby@v1.314.0
   #     with:
   #       ruby-version: '4.0.3'
   #       bundler-cache: true
@@ -43,7 +43,7 @@ jobs:
   # yarn-audit:
   #   runs-on: ubuntu-latest
   #   steps:
-  #   - uses: actions/checkout@v6.0.2
+  #   - uses: actions/checkout@v7.0.0
   #   - uses: actions/setup-node@v4
   #     with:
   #       node-version: '24'

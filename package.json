@@ -3,14 +3,14 @@
   "private": true,
   "dependencies": {
     "@fontsource/noto-sans": "^5.2.10",
-    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@fortawesome/fontawesome-free": "^7.3.0",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@rails/actiontext": "^8.1",
     "@rails/activestorage": "^8.1",
     "@tailwindcss/forms": "^0.5.11",
-    "@tailwindcss/postcss": "^4.3.0",
-    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/postcss": "^4.3.1",
+    "@tailwindcss/typography": "^0.5.20",
     "dompurify": "^3.4.11",
     "lodash": "^4.17.23",
     "postcss": "^8.5.15",
@@ -23,8 +23,8 @@
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
-    "webpack": "^5.107.2",
-    "webpack-cli": "^7.0.3"
+    "webpack": "^5.108.3",
+    "webpack-cli": "^7.1.0"
   },
   "resolutions": {
     "dompurify": "3.4.11"

@@ -44,13 +44,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'mini_magick', '~> 5.3'
 
-gem 'aws-sdk-s3', '~> 1.224', require: false
+gem 'aws-sdk-s3', '~> 1.226', require: false
 
 gem 'kaminari', '>=1.2.1'
 
 gem 'ruby-openai', '~> 8.0'
 
-gem 'omniai', '~> 3.0'
+gem 'omniai', '~> 3.7'
 
 gem 'omniai-mistral', '~> 3.0'
 
