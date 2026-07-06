@@ -3,7 +3,7 @@ import { Utils } from "../src/utils"
 
 export default class extends Controller {
   static targets = ["dropzone", "fileInput", "spinner", "successMessage", "errorMessage", "resetButton", "previewContainer", "uploadButton"]
-  static values = { url: String, previewMode: Boolean }
+  static values = { url: String, previewMode: Boolean, ocrBadgeTitle: String, noImagesSelectedError: String }
 
   connect() {
     this.maxFiles = 10
@@ -11,6 +11,7 @@ export default class extends Controller {
     this.acceptedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif']
     this.pendingFiles = []
     this.pendingObjectUrls = []
+    this.pendingOcrFlags = []
     
     // Initialize button state in preview mode
     if (this.previewModeValue && this.hasUploadButtonTarget) {
@@ -92,6 +93,7 @@ export default class extends Controller {
     if (this.previewModeValue) {
       for (let i = 0; i < files.length; i++) {
         this.pendingFiles.push(files[i])
+        this.pendingOcrFlags.push(true)
       }
       this.renderPreviews()
       this.uploadButtonTarget.disabled = false
@@ -121,6 +123,11 @@ export default class extends Controller {
       const objectUrl = URL.createObjectURL(file)
       this.pendingObjectUrls.push(objectUrl)
 
+      const included = this.pendingOcrFlags[index]
+      const badgeClass = included
+        ? 'bg-blue-500 text-white'
+        : 'bg-gray-300 text-gray-500 opacity-60'
+
       const card = document.createElement('div')
       card.className = 'relative rounded-lg overflow-hidden border border-gray-200 bg-gray-50'
       card.innerHTML = `
@@ -133,7 +140,13 @@ export default class extends Controller {
                 aria-label="Remove">
           <i class="fas fa-times text-xs pointer-events-none"></i>
         </button>
-        ${index === 0 ? '<div class="absolute top-1 left-1 bg-blue-500 text-white text-xs rounded px-1 leading-5">AI</div>' : ''}
+        <button type="button"
+                class="absolute top-1 left-1 text-xs rounded px-1 leading-5 cursor-pointer ${badgeClass}"
+                data-action="click->dropzone#toggleOcr"
+                data-index="${index}"
+                title="${this.ocrBadgeTitleValue}">
+          AI
+        </button>
       `
       grid.appendChild(card)
     })
@@ -145,6 +158,7 @@ export default class extends Controller {
   removeFile(event) {
     const index = parseInt(event.currentTarget.dataset.index, 10)
     this.pendingFiles.splice(index, 1)
+    this.pendingOcrFlags.splice(index, 1)
 
     if (this.pendingFiles.length === 0) {
       this.uploadButtonTarget.disabled = true
@@ -157,19 +171,33 @@ export default class extends Controller {
     }
   }
 
+  toggleOcr(event) {
+    event.stopPropagation()
+    const index = parseInt(event.currentTarget.dataset.index, 10)
+    this.pendingOcrFlags[index] = !this.pendingOcrFlags[index]
+    this.renderPreviews()
+  }
+
   submit() {
+    if (this.pendingOcrFlags.every(flag => !flag)) {
+      this.showError(this.noImagesSelectedErrorValue)
+      return
+    }
+
     const filesToUpload = this.pendingFiles.slice()
+    const ocrFlagsToUpload = this.pendingOcrFlags.slice()
     this.pendingFiles = []
+    this.pendingOcrFlags = []
     this.uploadButtonTarget.disabled = true
     this.previewContainerTarget.classList.add('hidden')
-    this.uploadFiles(filesToUpload)
+    this.uploadFiles(filesToUpload, ocrFlagsToUpload)
   }
 
   escapeHtml(str) {
     return str.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
   }
 
-  uploadFiles(files) {
+  uploadFiles(files, ocrFlags = null) {
     // Hide dropzone
     this.dropzoneTarget.classList.add('hidden')
 
@@ -180,6 +208,9 @@ export default class extends Controller {
     const formData = new FormData()
     for (let i = 0; i < files.length; i++) {
       formData.append('files[]', files[i])
+      if (ocrFlags) {
+        formData.append('ocr_flags[]', ocrFlags[i] ? 'true' : 'false')
+      }
     }
 
     // Add AI method selection if present
@@ -240,6 +271,7 @@ export default class extends Controller {
 
     // Clear any pending preview state
     this.pendingFiles = []
+    this.pendingOcrFlags = []
     this.pendingObjectUrls.forEach(url => URL.revokeObjectURL(url))
     this.pendingObjectUrls = []
     if (this.hasPreviewContainerTarget) {
