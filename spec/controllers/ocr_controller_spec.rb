@@ -209,6 +209,19 @@ RSpec.describe OcrController, type: :controller do
         expect(json_response['success']).to be false
         expect(json_response['error']).to be_present
       end
+
+      it 'defaults a blank ocr_flags entry to include the image' do
+        post :scan, params: {
+          files: [file, file2],
+          ai_method: 'openai_direct',
+          ocr_flags: ['', 'false']
+        }
+
+        expect(captured_args.length).to eq(1)
+
+        ocrresult = OcrResult.last
+        expect(ocrresult.extra_images.count).to eq(1)
+      end
     end
   end
 

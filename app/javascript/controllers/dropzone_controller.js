@@ -144,7 +144,7 @@ export default class extends Controller {
                 class="absolute top-1 left-1 text-xs rounded px-1 leading-5 cursor-pointer ${badgeClass}"
                 data-action="click->dropzone#toggleOcr"
                 data-index="${index}"
-                title="${this.ocrBadgeTitleValue}">
+                title="${this.escapeHtml(this.ocrBadgeTitleValue)}">
           AI
         </button>
       `

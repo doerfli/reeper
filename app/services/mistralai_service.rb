@@ -1,4 +1,7 @@
 class MistralaiService
+  include ImageDataUri
+  include RecipeJsonParser
+
   def initialize
     # API key validation happens at runtime (not initialization) to allow
     # the service to be instantiated even when Mistral AI is not configured.
@@ -10,31 +13,7 @@ class MistralaiService
   end
 
   def ocr_to_markdown(image_file, content_type)
-    # Read and encode the image file as base64
-    image_data = if image_file.respond_to?(:read)
-      # Handle uploaded file (Tempfile)
-      image_file.rewind
-      data = Base64.strict_encode64(image_file.read)
-      image_file.rewind  # Reset for potential subsequent reads
-      data
-    elsif image_file.is_a?(String)
-      # Handle file path
-      File.open(image_file, 'rb') { |f| Base64.strict_encode64(f.read) }
-    else
-      raise ArgumentError, "Invalid image_file type"
-    end
-
-    # Determine the image format from content_type or file extension
-    image_format = case content_type
-      when /jpeg|jpg/ then 'jpeg'
-      when /png/ then 'png'
-      when /webp/ then 'webp'
-      when /heic|heif/ then 'heic'
-      else 'jpeg' # default
-    end
-
-    Rails.logger.debug "Image format detected: #{image_format} for content type: #{content_type}"
-    filedata = "data:image/#{image_format};base64,#{image_data}"
+    filedata = build_data_uri(image_file, content_type)
 
     response = @client.ocr(filedata, kind: :image)
     recognized_markdown = response.pages[0].markdown
@@ -59,20 +38,7 @@ class MistralaiService
     Rails.logger.debug "Mistral AI markdown parsing response: #{completion.text}"
 
     llm_response_text = completion.text.gsub(/```json/, '').gsub(/```/, '')
-
-    begin
-      parsed = JSON.parse(llm_response_text)
-      recipes = parsed['recipes'] || []
-      Rails.logger.warn "No recipes found in Mistral AI response" if recipes.empty?
-      Rails.logger.info "Mistral AI parsed #{recipes.length} recipes from markdown"
-      recipes
-    rescue JSON::ParserError => e
-      Rails.logger.error "Failed to parse Mistral AI markdown response: #{e.message}"
-      raise
-    rescue => e
-      Rails.logger.error "Unexpected error parsing recipes from markdown: #{e.message}"
-      raise
-    end
+    parse_recipes_json(llm_response_text, "Mistral AI markdown parsing", on_error: :raise)
   end
 
   def parse_url_to_recipes(markdown_text)
@@ -89,19 +55,6 @@ class MistralaiService
     Rails.logger.debug "Mistral AI URL parsing response: #{completion.text}"
 
     llm_response_text = completion.text.gsub(/```json/, '').gsub(/```/, '')
-
-    begin
-      parsed = JSON.parse(llm_response_text)
-      recipes = parsed['recipes'] || []
-      Rails.logger.warn "No recipes found in Mistral AI URL response" if recipes.empty?
-      Rails.logger.info "Mistral AI parsed #{recipes.length} recipes from URL markdown"
-      recipes
-    rescue JSON::ParserError => e
-      Rails.logger.error "Failed to parse Mistral AI URL response: #{e.message}"
-      raise
-    rescue => e
-      Rails.logger.error "Unexpected error parsing recipes from URL: #{e.message}"
-      raise
-    end
+    parse_recipes_json(llm_response_text, "Mistral AI URL parsing", on_error: :raise)
   end
 end

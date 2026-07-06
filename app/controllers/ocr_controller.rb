@@ -1,17 +1,11 @@
 class OcrController < ApplicationController
   include Secured
 
-  PAGE_BREAK_MARKER = "\n\n---\n**[NEW SCANNED PAGE]**\n---\n\n"
-
   def scan
     files = Array(params[:files])
     ai_method = params[:ai_method] || 'mistral_only'
     ocr_flags = build_ocr_flags(files)
-
-    ocr_files = []
-    files.each_with_index do |file, index|
-      ocr_files << file if ocr_flags[index]
-    end
+    ocr_files = files.select.with_index { |_, index| ocr_flags[index] }
 
     if ocr_files.empty?
       render json: { success: false, error: I18n.t('ocr.errors.no_images_selected') }
@@ -20,7 +14,7 @@ class OcrController < ApplicationController
 
     begin
       files_with_types = ocr_files.map { |f| [f.tempfile, f.content_type] }
-      magic_data_json = run_ocr(files_with_types, ai_method)
+      magic_data_json = ocr_pipeline.extract_recipes(files_with_types, ai_method)
 
       if magic_data_json.empty?
         raise "No recipes extracted from image"
@@ -140,7 +134,7 @@ class OcrController < ApplicationController
       temp_file.write(image_file)
       temp_file.rewind
 
-      magic_data_json = run_ocr([[temp_file, content_type]], ai_method)
+      magic_data_json = ocr_pipeline.extract_recipes([[temp_file, content_type]], ai_method)
 
       if magic_data_json.empty?
         raise "No recipes extracted from image"
@@ -179,74 +173,22 @@ class OcrController < ApplicationController
 
   private
 
-  # Runs the selected AI pipeline across one or more images and returns the extracted recipes array.
-  # files_with_types is an array of [tempfile, content_type] pairs.
-  def run_ocr(files_with_types, ai_method)
-    case ai_method
-    when 'mistral_only'
-      run_mistral_only(files_with_types)
-    when 'mistral_openai'
-      run_mistral_then_openai(files_with_types)
-    else
-      run_openai_direct(files_with_types)
-    end
-  end
-
-  # Two-phase: Mistral OCR on every image -> combined markdown parsed by Mistral.
-  def run_mistral_only(files_with_types)
-    markdown = combined_ocr_markdown(files_with_types)
-    mistral_service.parse_markdown_to_recipes(markdown)
-  end
-
-  # Two-phase: Mistral OCR on every image -> combined markdown parsed by OpenAI.
-  def run_mistral_then_openai(files_with_types)
-    markdown = combined_ocr_markdown(files_with_types)
-    openai_service.parse_markdown_to_recipes(markdown)
-  end
-
-  # Direct OpenAI OCR: all images are sent in a single vision request.
-  def run_openai_direct(files_with_types)
-    openai_service.ocr_multi(files_with_types)
-  end
-
-  # Runs Mistral OCR on each image in turn, then joins the resulting markdown
-  # pages into one document (separated by PAGE_BREAK_MARKER) for a single parse step.
-  def combined_ocr_markdown(files_with_types)
-    markdowns = []
-
-    files_with_types.each_with_index do |(tempfile, content_type), index|
-      markdown = mistral_service.ocr_to_markdown(tempfile, content_type)
-
-      if markdown.blank?
-        raise "Mistral OCR returned empty markdown for image #{index + 1}"
-      end
-
-      markdowns << markdown
-    end
-
-    markdowns.join(PAGE_BREAK_MARKER)
-  end
+  BOOLEAN_TYPE = ActiveModel::Type::Boolean.new
 
   # Builds a boolean array (same length/order as files) indicating which files should be sent for OCR.
-  # Missing or absent ocr_flags default to true (include all), preserving behavior for callers that
-  # don't send the flag (e.g. the single-image reparse flow, or older clients).
+  # Missing, blank, or unparseable ocr_flags default to true (include all); only an explicit false excludes.
   def build_ocr_flags(files)
     raw_flags = Array(params[:ocr_flags])
     return Array.new(files.length, true) if raw_flags.empty?
 
-    flags = []
-    files.each_index do |index|
-      flag = raw_flags[index]
-      flags << (flag.nil? || ActiveModel::Type::Boolean.new.cast(flag))
-    end
-    flags
+    files.each_index.map { |index| BOOLEAN_TYPE.cast(raw_flags[index]) != false }
+  end
+
+  def ocr_pipeline
+    @ocr_pipeline ||= OcrPipeline.new
   end
 
   def openai_service
     @openai_service ||= OpenaiService.new
-  end
-
-  def mistral_service
-    @mistral_service ||= MistralaiService.new
   end
 end
