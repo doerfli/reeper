@@ -4,7 +4,8 @@
       "Bash(node --input-type=module --check)",
       "Bash(bundle exec *)",
       "Bash(git stash *)",
-      "Bash(bundle exec rails runner ' *)"
+      "Bash(bundle exec rails runner ' *)",
+      "mcp__plugin_context-mode_context-mode__ctx_doctor"
     ]
   }
 }
