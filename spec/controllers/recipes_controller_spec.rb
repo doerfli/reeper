@@ -17,13 +17,8 @@ RSpec.describe RecipesController, type: :controller do
         )
       end
 
-      before do
-        request.flash[:ocr_data] = ocr_result.id
-        request.flash[:recipe_index] = 0
-      end
-
       it 'pre-fills the recipe source with the imported URL' do
-        get :new
+        get :new, flash: { ocr_data: ocr_result.id, recipe_index: 0 }
 
         expect(assigns(:recipe).source).to eq('https://example.com/my-recipe')
       end
@@ -36,13 +31,8 @@ RSpec.describe RecipesController, type: :controller do
         )
       end
 
-      before do
-        request.flash[:ocr_data] = ocr_result.id
-        request.flash[:recipe_index] = 0
-      end
-
       it 'leaves the recipe source blank' do
-        get :new
+        get :new, flash: { ocr_data: ocr_result.id, recipe_index: 0 }
 
         expect(assigns(:recipe).source).to be_blank
       end

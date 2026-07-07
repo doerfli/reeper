@@ -249,7 +249,7 @@ RSpec.describe OcrController, type: :controller do
     end
 
     context 'for reparse flow' do
-      let(:recipe) { Recipe.create!(name: 'Existing Recipe', user_id: 'test_user') }
+      let(:recipe) { Recipe.create!(name: 'Existing Recipe', user_id: create(:user).id) }
 
       it 'redirects to edit recipe path' do
         post :select_recipe, params: {

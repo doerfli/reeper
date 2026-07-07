@@ -47,7 +47,7 @@ RSpec.describe Tag, type: :model do
       r2 = create(:recipe, :name => 'pasta', :tags => r1.tags)
       r2.tags << create(:pasta)
       r2.save
-      t = Tag.sort_by_recipe_count(Tag.with_recipes)
+      t = Tag.with_recipes.to_a
       # sorting by name when same count is not done currently
       # expect(t[0].name).to eq 'Wurst'
       # expect(t[1].name).to eq 'Brot'
