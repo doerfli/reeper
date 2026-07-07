@@ -66,11 +66,13 @@ en:
       uploading: 'AI is deciphering your recipe...'
       reset_button: 'Upload More Images'
       process_button: 'Process Images'
+      ai_badge_hint: 'Click to exclude this image from AI text scanning — it will still be attached as a photo'
     errors:
       parse_failed: 'Failed to parse OCR results. Please try again.'
       processing_failed: 'OCR processing failed. Please try again.'
       not_found: 'OCR result not found'
       invalid_recipe_index: 'Invalid recipe index. Please try again.'
+      no_images_selected: 'Select at least one image to scan'
     warnings:
       ai_generated_data: '🤖 AI did its best - you might want to double-check this!'
   ocr_debug:

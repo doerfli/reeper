@@ -2,34 +2,19 @@ class OcrController < ApplicationController
   include Secured
 
   def scan
-    # Process only the first uploaded file
-    file = params[:files].first
+    files = Array(params[:files])
     ai_method = params[:ai_method] || 'mistral_only'
+    ocr_flags = build_ocr_flags(files)
+    ocr_files = files.select.with_index { |_, index| ocr_flags[index] }
+
+    if ocr_files.empty?
+      render json: { success: false, error: I18n.t('ocr.errors.no_images_selected') }
+      return
+    end
 
     begin
-      # Process based on selected AI method
-      magic_data_json = if ai_method == 'mistral_only'
-        # Two-phase: Mistral OCR -> Mistral parsing
-        markdown = mistral_service.ocr_to_markdown(file.tempfile, file.content_type)
-
-        if markdown.blank?
-          raise "Mistral OCR returned empty markdown"
-        end
-
-        mistral_service.parse_markdown_to_recipes(markdown)
-      elsif ai_method == 'mistral_openai'
-        # Two-phase: Mistral OCR -> OpenAI parsing
-        markdown = mistral_service.ocr_to_markdown(file.tempfile, file.content_type)
-
-        if markdown.blank?
-          raise "Mistral OCR returned empty markdown"
-        end
-
-        openai_service.parse_markdown_to_recipes(markdown)
-      else
-        # Direct OpenAI OCR
-        openai_service.ocr(file.tempfile, file.content_type)
-      end
+      files_with_types = ocr_files.map { |f| [f.tempfile, f.content_type] }
+      magic_data_json = ocr_pipeline.extract_recipes(files_with_types, ai_method)
 
       if magic_data_json.empty?
         raise "No recipes extracted from image"
@@ -39,11 +24,11 @@ class OcrController < ApplicationController
 
       # Save full OCR result array to database and store id in flash to avoid flash size limits
       ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: ai_method)
-      ocrresult.image.attach(file)
+      ocrresult.image.attach(files.first)
       ocrresult.save
 
-      if params[:files].length > 1
-        params[:files][1..].each { |f| ocrresult.extra_images.attach(f) }
+      if files.length > 1
+        files[1..].each { |f| ocrresult.extra_images.attach(f) }
       end
 
       logger.debug "OCR data id stored in flash: #{ocrresult.id}"
@@ -149,29 +134,7 @@ class OcrController < ApplicationController
       temp_file.write(image_file)
       temp_file.rewind
 
-      # Process based on selected AI method
-      magic_data_json = if ai_method == 'mistral_only'
-        # Two-phase: Mistral OCR -> Mistral parsing
-        markdown = mistral_service.ocr_to_markdown(temp_file, content_type)
-
-        if markdown.blank?
-          raise "Mistral OCR returned empty markdown"
-        end
-
-        mistral_service.parse_markdown_to_recipes(markdown)
-      elsif ai_method == 'mistral_openai'
-        # Two-phase: Mistral OCR -> OpenAI parsing
-        markdown = mistral_service.ocr_to_markdown(temp_file, content_type)
-
-        if markdown.blank?
-          raise "Mistral OCR returned empty markdown"
-        end
-
-        openai_service.parse_markdown_to_recipes(markdown)
-      else
-        # Direct OpenAI OCR
-        openai_service.ocr(temp_file, content_type)
-      end
+      magic_data_json = ocr_pipeline.extract_recipes([[temp_file, content_type]], ai_method)
 
       if magic_data_json.empty?
         raise "No recipes extracted from image"
@@ -210,11 +173,22 @@ class OcrController < ApplicationController
 
   private
 
-  def openai_service
-    @openai_service ||= OpenaiService.new
+  BOOLEAN_TYPE = ActiveModel::Type::Boolean.new
+
+  # Builds a boolean array (same length/order as files) indicating which files should be sent for OCR.
+  # Missing, blank, or unparseable ocr_flags default to true (include all); only an explicit false excludes.
+  def build_ocr_flags(files)
+    raw_flags = Array(params[:ocr_flags])
+    return Array.new(files.length, true) if raw_flags.empty?
+
+    files.each_index.map { |index| BOOLEAN_TYPE.cast(raw_flags[index]) != false }
   end
 
-  def mistral_service
-    @mistral_service ||= MistralaiService.new
+  def ocr_pipeline
+    @ocr_pipeline ||= OcrPipeline.new
+  end
+
+  def openai_service
+    @openai_service ||= OpenaiService.new
   end
 end

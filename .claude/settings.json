@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --input-type=module --check)",
+      "Bash(bundle exec *)",
+      "Bash(git stash *)",
+      "Bash(bundle exec rails runner ' *)"
+    ]
+  }
+}

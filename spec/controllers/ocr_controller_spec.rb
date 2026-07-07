@@ -15,6 +15,13 @@ RSpec.describe OcrController, type: :controller do
 
   describe 'POST #scan' do
     let(:file) { fixture_file_upload('spec/fixtures/test_image.jpg', 'image/jpeg') }
+    let(:file2) { fixture_file_upload('spec/fixtures/test_image.jpg', 'image/jpeg') }
+    let(:file3) { fixture_file_upload('spec/fixtures/test_image.jpg', 'image/jpeg') }
+    let(:mistral_service) { instance_double(MistralaiService) }
+
+    before do
+      allow(MistralaiService).to receive(:new).and_return(mistral_service)
+    end
 
     context 'with single recipe response' do
       let(:single_recipe) do
@@ -26,11 +33,11 @@ RSpec.describe OcrController, type: :controller do
       end
 
       before do
-        allow(openai_service).to receive(:ocr).and_return(single_recipe)
+        allow(openai_service).to receive(:ocr_multi).and_return(single_recipe)
       end
 
       it 'creates OCR result and redirects to new recipe path' do
-        post :scan, params: { files: [file] }
+        post :scan, params: { files: [file], ai_method: 'openai_direct' }
 
         expect(response).to have_http_status(:success)
         json_response = JSON.parse(response.body)
@@ -39,7 +46,7 @@ RSpec.describe OcrController, type: :controller do
       end
 
       it 'stores OCR data in flash' do
-        post :scan, params: { files: [file] }
+        post :scan, params: { files: [file], ai_method: 'openai_direct' }
 
         expect(flash[:ocr_data]).to be_present
         expect(flash[:recipe_index]).to eq(0)
@@ -63,11 +70,11 @@ RSpec.describe OcrController, type: :controller do
       end
 
       before do
-        allow(openai_service).to receive(:ocr).and_return(multiple_recipes)
+        allow(openai_service).to receive(:ocr_multi).and_return(multiple_recipes)
       end
 
       it 'redirects to recipe selection page' do
-        post :scan, params: { files: [file] }
+        post :scan, params: { files: [file], ai_method: 'openai_direct' }
 
         expect(response).to have_http_status(:success)
         json_response = JSON.parse(response.body)
@@ -76,7 +83,7 @@ RSpec.describe OcrController, type: :controller do
       end
 
       it 'does not store data in flash immediately' do
-        post :scan, params: { files: [file] }
+        post :scan, params: { files: [file], ai_method: 'openai_direct' }
 
         expect(flash[:ocr_data]).to be_nil
       end
@@ -84,16 +91,136 @@ RSpec.describe OcrController, type: :controller do
 
     context 'with OCR error' do
       before do
-        allow(openai_service).to receive(:ocr).and_raise(StandardError.new('API Error'))
+        allow(openai_service).to receive(:ocr_multi).and_raise(StandardError.new('API Error'))
       end
 
       it 'returns error response' do
-        post :scan, params: { files: [file] }
+        post :scan, params: { files: [file], ai_method: 'openai_direct' }
 
         expect(response).to have_http_status(:success)
         json_response = JSON.parse(response.body)
         expect(json_response['success']).to be false
         expect(json_response['error']).to be_present
+      end
+    end
+
+    context 'with multiple uploaded images (openai_direct)' do
+      let(:single_recipe) { [{ 'title' => 'Multi-page Recipe' }] }
+      let(:captured_args) { [] }
+
+      before do
+        allow(openai_service).to receive(:ocr_multi) { |args| captured_args.replace(args); single_recipe }
+      end
+
+      it 'sends all files in a single ocr_multi call' do
+        post :scan, params: { files: [file, file2], ai_method: 'openai_direct' }
+
+        expect(openai_service).to have_received(:ocr_multi).once
+        expect(captured_args.length).to eq(2)
+      end
+
+      it 'attaches the first file as image and the rest as extra_images' do
+        post :scan, params: { files: [file, file2], ai_method: 'openai_direct' }
+
+        ocrresult = OcrResult.last
+        expect(ocrresult.image).to be_attached
+        expect(ocrresult.extra_images.count).to eq(1)
+      end
+    end
+
+    context 'with multiple uploaded images (mistral_only)' do
+      let(:single_recipe) { [{ 'title' => 'Multi-page Recipe' }] }
+      let(:captured_markdown) { [] }
+
+      before do
+        allow(mistral_service).to receive(:ocr_to_markdown).and_return('page one markdown', 'page two markdown')
+        allow(mistral_service).to receive(:parse_markdown_to_recipes) { |markdown| captured_markdown << markdown; single_recipe }
+      end
+
+      it 'OCRs every image and parses the combined, ordered markdown once' do
+        post :scan, params: { files: [file, file2], ai_method: 'mistral_only' }
+
+        expect(mistral_service).to have_received(:ocr_to_markdown).twice
+        expect(mistral_service).to have_received(:parse_markdown_to_recipes).once
+        combined = captured_markdown.first
+        expect(combined).to include('page one markdown')
+        expect(combined).to include('page two markdown')
+        expect(combined.index('page one markdown')).to be < combined.index('page two markdown')
+      end
+    end
+
+    context 'when one of several images fails OCR (mistral_only)' do
+      before do
+        call_count = 0
+        allow(mistral_service).to receive(:ocr_to_markdown) do
+          call_count += 1
+          call_count == 1 ? 'page one markdown' : raise(StandardError, 'Mistral API Error')
+        end
+      end
+
+      it 'fails the whole request and does not create an OcrResult' do
+        expect {
+          post :scan, params: { files: [file, file2], ai_method: 'mistral_only' }
+        }.not_to change(OcrResult, :count)
+
+        json_response = JSON.parse(response.body)
+        expect(json_response['success']).to be false
+      end
+    end
+
+    context 'with per-image ocr_flags opt-out' do
+      let(:single_recipe) { [{ 'title' => 'Test Recipe' }] }
+      let(:captured_args) { [] }
+
+      before do
+        allow(openai_service).to receive(:ocr_multi) { |args| captured_args.replace(args); single_recipe }
+      end
+
+      it 'only sends flagged-in files for OCR but attaches all files' do
+        post :scan, params: {
+          files: [file, file2, file3],
+          ai_method: 'openai_direct',
+          ocr_flags: ['true', 'false', 'true']
+        }
+
+        expect(captured_args.length).to eq(2)
+
+        ocrresult = OcrResult.last
+        expect(ocrresult.extra_images.count).to eq(2)
+      end
+
+      it 'defaults to including all files when ocr_flags is omitted' do
+        post :scan, params: { files: [file, file2], ai_method: 'openai_direct' }
+
+        expect(captured_args.length).to eq(2)
+      end
+
+      it 'rejects the request when every image is excluded' do
+        expect {
+          post :scan, params: {
+            files: [file, file2],
+            ai_method: 'openai_direct',
+            ocr_flags: ['false', 'false']
+          }
+        }.not_to change(OcrResult, :count)
+
+        expect(openai_service).not_to have_received(:ocr_multi)
+        json_response = JSON.parse(response.body)
+        expect(json_response['success']).to be false
+        expect(json_response['error']).to be_present
+      end
+
+      it 'defaults a blank ocr_flags entry to include the image' do
+        post :scan, params: {
+          files: [file, file2],
+          ai_method: 'openai_direct',
+          ocr_flags: ['', 'false']
+        }
+
+        expect(captured_args.length).to eq(1)
+
+        ocrresult = OcrResult.last
+        expect(ocrresult.extra_images.count).to eq(1)
       end
     end
   end

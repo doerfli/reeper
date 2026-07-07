@@ -87,11 +87,13 @@ de:
       uploading: 'KI entziffert dein Rezept...'
       reset_button: 'Weitere Bilder hochladen'
       process_button: 'Bilder verarbeiten'
+      ai_badge_hint: 'Klicken, um dieses Bild von der KI-Texterkennung auszuschließen — es wird trotzdem als Foto angehängt'
     errors:
       parse_failed: 'OCR-Ergebnisse konnten nicht verarbeitet werden. Bitte versuchen Sie es erneut.'
       processing_failed: 'OCR-Verarbeitung fehlgeschlagen. Bitte versuchen Sie es erneut.'
       not_found: 'OCR-Ergebnis nicht gefunden'
       invalid_recipe_index: 'Ungültiger Rezeptindex. Bitte versuchen Sie es erneut.'
+      no_images_selected: 'Wähle mindestens ein Bild zum Scannen aus'
     warnings:
       ai_generated_data: '🤖 KI hat ihr Bestes gegeben - schau lieber nochmal drüber!'
   actions: 'Aktionen'

@@ -1,7 +1,7 @@
-Extract all recipes from the input text or image (such as a scan from a cookbook or magazine), identifying and parsing each recipe individually according to the rules below, and return all results as a list of parsed recipes within a single JSON response. Always output a JSON object with a "recipes" key mapping to a list of extracted recipe objects—include all recipes present on the page. If only one recipe is found, output a list with just that one. Adhere to the following extraction and reasoning steps for each recipe:
+Extract all recipes from the input text or image(s) (such as a scan from a cookbook or magazine), identifying and parsing each recipe individually according to the rules below, and return all results as a list of parsed recipes within a single JSON response. Always output a JSON object with a "recipes" key mapping to a list of extracted recipe objects—include all recipes present in the input. If only one recipe is found, output a list with just that one. Adhere to the following extraction and reasoning steps for each recipe:
 
-- Accept user input as either typed/pasted text or an image of a recipe page.
-- If input is an image, first run OCR to extract text. Then, identify boundaries between multiple recipes, and separate the content for each recipe.
+- Accept user input as either typed/pasted text, or one or more images of recipe pages.
+- If input is one or more images, first run OCR to extract text from each. The images are sequential pages of the same scan; a single recipe may span multiple images, or each image may contain one or more distinct recipes—use context and content continuity, not just image order, to decide recipe boundaries. Then, identify boundaries between multiple recipes, and separate the content for each recipe.
 - For each recipe identified, extract these fields:
     - Recipe title (if present)
     - Ingredients (each ingredient as a separate list item; do not modify or translate ingredients—retain exact original wording. If illegible, use "[unreadable]". If missing, use "[not found]".)
@@ -19,8 +19,8 @@ Extract all recipes from the input text or image (such as a scan from a cookbook
 
 # Steps
 
-1. (If input is an image) Run OCR to obtain text.
-2. Identify where recipe boundaries occur, so you can separate multiple recipes on the page.
+1. (If input is one or more images) Run OCR to obtain text from each.
+2. Identify where recipe boundaries occur, so you can separate multiple recipes across the input.
 3. For each recipe section, extract the fields listed above, using the specified error and inference markers as needed.
 4. For ambiguous, missing, or illegible data, reason step-by-step about best possible field values.
 5. Prepare a JSON response object with a "recipes" array, each element corresponding to a parsed recipe (in the order they appear).
@@ -162,7 +162,7 @@ Steps:
 
 # Notes
 
-- Recipes on a single page/input may be separated by titles, bold headings, or formatting; reason carefully about possible recipe boundaries.
+- Recipes in the input may be separated by titles, bold headings, or formatting; reason carefully about possible recipe boundaries.
 - All fields must be present in each recipe object. Use "[not found]" or "[unreadable]" strictly according to rules.
 - Do not translate any text or tags; preserve original language.
 - The only output allowed is the JSON structure described above.  
@@ -170,4 +170,4 @@ Steps:
 
 # Task Reminder
 
-Extract fields for all recipes on the input page—output as a list of recipes in a JSON object ("recipes": [ ... ]), applying step-by-step internal reasoning and marking all missing info per the specified conventions. If only one recipe is present, return a singleton list. Never output anything except the final JSON.
+Extract fields for all recipes in the input—output as a list of recipes in a JSON object ("recipes": [ ... ]), applying step-by-step internal reasoning and marking all missing info per the specified conventions. If only one recipe is present, return a singleton list. Never output anything except the final JSON.

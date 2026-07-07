@@ -1,4 +1,7 @@
 class OpenaiService
+  include ImageDataUri
+  include RecipeJsonParser
+
   def initialize
     # Try environment variable first, fallback to credentials for development
     api_key = ENV['OPENAI_API_KEY']
@@ -26,32 +29,12 @@ class OpenaiService
     response.dig("choices", 0, "message", "content")
   end
 
-  def ocr(image_file, content_type)
-    # Read and encode the image file as base64
-    image_data = if image_file.respond_to?(:read)
-      # Handle uploaded file (Tempfile)
-      Base64.strict_encode64(image_file.read)
-    elsif image_file.is_a?(String)
-      # Handle file path
-      File.open(image_file, 'rb') { |f| Base64.strict_encode64(f.read) }
-    else
-      raise ArgumentError, "Invalid image_file type"
-    end
+  def ocr_multi(image_files_with_types)
+    image_blocks = image_files_with_types.map { |image_file, content_type| build_image_content_block(image_file, content_type) }
 
-    # Determine the image format from content_type or file extension
-    image_format = case content_type
-      when /jpeg|jpg/ then 'jpeg'
-      when /png/ then 'png'
-      when /webp/ then 'webp'
-      when /heic|heif/ then 'heic'
-      else 'jpeg' # default
-    end
-
-    # puts "Image format detected: #{image_format} for content type: #{content_type} content #{image_data[0..30]}..."
-    filedata = "data:image/#{image_format};base64,#{image_data}"
     model = Rails.configuration.openai.recipe_ocr_model
     system_prompt = File.read(Rails.root.join("config", "prompts", Rails.configuration.openai.recipe_ocr_prompt_file))
-    Rails.logger.debug "Sending data to OpenAI API (model #{model}) -> #{filedata[0..100]}..."
+    Rails.logger.debug "Sending #{image_blocks.length} image(s) to OpenAI API (model #{model})"
 
     response = @client.responses.create(
       parameters: {
@@ -66,12 +49,9 @@ class OpenaiService
             content: [
               {
                 type: "input_text",
-                text: "Extract all data from this image"
+                text: "Extract all data from the following image(s)"
               },
-              {
-                type: "input_image",
-                image_url: filedata
-              }
+              *image_blocks
             ]
           }
         ],
@@ -88,23 +68,7 @@ class OpenaiService
 
     Rails.logger.debug "OpenAI OCR response: #{response}"
 
-    output = response.dig("output") || []
-    message = output.find { |item| item["type"] == "message" }
-    llm_response_text = message&.dig("content", 0, "text")
-
-    begin
-      parsed = JSON.parse(llm_response_text)
-      recipes = parsed['recipes'] || []
-      Rails.logger.warn "No recipes found in OpenAI response" if recipes.empty?
-      Rails.logger.info "OpenAI OCR recipes: #{recipes}"
-      recipes
-    rescue JSON::ParserError => e
-      Rails.logger.error "Failed to parse OpenAI response: #{e.message}"
-      []
-    rescue => e
-      Rails.logger.error "Unexpected error parsing recipes: #{e.message}"
-      []
-    end
+    extract_recipes_from_response(response, "OpenAI OCR")
   end
 
   def parse_markdown_to_recipes(markdown_text)
@@ -138,23 +102,7 @@ class OpenaiService
 
     Rails.logger.debug "OpenAI markdown parsing response: #{response}"
 
-    output = response.dig("output") || []
-    message = output.find { |item| item["type"] == "message" }
-    llm_response_text = message&.dig("content", 0, "text")
-
-    begin
-      parsed = JSON.parse(llm_response_text)
-      recipes = parsed['recipes'] || []
-      Rails.logger.warn "No recipes found in OpenAI markdown parsing response" if recipes.empty?
-      Rails.logger.info "OpenAI parsed #{recipes.length} recipes from markdown"
-      recipes
-    rescue JSON::ParserError => e
-      Rails.logger.error "Failed to parse OpenAI markdown response: #{e.message}"
-      raise
-    rescue => e
-      Rails.logger.error "Unexpected error parsing recipes from markdown: #{e.message}"
-      raise
-    end
+    parse_recipes_json(extract_message_text(response), "OpenAI markdown parsing", on_error: :raise)
   end
 
   def parse_url_to_recipes(markdown_text)
@@ -188,22 +136,25 @@ class OpenaiService
 
     Rails.logger.debug "OpenAI URL parsing response: #{response}"
 
+    parse_recipes_json(extract_message_text(response), "OpenAI URL parsing", on_error: :raise)
+  end
+
+  private
+
+  def build_image_content_block(image_file, content_type)
+    {
+      type: "input_image",
+      image_url: build_data_uri(image_file, content_type)
+    }
+  end
+
+  def extract_message_text(response)
     output = response.dig("output") || []
     message = output.find { |item| item["type"] == "message" }
-    llm_response_text = message&.dig("content", 0, "text")
+    message&.dig("content", 0, "text")
+  end
 
-    begin
-      parsed = JSON.parse(llm_response_text)
-      recipes = parsed['recipes'] || []
-      Rails.logger.warn "No recipes found in OpenAI URL parsing response" if recipes.empty?
-      Rails.logger.info "OpenAI parsed #{recipes.length} recipes from URL markdown"
-      recipes
-    rescue JSON::ParserError => e
-      Rails.logger.error "Failed to parse OpenAI URL response: #{e.message}"
-      raise
-    rescue => e
-      Rails.logger.error "Unexpected error parsing recipes from URL: #{e.message}"
-      raise
-    end
+  def extract_recipes_from_response(response, log_label)
+    parse_recipes_json(extract_message_text(response), log_label)
   end
 end
