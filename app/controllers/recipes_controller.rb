@@ -158,6 +158,7 @@ class RecipesController < ApplicationController
     recipe.name = ocr_data['title'] if ocr_data['title'].present?
     recipe.ingredients = format_ingredients_as_html(ocr_data['ingredients']) if ocr_data['ingredients'].present?
     recipe.instructions = format_steps_as_html(ocr_data['steps']) if ocr_data['steps'].present?
+    recipe.source = @ocrresult.source_url if @ocrresult.source_url.present?
 
     # Extract suggested tags from OCR data
     if ocr_data['tags'].present? && ocr_data['tags'].is_a?(Array)

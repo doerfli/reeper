@@ -32,7 +32,7 @@ class UrlImportController < ApplicationController
         redirect_to new_url_recipes_path and return
       end
 
-      ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: used_ai_method)
+      ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: used_ai_method, source_url: url)
 
       if magic_data_json.length > 1
         redirect_to select_recipe_ocr_path(ocrresult.id)
