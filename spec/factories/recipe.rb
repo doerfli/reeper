@@ -12,6 +12,7 @@ FactoryBot.define do
         r.tags << create(:brot)
         r.tags << create(:wurst)
       end
+      r.update_tags_count
     end
   end
 end
