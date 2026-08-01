@@ -18,7 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 # fix for CVE-2026-41316
-gem 'erb', '~> 6.0.4'
+gem 'erb', '~> 6.0.6'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 5.0.0'
@@ -109,4 +109,4 @@ gem 'connection_pool', '~> 3.0'
 gem "zlib", ">= 3.2.3"
 
 # fix for CVE-2026-54904
-gem "concurrent-ruby", "~> 1.3.7"
+gem "concurrent-ruby", "~> 1.3.8"
