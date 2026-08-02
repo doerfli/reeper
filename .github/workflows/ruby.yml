@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7.0.0
-    - uses: ruby/setup-ruby@v1.314.0
+    - uses: ruby/setup-ruby@v1.321.0
       with:
         ruby-version: '4.0.5'
         bundler-cache: true
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7.0.0
-    - uses: ruby/setup-ruby@v1.314.0
+    - uses: ruby/setup-ruby@v1.321.0
       with:
         ruby-version: '4.0.5'
         bundler-cache: true
@@ -33,7 +33,7 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #   - uses: actions/checkout@v7.0.0
-  #   - uses: ruby/setup-ruby@v1.314.0
+  #   - uses: ruby/setup-ruby@v1.321.0
   #     with:
   #       ruby-version: '4.0.3'
   #       bundler-cache: true
