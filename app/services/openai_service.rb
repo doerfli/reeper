@@ -139,7 +139,46 @@ class OpenaiService
     parse_recipes_json(extract_message_text(response), "OpenAI URL parsing", on_error: :raise)
   end
 
+  # candidates is an array of { url:, alt: } hashes. Returns the index of the
+  # image showing the finished dish, or nil when none of them qualifies.
+  def select_main_image(candidates)
+    model = Rails.configuration.openai.image_select_model
+    system_prompt = File.read(Rails.root.join("config", "prompts", Rails.configuration.openai.image_select_prompt_file))
+    Rails.logger.debug "Sending #{candidates.length} image candidate(s) to OpenAI API (model #{model})"
+
+    response = @client.responses.create(
+      parameters: {
+        model: model,
+        input: [
+          {
+            role: "system",
+            content: system_prompt
+          },
+          {
+            role: "user",
+            content: [
+              {
+                type: "input_text",
+                text: image_candidates_payload(candidates)
+              }
+            ]
+          }
+        ]
+      }
+    )
+
+    Rails.logger.debug "OpenAI image selection response: #{response}"
+
+    parse_image_index_json(extract_message_text(response), "OpenAI image selection")
+  end
+
   private
+
+  def image_candidates_payload(candidates)
+    candidates.each_with_index.map { |candidate, index|
+      { index: index, url: candidate[:url], alt: candidate[:alt] }
+    }.to_json
+  end
 
   def build_image_content_block(image_file, content_type)
     {

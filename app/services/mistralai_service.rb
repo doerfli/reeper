@@ -57,4 +57,31 @@ class MistralaiService
     llm_response_text = completion.text.gsub(/```json/, '').gsub(/```/, '')
     parse_recipes_json(llm_response_text, "Mistral AI URL parsing", on_error: :raise)
   end
+
+  # candidates is an array of { url:, alt: } hashes. Returns the index of the
+  # image showing the finished dish, or nil when none of them qualifies.
+  def select_main_image(candidates)
+    Rails.logger.debug "Sending #{candidates.length} image candidate(s) to Mistral AI API for selection"
+
+    system_prompt_file_path = Rails.root.join("config", "prompts", Rails.configuration.mistral.image_select_prompt_file)
+    system_prompt = File.read(system_prompt_file_path)
+
+    completion = @client.chat(model: Rails.configuration.mistral.image_select_model) do |chat|
+      chat.system(system_prompt)
+      chat.user(image_candidates_payload(candidates))
+    end
+
+    Rails.logger.debug "Mistral AI image selection response: #{completion.text}"
+
+    llm_response_text = completion.text.gsub(/```json/, '').gsub(/```/, '')
+    parse_image_index_json(llm_response_text, "Mistral AI image selection")
+  end
+
+  private
+
+  def image_candidates_payload(candidates)
+    candidates.each_with_index.map { |candidate, index|
+      { index: index, url: candidate[:url], alt: candidate[:alt] }
+    }.to_json
+  end
 end

@@ -33,6 +33,7 @@ class UrlImportController < ApplicationController
       end
 
       ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: used_ai_method, source_url: url)
+      attach_main_image(ocrresult, url, ai_method)
 
       if magic_data_json.length > 1
         redirect_to select_recipe_ocr_path(ocrresult.id)
@@ -49,6 +50,18 @@ class UrlImportController < ApplicationController
   end
 
   private
+
+  # Best effort - a recipe without its picture is still a successful import, so
+  # any failure here is logged and swallowed.
+  def attach_main_image(ocrresult, url, ai_method)
+    image = RecipeImageDetector.new(ai_method: ai_method).detect(url)
+    return if image.nil?
+
+    ocrresult.image.attach(io: image[:io], filename: image[:filename], content_type: image[:content_type])
+    logger.info "Attached main image #{image[:url]} to OcrResult #{ocrresult.id}"
+  rescue => e
+    logger.error "Could not attach main image for #{url}: #{e.message}"
+  end
 
   def valid_url?(url)
     uri = URI.parse(url)

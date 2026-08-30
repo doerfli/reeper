@@ -14,4 +14,15 @@ module RecipeJsonParser
     raise if on_error == :raise
     []
   end
+
+  # Parses the { "index": <n|null> } answer of the main-image selection prompt.
+  # Returns an Integer or nil - nil means "none of the candidates is the dish".
+  def parse_image_index_json(text, log_label)
+    index = JSON.parse(text.to_s)['index']
+    Rails.logger.info "#{log_label} selected image index: #{index.inspect}"
+    index.is_a?(Integer) ? index : nil
+  rescue JSON::ParserError => e
+    Rails.logger.error "Failed to parse #{log_label} response: #{e.message}"
+    nil
+  end
 end
