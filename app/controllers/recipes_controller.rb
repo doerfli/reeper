@@ -61,7 +61,9 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = session[:userinfo]['id']
 
-    if (params[:ocrresult_id].present?)
+    # The checkbox is only rendered when an image is attached; when it is absent
+    # from the params the historic behaviour (always attach) applies.
+    if params[:ocrresult_id].present? && params[:attach_ocr_image].to_s != '0'
       ocrresult = OcrResult.find_by(id: params[:ocrresult_id])
       if ocrresult.present?
         @recipe.recipe_images.attach(ocrresult.image.blob) if ocrresult.image.attached?

@@ -6,7 +6,8 @@
       "Bash(git stash *)",
       "Bash(bundle exec rails runner ' *)",
       "mcp__plugin_context-mode_context-mode__ctx_doctor",
-      "Bash(gem contents *)"
+      "Bash(gem contents *)",
+      "Bash(bin/rails runner *)"
     ]
   }
 }

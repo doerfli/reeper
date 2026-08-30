@@ -8,4 +8,6 @@ Rails.application.configure do
   config.openai.recipe_markdown_prompt_file = ENV.fetch('OPENAI_MARKDOWN_PROMPT_FILE', 'openai_markdown.txt')
   config.openai.recipe_url_model = ENV.fetch('OPENAI_URL_MODEL', openai_default_model)
   config.openai.recipe_url_prompt_file = ENV.fetch('OPENAI_URL_PROMPT_FILE', 'openai_url.txt')
+  config.openai.image_select_model = ENV.fetch('OPENAI_IMAGE_SELECT_MODEL', openai_default_model)
+  config.openai.image_select_prompt_file = ENV.fetch('OPENAI_IMAGE_SELECT_PROMPT_FILE', 'openai_image_select.txt')
 end

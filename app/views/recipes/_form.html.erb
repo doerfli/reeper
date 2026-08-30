@@ -80,6 +80,21 @@
         <%= f.text_field :source, placeholder: t('recipes.form.placeholder.source'), autocomplete: 'off' %>
       </div>
     </div>
+    <% if @ocrresult.present? && @ocrresult.image.attached? %>
+      <div class="mb-4">
+        <div class="mb-2"><%= t('recipes.form.main_image') %></div>
+        <div class="flex items-center gap-3">
+          <%= image_tag @ocrresult.image.variant(resize_to_fit: [300, 300]),
+                        class: 'rounded shadow max-h-40',
+                        alt: t('recipes.form.main_image') %>
+          <%= hidden_field_tag :attach_ocr_image, '0', id: nil %>
+          <label for="attach_ocr_image" class="flex items-center gap-2 text-sm">
+            <%= check_box_tag :attach_ocr_image, '1', true %>
+            <%= t('recipes.form.attach_main_image') %>
+          </label>
+        </div>
+      </div>
+    <% end %>
     <%= hidden_field_tag :ocrresult_id, @ocrresult.id if @ocrresult.present? %>
     <div class="mb-4">
       <div class="flex gap-2">

@@ -9,4 +9,6 @@ Rails.application.configure do
   config.mistral.markdown_prompt_file = ENV.fetch('MISTRAL_MARKDOWN_PROMPT_FILE', mistral_markdown_prompt_file)
   config.mistral.url_model = ENV.fetch('MISTRAL_URL_MODEL', mistral_url_model)
   config.mistral.url_prompt_file = ENV.fetch('MISTRAL_URL_PROMPT_FILE', mistral_url_prompt_file)
+  config.mistral.image_select_model = ENV.fetch('MISTRAL_IMAGE_SELECT_MODEL', mistral_markdown_model)
+  config.mistral.image_select_prompt_file = ENV.fetch('MISTRAL_IMAGE_SELECT_PROMPT_FILE', 'mistral_image_select.txt')
 end
