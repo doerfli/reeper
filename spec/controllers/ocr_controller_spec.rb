@@ -119,12 +119,26 @@ RSpec.describe OcrController, type: :controller do
         expect(captured_args.length).to eq(2)
       end
 
-      it 'attaches the first file as image and the rest as extra_images' do
+      it 'attaches every uploaded file' do
         post :scan, params: { files: [file, file2], ai_method: 'openai_direct' }
 
         ocrresult = OcrResult.last
-        expect(ocrresult.image).to be_attached
-        expect(ocrresult.extra_images.count).to eq(1)
+        expect(ocrresult.images).to be_attached
+        expect(ocrresult.images.count).to eq(2)
+      end
+
+      it 'keeps the images in upload order, first file first' do
+        first = Rack::Test::UploadedFile.new(
+          'spec/fixtures/test_image.jpg', 'image/jpeg', original_filename: 'first.jpg'
+        )
+        second = Rack::Test::UploadedFile.new(
+          'spec/fixtures/test_image.jpg', 'image/jpeg', original_filename: 'second.jpg'
+        )
+
+        post :scan, params: { files: [first, second], ai_method: 'openai_direct' }
+
+        filenames = OcrResult.last.ordered_images.map { |a| a.blob.filename.to_s }
+        expect(filenames).to eq(['first.jpg', 'second.jpg'])
       end
     end
 
@@ -186,7 +200,7 @@ RSpec.describe OcrController, type: :controller do
         expect(captured_args.length).to eq(2)
 
         ocrresult = OcrResult.last
-        expect(ocrresult.extra_images.count).to eq(2)
+        expect(ocrresult.images.count).to eq(3)
       end
 
       it 'defaults to including all files when ocr_flags is omitted' do
@@ -220,7 +234,7 @@ RSpec.describe OcrController, type: :controller do
         expect(captured_args.length).to eq(1)
 
         ocrresult = OcrResult.last
-        expect(ocrresult.extra_images.count).to eq(1)
+        expect(ocrresult.images.count).to eq(2)
       end
     end
   end

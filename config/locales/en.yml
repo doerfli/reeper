@@ -42,8 +42,9 @@ en:
       parsing: 'AI is studying your recipe...'
     form:
       ai_suggested_tags: 'AI Suggested Tags'
-      main_image: 'Main picture'
-      attach_main_image: 'Add this picture to the recipe'
+      import_images: 'Pictures from the import'
+      attach_image: 'Add to recipe'
+      image_alt: 'Imported picture %{number}'
   nav:
     recipes: 'Recipes'
     new_recipe: 'New Recipe'

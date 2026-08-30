@@ -13,7 +13,7 @@ class OcrDebugController < ApplicationController
 
     # Create OcrResult and attach the image
     ocr_result = OcrResult.create(result: markdown)
-    ocr_result.image.attach(file)
+    ocr_result.images.attach(file)
     ocr_result.save
 
     # Return JSON with redirect to show page

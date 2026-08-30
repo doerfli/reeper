@@ -80,18 +80,25 @@
         <%= f.text_field :source, placeholder: t('recipes.form.placeholder.source'), autocomplete: 'off' %>
       </div>
     </div>
-    <% if @ocrresult.present? && @ocrresult.image.attached? %>
+    <% if @ocrresult.present? && @ocrresult.images.attached? %>
       <div class="mb-4">
-        <div class="mb-2"><%= t('recipes.form.main_image') %></div>
-        <div class="flex items-center gap-3">
-          <%= image_tag @ocrresult.image.variant(resize_to_fit: [300, 300]),
-                        class: 'rounded shadow max-h-40',
-                        alt: t('recipes.form.main_image') %>
-          <%= hidden_field_tag :attach_ocr_image, '0', id: nil %>
-          <label for="attach_ocr_image" class="flex items-center gap-2 text-sm">
-            <%= check_box_tag :attach_ocr_image, '1', true %>
-            <%= t('recipes.form.attach_main_image') %>
-          </label>
+        <div class="mb-2"><%= t('recipes.form.import_images') %></div>
+        <%# Always submitted, so an all-unchecked gallery is distinguishable from no gallery %>
+        <%= hidden_field_tag 'attach_ocr_image_ids[]', '', id: nil %>
+        <div class="flex flex-wrap gap-4">
+          <% @ocrresult.ordered_images.each_with_index do |attachment, index| %>
+            <div class="flex flex-col gap-2">
+              <%= image_tag attachment.variant(resize_to_fit: [300, 300]),
+                            class: 'rounded shadow max-h-40',
+                            alt: t('recipes.form.image_alt', number: index + 1) %>
+              <label for="attach_ocr_image_<%= index %>" class="flex items-center gap-2 text-sm">
+                <%= check_box_tag 'attach_ocr_image_ids[]', attachment.id,
+                                  ocr_image_checked?(attachment),
+                                  id: "attach_ocr_image_#{index}" %>
+                <%= t('recipes.form.attach_image') %>
+              </label>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>

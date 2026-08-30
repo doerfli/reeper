@@ -31,8 +31,9 @@ de:
       parsing: 'KI studiert das Rezept...'
     form:
       ai_suggested_tags: 'KI-Vorschläge'
-      main_image: 'Hauptbild'
-      attach_main_image: 'Dieses Bild zum Rezept hinzufügen'
+      import_images: 'Bilder aus dem Import'
+      attach_image: 'Zum Rezept hinzufügen'
+      image_alt: 'Importiertes Bild %{number}'
       placeholder:
         name: 'Wie heisst das Rezept?'
         ingredients: 'Welche Zutaten benötigt man für das Rezept?'

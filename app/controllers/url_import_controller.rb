@@ -57,7 +57,7 @@ class UrlImportController < ApplicationController
     image = RecipeImageDetector.new(ai_method: ai_method).detect(url)
     return if image.nil?
 
-    ocrresult.image.attach(io: image[:io], filename: image[:filename], content_type: image[:content_type])
+    ocrresult.images.attach(io: image[:io], filename: image[:filename], content_type: image[:content_type])
     logger.info "Attached main image #{image[:url]} to OcrResult #{ocrresult.id}"
   rescue => e
     logger.error "Could not attach main image for #{url}: #{e.message}"
