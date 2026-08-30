@@ -24,12 +24,9 @@ class OcrController < ApplicationController
 
       # Save full OCR result array to database and store id in flash to avoid flash size limits
       ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: ai_method)
-      ocrresult.image.attach(files.first)
-      ocrresult.save
-
-      if files.length > 1
-        files[1..].each { |f| ocrresult.extra_images.attach(f) }
-      end
+      # Every uploaded file is kept, including the ones the user opted out of OCR'ing via
+      # ocr_flags. Attaching in one call preserves the upload order.
+      ocrresult.images.attach(*files)
 
       logger.debug "OCR data id stored in flash: #{ocrresult.id}"
 
@@ -142,8 +139,7 @@ class OcrController < ApplicationController
 
       # Save full OCR result array to database
       ocrresult = OcrResult.create(result: magic_data_json.to_json, ai_method: ai_method)
-      ocrresult.image.attach(blob)
-      ocrresult.save
+      ocrresult.images.attach(blob)
 
       logger.debug "Reparse OCR data id stored: #{ocrresult.id}"
 

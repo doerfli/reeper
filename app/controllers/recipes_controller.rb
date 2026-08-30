@@ -46,6 +46,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
     @ocrresult = nil
     @suggested_tags = nil
+    @selected_ocr_image_ids = nil
     populate_from_ocr_data(@recipe)
   end
 
@@ -61,17 +62,25 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = session[:userinfo]['id']
 
-    # The checkbox is only rendered when an image is attached; when it is absent
-    # from the params the historic behaviour (always attach) applies.
-    if params[:ocrresult_id].present? && params[:attach_ocr_image].to_s != '0'
+    # The gallery is only rendered when the recipe came from an import; when its params are
+    # absent the historic behaviour (always attach) applies.
+    if params[:ocrresult_id].present?
       ocrresult = OcrResult.find_by(id: params[:ocrresult_id])
       if ocrresult.present?
-        @recipe.recipe_images.attach(ocrresult.image.blob) if ocrresult.image.attached?
-        ocrresult.extra_images.each { |img| @recipe.recipe_images.attach(img.blob) }
+        selected = selected_ocr_image_ids
+        ocrresult.ordered_images.each do |attachment|
+          next if selected && selected.exclude?(attachment.id.to_s)
+
+          @recipe.recipe_images.attach(attachment.blob)
+        end
       end
     end
 
     unless @recipe.valid?
+      # Re-establish the view state the gallery needs, otherwise the imported images are
+      # silently lost when the user fixes the error and resubmits.
+      @ocrresult = OcrResult.find_by(id: params[:ocrresult_id]) if params[:ocrresult_id].present?
+      @selected_ocr_image_ids = selected_ocr_image_ids
       flash.now[:error] = @recipe.errors.messages.map{ |k,v|
         v
       }.join(',')
@@ -102,6 +111,7 @@ class RecipesController < ApplicationController
     @page_title = @recipe.name
     @ocrresult = nil
     @suggested_tags = nil
+    @selected_ocr_image_ids = nil
     populate_from_ocr_data(@recipe)
   end
 
@@ -136,6 +146,19 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:name, :ingredients, :instructions, :duration, :tag_names, :source, :rating, :ocr_text)
   end
+
+  # nil when the form carried no gallery at all (manual entry, or a request predating it),
+  # which means "attach everything". An empty array means the user unchecked every image.
+  def selected_ocr_image_ids
+    return nil unless params.key?(:attach_ocr_image_ids)
+
+    Array(params[:attach_ocr_image_ids]).reject(&:blank?).map(&:to_s)
+  end
+
+  def ocr_image_checked?(attachment)
+    @selected_ocr_image_ids.nil? || @selected_ocr_image_ids.include?(attachment.id.to_s)
+  end
+  helper_method :ocr_image_checked?
 
   def populate_from_ocr_data(recipe)
     # Check for OCR data in session and pre-populate
