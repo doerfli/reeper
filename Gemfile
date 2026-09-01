@@ -18,7 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 # fix for CVE-2026-41316
-gem 'erb', '~> 6.0.6'
+gem 'erb', '~> 6.0.7'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 5.0.0'
