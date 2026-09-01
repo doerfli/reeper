@@ -102,7 +102,7 @@ gem "propshaft", "~> 1.3"
 
 gem 'sidekiq', '~> 8.1'
 gem 'sidekiq-cron', '~> 2.4'
-gem 'redis', '~> 5.0'
+gem 'redis', '~> 6.0'
 gem 'connection_pool', '~> 3.0'
 
 # fix for CVE-2026-27820
