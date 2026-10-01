@@ -42,19 +42,19 @@ gem "ffi", "~>1.17.4"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'mini_magick', '~> 5.3'
+gem 'mini_magick', '~> 5.4'
 
-gem 'aws-sdk-s3', '~> 1.229', require: false
+gem 'aws-sdk-s3', '~> 1.232', require: false
 
 gem 'kaminari', '>=1.2.1'
 
 gem 'ruby-openai', '~> 8.0'
 
-gem 'omniai', '~> 3.8'
+gem 'omniai', '~> 3.9'
 
 gem 'omniai-mistral', '~> 3.0'
 
-gem 'image_processing', '~> 2.0'
+gem 'image_processing', '~> 2.1'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
