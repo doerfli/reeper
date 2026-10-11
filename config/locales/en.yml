@@ -105,6 +105,7 @@ en:
     errors:
       invalid_url: 'Invalid URL — must start with http:// or https://'
       fetch_failed: 'Could not fetch content from the provided URL'
+      fetch_failed_status: 'The page could not be fetched (HTTP %{status})'
       no_recipes: 'No recipes found at the provided URL'
       processing_failed: 'An error occurred while processing the URL'
   activerecord:

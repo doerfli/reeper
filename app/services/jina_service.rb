@@ -4,6 +4,15 @@ require 'uri'
 class JinaService
   JINA_BASE_URL = 'https://r.jina.ai'
 
+  class Error < StandardError
+    attr_reader :status
+
+    def initialize(status)
+      @status = status.to_i
+      super("Jina.ai returned HTTP #{@status}")
+    end
+  end
+
   def fetch_markdown(url)
     jina_uri = URI.parse("#{JINA_BASE_URL}/#{url}")
     authenticated = ENV['JINA_API_KEY'].present?
@@ -25,7 +34,7 @@ class JinaService
     Rails.logger.debug "Jina.ai response: HTTP #{response.code}, body length: #{response.body&.length} chars"
 
     unless response.is_a?(Net::HTTPSuccess)
-      raise "Jina.ai returned HTTP #{response.code} for #{url}"
+      raise Error.new(response.code)
     end
 
     response.body

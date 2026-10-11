@@ -5,7 +5,7 @@ class UrlImportController < ApplicationController
     url = params[:url].to_s.strip
 
     unless valid_url?(url)
-      flash[:alert] = I18n.t('url_import.errors.invalid_url')
+      flash[:error] = I18n.t('url_import.errors.invalid_url')
       redirect_to new_url_recipes_path and return
     end
 
@@ -15,7 +15,7 @@ class UrlImportController < ApplicationController
       markdown = jina_service.fetch_markdown(url)
 
       if markdown.blank?
-        flash[:alert] = I18n.t('url_import.errors.fetch_failed')
+        flash[:error] = I18n.t('url_import.errors.fetch_failed')
         redirect_to new_url_recipes_path and return
       end
 
@@ -28,7 +28,7 @@ class UrlImportController < ApplicationController
       end
 
       if magic_data_json.empty?
-        flash[:alert] = I18n.t('url_import.errors.no_recipes')
+        flash[:error] = I18n.t('url_import.errors.no_recipes')
         redirect_to new_url_recipes_path and return
       end
 
@@ -42,9 +42,13 @@ class UrlImportController < ApplicationController
         flash[:recipe_index] = 0
         redirect_to new_recipe_path
       end
+    rescue JinaService::Error => e
+      logger.error "URL import: #{e.message} for #{url}"
+      flash[:error] = I18n.t('url_import.errors.fetch_failed_status', status: e.status)
+      redirect_to new_url_recipes_path
     rescue => e
       logger.error "URL import error: #{e.message}"
-      flash[:alert] = I18n.t('url_import.errors.processing_failed')
+      flash[:error] = I18n.t('url_import.errors.processing_failed')
       redirect_to new_url_recipes_path
     end
   end

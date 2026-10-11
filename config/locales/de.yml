@@ -70,6 +70,7 @@ de:
     errors:
       invalid_url: 'Ungültige URL — muss mit http:// oder https:// beginnen'
       fetch_failed: 'Inhalt der angegebenen URL konnte nicht abgerufen werden'
+      fetch_failed_status: 'Die Seite konnte nicht abgerufen werden (HTTP %{status})'
       no_recipes: 'Kein Rezept unter der angegebenen URL gefunden'
       processing_failed: 'Beim Verarbeiten der URL ist ein Fehler aufgetreten'
   tags:

@@ -67,13 +67,13 @@ RSpec.describe UrlImportController, type: :controller do
     end
 
     context 'with an invalid URL' do
-      it 'redirects back with an alert and does not create an OcrResult' do
+      it 'redirects back with an error and does not create an OcrResult' do
         expect {
           post :create, params: { url: 'not-a-url' }
         }.not_to change(OcrResult, :count)
 
         expect(response).to redirect_to(new_url_recipes_path)
-        expect(flash[:alert]).to be_present
+        expect(flash[:error]).to be_present
       end
     end
 
@@ -82,13 +82,44 @@ RSpec.describe UrlImportController, type: :controller do
         allow(jina_service).to receive(:fetch_markdown).and_return('')
       end
 
-      it 'redirects back with an alert and does not create an OcrResult' do
+      it 'redirects back with an error and does not create an OcrResult' do
         expect {
           post :create, params: { url: url }
         }.not_to change(OcrResult, :count)
 
         expect(response).to redirect_to(new_url_recipes_path)
-        expect(flash[:alert]).to be_present
+        expect(flash[:error]).to be_present
+      end
+    end
+
+    [451, 429, 500].each do |status|
+      context "when Jina responds with HTTP #{status}" do
+        before do
+          allow(jina_service).to receive(:fetch_markdown)
+            .and_raise(JinaService::Error.new(status))
+        end
+
+        it 'redirects back with an error naming the status and does not create an OcrResult' do
+          expect {
+            post :create, params: { url: url }
+          }.not_to change(OcrResult, :count)
+
+          expect(response).to redirect_to(new_url_recipes_path)
+          expect(flash[:error]).to include(status.to_s)
+        end
+      end
+    end
+
+    context 'when an unexpected error occurs' do
+      before do
+        allow(jina_service).to receive(:fetch_markdown).and_raise(Net::ReadTimeout)
+      end
+
+      it 'redirects back with an error' do
+        post :create, params: { url: url }
+
+        expect(response).to redirect_to(new_url_recipes_path)
+        expect(flash[:error]).to be_present
       end
     end
 
@@ -97,13 +128,13 @@ RSpec.describe UrlImportController, type: :controller do
         allow(mistral_service).to receive(:parse_url_to_recipes).and_return([])
       end
 
-      it 'redirects back with an alert and does not create an OcrResult' do
+      it 'redirects back with an error and does not create an OcrResult' do
         expect {
           post :create, params: { url: url }
         }.not_to change(OcrResult, :count)
 
         expect(response).to redirect_to(new_url_recipes_path)
-        expect(flash[:alert]).to be_present
+        expect(flash[:error]).to be_present
       end
     end
   end
