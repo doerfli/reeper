@@ -8,7 +8,7 @@ Reeper is a self-hosted **recipe manager** built with Ruby on Rails 8.1 (server-
 
 ## Stack
 
-- **Ruby 4.0.5** (see `.ruby-version`) / **Rails ~> 8.1**
+- **Ruby 8** (see `.ruby-version`) / **Rails ~> 8.1**
 - **PostgreSQL** (`pg`), **Redis** + **Sidekiq** (`sidekiq`, `sidekiq-cron`) for background jobs
 - **Auth0** via `omniauth-auth0`; **AWS S3** via Active Storage (`aws-sdk-s3`, `ruby-vips`, `mini_magick`)
 - **AI**: `ruby-openai`, `omniai` + `omniai-mistral`

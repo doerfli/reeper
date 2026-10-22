@@ -8,7 +8,7 @@
 	// Set *default* container specific settings.json values on container create.
 
 	"features": {
-		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/devcontainers/features/node:2.1.1": {},
 		"ghcr.io/devcontainers-extra/features/bun:1": {},
 		// moby must be false on Debian Trixie: moby-* packages were removed from its repos,
 		// so the default (moby: true) fails with "Unable to locate package moby-cli".
