@@ -4,7 +4,7 @@
 ARG VARIANT="trixie"
 FROM mcr.microsoft.com/devcontainers/base:${VARIANT}
 
-ARG RUBY_VERSION=4.0.8
+ARG RUBY_VERSION=4.0.9
 ARG NODEJS_VERSION=24
 ARG YARN_VERSION=1
 
